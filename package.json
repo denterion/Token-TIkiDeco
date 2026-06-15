@@ -9,6 +9,7 @@
     "tokenomics": "hardhat run scripts/print-tokenomics.js",
     "vesting:plan": "hardhat run scripts/plan-vesting.js",
     "sepolia:check": "hardhat run scripts/check-sepolia-readiness.js",
+    "sepolia:state": "hardhat run scripts/check-deployment-state.js --network sepolia",
     "wallet:check": "hardhat run scripts/check-wallet-config.js",
     "deploy:localhost": "hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia"

@@ -94,11 +94,17 @@ npm run wallet:check
 
 ## Sepolia Deployment
 
-Sepolia deployment is prepared but requires a real RPC URL and a funded test deployer wallet.
+Sepolia deployment:
+
+| Contract | Address |
+| --- | --- |
+| TikiDecoToken | [`0xed5dA4F272A6DF8ddB170908108C267563B11621`](https://sepolia.etherscan.io/address/0xed5dA4F272A6DF8ddB170908108C267563B11621) |
+| TikiDecoVestingVault | [`0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683`](https://sepolia.etherscan.io/address/0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683) |
 
 ```bash
 npm run sepolia:check
 npm run deploy:sepolia
+npm run sepolia:state
 ```
 
 Read the full testnet runbook: [`docs/SEPOLIA.md`](docs/SEPOLIA.md)

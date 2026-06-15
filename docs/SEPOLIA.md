@@ -43,6 +43,19 @@ deployments/sepolia.json
 
 Commit `deployments/sepolia.json` after you confirm the addresses are correct. Do not commit `.env`.
 
+## Current Sepolia Deployment
+
+| Contract | Address |
+| --- | --- |
+| TikiDecoToken | `0xed5dA4F272A6DF8ddB170908108C267563B11621` |
+| TikiDecoVestingVault | `0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683` |
+
+Check the deployed state:
+
+```bash
+npm run sepolia:state
+```
+
 ## Post-Deploy Checks
 
 1. Confirm `owner` is the intended admin wallet.
