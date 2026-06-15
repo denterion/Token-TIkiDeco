@@ -30,7 +30,10 @@ Print the allocation table from code:
 
 ```bash
 npm run tokenomics
+npm run vesting:plan
 ```
+
+Deployment runbook: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
 
 ## Wallet Binding
 

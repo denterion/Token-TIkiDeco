@@ -7,3 +7,5 @@ coverage/
 typechain-types/
 .appdata/
 .localappdata/
+deployments/local.json
+deployments/*.local.json
