@@ -23,8 +23,14 @@ async function main() {
   );
 
   await token.waitForDeployment();
+  const tokenAddress = await token.getAddress();
 
-  console.log("TikiDeco token deployed to:", await token.getAddress());
+  const VestingVault = await hre.ethers.getContractFactory("TikiDecoVestingVault");
+  const vestingVault = await VestingVault.deploy(tokenAddress, owner);
+  await vestingVault.waitForDeployment();
+
+  console.log("TikiDeco token deployed to:", tokenAddress);
+  console.log("Vesting vault deployed to:", await vestingVault.getAddress());
   console.log("Deployer:", deployer.address);
   console.log("Owner:", owner);
   console.log("Treasury:", treasury);

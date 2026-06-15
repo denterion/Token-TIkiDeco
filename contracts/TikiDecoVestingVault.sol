@@ -1,0 +1,186 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.28;
+
+interface IVestingToken {
+    function transfer(address to, uint256 value) external returns (bool);
+    function transferFrom(address from, address to, uint256 value) external returns (bool);
+}
+
+contract TikiDecoVestingVault {
+    IVestingToken public immutable token;
+    address public owner;
+    address public pendingOwner;
+    uint256 public scheduleCount;
+
+    struct VestingSchedule {
+        address beneficiary;
+        uint128 totalAmount;
+        uint128 releasedAmount;
+        uint64 start;
+        uint64 cliff;
+        uint64 duration;
+        uint64 revokedAt;
+        bool revocable;
+        bool revoked;
+    }
+
+    mapping(uint256 => VestingSchedule) private _schedules;
+
+    event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event ScheduleCreated(
+        uint256 indexed scheduleId,
+        address indexed beneficiary,
+        uint256 amount,
+        uint64 start,
+        uint64 cliff,
+        uint64 duration,
+        bool revocable
+    );
+    event TokensReleased(uint256 indexed scheduleId, address indexed beneficiary, uint256 amount);
+    event ScheduleRevoked(uint256 indexed scheduleId, address indexed refundAddress, uint256 refundAmount);
+
+    error NotOwner();
+    error NotBeneficiaryOrOwner();
+    error NotRevocable();
+    error AlreadyRevoked();
+    error ZeroAddress();
+    error InvalidSchedule();
+    error InvalidAmount();
+    error TransferFailed();
+
+    modifier onlyOwner() {
+        if (msg.sender != owner) revert NotOwner();
+        _;
+    }
+
+    constructor(address tokenAddress, address initialOwner) {
+        if (tokenAddress == address(0) || initialOwner == address(0)) revert ZeroAddress();
+
+        token = IVestingToken(tokenAddress);
+        owner = initialOwner;
+        emit OwnershipTransferred(address(0), initialOwner);
+    }
+
+    function transferOwnership(address newOwner) external onlyOwner {
+        if (newOwner == address(0)) revert ZeroAddress();
+        pendingOwner = newOwner;
+        emit OwnershipTransferStarted(owner, newOwner);
+    }
+
+    function acceptOwnership() external {
+        if (msg.sender != pendingOwner) revert NotOwner();
+        address previousOwner = owner;
+        owner = msg.sender;
+        pendingOwner = address(0);
+        emit OwnershipTransferred(previousOwner, msg.sender);
+    }
+
+    function scheduleAt(uint256 scheduleId) external view returns (VestingSchedule memory) {
+        return _schedules[scheduleId];
+    }
+
+    function createSchedule(
+        address beneficiary,
+        uint256 amount,
+        uint64 start,
+        uint64 cliff,
+        uint64 duration,
+        bool revocable
+    ) external onlyOwner returns (uint256 scheduleId) {
+        if (beneficiary == address(0)) revert ZeroAddress();
+        if (amount == 0 || amount > type(uint128).max) revert InvalidAmount();
+        if (duration == 0 || cliff > duration) revert InvalidSchedule();
+
+        scheduleId = scheduleCount;
+        scheduleCount += 1;
+
+        _schedules[scheduleId] = VestingSchedule({
+            beneficiary: beneficiary,
+            totalAmount: uint128(amount),
+            releasedAmount: 0,
+            start: start,
+            cliff: cliff,
+            duration: duration,
+            revokedAt: 0,
+            revocable: revocable,
+            revoked: false
+        });
+
+        if (!token.transferFrom(msg.sender, address(this), amount)) revert TransferFailed();
+
+        emit ScheduleCreated(scheduleId, beneficiary, amount, start, cliff, duration, revocable);
+    }
+
+    function releasable(uint256 scheduleId) public view returns (uint256) {
+        VestingSchedule memory schedule = _schedules[scheduleId];
+        uint256 vested = vestedAmount(scheduleId);
+        return vested - schedule.releasedAmount;
+    }
+
+    function vestedAmount(uint256 scheduleId) public view returns (uint256) {
+        VestingSchedule memory schedule = _schedules[scheduleId];
+        return _vestedAmount(schedule, uint64(block.timestamp));
+    }
+
+    function release(uint256 scheduleId) public returns (uint256 amount) {
+        VestingSchedule storage schedule = _schedules[scheduleId];
+        if (msg.sender != schedule.beneficiary && msg.sender != owner) revert NotBeneficiaryOrOwner();
+
+        amount = releasable(scheduleId);
+        if (amount == 0) revert InvalidAmount();
+
+        schedule.releasedAmount += uint128(amount);
+
+        if (!token.transfer(schedule.beneficiary, amount)) revert TransferFailed();
+        emit TokensReleased(scheduleId, schedule.beneficiary, amount);
+    }
+
+    function revoke(uint256 scheduleId, address refundAddress) external onlyOwner {
+        if (refundAddress == address(0)) revert ZeroAddress();
+
+        VestingSchedule storage schedule = _schedules[scheduleId];
+        if (!schedule.revocable) revert NotRevocable();
+        if (schedule.revoked) revert AlreadyRevoked();
+
+        uint256 vested = _vestedAmount(schedule, uint64(block.timestamp));
+        uint256 releasableAmount = vested - schedule.releasedAmount;
+        uint256 refundAmount = schedule.totalAmount - vested;
+
+        schedule.revoked = true;
+        schedule.revokedAt = uint64(block.timestamp);
+        schedule.releasedAmount = uint128(vested);
+
+        if (releasableAmount > 0 && !token.transfer(schedule.beneficiary, releasableAmount)) {
+            revert TransferFailed();
+        }
+
+        if (refundAmount > 0 && !token.transfer(refundAddress, refundAmount)) {
+            revert TransferFailed();
+        }
+
+        emit ScheduleRevoked(scheduleId, refundAddress, refundAmount);
+    }
+
+    function _vestedAmount(
+        VestingSchedule memory schedule,
+        uint64 timestamp
+    ) private pure returns (uint256) {
+        if (schedule.beneficiary == address(0)) revert InvalidSchedule();
+
+        uint64 effectiveTimestamp = timestamp;
+        if (schedule.revoked && schedule.revokedAt < effectiveTimestamp) {
+            effectiveTimestamp = schedule.revokedAt;
+        }
+
+        if (effectiveTimestamp < schedule.start + schedule.cliff) {
+            return 0;
+        }
+
+        if (effectiveTimestamp >= schedule.start + schedule.duration) {
+            return schedule.totalAmount;
+        }
+
+        return (uint256(schedule.totalAmount) * (effectiveTimestamp - schedule.start)) / schedule.duration;
+    }
+}

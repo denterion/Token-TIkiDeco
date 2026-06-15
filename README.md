@@ -14,6 +14,17 @@ The starter symbol is **TIDE**. It is short, readable, and connected to the beac
 - Treasury wallet: address that receives the full initial token supply
 - Owner controls: pause/unpause during launch, update project URI, publish report hashes
 - Transparency feature: project reports can be anchored on-chain with a document hash and URI
+- Vesting: `TikiDecoVestingVault` supports cliff, linear vesting, release, and revocation for selected allocations
+
+## Tokenomics
+
+The starter allocation plan is documented in [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md).
+
+Print the allocation table from code:
+
+```bash
+npm run tokenomics
+```
 
 ## Wallet Binding
 

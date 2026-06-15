@@ -6,6 +6,7 @@
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
+    "tokenomics": "hardhat run scripts/print-tokenomics.js",
     "wallet:check": "hardhat run scripts/check-wallet-config.js",
     "deploy:localhost": "hardhat run scripts/deploy.js --network localhost",
     "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia"
