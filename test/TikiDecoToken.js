@@ -54,6 +54,32 @@ describe("TikiDecoToken", function () {
     expect(await token.balanceOf(holder.address)).to.equal(0);
   });
 
+  it("supports safer allowance adjustments", async function () {
+    const { token, holder, spender } = await deployToken();
+    const first = ethers.parseUnits("100", 18);
+    const second = ethers.parseUnits("25", 18);
+
+    await token.connect(holder).increaseAllowance(spender.address, first);
+    expect(await token.allowance(holder.address, spender.address)).to.equal(first);
+
+    await token.connect(holder).decreaseAllowance(spender.address, second);
+    expect(await token.allowance(holder.address, spender.address)).to.equal(first - second);
+
+    await expect(token.connect(holder).decreaseAllowance(spender.address, first))
+      .to.be.revertedWithCustomError(token, "InsufficientAllowance");
+  });
+
+  it("rejects accidental native ETH transfers", async function () {
+    const { token, owner } = await deployToken();
+
+    await expect(
+      owner.sendTransaction({
+        to: await token.getAddress(),
+        value: 1
+      })
+    ).to.be.revertedWithCustomError(token, "NativeETHRejected");
+  });
+
   it("lets the owner pause transfers", async function () {
     const { token, treasury, holder } = await deployToken();
 

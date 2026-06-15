@@ -6,7 +6,31 @@ interface IVestingToken {
     function transferFrom(address from, address to, uint256 value) external returns (bool);
 }
 
+library SafeVestingToken {
+    error TokenCallFailed();
+    error TokenOperationFailed();
+
+    function safeTransfer(IVestingToken token, address to, uint256 value) internal {
+        _callOptionalReturn(address(token), abi.encodeCall(token.transfer, (to, value)));
+    }
+
+    function safeTransferFrom(IVestingToken token, address from, address to, uint256 value) internal {
+        _callOptionalReturn(address(token), abi.encodeCall(token.transferFrom, (from, to, value)));
+    }
+
+    function _callOptionalReturn(address token, bytes memory data) private {
+        (bool success, bytes memory returndata) = token.call(data);
+        if (!success) revert TokenCallFailed();
+
+        if (returndata.length > 0 && !abi.decode(returndata, (bool))) {
+            revert TokenOperationFailed();
+        }
+    }
+}
+
 contract TikiDecoVestingVault {
+    using SafeVestingToken for IVestingToken;
+
     IVestingToken public immutable token;
     address public owner;
     address public pendingOwner;
@@ -25,6 +49,7 @@ contract TikiDecoVestingVault {
     }
 
     mapping(uint256 => VestingSchedule) private _schedules;
+    uint256 private _reentrancyStatus;
 
     event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
@@ -41,17 +66,27 @@ contract TikiDecoVestingVault {
     event ScheduleRevoked(uint256 indexed scheduleId, address indexed refundAddress, uint256 refundAmount);
 
     error NotOwner();
+    error NotPendingOwner();
     error NotBeneficiaryOrOwner();
     error NotRevocable();
     error AlreadyRevoked();
     error ZeroAddress();
     error InvalidSchedule();
     error InvalidAmount();
-    error TransferFailed();
+    error ScheduleNotFound();
+    error NativeETHRejected();
+    error Reentrancy();
 
     modifier onlyOwner() {
         if (msg.sender != owner) revert NotOwner();
         _;
+    }
+
+    modifier nonReentrant() {
+        if (_reentrancyStatus == 2) revert Reentrancy();
+        _reentrancyStatus = 2;
+        _;
+        _reentrancyStatus = 1;
     }
 
     constructor(address tokenAddress, address initialOwner) {
@@ -59,6 +94,7 @@ contract TikiDecoVestingVault {
 
         token = IVestingToken(tokenAddress);
         owner = initialOwner;
+        _reentrancyStatus = 1;
         emit OwnershipTransferred(address(0), initialOwner);
     }
 
@@ -69,7 +105,7 @@ contract TikiDecoVestingVault {
     }
 
     function acceptOwnership() external {
-        if (msg.sender != pendingOwner) revert NotOwner();
+        if (msg.sender != pendingOwner) revert NotPendingOwner();
         address previousOwner = owner;
         owner = msg.sender;
         pendingOwner = address(0);
@@ -77,6 +113,7 @@ contract TikiDecoVestingVault {
     }
 
     function scheduleAt(uint256 scheduleId) external view returns (VestingSchedule memory) {
+        if (scheduleId >= scheduleCount) revert ScheduleNotFound();
         return _schedules[scheduleId];
     }
 
@@ -87,10 +124,11 @@ contract TikiDecoVestingVault {
         uint64 cliff,
         uint64 duration,
         bool revocable
-    ) external onlyOwner returns (uint256 scheduleId) {
+    ) external onlyOwner nonReentrant returns (uint256 scheduleId) {
         if (beneficiary == address(0)) revert ZeroAddress();
         if (amount == 0 || amount > type(uint128).max) revert InvalidAmount();
         if (duration == 0 || cliff > duration) revert InvalidSchedule();
+        if (uint256(start) + uint256(duration) > type(uint64).max) revert InvalidSchedule();
 
         scheduleId = scheduleCount;
         scheduleCount += 1;
@@ -107,23 +145,26 @@ contract TikiDecoVestingVault {
             revoked: false
         });
 
-        if (!token.transferFrom(msg.sender, address(this), amount)) revert TransferFailed();
+        token.safeTransferFrom(msg.sender, address(this), amount);
 
         emit ScheduleCreated(scheduleId, beneficiary, amount, start, cliff, duration, revocable);
     }
 
     function releasable(uint256 scheduleId) public view returns (uint256) {
+        if (scheduleId >= scheduleCount) revert ScheduleNotFound();
         VestingSchedule memory schedule = _schedules[scheduleId];
         uint256 vested = vestedAmount(scheduleId);
         return vested - schedule.releasedAmount;
     }
 
     function vestedAmount(uint256 scheduleId) public view returns (uint256) {
+        if (scheduleId >= scheduleCount) revert ScheduleNotFound();
         VestingSchedule memory schedule = _schedules[scheduleId];
         return _vestedAmount(schedule, uint64(block.timestamp));
     }
 
-    function release(uint256 scheduleId) public returns (uint256 amount) {
+    function release(uint256 scheduleId) public nonReentrant returns (uint256 amount) {
+        if (scheduleId >= scheduleCount) revert ScheduleNotFound();
         VestingSchedule storage schedule = _schedules[scheduleId];
         if (msg.sender != schedule.beneficiary && msg.sender != owner) revert NotBeneficiaryOrOwner();
 
@@ -132,12 +173,13 @@ contract TikiDecoVestingVault {
 
         schedule.releasedAmount += uint128(amount);
 
-        if (!token.transfer(schedule.beneficiary, amount)) revert TransferFailed();
+        token.safeTransfer(schedule.beneficiary, amount);
         emit TokensReleased(scheduleId, schedule.beneficiary, amount);
     }
 
-    function revoke(uint256 scheduleId, address refundAddress) external onlyOwner {
+    function revoke(uint256 scheduleId, address refundAddress) external onlyOwner nonReentrant {
         if (refundAddress == address(0)) revert ZeroAddress();
+        if (scheduleId >= scheduleCount) revert ScheduleNotFound();
 
         VestingSchedule storage schedule = _schedules[scheduleId];
         if (!schedule.revocable) revert NotRevocable();
@@ -151,13 +193,8 @@ contract TikiDecoVestingVault {
         schedule.revokedAt = uint64(block.timestamp);
         schedule.releasedAmount = uint128(vested);
 
-        if (releasableAmount > 0 && !token.transfer(schedule.beneficiary, releasableAmount)) {
-            revert TransferFailed();
-        }
-
-        if (refundAmount > 0 && !token.transfer(refundAddress, refundAmount)) {
-            revert TransferFailed();
-        }
+        if (releasableAmount > 0) token.safeTransfer(schedule.beneficiary, releasableAmount);
+        if (refundAmount > 0) token.safeTransfer(refundAddress, refundAmount);
 
         emit ScheduleRevoked(scheduleId, refundAddress, refundAmount);
     }
@@ -182,5 +219,13 @@ contract TikiDecoVestingVault {
         }
 
         return (uint256(schedule.totalAmount) * (effectiveTimestamp - schedule.start)) / schedule.duration;
+    }
+
+    receive() external payable {
+        revert NativeETHRejected();
+    }
+
+    fallback() external payable {
+        revert NativeETHRejected();
     }
 }

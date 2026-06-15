@@ -54,6 +54,20 @@ describe("TikiDecoVestingVault", function () {
     expect(await vault.scheduleCount()).to.equal(1);
   });
 
+  it("rejects invalid schedule ids and accidental native ETH", async function () {
+    const { vault, treasury } = await deployFixture();
+
+    await expect(vault.scheduleAt(0))
+      .to.be.revertedWithCustomError(vault, "ScheduleNotFound");
+
+    await expect(
+      treasury.sendTransaction({
+        to: await vault.getAddress(),
+        value: 1
+      })
+    ).to.be.revertedWithCustomError(vault, "NativeETHRejected");
+  });
+
   it("blocks release before cliff and releases vested tokens after cliff", async function () {
     const { token, vault, treasury, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("2400", 18);
@@ -111,5 +125,20 @@ describe("TikiDecoVestingVault", function () {
       unvested,
       ethers.parseUnits("2", 18)
     );
+  });
+
+  it("prevents non-owner schedule creation", async function () {
+    const { vault, beneficiary } = await deployFixture();
+
+    await expect(
+      vault.connect(beneficiary).createSchedule(
+        beneficiary.address,
+        ethers.parseUnits("1", 18),
+        await latestTimestamp(),
+        0,
+        MONTH,
+        true
+      )
+    ).to.be.revertedWithCustomError(vault, "NotOwner");
   });
 });

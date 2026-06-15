@@ -20,6 +20,12 @@ The starter symbol is **TIDE**. It is short, readable, and connected to the beac
 
 The starter allocation plan is documented in [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md).
 
+White paper drafts:
+
+- English: [`docs/WHITEPAPER_EN.md`](docs/WHITEPAPER_EN.md)
+- Russian: [`docs/WHITEPAPER_RU.md`](docs/WHITEPAPER_RU.md)
+- Chinese: [`docs/WHITEPAPER_ZH.md`](docs/WHITEPAPER_ZH.md)
+
 Print the allocation table from code:
 
 ```bash

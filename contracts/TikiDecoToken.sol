@@ -80,6 +80,8 @@ contract TikiDecoToken is IERC20, Ownable2Step {
     event Paused(address indexed account);
     event Unpaused(address indexed account);
     event ProjectURIUpdated(string previousURI, string newURI);
+    event AllowanceIncreased(address indexed owner, address indexed spender, uint256 addedValue);
+    event AllowanceDecreased(address indexed owner, address indexed spender, uint256 subtractedValue);
     event ProjectReportPublished(
         uint256 indexed reportId,
         bytes32 indexed documentHash,
@@ -91,6 +93,7 @@ contract TikiDecoToken is IERC20, Ownable2Step {
     error InsufficientBalance();
     error InsufficientAllowance();
     error InvalidAmount();
+    error NativeETHRejected();
 
     constructor(
         address initialOwner,
@@ -136,6 +139,25 @@ contract TikiDecoToken is IERC20, Ownable2Step {
 
     function approve(address spender, uint256 value) external returns (bool) {
         _approve(msg.sender, spender, value);
+        return true;
+    }
+
+    function increaseAllowance(address spender, uint256 addedValue) external returns (bool) {
+        uint256 newAllowance = _allowances[msg.sender][spender] + addedValue;
+        _approve(msg.sender, spender, newAllowance);
+        emit AllowanceIncreased(msg.sender, spender, addedValue);
+        return true;
+    }
+
+    function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool) {
+        uint256 currentAllowance = _allowances[msg.sender][spender];
+        if (currentAllowance < subtractedValue) revert InsufficientAllowance();
+
+        unchecked {
+            _approve(msg.sender, spender, currentAllowance - subtractedValue);
+        }
+
+        emit AllowanceDecreased(msg.sender, spender, subtractedValue);
         return true;
     }
 
@@ -211,5 +233,13 @@ contract TikiDecoToken is IERC20, Ownable2Step {
         _totalSupply += value;
         _balances[to] += value;
         emit Transfer(address(0), to, value);
+    }
+
+    receive() external payable {
+        revert NativeETHRejected();
+    }
+
+    fallback() external payable {
+        revert NativeETHRejected();
     }
 }
