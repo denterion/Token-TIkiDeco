@@ -26,3 +26,5 @@ The script reads `deployments/sepolia.json` and verifies both:
 ## After Verification
 
 Check that each Sepolia Etherscan page has a `Contract` tab with verified source code.
+
+Current status: both Sepolia contracts are verified.

@@ -47,8 +47,10 @@ Commit `deployments/sepolia.json` after you confirm the addresses are correct. D
 
 | Contract | Address |
 | --- | --- |
-| TikiDecoToken | `0xed5dA4F272A6DF8ddB170908108C267563B11621` |
-| TikiDecoVestingVault | `0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683` |
+| TikiDecoToken | [`0xed5dA4F272A6DF8ddB170908108C267563B11621`](https://sepolia.etherscan.io/address/0xed5dA4F272A6DF8ddB170908108C267563B11621#code) |
+| TikiDecoVestingVault | [`0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683`](https://sepolia.etherscan.io/address/0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683#code) |
+
+Verification status: both contracts are verified on Sepolia Etherscan.
 
 Check the deployed state:
 
