@@ -1,111 +1,158 @@
+<div align="center">
+
 # TikiDeco Token
 
-Starter Ethereum project for **TikiDeco**, a transparent token concept connected to a future Miami Beach hotel project.
+**TIDE: a transparent Ethereum token layer for the future TikiDeco Miami Beach hospitality concept.**
 
-The starter symbol is **TIDE**. It is short, readable, and connected to the beach/hotel identity. If you prefer the longer alias, change `symbol` in `contracts/TikiDecoToken.sol` from `TIDE` to `TIKIDE` before deployment.
+[![CI](https://github.com/denterion/Token-TIkiDeco/actions/workflows/ci.yml/badge.svg)](https://github.com/denterion/Token-TIkiDeco/actions/workflows/ci.yml)
+![Solidity](https://img.shields.io/badge/Solidity-0.8.28-2f2f2f)
+![Network](https://img.shields.io/badge/Testnet-Sepolia-2b6cb0)
+![Supply](https://img.shields.io/badge/Supply-100M%20TIDE-0f766e)
+![Status](https://img.shields.io/badge/Status-Pre--mainnet-b7791f)
 
-## Current Design
+</div>
 
-- Token name: `TikiDeco`
-- Symbol: `TIDE`
-- Standard: ERC-20 compatible
-- Supply: fixed at `100,000,000 TIDE`
-- Owner wallet: address that can pause, unpause, update project URI, and publish report hashes
-- Treasury wallet: address that receives the full initial token supply
-- Owner controls: pause/unpause during launch, update project URI, publish report hashes
-- Transparency feature: project reports can be anchored on-chain with a document hash and URI
-- Vesting: `TikiDecoVestingVault` supports cliff, linear vesting, release, and revocation for selected allocations
+## Snapshot
+
+| Field | Value |
+| --- | --- |
+| Token name | `TikiDeco` |
+| Symbol | `TIDE` |
+| Standard | ERC-20 compatible |
+| Fixed supply | `100,000,000 TIDE` |
+| Owner wallet | Controls admin actions and report publishing |
+| Treasury wallet | Receives the full initial token supply |
+| Vesting | Cliff, linear release, owner-assisted release, revocation |
+| Transparency | On-chain hashes for public project reports |
+
+TikiDeco is built as a disciplined token foundation: fixed supply, separate owner and treasury roles, vesting for long-term allocations, and public report anchoring for project transparency.
+
+## Contract System
+
+| Contract | Purpose |
+| --- | --- |
+| [`TikiDecoToken`](contracts/TikiDecoToken.sol) | ERC-20 compatible fixed-supply token with pause controls and report hash publishing. |
+| [`TikiDecoVestingVault`](contracts/TikiDecoVestingVault.sol) | Vesting vault for team, partners, community rewards, and future hotel perks. |
+
+Security-minded defaults:
+
+- no public mint function
+- two-step ownership transfer
+- owner/treasury separation
+- safer allowance adjustments
+- guarded vesting token calls
+- reentrancy protection in vesting operations
+- accidental native ETH rejection
+- automated tests and GitHub CI
 
 ## Tokenomics
 
-The starter allocation plan is documented in [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md).
+| Allocation | Percent | Amount | Vesting |
+| --- | ---: | ---: | --- |
+| Treasury operations | 20% | 20,000,000 TIDE | Unlocked to treasury/multisig |
+| Team and advisors | 15% | 15,000,000 TIDE | 12-month cliff, then 36-month linear vesting |
+| Strategic partners | 10% | 10,000,000 TIDE | 6-month cliff, then 24-month linear vesting |
+| Community rewards | 20% | 20,000,000 TIDE | 48-month linear distribution |
+| Future hotel perks | 15% | 15,000,000 TIDE | 48-month linear distribution |
+| Strategic reserve | 20% | 20,000,000 TIDE | Held by treasury/multisig |
 
-White paper drafts:
+More detail: [`docs/TOKENOMICS.md`](docs/TOKENOMICS.md)
 
-- English: [`docs/WHITEPAPER_EN.md`](docs/WHITEPAPER_EN.md)
-- Russian: [`docs/WHITEPAPER_RU.md`](docs/WHITEPAPER_RU.md)
-- Chinese: [`docs/WHITEPAPER_ZH.md`](docs/WHITEPAPER_ZH.md)
-
-Print the allocation table from code:
+Print the plan from code:
 
 ```bash
 npm run tokenomics
 npm run vesting:plan
 ```
 
-Deployment runbook: [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
+## White Paper
+
+Draft white papers are available in three languages:
+
+| Language | File |
+| --- | --- |
+| English | [`docs/WHITEPAPER_EN.md`](docs/WHITEPAPER_EN.md) |
+| Russian | [`docs/WHITEPAPER_RU.md`](docs/WHITEPAPER_RU.md) |
+| Chinese | [`docs/WHITEPAPER_ZH.md`](docs/WHITEPAPER_ZH.md) |
 
 ## Wallet Binding
 
-The token is connected to your wallet at deployment time.
+The token is connected to project wallets at deployment time:
 
-- `OWNER_ADDRESS` controls the contract admin actions.
-- `TREASURY_ADDRESS` receives the initial `100,000,000 TIDE`.
-- For a simple first launch, both can be the same wallet.
-- For a more professional launch, use a multisig treasury such as Safe for `TREASURY_ADDRESS`.
+```text
+OWNER_ADDRESS=0xA9a4f99D5902850D3a6Afcd59838110D26B101E4
+TREASURY_ADDRESS=0xf1DAd608ddD5B71F039FEE82026164bc6a245081
+```
 
-Check the wallet setup before deploying:
+`OWNER_ADDRESS` controls admin actions. `TREASURY_ADDRESS` receives `100,000,000 TIDE`.
+
+Check the local wallet configuration:
 
 ```bash
 npm run wallet:check
 ```
 
-## Important Legal Boundary
+## Sepolia Deployment
 
-This starter contract is suitable for a utility/community prototype. If token holders receive profit rights, revenue share, ownership, debt rights, buyback promises, or investment returns from the hotel business, the token may be treated as a regulated securities product.
+Sepolia deployment is prepared but requires a real RPC URL and a funded test deployer wallet.
 
-Before any sale connected to capital raising, create the legal structure first:
+```bash
+npm run sepolia:check
+npm run deploy:sepolia
+```
 
-- project company or SPV
-- offering documents
-- investor eligibility rules
-- KYC/AML process
-- transfer restrictions if needed
-- securities counsel review in the relevant jurisdictions
+Read the full testnet runbook: [`docs/SEPOLIA.md`](docs/SEPOLIA.md)
 
-## Project Setup
+Deployment records are written to `deployments/`.
+
+## Local Development
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Run the full test suite:
+
+```bash
 npm test
 ```
 
-## Deploy Locally
+Run a local deployment:
 
-Start a local Hardhat node in one terminal:
+```bash
+npx hardhat run scripts/deploy.js
+```
+
+Start a local node and deploy to it:
 
 ```bash
 npx hardhat node
-```
-
-Deploy in another terminal:
-
-```bash
 npm run deploy:localhost
-```
-
-## Deploy To Sepolia
-
-Copy `.env.example` to `.env`, then fill in:
-
-- `SEPOLIA_RPC_URL`
-- `DEPLOYER_PRIVATE_KEY`
-- `OWNER_ADDRESS`
-- `TREASURY_ADDRESS`
-
-Use a test wallet only. Never put a main wallet seed phrase or private key in this project.
-
-```bash
-npm run deploy:sepolia
 ```
 
 ## Transparency Workflow
 
 For each monthly update, financial summary, permit update, or construction milestone:
 
-1. Create a PDF or public report.
-2. Upload it to a durable location such as IPFS or a public archive.
+1. Create a final public report.
+2. Upload it to IPFS or another durable public location.
 3. Hash the final document.
 4. Call `publishReport(hash, category, uri)`.
 
-This creates an on-chain timestamped record that proves what version of the document was published.
+This creates an on-chain timestamped record proving which version of the document was published.
+
+## Project Docs
+
+| Document | Purpose |
+| --- | --- |
+| [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Deployment runbook and mainnet gate. |
+| [`docs/SEPOLIA.md`](docs/SEPOLIA.md) | Sepolia-specific deployment checklist. |
+| [`SECURITY.md`](SECURITY.md) | Security scope, current protections, and reporting policy. |
+
+## Legal Boundary
+
+This repository is a technical prototype and project-management foundation. TIDE should not be marketed as equity, debt, revenue share, profit share, guaranteed appreciation, or an investment return without securities counsel and the correct compliant legal structure.
+
+Before any public sale connected to capital raising, complete legal review, securities analysis, KYC/AML planning, treasury governance, and independent smart-contract audit.
