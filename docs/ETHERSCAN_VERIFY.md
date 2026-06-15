@@ -15,21 +15,13 @@ Do not commit `.env`.
 ## Verify TikiDecoToken
 
 ```bash
-npm run verify:sepolia -- 0xed5dA4F272A6DF8ddB170908108C267563B11621 \
-  0xA9a4f99D5902850D3a6Afcd59838110D26B101E4 \
-  0xf1DAd608ddD5B71F039FEE82026164bc6a245081 \
-  "TikiDeco project company / SPV to be formed" \
-  "Florida, USA" \
-  "https://tikideco.example/project"
+npm run verify:sepolia
 ```
 
-## Verify TikiDecoVestingVault
+The script reads `deployments/sepolia.json` and verifies both:
 
-```bash
-npm run verify:sepolia -- 0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683 \
-  0xed5dA4F272A6DF8ddB170908108C267563B11621 \
-  0xA9a4f99D5902850D3a6Afcd59838110D26B101E4
-```
+- `TikiDecoToken`
+- `TikiDecoVestingVault`
 
 ## After Verification
 

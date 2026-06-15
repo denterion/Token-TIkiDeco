@@ -166,6 +166,12 @@ This creates an on-chain timestamped record proving which version of the documen
 | [`docs/ETHERSCAN_VERIFY.md`](docs/ETHERSCAN_VERIFY.md) | Source-code verification instructions. |
 | [`SECURITY.md`](SECURITY.md) | Security scope, current protections, and reporting policy. |
 
+Verify Sepolia source code after setting `ETHERSCAN_API_KEY`:
+
+```bash
+npm run verify:sepolia
+```
+
 ## Public Website
 
 The static public site lives in [`site/`](site/). GitHub Pages is configured through `.github/workflows/pages.yml`.
