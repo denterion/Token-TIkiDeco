@@ -318,6 +318,26 @@ code {
   background: #ffffff;
 }
 
+.faq {
+  background: #efe9dc;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.faq-grid article {
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.faq-grid p {
+  color: var(--muted);
+}
+
 .doc-links {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -363,6 +383,7 @@ code {
   .stats,
   .contract-grid,
   .split,
+  .faq-grid,
   .doc-links {
     grid-template-columns: 1fr;
   }

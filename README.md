@@ -10,9 +10,9 @@
 ![Supply](https://img.shields.io/badge/Supply-100M%20TIDE-0f766e)
 ![Status](https://img.shields.io/badge/Status-Pre--mainnet-b7791f)
 
-[Website](https://denterion.github.io/Token-TIkiDeco/) ·
-[Token](https://sepolia.etherscan.io/address/0xed5dA4F272A6DF8ddB170908108C267563B11621) ·
-[Vault](https://sepolia.etherscan.io/address/0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683) ·
+[Website](https://denterion.github.io/Token-TIkiDeco/) |
+[Token](https://sepolia.etherscan.io/address/0xed5dA4F272A6DF8ddB170908108C267563B11621) |
+[Vault](https://sepolia.etherscan.io/address/0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683) |
 [White Paper](docs/WHITEPAPER_EN.md)
 
 </div>
@@ -165,6 +165,9 @@ This creates an on-chain timestamped record proving which version of the documen
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Public roadmap from prototype to mainnet gate. |
 | [`docs/PITCH_DECK.md`](docs/PITCH_DECK.md) | Lightweight project pitch deck. |
 | [`docs/SHOWCASE.md`](docs/SHOWCASE.md) | Public links and safe messaging. |
+| [`docs/FAQ.md`](docs/FAQ.md) | Public FAQ for collaborators and early community members. |
+| [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |
+| [`docs/METAMASK.md`](docs/METAMASK.md) | How to view TIDE in MetaMask on Sepolia. |
 | [`docs/ETHERSCAN_VERIFY.md`](docs/ETHERSCAN_VERIFY.md) | Source-code verification instructions. |
 | [`SECURITY.md`](SECURITY.md) | Security scope, current protections, and reporting policy. |
 
