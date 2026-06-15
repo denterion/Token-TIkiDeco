@@ -1,7 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
 
-const { SEPOLIA_RPC_URL, DEPLOYER_PRIVATE_KEY } = process.env;
+const { SEPOLIA_RPC_URL, DEPLOYER_PRIVATE_KEY, ETHERSCAN_API_KEY } = process.env;
 
 const networks = {
   hardhat: {}
@@ -24,5 +24,8 @@ module.exports = {
       }
     }
   },
-  networks
+  networks,
+  etherscan: {
+    apiKey: ETHERSCAN_API_KEY || ""
+  }
 };

@@ -12,7 +12,8 @@
     "sepolia:state": "hardhat run scripts/check-deployment-state.js --network sepolia",
     "wallet:check": "hardhat run scripts/check-wallet-config.js",
     "deploy:localhost": "hardhat run scripts/deploy.js --network localhost",
-    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia"
+    "deploy:sepolia": "hardhat run scripts/deploy.js --network sepolia",
+    "verify:sepolia": "hardhat verify --network sepolia"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
