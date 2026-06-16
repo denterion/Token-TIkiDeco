@@ -20,6 +20,7 @@ TikiDeco / TIDE is a public Sepolia prototype for a transparent Ethereum token l
 - FAQ: <https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FAQ.md>
 - Risk Disclosure: <https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RISK_DISCLOSURE.md>
 - MetaMask Guide: <https://github.com/denterion/Token-TIkiDeco/blob/main/docs/METAMASK.md>
+- Genesis Report: <https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/GENESIS_REPORT.md>
 
 ## Suggested Public Message
 

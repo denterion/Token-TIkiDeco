@@ -168,6 +168,26 @@ For each monthly update, financial summary, permit update, or construction miles
 
 This creates an on-chain timestamped record proving which version of the document was published.
 
+Genesis report:
+
+[`docs/reports/GENESIS_REPORT.md`](docs/reports/GENESIS_REPORT.md)
+
+Hash the report locally:
+
+```bash
+npm run report:hash
+```
+
+Current Genesis Report hash manifest:
+
+[`docs/reports/GENESIS_REPORT_HASH.md`](docs/reports/GENESIS_REPORT_HASH.md)
+
+Publish the report hash from the owner wallet:
+
+```bash
+npm run report:publish:sepolia
+```
+
 ## Project Docs
 
 | Document | Purpose |
@@ -181,6 +201,7 @@ This creates an on-chain timestamped record proving which version of the documen
 | [`docs/FAQ.md`](docs/FAQ.md) | Public FAQ for collaborators and early community members. |
 | [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |
 | [`docs/METAMASK.md`](docs/METAMASK.md) | How to view TIDE in MetaMask on Sepolia. |
+| [`docs/reports/GENESIS_REPORT.md`](docs/reports/GENESIS_REPORT.md) | First transparency checkpoint report. |
 | [`docs/ETHERSCAN_VERIFY.md`](docs/ETHERSCAN_VERIFY.md) | Source-code verification instructions. |
 | [`SECURITY.md`](SECURITY.md) | Security scope, current protections, and reporting policy. |
 
