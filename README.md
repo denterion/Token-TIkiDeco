@@ -197,6 +197,7 @@ npm run report:publish:sepolia
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Public roadmap from prototype to mainnet gate. |
 | [`docs/PITCH_DECK.md`](docs/PITCH_DECK.md) | Lightweight project pitch deck. |
 | [`docs/UTILITY.md`](docs/UTILITY.md) | Realistic hospitality-linked token utility scenarios. |
+| [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) | Owner operations and multisig migration plan. |
 | [`docs/SHOWCASE.md`](docs/SHOWCASE.md) | Public links and safe messaging. |
 | [`docs/FAQ.md`](docs/FAQ.md) | Public FAQ for collaborators and early community members. |
 | [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |
