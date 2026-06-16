@@ -1,12 +1,14 @@
 :root {
-  --ink: #17201d;
-  --muted: #60706b;
-  --paper: #f7f4ed;
-  --line: #d8d2c4;
-  --coral: #e76f51;
-  --teal: #147c7c;
-  --green: #143f37;
-  --gold: #c99b3b;
+  --ink: #130f24;
+  --muted: #6b6877;
+  --paper: #f8f2ea;
+  --line: #ddd3c4;
+  --coral: #ff6f61;
+  --cyan: #16d9df;
+  --magenta: #d946ef;
+  --teal: #117b7a;
+  --green: #103a36;
+  --gold: #d8a640;
   --white: #ffffff;
 }
 
@@ -42,7 +44,7 @@ a {
   gap: 24px;
   padding: 18px clamp(18px, 4vw, 56px);
   color: var(--white);
-  background: linear-gradient(180deg, rgba(20, 63, 55, 0.78), rgba(20, 63, 55, 0));
+  background: linear-gradient(180deg, rgba(19, 15, 36, 0.86), rgba(19, 15, 36, 0));
 }
 
 .brand,
@@ -58,12 +60,12 @@ a {
 }
 
 .brand-mark {
-  display: inline-grid;
-  place-items: center;
   width: 34px;
   height: 34px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.14);
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  box-shadow: 0 0 22px rgba(217, 70, 239, 0.45);
 }
 
 .nav {
@@ -82,7 +84,7 @@ a {
   display: grid;
   align-items: end;
   overflow: hidden;
-  background: var(--green);
+  background: var(--ink);
 }
 
 .hero-image,
@@ -99,8 +101,8 @@ a {
 
 .hero-overlay {
   background:
-    linear-gradient(90deg, rgba(20, 63, 55, 0.9) 0%, rgba(20, 63, 55, 0.62) 35%, rgba(20, 63, 55, 0.1) 74%),
-    linear-gradient(0deg, rgba(23, 32, 29, 0.5), rgba(23, 32, 29, 0.03) 52%);
+    linear-gradient(90deg, rgba(19, 15, 36, 0.94) 0%, rgba(19, 15, 36, 0.68) 38%, rgba(19, 15, 36, 0.08) 76%),
+    linear-gradient(0deg, rgba(19, 15, 36, 0.58), rgba(19, 15, 36, 0.03) 52%);
 }
 
 .hero-content {
@@ -109,6 +111,19 @@ a {
   width: min(720px, calc(100% - 36px));
   margin: 0 clamp(18px, 6vw, 84px) clamp(46px, 8vw, 96px);
   color: var(--white);
+}
+
+.hero-logo {
+  display: block;
+  width: clamp(96px, 14vw, 164px);
+  height: clamp(96px, 14vw, 164px);
+  margin-bottom: 22px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 0 34px rgba(22, 217, 223, 0.36),
+    0 0 60px rgba(217, 70, 239, 0.28);
 }
 
 .eyebrow {
@@ -171,7 +186,7 @@ h3 {
 }
 
 .button.primary {
-  color: var(--green);
+  color: var(--ink);
   background: var(--white);
 }
 
@@ -191,6 +206,33 @@ h3 {
 .stats div {
   padding: 28px clamp(18px, 4vw, 40px);
   background: var(--paper);
+}
+
+.brand-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 220px) minmax(0, 1fr);
+  gap: clamp(22px, 5vw, 56px);
+  align-items: center;
+  padding: clamp(42px, 6vw, 72px) clamp(18px, 6vw, 84px);
+  color: var(--white);
+  background:
+    linear-gradient(120deg, rgba(19, 15, 36, 1), rgba(22, 217, 223, 0.22) 48%, rgba(217, 70, 239, 0.28)),
+    var(--ink);
+}
+
+.brand-strip img {
+  width: min(220px, 100%);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 0 48px rgba(22, 217, 223, 0.28);
+}
+
+.brand-strip p:last-child {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 18px;
 }
 
 .stat-value,
@@ -235,7 +277,7 @@ h3 {
 .tag {
   display: inline-block;
   margin-bottom: 18px;
-  color: var(--teal);
+  color: var(--magenta);
   font-size: 12px;
   font-weight: 900;
   text-transform: uppercase;
@@ -256,9 +298,13 @@ code {
   font-size: 13px;
 }
 
-.contract-card a,
-.text-link {
+.contract-card a {
   color: var(--teal);
+  font-weight: 800;
+}
+
+.text-link {
+  color: var(--cyan);
   font-weight: 800;
 }
 
@@ -267,7 +313,9 @@ code {
   grid-template-columns: minmax(0, 0.85fr) minmax(320px, 1fr);
   gap: clamp(30px, 6vw, 80px);
   align-items: start;
-  background: var(--green);
+  background:
+    linear-gradient(135deg, rgba(19, 15, 36, 0.98), rgba(17, 123, 122, 0.95)),
+    var(--ink);
   color: var(--white);
 }
 
@@ -381,6 +429,7 @@ code {
   }
 
   .stats,
+  .brand-strip,
   .contract-grid,
   .split,
   .faq-grid,

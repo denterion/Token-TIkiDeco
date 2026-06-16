@@ -1,8 +1,10 @@
 <div align="center">
 
+<img src="site/assets/tide-logo.png" alt="TikiDeco TIDE logo" width="180">
+
 # TikiDeco Token
 
-**TIDE: a transparent Ethereum token layer for the future TikiDeco Miami Beach hospitality concept.**
+**TIDE: a neon art deco Ethereum token layer for the future TikiDeco Miami Beach hospitality concept.**
 
 [![CI](https://github.com/denterion/Token-TIkiDeco/actions/workflows/ci.yml/badge.svg)](https://github.com/denterion/Token-TIkiDeco/actions/workflows/ci.yml)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.28-2f2f2f)
@@ -31,6 +33,16 @@
 | Transparency | On-chain hashes for public project reports |
 
 TikiDeco is built as a disciplined token foundation: fixed supply, separate owner and treasury roles, vesting for long-term allocations, and public report anchoring for project transparency.
+
+## Visual Identity
+
+TIDE now has a dedicated token emblem inspired by Miami Beach nightlife, art deco architecture, palm silhouettes, shoreline reflections, and circuit-line transparency.
+
+| Asset | Path |
+| --- | --- |
+| Token logo | [`site/assets/tide-logo.png`](site/assets/tide-logo.png) |
+| Site favicon | [`site/assets/favicon.png`](site/assets/favicon.png) |
+| Website hero | [`site/assets/tikideco-hero.png`](site/assets/tikideco-hero.png) |
 
 ## Contract System
 

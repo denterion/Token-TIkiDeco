@@ -9,3 +9,4 @@ typechain-types/
 .localappdata/
 deployments/local.json
 deployments/*.local.json
+tmp/
