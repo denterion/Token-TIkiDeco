@@ -1,0 +1,126 @@
+# Safe Multisig Handover Runbook
+
+This runbook explains how to move TikiDeco / TIDE Sepolia owner powers from a single wallet to a Safe multisig.
+
+It is an operational security document, not legal advice and not a production governance charter.
+
+## Current Sepolia Target
+
+| Item | Address |
+| --- | --- |
+| Safe multisig | `0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3` |
+| Current owner | `0xA9a4f99D5902850D3a6Afcd59838110D26B101E4` |
+| TikiDecoToken | `0xE4c1DE533440b411Be5C17883FF662e95a462097` |
+| TikiDecoVestingVault | `0xc480565482af6B08A3b65D0C9aba985d6240702E` |
+
+## Why This Matters
+
+Moving owner powers to Safe makes admin control more disciplined:
+
+- no single deployer wallet should be the long-term controller
+- ownership changes are explicit and auditable
+- owner actions can require multiple approvals
+- Safe transactions produce a public operational trail
+
+## Recommended Safe Policy
+
+For Sepolia testing:
+
+- `1 of 2` is acceptable for quick testing
+- `2 of 3` is a stronger public signal
+
+For serious pre-mainnet or mainnet planning:
+
+- use at least `3 of 5`
+- separate owner Safe and treasury Safe if possible
+- document all signers and emergency procedures privately
+
+## Two-Step Ownership Flow
+
+The contracts use `Ownable2Step`, so ownership is moved in two phases:
+
+1. Current owner calls `transferOwnership(SAFE_ADDRESS)` on both contracts.
+2. Safe calls `acceptOwnership()` on both contracts.
+
+Ownership is not transferred until phase 2 is complete.
+
+## Generate Handover Files
+
+Generate exact transaction data:
+
+```bash
+SAFE_ADDRESS=0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3 npm run safe:handover:sepolia
+```
+
+On Windows PowerShell:
+
+```powershell
+$env:SAFE_ADDRESS='0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3'
+npm run safe:handover:sepolia
+```
+
+This creates:
+
+| File | Purpose |
+| --- | --- |
+| `operations/sepolia-owner-propose-safe-ownership.json` | Transaction data for the current owner wallet. |
+| `operations/sepolia-safe-accept-ownership.json` | Safe Transaction Builder batch for `acceptOwnership()`. |
+
+## Phase 1: Current Owner Proposes Safe
+
+The current owner wallet must call `transferOwnership(SAFE_ADDRESS)` on:
+
+1. `TikiDecoToken`
+2. `TikiDecoVestingVault`
+
+Preferred path:
+
+```powershell
+$env:NEW_OWNER_ADDRESS='0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3'
+npm run ownership:propose:sepolia
+```
+
+This only works when the local signer is the current owner wallet.
+
+If the local signer is not the current owner, use the calldata from `operations/sepolia-owner-propose-safe-ownership.json` in Etherscan or another wallet tool connected to the current owner.
+
+## Phase 2: Safe Accepts Ownership
+
+Open [Safe](https://app.safe.global/) on Sepolia, then use Transaction Builder to import:
+
+```text
+operations/sepolia-safe-accept-ownership.json
+```
+
+Review that the batch calls `acceptOwnership()` on both contracts:
+
+```text
+0xE4c1DE533440b411Be5C17883FF662e95a462097
+0xc480565482af6B08A3b65D0C9aba985d6240702E
+```
+
+Submit, collect required confirmations, and execute the Safe transaction.
+
+## Final Verification
+
+After phase 2:
+
+```bash
+npm run owner:check:sepolia
+```
+
+Expected result:
+
+```text
+Token owner: 0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
+Vault owner: 0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
+Token pending owner: 0x0000000000000000000000000000000000000000
+Vault pending owner: 0x0000000000000000000000000000000000000000
+```
+
+## Do Not
+
+- Do not paste private keys into chat.
+- Do not move ownership to a Safe on the wrong network.
+- Do not call `acceptOwnership()` before both contracts show the Safe as pending owner.
+- Do not use the deployer wallet as a long-term admin wallet.

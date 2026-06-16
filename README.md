@@ -29,6 +29,7 @@
 | Fixed supply | `100,000,000 TIDE` |
 | Owner wallet | Controls admin actions and report publishing |
 | Treasury wallet | Receives the full initial token supply |
+| Safe migration | Sepolia Safe handover toolkit prepared |
 | Vesting | Cliff, linear release, owner-assisted release, revocation |
 | Transparency | On-chain hashes for public project reports |
 
@@ -55,6 +56,7 @@ Security-minded defaults:
 
 - no public mint function
 - two-step ownership transfer
+- Safe multisig handover runbook
 - owner/treasury separation
 - safer allowance adjustments
 - guarded vesting token calls
@@ -108,6 +110,23 @@ Check the local wallet configuration:
 ```bash
 npm run wallet:check
 ```
+
+## Safe Multisig Governance
+
+Sepolia Safe target:
+
+```text
+0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
+```
+
+The project includes a two-step owner migration workflow for moving admin powers from the current owner wallet to Safe:
+
+```bash
+npm run owner:check:sepolia
+SAFE_ADDRESS=0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3 npm run safe:handover:sepolia
+```
+
+Full runbook: [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md)
 
 ## Sepolia Deployment
 
@@ -198,6 +217,7 @@ npm run report:publish:sepolia
 | [`docs/PITCH_DECK.md`](docs/PITCH_DECK.md) | Lightweight project pitch deck. |
 | [`docs/UTILITY.md`](docs/UTILITY.md) | Realistic hospitality-linked token utility scenarios. |
 | [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) | Owner operations and multisig migration plan. |
+| [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md) | Safe handover runbook and transaction workflow. |
 | [`docs/SHOWCASE.md`](docs/SHOWCASE.md) | Public links and safe messaging. |
 | [`docs/FAQ.md`](docs/FAQ.md) | Public FAQ for collaborators and early community members. |
 | [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |

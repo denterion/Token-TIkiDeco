@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "chainId": "11155111",
+  "createdAt": 1781629425281,
+  "meta": {
+    "name": "TikiDeco Sepolia ownership acceptance",
+    "description": "Accept two-step ownership for TikiDecoToken and TikiDecoVestingVault from the Sepolia Safe.",
+    "txBuilderVersion": "1.18.0",
+    "createdFromSafeAddress": "",
+    "createdFromOwnerAddress": "",
+    "checksum": "0x"
+  },
+  "transactions": [
+    {
+      "to": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+      "value": "0",
+      "data": "0x79ba5097",
+      "contractMethod": {
+        "inputs": [],
+        "name": "acceptOwnership",
+        "payable": false
+      },
+      "contractInputsValues": {}
+    },
+    {
+      "to": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
+      "value": "0",
+      "data": "0x79ba5097",
+      "contractMethod": {
+        "inputs": [],
+        "name": "acceptOwnership",
+        "payable": false
+      },
+      "contractInputsValues": {}
+    }
+  ]
+}

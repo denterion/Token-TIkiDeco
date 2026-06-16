@@ -52,6 +52,18 @@ npm run owner:check:sepolia
 
 ## Transfer Ownership To Safe
 
+Safe handover runbook:
+
+```text
+docs/SAFE_MULTISIG.md
+```
+
+Prepare calldata and Safe Transaction Builder JSON:
+
+```bash
+SAFE_ADDRESS=0xSAFE_ADDRESS npm run safe:handover:sepolia
+```
+
 Set:
 
 ```text
