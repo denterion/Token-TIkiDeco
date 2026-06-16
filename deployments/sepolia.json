@@ -1,12 +1,12 @@
 {
   "network": "sepolia",
   "chainId": 11155111,
-  "deployedAt": "2026-06-15T18:45:43.221Z",
+  "deployedAt": "2026-06-16T16:26:37.318Z",
   "deployer": "0x087f0c360060ab380B2271FdcC32091d91bBec8F",
   "owner": "0xA9a4f99D5902850D3a6Afcd59838110D26B101E4",
   "treasury": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
-  "token": "0xed5dA4F272A6DF8ddB170908108C267563B11621",
-  "vestingVault": "0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683",
+  "token": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+  "vestingVault": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
   "businessEntity": "TikiDeco project company / SPV to be formed",
   "jurisdiction": "Florida, USA",
   "projectURI": "https://tikideco.example/project"

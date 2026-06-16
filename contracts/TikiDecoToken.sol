@@ -19,6 +19,7 @@ contract Ownable2Step {
 
     event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferCanceled(address indexed owner, address indexed canceledPendingOwner);
 
     error NotOwner();
     error NotPendingOwner();
@@ -39,6 +40,12 @@ contract Ownable2Step {
         if (newOwner == address(0)) revert ZeroAddress();
         pendingOwner = newOwner;
         emit OwnershipTransferStarted(owner, newOwner);
+    }
+
+    function cancelOwnershipTransfer() external onlyOwner {
+        address canceledPendingOwner = pendingOwner;
+        pendingOwner = address(0);
+        emit OwnershipTransferCanceled(owner, canceledPendingOwner);
     }
 
     function acceptOwnership() external {
@@ -86,7 +93,8 @@ contract TikiDecoToken is IERC20, Ownable2Step {
         uint256 indexed reportId,
         bytes32 indexed documentHash,
         string category,
-        string uri
+        string uri,
+        uint256 publishedAt
     );
 
     error PausedTransfers();
@@ -94,6 +102,7 @@ contract TikiDecoToken is IERC20, Ownable2Step {
     error InsufficientAllowance();
     error InvalidAmount();
     error NativeETHRejected();
+    error UnsafeAllowanceChange();
 
     constructor(
         address initialOwner,
@@ -138,6 +147,9 @@ contract TikiDecoToken is IERC20, Ownable2Step {
     }
 
     function approve(address spender, uint256 value) external returns (bool) {
+        uint256 currentAllowance = _allowances[msg.sender][spender];
+        if (currentAllowance != 0 && value != 0) revert UnsafeAllowanceChange();
+
         _approve(msg.sender, spender, value);
         return true;
     }
@@ -197,14 +209,15 @@ contract TikiDecoToken is IERC20, Ownable2Step {
         if (documentHash == bytes32(0)) revert InvalidAmount();
 
         reportId = _reports.length;
+        uint256 publishedAt = block.timestamp;
         _reports.push(ProjectReport({
             documentHash: documentHash,
             category: category,
             uri: uri,
-            publishedAt: block.timestamp
+            publishedAt: publishedAt
         }));
 
-        emit ProjectReportPublished(reportId, documentHash, category, uri);
+        emit ProjectReportPublished(reportId, documentHash, category, uri, publishedAt);
     }
 
     function _transfer(address from, address to, uint256 value) private {

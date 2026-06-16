@@ -15,7 +15,7 @@ If Sepolia is not visible, open MetaMask settings, enable test networks, and sel
 In MetaMask, click **Import tokens** and paste the token address:
 
 ```text
-0xed5dA4F272A6DF8ddB170908108C267563B11621
+0xE4c1DE533440b411Be5C17883FF662e95a462097
 ```
 
 MetaMask should detect:

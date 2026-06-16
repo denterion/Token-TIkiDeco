@@ -53,6 +53,7 @@ contract TikiDecoVestingVault {
 
     event OwnershipTransferStarted(address indexed previousOwner, address indexed newOwner);
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferCanceled(address indexed owner, address indexed canceledPendingOwner);
     event ScheduleCreated(
         uint256 indexed scheduleId,
         address indexed beneficiary,
@@ -63,7 +64,14 @@ contract TikiDecoVestingVault {
         bool revocable
     );
     event TokensReleased(uint256 indexed scheduleId, address indexed beneficiary, uint256 amount);
-    event ScheduleRevoked(uint256 indexed scheduleId, address indexed refundAddress, uint256 refundAmount);
+    event ScheduleRevoked(
+        uint256 indexed scheduleId,
+        address indexed beneficiary,
+        address indexed refundAddress,
+        uint256 beneficiaryAmount,
+        uint256 refundAmount,
+        uint256 revokedAt
+    );
 
     error NotOwner();
     error NotPendingOwner();
@@ -76,6 +84,7 @@ contract TikiDecoVestingVault {
     error ScheduleNotFound();
     error NativeETHRejected();
     error Reentrancy();
+    error InvalidToken();
 
     modifier onlyOwner() {
         if (msg.sender != owner) revert NotOwner();
@@ -91,6 +100,7 @@ contract TikiDecoVestingVault {
 
     constructor(address tokenAddress, address initialOwner) {
         if (tokenAddress == address(0) || initialOwner == address(0)) revert ZeroAddress();
+        if (tokenAddress.code.length == 0) revert InvalidToken();
 
         token = IVestingToken(tokenAddress);
         owner = initialOwner;
@@ -102,6 +112,12 @@ contract TikiDecoVestingVault {
         if (newOwner == address(0)) revert ZeroAddress();
         pendingOwner = newOwner;
         emit OwnershipTransferStarted(owner, newOwner);
+    }
+
+    function cancelOwnershipTransfer() external onlyOwner {
+        address canceledPendingOwner = pendingOwner;
+        pendingOwner = address(0);
+        emit OwnershipTransferCanceled(owner, canceledPendingOwner);
     }
 
     function acceptOwnership() external {
@@ -189,14 +205,16 @@ contract TikiDecoVestingVault {
         uint256 releasableAmount = vested - schedule.releasedAmount;
         uint256 refundAmount = schedule.totalAmount - vested;
 
+        uint64 revokedAt = uint64(block.timestamp);
+
         schedule.revoked = true;
-        schedule.revokedAt = uint64(block.timestamp);
+        schedule.revokedAt = revokedAt;
         schedule.releasedAmount = uint128(vested);
 
         if (releasableAmount > 0) token.safeTransfer(schedule.beneficiary, releasableAmount);
         if (refundAmount > 0) token.safeTransfer(refundAddress, refundAmount);
 
-        emit ScheduleRevoked(scheduleId, refundAddress, refundAmount);
+        emit ScheduleRevoked(scheduleId, schedule.beneficiary, refundAddress, releasableAmount, refundAmount, revokedAt);
     }
 
     function _vestedAmount(

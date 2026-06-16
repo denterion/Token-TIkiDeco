@@ -11,8 +11,8 @@
 ![Status](https://img.shields.io/badge/Status-Pre--mainnet-b7791f)
 
 [Website](https://denterion.github.io/Token-TIkiDeco/) |
-[Token](https://sepolia.etherscan.io/address/0xed5dA4F272A6DF8ddB170908108C267563B11621) |
-[Vault](https://sepolia.etherscan.io/address/0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683) |
+[Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097) |
+[Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E) |
 [White Paper](docs/WHITEPAPER_EN.md)
 
 </div>
@@ -103,8 +103,8 @@ Sepolia deployment:
 
 | Contract | Address |
 | --- | --- |
-| TikiDecoToken | [`0xed5dA4F272A6DF8ddB170908108C267563B11621`](https://sepolia.etherscan.io/address/0xed5dA4F272A6DF8ddB170908108C267563B11621#code) |
-| TikiDecoVestingVault | [`0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683`](https://sepolia.etherscan.io/address/0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683#code) |
+| TikiDecoToken | [`0xE4c1DE533440b411Be5C17883FF662e95a462097`](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
+| TikiDecoVestingVault | [`0xc480565482af6B08A3b65D0C9aba985d6240702E`](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
 
 Both contracts are verified on Sepolia Etherscan.
 

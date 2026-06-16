@@ -1,5 +1,6 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
+const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 
 describe("TikiDecoToken", function () {
   async function deployToken() {
@@ -54,6 +55,22 @@ describe("TikiDecoToken", function () {
     expect(await token.balanceOf(holder.address)).to.equal(0);
   });
 
+  it("requires zero-first changes for direct approve updates", async function () {
+    const { token, holder, spender } = await deployToken();
+    const first = ethers.parseUnits("100", 18);
+    const second = ethers.parseUnits("200", 18);
+
+    await token.connect(holder).approve(spender.address, first);
+
+    await expect(token.connect(holder).approve(spender.address, second))
+      .to.be.revertedWithCustomError(token, "UnsafeAllowanceChange");
+
+    await token.connect(holder).approve(spender.address, 0);
+    await token.connect(holder).approve(spender.address, second);
+
+    expect(await token.allowance(holder.address, spender.address)).to.equal(second);
+  });
+
   it("supports safer allowance adjustments", async function () {
     const { token, holder, spender } = await deployToken();
     const first = ethers.parseUnits("100", 18);
@@ -90,13 +107,29 @@ describe("TikiDecoToken", function () {
     ).to.be.revertedWithCustomError(token, "PausedTransfers");
   });
 
+  it("lets the owner cancel a pending ownership transfer", async function () {
+    const { token, owner, holder } = await deployToken();
+
+    await token.transferOwnership(holder.address);
+    expect(await token.pendingOwner()).to.equal(holder.address);
+
+    await expect(token.cancelOwnershipTransfer())
+      .to.emit(token, "OwnershipTransferCanceled")
+      .withArgs(owner.address, holder.address);
+
+    expect(await token.pendingOwner()).to.equal(ethers.ZeroAddress);
+
+    await expect(token.connect(holder).acceptOwnership())
+      .to.be.revertedWithCustomError(token, "NotPendingOwner");
+  });
+
   it("publishes project report hashes on-chain", async function () {
     const { token } = await deployToken();
     const hash = ethers.keccak256(ethers.toUtf8Bytes("June 2026 investor update"));
 
     await expect(token.publishReport(hash, "monthly-update", "ipfs://report"))
       .to.emit(token, "ProjectReportPublished")
-      .withArgs(0, hash, "monthly-update", "ipfs://report");
+      .withArgs(0, hash, "monthly-update", "ipfs://report", anyValue);
 
     const report = await token.reportAt(0);
     expect(report.documentHash).to.equal(hash);

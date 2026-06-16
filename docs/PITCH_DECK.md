@@ -37,11 +37,11 @@ It should not be marketed as profit share, equity, debt, or guaranteed appreciat
 
 TikiDecoToken:
 
-`0xed5dA4F272A6DF8ddB170908108C267563B11621`
+`0xE4c1DE533440b411Be5C17883FF662e95a462097`
 
 TikiDecoVestingVault:
 
-`0xcb31dD0b67Ad742E6B58eeF43ba3EA615F1d1683`
+`0xc480565482af6B08A3b65D0C9aba985d6240702E`
 
 ## 6. Tokenomics
 
