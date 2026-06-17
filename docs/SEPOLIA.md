@@ -15,6 +15,12 @@ TREASURY_ADDRESS=0xf1DAd608ddD5B71F039FEE82026164bc6a245081
 
 Use a test wallet only. Do not use a wallet that holds mainnet funds.
 
+For the current deployed Sepolia contracts, owner control has already been transferred to Safe:
+
+```text
+CURRENT_OWNER_SAFE=0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
+```
+
 ## Readiness Check
 
 ```bash
@@ -49,8 +55,11 @@ Commit `deployments/sepolia.json` after you confirm the addresses are correct. D
 | --- | --- |
 | TikiDecoToken | [`0xE4c1DE533440b411Be5C17883FF662e95a462097`](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
 | TikiDecoVestingVault | [`0xc480565482af6B08A3b65D0C9aba985d6240702E`](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
+| Owner Safe | [`0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3`](https://sepolia.etherscan.io/address/0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3) |
 
 Verification status: both contracts are verified on Sepolia Etherscan.
+
+Ownership status: token and vesting vault owner is the Sepolia Safe `3-of-3`.
 
 Check the deployed state:
 
@@ -60,7 +69,7 @@ npm run sepolia:state
 
 ## Post-Deploy Checks
 
-1. Confirm `owner` is the intended admin wallet.
+1. Confirm `owner` is the intended Safe admin wallet.
 2. Confirm `treasury` holds `100,000,000 TIDE`.
 3. Confirm the vesting vault owner is correct.
 4. Publish the token and vault addresses in the README.
