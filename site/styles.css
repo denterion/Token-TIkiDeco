@@ -484,6 +484,32 @@ h3 {
   text-transform: uppercase;
 }
 
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  margin-bottom: 16px;
+  padding: 0 10px;
+  border: 1px solid rgba(11, 16, 32, 0.14);
+  color: var(--graphite);
+  background: rgba(255, 250, 240, 0.74);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.status-pill.current {
+  color: #063338;
+  background: rgba(34, 229, 236, 0.22);
+  border-color: rgba(34, 229, 236, 0.46);
+}
+
+.status-pill.conceptual {
+  color: #4e1730;
+  background: rgba(255, 109, 128, 0.18);
+  border-color: rgba(255, 109, 128, 0.42);
+}
+
 code {
   display: block;
   max-width: 100%;

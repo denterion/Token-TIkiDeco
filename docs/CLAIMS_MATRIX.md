@@ -12,7 +12,7 @@ English:
 
 Russian:
 
-> TikiDeco — открытый прототип в сети Sepolia, исследующий применение токена для прозрачных программ лояльности и доступа в будущей hospitality-экосистеме. TIDE пока не имеет денежной стоимости и не предлагается к продаже.
+> TikiDeco - открытый прототип в сети Sepolia, исследующий применение токена для прозрачных программ лояльности и доступа в будущей hospitality-экосистеме. TIDE пока не имеет денежной стоимости и не предлагается к продаже.
 
 ## Allowed Claims
 
@@ -24,7 +24,7 @@ These formulations are allowed when used with the same meaning and without imply
 | Fixed supply in the current deployed contract | Describe the deployed V1 token supply. | Use `100,000,000 TIDE` only for the current deployed contract. |
 | Publicly verifiable source code | Link to Sepolia Etherscan source-code pages. | Do not say "audited" or "approved". |
 | Experimental loyalty and access infrastructure | Describe the research direction and possible utility scenarios. | Make clear that benefits are not active or guaranteed. |
-| No token sale | Describe current availability status. | Do not imply a future sale is approved. |
+| No token sale | Describe current availability status. | Do not imply a later sale is approved. |
 | No current monetary value | Describe TIDE's current testnet status. | Use with Sepolia/testnet context. |
 | Not independently audited | Describe current security/audit status. | Can mention internal review separately, but not as an audit. |
 
@@ -57,7 +57,7 @@ These formulations must not be used in public materials unless qualified counsel
 | Risk-free | False or misleading risk framing. |
 | Guaranteed listing | Unsupported exchange/listing promise. |
 | Ownership share in a hotel | Implies equity or property rights and is unsupported. |
-| Guaranteed revenue share | Implies entitlement to revenue and is unsupported. |
+| Guaranteed revenue share | Implies entitlement to revenue. |
 
 ## Review Rule
 
