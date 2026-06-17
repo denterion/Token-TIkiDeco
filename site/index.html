@@ -34,7 +34,7 @@
           <p class="eyebrow">Ethereum Sepolia prototype</p>
           <h1 id="hero-title">TikiDeco Token</h1>
           <p class="hero-copy">
-            TIDE is a transparent token foundation for a future Miami Beach hospitality concept, built with fixed supply, vesting, treasury discipline, and public on-chain reporting.
+            TIDE is a transparent token foundation for a future Miami Beach hospitality concept, built with fixed supply, vesting, Safe multisig ownership, treasury discipline, and public on-chain reporting.
           </p>
           <div class="hero-actions" aria-label="Primary links">
             <a class="button primary" href="https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097">View Token</a>
@@ -68,8 +68,8 @@
           <span class="stat-label">White paper languages</span>
         </div>
         <div>
-          <span class="stat-value">Sepolia</span>
-          <span class="stat-label">Public testnet</span>
+          <span class="stat-value">3/3</span>
+          <span class="stat-label">Safe owner threshold</span>
         </div>
       </section>
 
@@ -82,14 +82,14 @@
           <article class="contract-card">
             <span class="tag">ERC-20</span>
             <h3>TikiDecoToken</h3>
-            <p>Fixed supply token with pause controls, safer allowance adjustments, and report hash publishing.</p>
+            <p>Fixed supply token with pause controls, safer allowance adjustments, report hash publishing, and Safe owner control.</p>
             <code>0xE4c1DE533440b411Be5C17883FF662e95a462097</code>
             <a href="https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097">Open on Sepolia Etherscan</a>
           </article>
           <article class="contract-card">
             <span class="tag">Vesting</span>
             <h3>TikiDecoVestingVault</h3>
-            <p>Cliff and linear vesting for long-term team, partner, community, and future perk allocations.</p>
+            <p>Cliff and linear vesting for long-term team, partner, community, and future perk allocations, administered by Safe.</p>
             <code>0xc480565482af6B08A3b65D0C9aba985d6240702E</code>
             <a href="https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E">Open on Sepolia Etherscan</a>
           </article>
@@ -122,6 +122,7 @@
         </div>
         <ol class="timeline">
           <li><strong>Sepolia prototype</strong><span>Deploy contracts, publish docs, validate treasury and vesting behavior.</span></li>
+          <li><strong>Safe owner migration</strong><span>Move token and vesting admin control to a 3-of-3 Sepolia Safe.</span></li>
           <li><strong>Contract verification</strong><span>Publish Solidity source on Sepolia Etherscan and prepare audit notes.</span></li>
           <li><strong>Legal structure</strong><span>Define the project entity, token utility language, compliance boundaries, and investor restrictions.</span></li>
           <li><strong>Community preview</strong><span>Share the prototype, collect feedback, and refine the public narrative.</span></li>

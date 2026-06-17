@@ -14,7 +14,13 @@ TikiDeco currently separates:
 Current Sepolia owner:
 
 ```text
-0xA9a4f99D5902850D3a6Afcd59838110D26B101E4
+0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
+```
+
+Owner model:
+
+```text
+Safe multisig 3-of-3
 ```
 
 Current Sepolia treasury:
@@ -23,15 +29,20 @@ Current Sepolia treasury:
 0xf1DAd608ddD5B71F039FEE82026164bc6a245081
 ```
 
-## Recommended Production Direction
+## Current Governance Posture
 
-Before mainnet, owner and treasury should be moved to a multisig wallet such as Safe.
+Sepolia owner powers have been moved from the original owner wallet to Safe.
 
-Recommended minimum:
+Completed ownership transfer:
 
-- 2-of-3 Safe for testnet operations.
-- 3-of-5 Safe for serious pre-mainnet or mainnet operations.
-- Separate Safe wallets for owner and treasury if operationally possible.
+| Step | Transaction |
+| --- | --- |
+| Token `transferOwnership(Safe)` | `0xb573c39c9b510e8694164609587d586dabe73f30149f366aeadcfb6f9fb802ed` |
+| Vault `transferOwnership(Safe)` | `0xf7478537ba264dd7c145e3619cc4c2cc7751084216c64a6b7337a06b613401ca` |
+| Safe activation | `0x8015cb2e0ea0a871c3b4a606ba2ba435714f70a6ae20529277504fe7b3e8d96d` |
+| Safe `acceptOwnership()` batch | `0x1ddab2941e8d5fc1a550e1a67db05e1d4f57d6705e5bf3f3e1dbfcd9534c145e` |
+
+Before mainnet, review whether `3-of-3` is too rigid operationally. A serious production setup commonly uses `3-of-5` or another threshold that balances security with signer availability.
 
 ## Owner Operations Checklist
 
@@ -52,7 +63,7 @@ npm run owner:check:sepolia
 
 ## Transfer Ownership To Safe
 
-Safe handover runbook:
+The Sepolia transfer is complete. Keep the handover runbook for audit history and future deployments:
 
 ```text
 docs/SAFE_MULTISIG.md
@@ -70,7 +81,7 @@ Set:
 NEW_OWNER_ADDRESS=0xSAFE_ADDRESS
 ```
 
-Then run from the current owner wallet:
+For a future redeployment, run from the current owner wallet:
 
 ```bash
 npm run ownership:propose:sepolia
@@ -86,7 +97,7 @@ The contracts use two-step ownership transfer, so ownership is not moved until t
 
 ## Report Publishing
 
-Only the token owner can publish report hashes.
+Only the token owner Safe can publish report hashes.
 
 Prepared command:
 
@@ -94,7 +105,7 @@ Prepared command:
 npm run report:publish:sepolia
 ```
 
-If the signer is not the owner, the script will fail before sending a transaction.
+Because the owner is now Safe, report publishing should be proposed and executed through Safe.
 
 ## Do Not
 

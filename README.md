@@ -27,9 +27,9 @@
 | Symbol | `TIDE` |
 | Standard | ERC-20 compatible |
 | Fixed supply | `100,000,000 TIDE` |
-| Owner wallet | Controls admin actions and report publishing |
+| Owner wallet | Sepolia Safe multisig `3-of-3` |
 | Treasury wallet | Receives the full initial token supply |
-| Safe migration | Sepolia Safe handover toolkit prepared |
+| Safe migration | Completed on Sepolia |
 | Vesting | Cliff, linear release, owner-assisted release, revocation |
 | Transparency | On-chain hashes for public project reports |
 
@@ -99,11 +99,11 @@ Draft white papers are available in three languages:
 The token is connected to project wallets at deployment time:
 
 ```text
-OWNER_ADDRESS=0xA9a4f99D5902850D3a6Afcd59838110D26B101E4
+OWNER_ADDRESS=0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
 TREASURY_ADDRESS=0xf1DAd608ddD5B71F039FEE82026164bc6a245081
 ```
 
-`OWNER_ADDRESS` controls admin actions. `TREASURY_ADDRESS` receives `100,000,000 TIDE`.
+`OWNER_ADDRESS` controls admin actions through a Sepolia Safe multisig. `TREASURY_ADDRESS` receives `100,000,000 TIDE`.
 
 Check the local wallet configuration:
 
@@ -113,17 +113,17 @@ npm run wallet:check
 
 ## Safe Multisig Governance
 
-Sepolia Safe target:
+Sepolia Safe owner:
 
 ```text
 0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3
 ```
 
-The project includes a two-step owner migration workflow for moving admin powers from the current owner wallet to Safe:
+The owner migration is complete on Sepolia. Token and vesting vault admin control now sits behind a Safe multisig with `3-of-3` approvals.
 
-```bash
-npm run owner:check:sepolia
-SAFE_ADDRESS=0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3 npm run safe:handover:sepolia
+```text
+Safe accept ownership tx:
+0x1ddab2941e8d5fc1a550e1a67db05e1d4f57d6705e5bf3f3e1dbfcd9534c145e
 ```
 
 Full runbook: [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md)
@@ -136,6 +136,7 @@ Sepolia deployment:
 | --- | --- |
 | TikiDecoToken | [`0xE4c1DE533440b411Be5C17883FF662e95a462097`](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
 | TikiDecoVestingVault | [`0xc480565482af6B08A3b65D0C9aba985d6240702E`](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
+| Owner Safe | [`0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3`](https://sepolia.etherscan.io/address/0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3) |
 
 Both contracts are verified on Sepolia Etherscan.
 
