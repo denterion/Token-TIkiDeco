@@ -69,6 +69,8 @@ Ownership status: token and vesting vault owner is the Sepolia Safe `3-of-3`.
 
 Version status: `v1-legacy` is the active canonical Sepolia deployment. OpenZeppelin V2 contracts are non-canonical candidate code unless a future manifest explicitly promotes them.
 
+V2 candidate role separation and prefunded vault accounting are documented in [`ACCESS_CONTROL.md`](ACCESS_CONTROL.md).
+
 Check the deployed state:
 
 ```bash

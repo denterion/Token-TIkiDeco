@@ -65,7 +65,7 @@ Security-minded defaults:
 - no public mint function
 - two-step ownership transfer
 - Safe multisig handover runbook
-- OpenZeppelin V2 review branch
+- OpenZeppelin V2 candidate with role-based access control
 - owner/treasury separation
 - safer allowance adjustments
 - guarded vesting token calls
@@ -178,7 +178,7 @@ npm test
 Current V1+V2 suite:
 
 ```text
-36 passing
+45 passing
 ```
 
 Run a local deployment:
@@ -248,6 +248,7 @@ Because owner control is now Safe-based, future report publication should be pre
 | [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) | Owner operations and multisig migration plan. |
 | [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md) | Safe handover runbook and transaction workflow. |
 | [`docs/OPENZEPPELIN_V2.md`](docs/OPENZEPPELIN_V2.md) | OpenZeppelin-based V2 track, differences, and deploy path. |
+| [`docs/ACCESS_CONTROL.md`](docs/ACCESS_CONTROL.md) | V2 role separation, prefunded vault model, and treasury controls. |
 | [`docs/TREASURY_POLICY.md`](docs/TREASURY_POLICY.md) | Starter treasury discipline and Safe approval policy. |
 | [`docs/REPORTING_CADENCE.md`](docs/REPORTING_CADENCE.md) | Reporting cadence and on-chain publication workflow. |
 | [`docs/COMMUNICATION_POLICY.md`](docs/COMMUNICATION_POLICY.md) | Public language boundaries for community and partners. |

@@ -2,11 +2,13 @@
 pragma solidity ^0.8.28;
 
 import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {Ownable2Step} from "@openzeppelin/contracts/access/Ownable2Step.sol";
-import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
 import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
 
-contract TikiDecoTokenV2 is ERC20, Ownable2Step, Pausable {
+contract TikiDecoTokenV2 is ERC20, AccessControl, Pausable {
+    bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
+    bytes32 public constant REPORTER_ROLE = keccak256("REPORTER_ROLE");
+
     uint256 public constant MAX_SUPPLY = 100_000_000 * 10 ** 18;
 
     string public projectName;
@@ -24,7 +26,6 @@ contract TikiDecoTokenV2 is ERC20, Ownable2Step, Pausable {
     ProjectReport[] private _reports;
 
     event ProjectURIUpdated(string previousURI, string newURI);
-    event OwnershipTransferCanceled(address indexed owner, address indexed canceledPendingOwner);
     event AllowanceIncreased(address indexed owner, address indexed spender, uint256 addedValue);
     event AllowanceDecreased(address indexed owner, address indexed spender, uint256 subtractedValue);
     event ProjectReportPublished(
@@ -46,13 +47,17 @@ contract TikiDecoTokenV2 is ERC20, Ownable2Step, Pausable {
         string memory initialBusinessEntity,
         string memory initialProjectJurisdiction,
         string memory initialProjectURI
-    ) ERC20("TikiDeco", "TIDE") Ownable(initialOwner) {
-        if (treasury == address(0)) revert ZeroAddress();
+    ) ERC20("TikiDeco", "TIDE") {
+        if (initialOwner == address(0) || treasury == address(0)) revert ZeroAddress();
 
         projectName = "TikiDeco Miami Beach Hotel";
         businessEntity = initialBusinessEntity;
         projectJurisdiction = initialProjectJurisdiction;
         projectURI = initialProjectURI;
+
+        _grantRole(DEFAULT_ADMIN_ROLE, initialOwner);
+        _grantRole(PAUSER_ROLE, initialOwner);
+        _grantRole(REPORTER_ROLE, initialOwner);
 
         _mint(treasury, MAX_SUPPLY);
     }
@@ -96,21 +101,15 @@ contract TikiDecoTokenV2 is ERC20, Ownable2Step, Pausable {
         return true;
     }
 
-    function pause() external onlyOwner {
+    function pause() external onlyRole(PAUSER_ROLE) {
         _pause();
     }
 
-    function unpause() external onlyOwner {
+    function unpause() external onlyRole(PAUSER_ROLE) {
         _unpause();
     }
 
-    function cancelOwnershipTransfer() external onlyOwner {
-        address canceledPendingOwner = pendingOwner();
-        transferOwnership(address(0));
-        emit OwnershipTransferCanceled(owner(), canceledPendingOwner);
-    }
-
-    function updateProjectURI(string calldata newProjectURI) external onlyOwner {
+    function updateProjectURI(string calldata newProjectURI) external onlyRole(DEFAULT_ADMIN_ROLE) {
         string memory previousURI = projectURI;
         projectURI = newProjectURI;
         emit ProjectURIUpdated(previousURI, newProjectURI);
@@ -120,7 +119,7 @@ contract TikiDecoTokenV2 is ERC20, Ownable2Step, Pausable {
         bytes32 documentHash,
         string calldata category,
         string calldata uri
-    ) external onlyOwner returns (uint256 reportId) {
+    ) external onlyRole(REPORTER_ROLE) returns (uint256 reportId) {
         if (documentHash == bytes32(0)) revert InvalidAmount();
 
         reportId = _reports.length;

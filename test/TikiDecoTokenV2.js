@@ -39,7 +39,9 @@ describe("TikiDecoTokenV2", function () {
       "ipfs://project"
     );
 
-    expect(await token.owner()).to.equal(ownerWallet.address);
+    expect(await token.hasRole(await token.DEFAULT_ADMIN_ROLE(), ownerWallet.address)).to.equal(true);
+    expect(await token.hasRole(await token.PAUSER_ROLE(), ownerWallet.address)).to.equal(true);
+    expect(await token.hasRole(await token.REPORTER_ROLE(), ownerWallet.address)).to.equal(true);
     expect(await token.balanceOf(treasuryWallet.address)).to.equal(await token.MAX_SUPPLY());
   });
 
@@ -98,8 +100,11 @@ describe("TikiDecoTokenV2", function () {
     ).to.be.revertedWithCustomError(token, "NativeETHRejected");
   });
 
-  it("uses OpenZeppelin Pausable to block transfers", async function () {
-    const { token, treasury, holder } = await deployToken();
+  it("uses a dedicated pauser role to block transfers", async function () {
+    const { token, treasury, holder, spender } = await deployToken();
+
+    await expect(token.connect(spender).pause())
+      .to.be.revertedWithCustomError(token, "AccessControlUnauthorizedAccount");
 
     await token.pause();
 
@@ -108,17 +113,18 @@ describe("TikiDecoTokenV2", function () {
     ).to.be.revertedWithCustomError(token, "EnforcedPause");
   });
 
-  it("keeps a Safe-friendly cancel path for pending ownership", async function () {
-    const { token, owner, holder } = await deployToken();
+  it("uses a dedicated reporter role for report publication", async function () {
+    const { token, holder } = await deployToken();
+    const hash = ethers.keccak256(ethers.toUtf8Bytes("June 2026 investor update"));
 
-    await token.transferOwnership(holder.address);
-    expect(await token.pendingOwner()).to.equal(holder.address);
+    await expect(token.connect(holder).publishReport(hash, "monthly-update", "ipfs://report"))
+      .to.be.revertedWithCustomError(token, "AccessControlUnauthorizedAccount");
 
-    await expect(token.cancelOwnershipTransfer())
-      .to.emit(token, "OwnershipTransferCanceled")
-      .withArgs(owner.address, holder.address);
+    await token.grantRole(await token.REPORTER_ROLE(), holder.address);
 
-    expect(await token.pendingOwner()).to.equal(ethers.ZeroAddress);
+    await expect(token.connect(holder).publishReport(hash, "monthly-update", "ipfs://report"))
+      .to.emit(token, "ProjectReportPublished")
+      .withArgs(0, hash, "monthly-update", "ipfs://report", anyValue);
   });
 
   it("publishes project report hashes on-chain", async function () {

@@ -37,7 +37,7 @@ async function main() {
   const tokenAddress = await token.getAddress();
 
   const VestingVault = await hre.ethers.getContractFactory("TikiDecoVestingVaultV2");
-  const vestingVault = await VestingVault.deploy(tokenAddress, owner);
+  const vestingVault = await VestingVault.deploy(tokenAddress, owner, treasury);
   await vestingVault.waitForDeployment();
 
   const vestingVaultAddress = await vestingVault.getAddress();

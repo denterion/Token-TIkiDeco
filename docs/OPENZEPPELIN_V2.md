@@ -9,7 +9,7 @@ V2 is non-canonical. It is not a replacement for the currently deployed Sepolia 
 | Area | V1 | V2 |
 | --- | --- | --- |
 | ERC-20 base | Local implementation | OpenZeppelin `ERC20` |
-| Ownership | Local two-step owner | OpenZeppelin `Ownable2Step` |
+| Access control | Local owner model | OpenZeppelin `AccessControl` roles |
 | Pause logic | Local pause flag | OpenZeppelin `Pausable` |
 | Vesting token calls | Local safe wrapper | OpenZeppelin `SafeERC20` |
 | Reentrancy guard | Local guard | OpenZeppelin `ReentrancyGuard` |
@@ -19,7 +19,7 @@ V2 is non-canonical. It is not a replacement for the currently deployed Sepolia 
 | Contract | Purpose |
 | --- | --- |
 | `contracts/TikiDecoTokenV2.sol` | Fixed-supply TIDE token with OpenZeppelin ERC-20 primitives, two-step ownership, pause controls, zero-first approve hardening, and transparency report publishing. |
-| `contracts/TikiDecoVestingVaultV2.sol` | Vesting vault using OpenZeppelin SafeERC20, Ownable2Step, ReentrancyGuard, and explicit `cliffDuration` plus `vestingDuration`. |
+| `contracts/TikiDecoVestingVaultV2.sol` | Vesting vault using OpenZeppelin AccessControl, SafeERC20, ReentrancyGuard, and explicit `cliffDuration` plus `vestingDuration`. |
 
 ## Preserved Behavior
 
@@ -27,15 +27,17 @@ V2 keeps the important project-level behavior:
 
 - fixed `100,000,000 TIDE` supply
 - no public mint function
-- separated owner and treasury at deployment
-- two-step ownership transfer
-- explicit cancel path for pending ownership
+- separated admin and treasury at deployment
+- role-based access control for admin, pauser, reporter, and vesting admin
+- two-step treasury transfer
 - pause/unpause owner controls
 - zero-first direct `approve()` hardening
 - `increaseAllowance()` and `decreaseAllowance()` helpers
 - report hash publishing
 - explicit cliff duration and post-cliff linear vesting duration
 - revocable schedules with beneficiary/refund split
+- prefunded vault accounting
+- treasury-only refund on revoke
 - native ETH rejection
 
 ## Known Differences
@@ -54,6 +56,15 @@ V2 also changes vesting semantics to remove ambiguity:
 - after the cliff, vesting is linear over `vestingDuration`
 - full vesting occurs at `start + cliffDuration + vestingDuration`
 
+V2 also changes the vesting funding model:
+
+- treasury prefunds the vault
+- `createSchedule(...)` reserves existing vault balance
+- `totalReserved()`, `totalReleased()`, `outstandingLiabilities()`, and `unreservedBalance()` expose accounting state
+- revocation refunds unvested tokens only to the configured treasury
+
+Role details are documented in [`ACCESS_CONTROL.md`](ACCESS_CONTROL.md).
+
 ## Verify Locally
 
 ```bash
@@ -64,7 +75,7 @@ npm test
 Expected current result:
 
 ```text
-36 passing
+45 passing
 ```
 
 ## Local V2 Deploy

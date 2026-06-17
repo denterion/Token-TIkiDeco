@@ -11,7 +11,7 @@ This PR adds a separate OpenZeppelin-based V2 implementation for the TikiDeco / 
 V2 keeps the existing project behavior while moving core primitives to OpenZeppelin:
 
 - `ERC20`
-- `Ownable2Step`
+- `AccessControl`
 - `Pausable`
 - `SafeERC20`
 - `ReentrancyGuard`
@@ -40,8 +40,10 @@ V2 preserves:
 - fixed `100,000,000 TIDE` supply
 - no public mint function
 - owner/treasury separation
-- two-step ownership transfer
-- Safe-friendly pending owner cancellation
+- role-based admin, pauser, reporter, and vesting admin permissions
+- prefunded vesting vault accounting
+- treasury-only refund on revoke
+- two-step treasury transfer
 - zero-first direct `approve()` hardening
 - pause/unpause owner controls
 - report hash publishing
@@ -59,7 +61,7 @@ Expected OpenZeppelin v5 behavior differences:
 
 ```text
 npm test
-37 passing
+45 passing
 ```
 
 ## Review Checklist

@@ -49,6 +49,8 @@ CONFIRM_NON_CANONICAL_V2_DEPLOY=true npm run deploy:v2:sepolia
 
 The V2 deploy script writes a separate deployment record to `deployments/sepolia-v2.json`. V2 is non-canonical candidate code until it receives focused review, explicit approval, verification, and a canonical manifest update.
 
+V2 access control and treasury mechanics are documented in [`ACCESS_CONTROL.md`](ACCESS_CONTROL.md).
+
 ## 5. After Deployment
 
 1. Confirm owner and treasury addresses.
