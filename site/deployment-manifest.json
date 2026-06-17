@@ -1,0 +1,74 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "status": "legacy-canonical-testnet-prototype",
+  "contractVersion": "v1-legacy",
+  "sourceCommit": "9da9b09334031276fbd2bb9d61738a15bfe08c1e",
+  "compiler": {
+    "version": "0.8.28",
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "evmTarget": "paris"
+  },
+  "contracts": {
+    "token": {
+      "name": "TikiDecoToken",
+      "address": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+      "source": "contracts/TikiDecoToken.sol",
+      "verification": "https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code",
+      "constructorArguments": {
+        "initialOwner": "0xA9a4f99D5902850D3a6Afcd59838110D26B101E4",
+        "treasury": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
+        "initialBusinessEntity": "TikiDeco project company / SPV to be formed",
+        "initialProjectJurisdiction": "Florida, USA",
+        "initialProjectURI": "https://tikideco.example/project"
+      }
+    },
+    "vestingVault": {
+      "name": "TikiDecoVestingVault",
+      "address": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
+      "source": "contracts/TikiDecoVestingVault.sol",
+      "verification": "https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code",
+      "constructorArguments": {
+        "tokenAddress": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+        "initialOwner": "0xA9a4f99D5902850D3a6Afcd59838110D26B101E4"
+      }
+    }
+  },
+  "ownership": {
+    "ownerSafe": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+    "safeThreshold": "3-of-3",
+    "previousOwner": "0xA9a4f99D5902850D3a6Afcd59838110D26B101E4",
+    "ownershipTransferredAt": "2026-06-17T08:25:12.000Z",
+    "ownershipTransferBlock": 11078670,
+    "ownershipTransferTxs": {
+      "tokenTransferOwnership": "0xb573c39c9b510e8694164609587d586dabe73f30149f366aeadcfb6f9fb802ed",
+      "vaultTransferOwnership": "0xf7478537ba264dd7c145e3619cc4c2cc7751084216c64a6b7337a06b613401ca",
+      "safeActivation": "0x8015cb2e0ea0a871c3b4a606ba2ba435714f70a6ae20529277504fe7b3e8d96d",
+      "safeAcceptOwnershipBatch": "0x1ddab2941e8d5fc1a550e1a67db05e1d4f57d6705e5bf3f3e1dbfcd9534c145e"
+    }
+  },
+  "treasury": {
+    "address": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
+    "initialSupply": "100000000 TIDE",
+    "currentSepoliaBalance": "100000000 TIDE"
+  },
+  "publishedReports": [
+    {
+      "reportId": 0,
+      "category": "safe-ownership-openzeppelin-v2",
+      "documentHash": "0x04119c47a7c09f09bfdcee87d77925e6f5ec89c2ea1fe9759feaae7091c0b5cc",
+      "uri": "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md",
+      "transaction": "0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9",
+      "block": 11078795,
+      "publishedAt": "2026-06-17T08:50:12.000Z"
+    }
+  ],
+  "auditStatus": {
+    "internalReview": "in-progress",
+    "independentAudit": "not-started",
+    "mainnetApproved": false
+  }
+}

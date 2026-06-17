@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - "site/**"
+      - "deployments/canonical.json"
+      - "scripts/build-site-manifest.cjs"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -27,6 +29,9 @@ jobs:
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
+      - name: Build site manifest
+        run: node scripts/build-site-manifest.cjs
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

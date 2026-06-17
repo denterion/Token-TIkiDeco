@@ -3,105 +3,250 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="TikiDeco TIDE is a transparent Ethereum Sepolia prototype for a future Miami Beach hospitality concept.">
-    <title>TikiDeco Token | TIDE</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' https://ethereum-sepolia-rpc.publicnode.com https://rpc.sepolia.org; base-uri 'self'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+    <meta name="description" content="TikiDeco TIDE is a Sepolia testnet prototype exploring transparent hospitality-linked token infrastructure for a future Miami Beach concept.">
+    <meta name="theme-color" content="#0b1020">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TikiDeco TIDE Sepolia Prototype">
+    <meta property="og:description" content="A public Sepolia prototype for transparent hospitality-linked token infrastructure. No sale and no stated monetary value.">
+    <meta property="og:image" content="https://denterion.github.io/Token-TIkiDeco/assets/tide-logo.png">
+    <meta property="og:url" content="https://denterion.github.io/Token-TIkiDeco/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TikiDeco TIDE Sepolia Prototype">
+    <meta name="twitter:description" content="Read-only public dashboard, documentation, risks, and Sepolia contract links for TikiDeco.">
+    <meta name="twitter:image" content="https://denterion.github.io/Token-TIkiDeco/assets/tide-logo.png">
+    <link rel="canonical" href="https://denterion.github.io/Token-TIkiDeco/">
     <link rel="icon" href="assets/favicon.png" type="image/png">
-    <link rel="preload" href="assets/tikideco-hero.png" as="image">
-    <link rel="preload" href="assets/tide-logo.png" as="image">
+    <link rel="preload" href="assets/tikideco-hero.webp" as="image" type="image/webp">
+    <link rel="preload" href="assets/tide-logo.webp" as="image" type="image/webp">
     <link rel="stylesheet" href="styles.css">
+    <script defer src="app.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "TikiDeco TIDE",
+        "codeRepository": "https://github.com/denterion/Token-TIkiDeco",
+        "programmingLanguage": ["Solidity", "JavaScript", "HTML", "CSS"],
+        "runtimePlatform": "Ethereum Sepolia",
+        "description": "Public Sepolia prototype for transparent hospitality-linked token infrastructure research."
+      }
+    </script>
+    <title>TikiDeco | TIDE Sepolia Prototype</title>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="status-badge" href="#risks" aria-label="Sepolia testnet status and risk notice">
+      SEPOLIA TESTNET · NO MONETARY VALUE
+    </a>
+
     <header class="topbar" aria-label="Primary">
       <a class="brand" href="#top" aria-label="TikiDeco home">
-        <img class="brand-mark" src="assets/favicon.png" alt="" aria-hidden="true">
+        <picture>
+          <source srcset="assets/favicon.webp" type="image/webp">
+          <img class="brand-mark" src="assets/favicon.png" width="34" height="34" alt="" aria-hidden="true">
+        </picture>
         <span>TikiDeco</span>
       </a>
-      <nav class="nav" aria-label="Sections">
-        <a href="#contracts">Contracts</a>
-        <a href="#tokenomics">Tokenomics</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#faq">FAQ</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-lines" aria-hidden="true"></span>
+        <span class="menu-toggle-label">Menu</span>
+      </button>
+      <nav id="site-nav" class="nav" aria-label="Sections">
+        <a href="#concept">Concept</a>
+        <a href="#implementation">Testnet</a>
+        <a href="#trust">Dashboard</a>
+        <a href="#security">Security</a>
         <a href="#docs">Docs</a>
+        <a href="#risks">Risks</a>
       </nav>
     </header>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <img class="hero-image" src="assets/tikideco-hero.png" alt="Art deco Miami Beach hotel concept at sunrise">
+    <main id="main">
+      <section id="top" class="hero" aria-labelledby="hero-title">
+        <picture>
+          <source srcset="assets/tikideco-hero.webp" type="image/webp">
+          <img class="hero-image" src="assets/tikideco-hero.png" width="1834" height="858" alt="Concept visualization of an art deco Miami Beach hospitality project">
+        </picture>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-          <img class="hero-logo" src="assets/tide-logo.png" alt="TikiDeco TIDE token emblem">
-          <p class="eyebrow">Ethereum Sepolia prototype</p>
-          <h1 id="hero-title">TikiDeco Token</h1>
+          <p class="media-caption">Concept visualization - not a completed property</p>
+          <picture>
+            <source srcset="assets/tide-logo.webp" type="image/webp">
+            <img class="hero-logo" src="assets/tide-logo.png" width="1254" height="1254" alt="TikiDeco TIDE emblem">
+          </picture>
+          <p class="eyebrow">Miami-inspired hospitality research layer</p>
+          <h1 id="hero-title">TikiDeco explores transparent token infrastructure for future guest access and loyalty workflows.</h1>
           <p class="hero-copy">
-            TIDE is a transparent token foundation for a future Miami Beach hospitality concept, built with fixed supply, vesting, Safe multisig ownership, treasury discipline, and public on-chain reporting.
+            TIDE is an Ethereum Sepolia prototype tied to a future hospitality concept. It is not sold, not deployed on mainnet, and has no stated monetary value.
           </p>
           <div class="hero-actions" aria-label="Primary links">
-            <a class="button primary" href="https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097">View Token</a>
-            <a class="button secondary" href="https://github.com/denterion/Token-TIkiDeco">GitHub</a>
+            <a class="button primary" href="https://sepolia.etherscan.io/" data-manifest-link="tokenVerification">Verify contract</a>
+            <a class="button secondary" href="https://github.com/denterion/Token-TIkiDeco">Read documentation</a>
           </div>
+          <dl class="hero-facts" aria-label="Project status">
+            <div>
+              <dt>Current network</dt>
+              <dd data-manifest-field="network">Ethereum Sepolia</dd>
+            </div>
+            <div>
+              <dt>Current version</dt>
+              <dd data-manifest-field="version">v1 legacy prototype</dd>
+            </div>
+            <div>
+              <dt>Market status</dt>
+              <dd>No sale, no stated value</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
-      <section class="brand-strip" aria-label="Brand identity">
-        <div>
-          <p class="eyebrow">Token identity</p>
-          <h2>TIDE now has a visual mark</h2>
-        </div>
-        <img src="assets/tide-logo.png" alt="TikiDeco neon token logo">
-        <p>
-          Neon coastline, art deco architecture, palm silhouettes, and circuit lines come together as a token emblem for the TikiDeco hospitality concept.
-        </p>
-      </section>
-
-      <section class="stats" aria-label="Token summary">
-        <div>
-          <span class="stat-value">100M</span>
-          <span class="stat-label">Fixed TIDE supply</span>
-        </div>
-        <div>
-          <span class="stat-value">56</span>
-          <span class="stat-label">Automated tests</span>
-        </div>
-        <div>
-          <span class="stat-value">3</span>
-          <span class="stat-label">White paper languages</span>
-        </div>
-        <div>
-          <span class="stat-value">3/3</span>
-          <span class="stat-label">Safe owner threshold</span>
-        </div>
-      </section>
-
-      <section id="contracts" class="section">
+      <section id="concept" class="section intro-grid">
         <div class="section-heading">
-          <p class="eyebrow">Canonical v1-legacy deployment</p>
-          <h2>Public testnet addresses</h2>
+          <p class="eyebrow">Hospitality concept</p>
+          <h2>A Miami Beach idea with disciplined public infrastructure.</h2>
         </div>
-        <div class="contract-grid">
-          <article class="contract-card">
-            <span class="tag">ERC-20</span>
-            <h3>TikiDecoToken</h3>
-            <p>Canonical Sepolia legacy token with fixed supply, pause controls, report hash publishing, and Safe owner control.</p>
-            <code>0xE4c1DE533440b411Be5C17883FF662e95a462097</code>
-            <a href="https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097">Open on Sepolia Etherscan</a>
+        <div class="editorial-copy">
+          <p>
+            TikiDeco combines art deco geometry, coastal leisure, and operational transparency. The current work is not a completed hotel product; it is a public testnet prototype for exploring how a future hospitality brand could document rules, allocations, reports, and access programs on-chain.
+          </p>
+          <p>
+            The visual language is hospitality-first: calm surfaces, clear records, and a restrained neon signal for testnet status and verification.
+          </p>
+        </div>
+      </section>
+
+      <section id="use-cases" class="section warm">
+        <div class="section-heading">
+          <p class="eyebrow">Possible loyalty and access use cases</p>
+          <h2>Research directions, not active guest benefits.</h2>
+        </div>
+        <div class="use-case-grid">
+          <article>
+            <span class="number">01</span>
+            <h3>Access lists</h3>
+            <p>Future campaigns could publish eligibility rules and snapshots for previews, events, or partner experiences.</p>
           </article>
-          <article class="contract-card">
-            <span class="tag">Vesting</span>
-            <h3>TikiDecoVestingVault</h3>
-            <p>Canonical Sepolia legacy vesting vault, preserved as deployed history and administered by Safe.</p>
-            <code>0xc480565482af6B08A3b65D0C9aba985d6240702E</code>
-            <a href="https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E">Open on Sepolia Etherscan</a>
+          <article>
+            <span class="number">02</span>
+            <h3>Loyalty proofs</h3>
+            <p>Off-chain guest activity could be summarized with privacy-aware proofs and public rule hashes.</p>
+          </article>
+          <article>
+            <span class="number">03</span>
+            <h3>Community rewards</h3>
+            <p>Reward programs could be documented through transparent allocation plans without implying economic upside.</p>
+          </article>
+          <article>
+            <span class="number">04</span>
+            <h3>Report anchoring</h3>
+            <p>Project updates can be hashed on-chain so readers can verify that a specific public document existed at a specific time.</p>
           </article>
         </div>
       </section>
 
-      <section id="tokenomics" class="section split">
+      <section id="implementation" class="section implementation">
+        <div class="section-heading">
+          <p class="eyebrow">Current testnet implementation</p>
+          <h2>What is actually live today.</h2>
+        </div>
+        <div class="implementation-grid">
+          <article class="quiet-card">
+            <span class="tag">Token</span>
+            <h3>TikiDecoToken</h3>
+            <p>Canonical Sepolia v1 legacy ERC-20-compatible token with fixed supply, pause controls, and report hash publishing.</p>
+            <code data-manifest-field="tokenAddress">Loading from manifest...</code>
+            <a href="https://sepolia.etherscan.io/" data-manifest-link="tokenVerification">Open verified source</a>
+          </article>
+          <article class="quiet-card">
+            <span class="tag">Vesting vault</span>
+            <h3>TikiDecoVestingVault</h3>
+            <p>Canonical Sepolia v1 legacy vesting vault, preserved as deployed history and administered through Safe ownership.</p>
+            <code data-manifest-field="vestingAddress">Loading from manifest...</code>
+            <a href="https://sepolia.etherscan.io/" data-manifest-link="vaultVerification">Open verified source</a>
+          </article>
+          <article class="quiet-card">
+            <span class="tag">Candidate code</span>
+            <h3>OpenZeppelin V2</h3>
+            <p>V2 exists as non-canonical review code. It is not promoted, not production, and not the active Sepolia deployment.</p>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPENZEPPELIN_V2.md">Read V2 notes</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="trust" class="section trust" aria-labelledby="trust-title">
+        <div class="section-heading">
+          <p class="eyebrow">Read-only trust dashboard</p>
+          <h2 id="trust-title">Public data without wallet connection or transactions.</h2>
+          <p class="section-note">The dashboard reads its addresses from the deployment manifest and then performs read-only Sepolia calls. If RPC data is unavailable, it shows an explicit unavailable state.</p>
+        </div>
+        <div class="dashboard-status" role="status" aria-live="polite" data-dashboard-status>
+          Loading public data...
+        </div>
+        <dl class="trust-dashboard" aria-label="TikiDeco public contract data">
+          <div>
+            <dt>Network</dt>
+            <dd data-dashboard-field="network">Loading...</dd>
+          </div>
+          <div>
+            <dt>Token address</dt>
+            <dd data-dashboard-field="tokenAddress">Loading...</dd>
+          </div>
+          <div>
+            <dt>Vesting address</dt>
+            <dd data-dashboard-field="vestingAddress">Loading...</dd>
+          </div>
+          <div>
+            <dt>Total supply</dt>
+            <dd data-dashboard-field="totalSupply">Loading...</dd>
+          </div>
+          <div>
+            <dt>Paused status</dt>
+            <dd data-dashboard-field="paused">Loading...</dd>
+          </div>
+          <div>
+            <dt>Owner</dt>
+            <dd data-dashboard-field="owner">Loading...</dd>
+          </div>
+          <div>
+            <dt>Safe threshold</dt>
+            <dd data-dashboard-field="safeThreshold">Loading...</dd>
+          </div>
+          <div>
+            <dt>Treasury balance</dt>
+            <dd data-dashboard-field="treasuryBalance">Loading...</dd>
+          </div>
+          <div>
+            <dt>Vesting vault balance</dt>
+            <dd data-dashboard-field="vaultBalance">Loading...</dd>
+          </div>
+          <div>
+            <dt>Reports count</dt>
+            <dd data-dashboard-field="reportsCount">Loading...</dd>
+          </div>
+          <div>
+            <dt>Latest report</dt>
+            <dd data-dashboard-field="latestReport">Loading...</dd>
+          </div>
+          <div>
+            <dt>Audit status</dt>
+            <dd data-dashboard-field="auditStatus">Loading...</dd>
+          </div>
+        </dl>
+        <div class="dashboard-links" aria-label="Verification links">
+          <a href="deployment-manifest.json">Public manifest</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco">Repository</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md">Security policy</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/actions">GitHub Actions</a>
+        </div>
+      </section>
+
+      <section id="allocation" class="section split">
         <div>
-          <p class="eyebrow">Allocation model</p>
-          <h2>Designed for a controlled launch</h2>
+          <p class="eyebrow">Token allocation</p>
+          <h2>A transparent model for prototype planning.</h2>
           <p>
-            TIDE starts with a fixed supply and a clear allocation model. Vesting reduces short-term pressure while keeping project operations, community rewards, future hotel perks, and reserves visible.
+            Allocation categories are documented to make the prototype readable. They do not represent active sale terms, ownership rights, or a claim on hotel economics.
           </p>
           <a class="text-link" href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TOKENOMICS.md">Read tokenomics</a>
         </div>
@@ -115,75 +260,125 @@
         </div>
       </section>
 
-      <section id="roadmap" class="section">
+      <section id="security" class="section security">
+        <div class="section-heading">
+          <p class="eyebrow">Security and governance</p>
+          <h2>Controls before promotion.</h2>
+        </div>
+        <div class="security-grid">
+          <article>
+            <h3>Safe ownership</h3>
+            <p>Admin control for the Sepolia legacy deployment sits behind a 3-of-3 Safe. This is testnet governance discipline, not a mainnet approval.</p>
+          </article>
+          <article>
+            <h3>Hardhat 3 tooling</h3>
+            <p>The project uses Hardhat 3, built-in coverage and gas statistics, npm audit checks, Slither triage, and dependency monitoring.</p>
+          </article>
+          <article>
+            <h3>V2 candidate boundary</h3>
+            <p>OpenZeppelin V2 remains review code until a future manifest explicitly promotes it. It is not described as audited.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section roadmap">
         <div class="section-heading">
           <p class="eyebrow">Roadmap</p>
-          <h2>From prototype to credible launch</h2>
+          <h2>Measured steps, no launch promises.</h2>
         </div>
         <ol class="timeline">
-          <li><strong>Sepolia prototype</strong><span>Deploy contracts, publish docs, validate treasury and vesting behavior.</span></li>
-          <li><strong>Safe owner migration</strong><span>Move token and vesting admin control to a 3-of-3 Sepolia Safe.</span></li>
-          <li><strong>Contract verification</strong><span>Publish Solidity source on Sepolia Etherscan and prepare audit notes.</span></li>
-          <li><strong>Legal structure</strong><span>Define the project entity, token utility language, compliance boundaries, and investor restrictions.</span></li>
-          <li><strong>Community preview</strong><span>Share the prototype, collect feedback, and refine the public narrative.</span></li>
-          <li><strong>Mainnet gate</strong><span>Proceed only after audit, legal review, and treasury governance are complete.</span></li>
+          <li><strong>Sepolia prototype</strong><span>Contracts, public docs, tokenomics, and reporting workflow are visible for review.</span></li>
+          <li><strong>Safe governance</strong><span>Sepolia owner control is behind a multisig process.</span></li>
+          <li><strong>Security hardening</strong><span>V2 code, tests, audit-clean tooling, and Slither triage continue before any promotion.</span></li>
+          <li><strong>Legal and utility review</strong><span>Hospitality use cases require counsel, operational design, and compliance review.</span></li>
+          <li><strong>Future candidate deployment</strong><span>Only after review, verification, and a canonical manifest update.</span></li>
         </ol>
+      </section>
+
+      <section id="reports" class="section reports">
+        <div class="section-heading">
+          <p class="eyebrow">Reports</p>
+          <h2>Public records for project changes.</h2>
+        </div>
+        <div class="report-list">
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/GENESIS_REPORT.md">
+            <span>Genesis report</span>
+            <strong>First transparency checkpoint</strong>
+          </a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md">
+            <span>Safe + V2 report</span>
+            <strong>Ownership and engineering milestone</strong>
+          </a>
+          <a href="https://sepolia.etherscan.io/" data-manifest-link="latestReportTx">
+            <span>On-chain publication</span>
+            <strong>Latest report hash transaction</strong>
+          </a>
+        </div>
       </section>
 
       <section id="docs" class="section docs">
         <div class="section-heading">
-          <p class="eyebrow">Public materials</p>
-          <h2>Documents people can read</h2>
+          <p class="eyebrow">Documentation</p>
+          <h2>Four reading centers instead of a link wall.</h2>
         </div>
-        <div class="doc-links">
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/WHITEPAPER_EN.md">White Paper EN</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/WHITEPAPER_RU.md">White Paper RU</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/WHITEPAPER_ZH.md">White Paper ZH</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/ROADMAP.md">Roadmap</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PITCH_DECK.md">Pitch Deck</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/UTILITY.md">Utility Scenarios</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/GOVERNANCE.md">Governance</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/ACCESS_CONTROL.md">Access Control</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TREASURY_POLICY.md">Treasury Policy</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/REPORTING_CADENCE.md">Reporting Cadence</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COMMUNICATION_POLICY.md">Communication Policy</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/GENESIS_REPORT.md">Genesis Report</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md">Safe + V2 Report</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FAQ.md">FAQ</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RISK_DISCLOSURE.md">Risk Disclosure</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/METAMASK.md">View in MetaMask</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md">Security Policy</a>
+        <div class="project-record" aria-label="Current project record">
+          <div><span>Current version</span><strong data-record-field="version">v1 legacy prototype</strong></div>
+          <div><span>Current network</span><strong data-record-field="network">Ethereum Sepolia</strong></div>
+          <div><span>Known limitations</span><strong>Testnet only, candidate V2 not promoted</strong></div>
+          <div><span>Audit status</span><strong data-record-field="auditStatus">Independent audit not started</strong></div>
+          <div><span>Latest report date</span><strong data-record-field="latestReportDate">2026-06-17</strong></div>
+          <div><span>Verified source code</span><strong><a href="https://sepolia.etherscan.io/" data-manifest-link="tokenVerification">Sepolia Etherscan</a></strong></div>
+        </div>
+        <div class="doc-centers">
+          <article>
+            <h3>Overview</h3>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/README.md">README</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/WHITEPAPER_EN.md">White Paper EN</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/WHITEPAPER_RU.md">White Paper RU</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/WHITEPAPER_ZH.md">White Paper ZH</a>
+          </article>
+          <article>
+            <h3>Security</h3>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md">Security Policy</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPENZEPPELIN_V2.md">V2 Review Notes</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/actions">CI Runs</a>
+            <a href="https://sepolia.etherscan.io/" data-manifest-link="tokenVerification">Verified Source</a>
+          </article>
+          <article>
+            <h3>Governance</h3>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/GOVERNANCE.md">Governance</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TREASURY_POLICY.md">Treasury Policy</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/SAFE_MULTISIG.md">Safe Multisig</a>
+            <a href="deployment-manifest.json">Deployment Manifest</a>
+          </article>
+          <article>
+            <h3>Reports</h3>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/REPORTING_CADENCE.md">Reporting Cadence</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/GENESIS_REPORT.md">Genesis Report</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md">Latest Report</a>
+            <a href="https://sepolia.etherscan.io/" data-manifest-link="latestReportTx">Latest Report Tx</a>
+          </article>
         </div>
       </section>
 
-      <section id="faq" class="section faq">
+      <section id="risks" class="section risks">
         <div class="section-heading">
-          <p class="eyebrow">Clear boundaries</p>
-          <h2>What people should know first</h2>
+          <p class="eyebrow">Risks and disclaimers</p>
+          <h2>Plain boundaries for a public prototype.</h2>
         </div>
-        <div class="faq-grid">
-          <article>
-            <h3>Is TIDE on mainnet?</h3>
-            <p>No. TIDE is currently a Sepolia testnet prototype. Sepolia tokens have no market value.</p>
-          </article>
-          <article>
-            <h3>Is this an investment offer?</h3>
-            <p>No. This is not a securities offering, investment advice, or a promise of profit.</p>
-          </article>
-          <article>
-            <h3>What can people inspect?</h3>
-            <p>Verified contracts, deployment records, tokenomics, white paper drafts, roadmap, and tests.</p>
-          </article>
-          <article>
-            <h3>Can I view TIDE in MetaMask?</h3>
-            <p>Yes. Switch to Ethereum Sepolia and import the TikiDecoToken contract address.</p>
-          </article>
+        <div class="risk-panel">
+          <p>
+            TIDE is a Sepolia testnet prototype. Sepolia tokens are testing artifacts and have no stated monetary value. The project is not offering token sales, hotel ownership, revenue rights, or completed hospitality services.
+          </p>
+          <p>
+            Possible loyalty, access, and reporting workflows are research directions. They should not be read as active benefits or future commitments.
+          </p>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>TikiDeco / TIDE is a public testnet prototype. It is not an investment offer, security offering, or promise of profit.</p>
+      <p>TikiDeco / TIDE is a public Sepolia prototype for hospitality infrastructure research. No token sale. No stated monetary value.</p>
     </footer>
   </body>
 </html>
