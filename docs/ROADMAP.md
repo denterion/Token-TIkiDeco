@@ -23,13 +23,13 @@ Status: in progress
 
 ## Phase 3: Legal and Governance Structure
 
-Status: planned
+Status: in progress
 
 - Define project company or SPV.
 - Confirm whether TIDE remains utility/community-only or requires regulated offering treatment.
-- Define treasury policy.
-- Define report publishing cadence.
-- Define public communication rules for community, partners, and potential contributors.
+- Define treasury policy. See [`TREASURY_POLICY.md`](TREASURY_POLICY.md).
+- Define report publishing cadence. See [`REPORTING_CADENCE.md`](REPORTING_CADENCE.md).
+- Define public communication rules for community, partners, and potential contributors. See [`COMMUNICATION_POLICY.md`](COMMUNICATION_POLICY.md).
 
 ## Phase 4: Security Review
 

@@ -239,6 +239,9 @@ Because owner control is now Safe-based, future report publication should be pre
 | [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) | Owner operations and multisig migration plan. |
 | [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md) | Safe handover runbook and transaction workflow. |
 | [`docs/OPENZEPPELIN_V2.md`](docs/OPENZEPPELIN_V2.md) | OpenZeppelin-based V2 track, differences, and deploy path. |
+| [`docs/TREASURY_POLICY.md`](docs/TREASURY_POLICY.md) | Starter treasury discipline and Safe approval policy. |
+| [`docs/REPORTING_CADENCE.md`](docs/REPORTING_CADENCE.md) | Reporting cadence and on-chain publication workflow. |
+| [`docs/COMMUNICATION_POLICY.md`](docs/COMMUNICATION_POLICY.md) | Public language boundaries for community and partners. |
 | [`docs/SHOWCASE.md`](docs/SHOWCASE.md) | Public links and safe messaging. |
 | [`docs/FAQ.md`](docs/FAQ.md) | Public FAQ for collaborators and early community members. |
 | [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |
