@@ -92,7 +92,7 @@ TikiDecoVestingVault verified source:
 
 Website:
 
-<https://denterion.github.io/Token-TIkiDeco/>
+<https://tikideco.xyz/>
 
 GitHub:
 

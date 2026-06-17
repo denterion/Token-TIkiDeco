@@ -43,7 +43,7 @@ Current scope:
 TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet.
 
 Repo: https://github.com/denterion/Token-TIkiDeco
-Site: https://denterion.github.io/Token-TIkiDeco/
+Site: https://tikideco.xyz/
 
 ## Extended LinkedIn Post
 
@@ -63,7 +63,7 @@ This is not a token sale. TIDE currently has no stated monetary value and is not
 The purpose of the prototype is to make the project state inspectable: what exists, what is planned, what is only conceptual, and what still needs legal, operational, and security review.
 
 Repository: https://github.com/denterion/Token-TIkiDeco
-Public site: https://denterion.github.io/Token-TIkiDeco/
+Public site: https://tikideco.xyz/
 
 ## Telegram Message
 
@@ -79,7 +79,7 @@ What is available:
 
 Important: TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, and is not deployed on mainnet.
 
-Site: https://denterion.github.io/Token-TIkiDeco/
+Site: https://tikideco.xyz/
 Repo: https://github.com/denterion/Token-TIkiDeco
 
 ## Media Kit Description
@@ -94,7 +94,7 @@ TikiDeco is an open-source Sepolia prototype exploring transparent loyalty and a
 
 | Resource | URL |
 | --- | --- |
-| Public site | https://denterion.github.io/Token-TIkiDeco/ |
+| Public site | https://tikideco.xyz/ |
 | Repository | https://github.com/denterion/Token-TIkiDeco |
 | Token source | https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code |
 | Vault source | https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code |

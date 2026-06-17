@@ -42,7 +42,7 @@ No. The current prototype does not provide hotel ownership, equity, debt, revenu
 
 ## Where can I read more?
 
-- Public site: https://denterion.github.io/Token-TIkiDeco/
+- Public site: https://tikideco.xyz/
 - Repository: https://github.com/denterion/Token-TIkiDeco
 - Project facts: [`PROJECT_FACTS.md`](PROJECT_FACTS.md)
 - Security policy: [`../SECURITY.md`](../SECURITY.md)

@@ -42,7 +42,7 @@ Canonical Sepolia V1 token и vault контролируются owner Safe, у�
 
 ## Где читать дальше?
 
-- Public site: https://denterion.github.io/Token-TIkiDeco/
+- Public site: https://tikideco.xyz/
 - Repository: https://github.com/denterion/Token-TIkiDeco
 - Project facts: [`PROJECT_FACTS.md`](PROJECT_FACTS.md)
 - Security policy: [`../SECURITY.md`](../SECURITY.md)

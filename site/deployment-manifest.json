@@ -17,24 +17,13 @@
       "name": "TikiDecoToken",
       "address": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
       "source": "contracts/TikiDecoToken.sol",
-      "verification": "https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code",
-      "constructorArguments": {
-        "initialOwner": "0xA9a4f99D5902850D3a6Afcd59838110D26B101E4",
-        "treasury": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
-        "initialBusinessEntity": "TikiDeco project company / SPV to be formed",
-        "initialProjectJurisdiction": "Florida, USA",
-        "initialProjectURI": "https://tikideco.example/project"
-      }
+      "verification": "https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code"
     },
     "vestingVault": {
       "name": "TikiDecoVestingVault",
       "address": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
       "source": "contracts/TikiDecoVestingVault.sol",
-      "verification": "https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code",
-      "constructorArguments": {
-        "tokenAddress": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
-        "initialOwner": "0xA9a4f99D5902850D3a6Afcd59838110D26B101E4"
-      }
+      "verification": "https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code"
     }
   },
   "ownership": {

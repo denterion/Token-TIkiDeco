@@ -9,7 +9,7 @@ TikiDeco / TIDE is a public Sepolia prototype for a transparent Ethereum token l
 ## Public Links
 
 - GitHub: <https://github.com/denterion/Token-TIkiDeco>
-- Website: <https://denterion.github.io/Token-TIkiDeco/>
+- Website: <https://tikideco.xyz/>
 - TikiDecoToken: <https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097>
 - TikiDecoVestingVault: <https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E>
 - Verified source: both Sepolia contracts have verified Solidity source code on Etherscan.

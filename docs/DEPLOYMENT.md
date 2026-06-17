@@ -17,7 +17,7 @@ Set these values in `.env`:
 ```text
 BUSINESS_ENTITY=TikiDeco project company / SPV to be formed
 PROJECT_JURISDICTION=Florida, USA
-PROJECT_URI=https://tikideco.example/project
+PROJECT_URI=https://tikideco.xyz/project
 ```
 
 Update them before a public deployment.

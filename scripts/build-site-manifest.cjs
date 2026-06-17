@@ -9,6 +9,15 @@ function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 }
 
+function publicContract(contract) {
+  return {
+    name: contract.name,
+    address: contract.address,
+    source: contract.source,
+    verification: contract.verification
+  };
+}
+
 function main() {
   const canonical = readJson(canonicalPath);
   const publicManifest = {
@@ -18,7 +27,10 @@ function main() {
     contractVersion: canonical.contractVersion,
     sourceCommit: canonical.sourceCommit,
     compiler: canonical.compiler,
-    contracts: canonical.contracts,
+    contracts: {
+      token: publicContract(canonical.contracts.token),
+      vestingVault: publicContract(canonical.contracts.vestingVault)
+    },
     ownership: canonical.ownership,
     treasury: canonical.treasury,
     publishedReports: canonical.publishedReports,

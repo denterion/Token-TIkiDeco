@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://denterion.github.io/Token-TIkiDeco/sitemap.xml
+Sitemap: https://tikideco.xyz/sitemap.xml
