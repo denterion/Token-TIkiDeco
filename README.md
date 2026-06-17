@@ -4,7 +4,7 @@
 
 # TikiDeco Token
 
-**TIDE: a neon art deco Ethereum token layer for the future TikiDeco Miami Beach hospitality concept.**
+**TikiDeco is an open-source Sepolia prototype exploring transparent loyalty and access infrastructure for a future hospitality concept. TIDE currently has no monetary value and is not offered for sale.**
 
 [![CI](https://github.com/denterion/Token-TIkiDeco/actions/workflows/ci.yml/badge.svg)](https://github.com/denterion/Token-TIkiDeco/actions/workflows/ci.yml)
 ![Solidity](https://img.shields.io/badge/Solidity-0.8.28-2f2f2f)
@@ -16,7 +16,9 @@
 [Website](https://denterion.github.io/Token-TIkiDeco/) |
 [Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097) |
 [Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E) |
-[White Paper](docs/WHITEPAPER_EN.md)
+[White Paper](docs/WHITEPAPER_EN.md) |
+[Project Facts](docs/PROJECT_FACTS.md) |
+[Claims Matrix](docs/CLAIMS_MATRIX.md)
 
 </div>
 
