@@ -1,13 +1,17 @@
-const hre = require("hardhat");
-const { projectConfig } = require("../config/project");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
+const { projectConfig } = require("../config/project.cjs");
 
 function requireAddress(name, value) {
-  if (!value || !hre.ethers.isAddress(value)) {
+  if (!value || !ethers.isAddress(value)) {
     throw new Error(`${name} must be a valid Ethereum address`);
   }
 }
 
 async function main() {
+  ({ ethers, networkName } = await getHardhatConnection());
   const rpcUrl = process.env.SEPOLIA_RPC_URL;
   const privateKey = process.env.DEPLOYER_PRIVATE_KEY;
 
@@ -19,8 +23,8 @@ async function main() {
     throw new Error("DEPLOYER_PRIVATE_KEY is missing. Use a test wallet private key only.");
   }
 
-  const provider = new hre.ethers.JsonRpcProvider(rpcUrl);
-  const deployer = new hre.ethers.Wallet(privateKey, provider);
+  const provider = new ethers.JsonRpcProvider(rpcUrl);
+  const deployer = new ethers.Wallet(privateKey, provider);
   const owner = process.env.OWNER_ADDRESS || deployer.address;
   const treasury = process.env.TREASURY_ADDRESS || owner;
   const network = await provider.getNetwork();
@@ -38,7 +42,7 @@ async function main() {
   console.log("Network:", "sepolia");
   console.log("Chain ID:", network.chainId.toString());
   console.log("Deployer:", deployer.address);
-  console.log("Deployer balance:", hre.ethers.formatEther(balance), "Sepolia ETH");
+  console.log("Deployer balance:", ethers.formatEther(balance), "Sepolia ETH");
   console.log("Owner:", owner);
   console.log("Treasury:", treasury);
   console.log("Business entity:", projectConfig.businessEntity);
@@ -54,3 +58,6 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+

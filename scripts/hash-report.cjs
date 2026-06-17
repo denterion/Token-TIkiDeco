@@ -1,8 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const hre = require("hardhat");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
 
 async function main() {
+  ({ ethers, networkName } = await getHardhatConnection());
   const reportPath = process.argv[2] || "docs/reports/GENESIS_REPORT.md";
   const absolutePath = path.resolve(reportPath);
 
@@ -11,7 +15,7 @@ async function main() {
   }
 
   const bytes = fs.readFileSync(absolutePath);
-  const hash = hre.ethers.keccak256(bytes);
+  const hash = ethers.keccak256(bytes);
 
   console.log("Report:", reportPath);
   console.log("Bytes:", bytes.length);
@@ -22,3 +26,6 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+

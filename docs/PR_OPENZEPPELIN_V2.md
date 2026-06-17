@@ -22,7 +22,7 @@ Added:
 
 - `contracts/TikiDecoTokenV2.sol`
 - `contracts/TikiDecoVestingVaultV2.sol`
-- `scripts/deploy-v2.js`
+- `scripts/deploy-v2.cjs`
 - `docs/OPENZEPPELIN_V2.md`
 - V2 test coverage for token and vesting behavior
 - V2 deploy scripts for localhost and Sepolia

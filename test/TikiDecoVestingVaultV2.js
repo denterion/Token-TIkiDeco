@@ -1,6 +1,8 @@
-const { expect } = require("chai");
-const { ethers } = require("hardhat");
-const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
+import { anyValue } from "@nomicfoundation/hardhat-ethers-chai-matchers/withArgs";
+import { expect } from "chai";
+import { network } from "hardhat";
+
+const { ethers } = await network.create();
 
 const MONTH = 30 * 24 * 60 * 60;
 
@@ -286,7 +288,7 @@ describe("TikiDecoVestingVaultV2", function () {
         1,
         true
       )
-    ).to.be.reverted;
+    ).to.revert(ethers);
   });
 
   it("supports old start dates using current timestamp vesting math", async function () {

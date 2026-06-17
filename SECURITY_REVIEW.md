@@ -79,8 +79,8 @@ Files:
 - `README.md:54`
 - `README.md:55`
 - `docs/OPENZEPPELIN_V2.md`
-- `scripts/deploy.js`
-- `scripts/deploy-v2.js`
+- `scripts/deploy.cjs`
+- `scripts/deploy-v2.cjs`
 
 Risk scenario:
 
@@ -151,7 +151,7 @@ Fixed in this branch. V2 revoke now refunds only to `treasury`, and treasury cha
 Files:
 
 - `package.json:24`
-- `scripts/deploy-v2.js`
+- `scripts/deploy-v2.cjs`
 - `docs/DEPLOYMENT.md:42`
 - `docs/OPENZEPPELIN_V2.md:78`
 
@@ -200,7 +200,7 @@ Documented; no on-chain changes in this branch.
 
 Files:
 
-- `scripts/publish-report.js`
+- `scripts/publish-report.cjs`
 - `package.json:11`
 - `docs/GOVERNANCE.md:103`
 
@@ -328,8 +328,8 @@ Files:
 - `.github/dependabot.yml`
 - `.gitleaks.toml`
 - `slither.config.json`
-- `scripts/check-bytecode-size.js`
-- `scripts/check-deployment-manifest.js`
+- `scripts/check-bytecode-size.cjs`
+- `scripts/check-deployment-manifest.cjs`
 
 Risk scenario:
 
@@ -345,17 +345,20 @@ Add coverage and static analysis later, for example Solidity coverage and Slithe
 
 Status:
 
-Fixed in this branch as CI configuration. The repository now includes Solidity coverage, Slither workflow, npm audit script, pinned direct dependencies, Dependabot, Gitleaks secret scanning workflow, bytecode size check, gas snapshot script, and deployment manifest consistency check.
+Fixed in this branch as CI configuration. The repository now includes Hardhat 3 built-in coverage, Slither workflow, npm audit script, pinned direct dependencies, npm overrides for audited transitive packages, Dependabot, Gitleaks secret scanning workflow, bytecode size check, gas snapshot script, and deployment manifest consistency check.
 
 Local status from this branch:
 
-- `npm run compile`: passed
+- `npm run compile`: passed on Hardhat 3
 - `npm test`: passed, 56 tests
+- `npm run coverage`: passed, total line coverage 84.83% under Hardhat 3 built-in coverage
+- `npm run gas:snapshot`: passed using Hardhat 3 `--gas-stats`
+- `npm run audit`: passed with 0 vulnerabilities
 - `npm run lint`: passed
 - `npm run manifest:check`: passed
 - `npm run bytecode:size`: passed
 
-`npm audit` still reports dependency vulnerabilities in the Hardhat/tooling dependency tree; see remaining risks before production use.
+The previous Hardhat 2-only `solidity-coverage` and `hardhat-gas-reporter` plugins were removed. Coverage and gas statistics now use Hardhat 3 built-in flags.
 
 ### I-04: Slither static analysis findings require triage before any production promotion
 
@@ -381,25 +384,33 @@ Likelihood: Low to Medium.
 
 Impact: Informational to Low for the current Sepolia prototype. The timestamp findings are expected for vesting math; the strict equality checks are zero-amount guards; the locked-ether findings are false positives for ordinary ETH sends because the functions revert; the low-level call is legacy V1 code that is already deployed and preserved as historical source.
 
-Recommended fix:
+Review decision:
 
-Do not suppress Slither output silently. For V2, keep these findings visible until a focused review decides whether to refactor reverting ETH handlers, tune detector configuration with documented justification, or accept the findings in an audit note. Do not change deployed V1 source semantics merely to silence static analysis.
+- `incorrect-equality` on `amount == 0`: accepted for V1 legacy and V2 candidate. This is an intentional zero-releasable guard, not an equality-based authorization or balance invariant.
+- `locked-ether` on reverting `receive()` and `fallback()`: accepted. The contracts intentionally reject native ETH and do not include an ETH withdrawal function because they are not meant to custody ETH.
+- `timestamp` on vesting math: accepted. Vesting is intentionally time-based. Production schedules should use periods where miner/validator timestamp variance is immaterial.
+- `low-level-calls` in legacy V1 local safe token wrapper: accepted as legacy-only. V2 uses OpenZeppelin `SafeERC20`.
 
 Status:
 
-Documented. Slither is wired into CI and was run locally. It exits non-zero because findings remain visible.
+Triaged and documented. These findings are not treated as blockers for the V2 candidate branch, but they must remain in the promotion notes for any future V2 deployment review. Do not modify already deployed V1 source semantics merely to silence static analysis.
 
-### I-05: npm audit flags Hardhat/tooling dependency vulnerabilities
+Hardhat 3 note:
+
+Slither currently fails when routed through `crytic-compile`'s Hardhat project parser because Hardhat 3 emits a different build shape. The project therefore runs Slither directly against the `contracts/` directory with solc 0.8.28 and the OpenZeppelin remapping. The CI Slither step is non-blocking because the 15 findings above have explicit review decisions and should remain visible.
+
+### I-05: npm audit flagged Hardhat/tooling dependency vulnerabilities
 
 Files:
 
 - `package.json`
 - `package-lock.json`
 - `.github/workflows/security.yml`
+- `hardhat.config.js`
 
 Risk scenario:
 
-`npm audit --audit-level=moderate` reports vulnerabilities in development dependencies and transitive Hardhat/tooling packages including `bn.js`, `cookie`, `elliptic`, `js-yaml`, `lodash`, `serialize-javascript`, `tmp`, `undici`, `uuid`, and `ws`. The available automated fixes require breaking changes such as Hardhat 3/toolbox 7 migration or coverage downgrades.
+The earlier Hardhat 2 toolchain reported vulnerabilities in development dependencies and transitive packages including `bn.js`, `cookie`, `elliptic`, `js-yaml`, `lodash`, `serialize-javascript`, `tmp`, `undici`, `uuid`, and `ws`. The available automated fixes required a breaking Hardhat 3 migration.
 
 Likelihood: Medium.
 
@@ -407,11 +418,40 @@ Impact: Informational to Medium for developer machines and CI. These are not Sol
 
 Recommended fix:
 
-Keep dependency versions pinned, use Dependabot PRs, and plan a separate Hardhat 3/toolbox 7 migration branch. Do not apply `npm audit fix --force` inside this hardening branch without reviewing breaking changes.
+Migrate to Hardhat 3, remove Hardhat 2-only plugins, pin direct dependencies, add npm overrides for fixed transitive packages, and keep Dependabot active.
 
 Status:
 
-Open. `npm audit fix` without `--force` made no changes. `npm audit` still exits non-zero with 45 reported vulnerabilities.
+Fixed in this branch. The project now uses Hardhat 3 with `@nomicfoundation/hardhat-ethers`, `@nomicfoundation/hardhat-ethers-chai-matchers`, and `@nomicfoundation/hardhat-mocha`. The deprecated `@nomicfoundation/hardhat-toolbox` package is not used. `npm run audit` passes with `0 vulnerabilities`.
+
+Verification note:
+
+`@nomicfoundation/hardhat-verify` is intentionally not installed because its current dependency tree reintroduced a no-fix ethers v5 `elliptic` advisory through `@ethersproject/abi`. Canonical Sepolia V1 is already verified. Future V2 verification should be done manually on Etherscan or re-enabled when the Hardhat 3 verify dependency tree is audit-clean.
+
+### I-06: V2 remains non-canonical candidate code
+
+Files:
+
+- `deployments/canonical.json`
+- `contracts/TikiDecoTokenV2.sol`
+- `contracts/TikiDecoVestingVaultV2.sol`
+- `README.md`
+
+Risk scenario:
+
+Security-hardening work can make V2 look production-ready before governance, verification, legal review, and a deployment promotion decision are complete.
+
+Likelihood: Medium.
+
+Impact: Medium. Public confusion could lead users to treat candidate code as the active Sepolia deployment.
+
+Recommended fix:
+
+Keep Sepolia V1 as `v1-legacy` canonical deployment. Treat V2 as candidate code until a future promotion manifest explicitly changes the canonical version.
+
+Status:
+
+Open by design. V2 is not production, not audited, and not deployed by this branch.
 
 ### I-02: V1 custom ERC-20 implementation is historical; V2 uses OpenZeppelin primitives
 

@@ -10,8 +10,6 @@ updates:
         patterns:
           - "hardhat"
           - "@nomicfoundation/*"
-          - "solidity-coverage"
-          - "hardhat-gas-reporter"
       openzeppelin:
         patterns:
           - "@openzeppelin/*"

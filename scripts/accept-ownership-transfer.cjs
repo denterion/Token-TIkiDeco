@@ -1,17 +1,21 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const hre = require("hardhat");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
 
 async function main() {
-  const deploymentPath = path.join(__dirname, "..", "deployments", `${hre.network.name}.json`);
+  ({ ethers, networkName } = await getHardhatConnection());
+  const deploymentPath = path.join(__dirname, "..", "deployments", `${networkName}.json`);
   if (!fs.existsSync(deploymentPath)) {
     throw new Error(`Missing deployment record: ${deploymentPath}`);
   }
 
   const deployment = JSON.parse(fs.readFileSync(deploymentPath, "utf8"));
-  const [signer] = await hre.ethers.getSigners();
-  const token = await hre.ethers.getContractAt("TikiDecoToken", deployment.token, signer);
-  const vault = await hre.ethers.getContractAt("TikiDecoVestingVault", deployment.vestingVault, signer);
+  const [signer] = await ethers.getSigners();
+  const token = await ethers.getContractAt("TikiDecoToken", deployment.token, signer);
+  const vault = await ethers.getContractAt("TikiDecoVestingVault", deployment.vestingVault, signer);
 
   const tokenPendingOwner = await token.pendingOwner();
   const vaultPendingOwner = await vault.pendingOwner();
@@ -26,7 +30,7 @@ async function main() {
 
   console.log("Accepting ownership transfer");
   console.log("----------------------------");
-  console.log("Network:", hre.network.name);
+  console.log("Network:", networkName);
   console.log("New owner:", signer.address);
 
   const tokenTx = await token.acceptOwnership();
@@ -42,3 +46,6 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+

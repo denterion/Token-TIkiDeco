@@ -192,12 +192,12 @@ npm run audit
 npm run slither
 ```
 
-`npm run slither` requires Slither to be installed on the machine. GitHub Actions runs it through the Slither action.
+`npm run slither` requires Slither and solc 0.8.28 to be installed on the machine. GitHub Actions installs them and runs Slither directly against `contracts/`.
 
 Run a local deployment:
 
 ```bash
-npx hardhat run scripts/deploy.js
+npx hardhat run scripts/deploy.cjs
 ```
 
 Start a local node and deploy to it:
@@ -264,6 +264,7 @@ Because owner control is now Safe-based, future report publication should be pre
 | [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md) | Safe handover runbook and transaction workflow. |
 | [`docs/OPENZEPPELIN_V2.md`](docs/OPENZEPPELIN_V2.md) | OpenZeppelin-based V2 track, differences, and deploy path. |
 | [`docs/ACCESS_CONTROL.md`](docs/ACCESS_CONTROL.md) | V2 role separation, prefunded vault model, and treasury controls. |
+| [`docs/HARDHAT3_MIGRATION.md`](docs/HARDHAT3_MIGRATION.md) | Hardhat 3 migration notes, audit-clean tooling, and verification tradeoffs. |
 | [`docs/TREASURY_POLICY.md`](docs/TREASURY_POLICY.md) | Starter treasury discipline and Safe approval policy. |
 | [`docs/REPORTING_CADENCE.md`](docs/REPORTING_CADENCE.md) | Reporting cadence and on-chain publication workflow. |
 | [`docs/COMMUNICATION_POLICY.md`](docs/COMMUNICATION_POLICY.md) | Public language boundaries for community and partners. |
@@ -281,6 +282,8 @@ Verify Sepolia source code after setting `ETHERSCAN_API_KEY`:
 ```bash
 npm run verify:sepolia
 ```
+
+This branch uses Hardhat 3 with an audit-clean dev dependency tree. The Hardhat verify plugin is intentionally not installed because its current dependency tree reintroduces npm audit advisories. The canonical Sepolia V1 contracts are already verified; future V2 verification should be handled manually on Etherscan or re-enabled once the Hardhat 3 verify dependency tree is clean.
 
 ## Public Website
 

@@ -1,5 +1,8 @@
-const hre = require("hardhat");
-const { validateTokenomics } = require("../config/tokenomics");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
+const { validateTokenomics } = require("../config/tokenomics.cjs");
 
 const beneficiaryEnvByKey = {
   team: "TEAM_BENEFICIARY",
@@ -9,7 +12,8 @@ const beneficiaryEnvByKey = {
 };
 
 async function main() {
-  const totalSupply = hre.ethers.parseUnits("100000000", 18);
+  ({ ethers, networkName } = await getHardhatConnection());
+  const totalSupply = ethers.parseUnits("100000000", 18);
   const vestingBuckets = validateTokenomics().filter((bucket) => bucket.vestingDuration);
 
   console.log("TikiDeco vesting plan");
@@ -23,7 +27,7 @@ async function main() {
     const beneficiary = process.env[envName] || "<missing>";
 
     console.log(`${bucket.label}`);
-    console.log(`  Amount: ${hre.ethers.formatUnits(amount, 18)} TIDE`);
+    console.log(`  Amount: ${ethers.formatUnits(amount, 18)} TIDE`);
     console.log(`  Beneficiary env: ${envName}=${beneficiary}`);
     console.log(`  Cliff duration seconds: ${bucket.cliffDuration}`);
     console.log(`  Vesting duration seconds: ${bucket.vestingDuration}`);
@@ -31,10 +35,13 @@ async function main() {
     console.log(`  Revocable: ${bucket.revocable}`);
   }
 
-  console.log("Total planned vesting:", hre.ethers.formatUnits(totalVested, 18), "TIDE");
+  console.log("Total planned vesting:", ethers.formatUnits(totalVested, 18), "TIDE");
 }
 
 main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+

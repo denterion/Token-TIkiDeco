@@ -1,9 +1,13 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const hre = require("hardhat");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
 
 async function main() {
-  const deploymentPath = path.join(__dirname, "..", "deployments", `${hre.network.name}.json`);
+  ({ ethers, networkName } = await getHardhatConnection());
+  const deploymentPath = path.join(__dirname, "..", "deployments", `${networkName}.json`);
   if (!fs.existsSync(deploymentPath)) {
     throw new Error(`Missing deployment record: ${deploymentPath}`);
   }
@@ -13,10 +17,10 @@ async function main() {
   const reportURI = process.env.REPORT_URI || "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/GENESIS_REPORT.md";
 
   const reportBytes = fs.readFileSync(path.resolve(reportPath));
-  const reportHash = hre.ethers.keccak256(reportBytes);
+  const reportHash = ethers.keccak256(reportBytes);
   const deployment = JSON.parse(fs.readFileSync(deploymentPath, "utf8"));
-  const [signer] = await hre.ethers.getSigners();
-  const token = await hre.ethers.getContractAt("TikiDecoToken", deployment.token, signer);
+  const [signer] = await ethers.getSigners();
+  const token = await ethers.getContractAt("TikiDecoToken", deployment.token, signer);
   const owner = await token.owner();
 
   if (signer.address.toLowerCase() !== owner.toLowerCase()) {
@@ -27,7 +31,7 @@ async function main() {
   const receipt = await tx.wait();
 
   console.log("Published report");
-  console.log("Network:", hre.network.name);
+  console.log("Network:", networkName);
   console.log("Token:", deployment.token);
   console.log("Category:", reportCategory);
   console.log("URI:", reportURI);
@@ -39,3 +43,6 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+

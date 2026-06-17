@@ -1,9 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const hre = require("hardhat");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
 
 function requireAddress(name, value) {
-  if (!value || !hre.ethers.isAddress(value)) {
+  if (!value || !ethers.isAddress(value)) {
     throw new Error(`${name} must be a valid Ethereum address`);
   }
 }
@@ -26,7 +29,8 @@ function transactionBuilderFile(chainId, transactions, name, description) {
 }
 
 async function main() {
-  const deploymentPath = path.join(__dirname, "..", "deployments", `${hre.network.name}.json`);
+  ({ ethers, networkName } = await getHardhatConnection());
+  const deploymentPath = path.join(__dirname, "..", "deployments", `${networkName}.json`);
   if (!fs.existsSync(deploymentPath)) {
     throw new Error(`Missing deployment record: ${deploymentPath}`);
   }
@@ -45,12 +49,12 @@ async function main() {
   requireAddress("deployment.owner", deployment.owner);
 
   const reportBytes = fs.readFileSync(path.resolve(reportPath));
-  const reportHash = hre.ethers.keccak256(reportBytes);
+  const reportHash = ethers.keccak256(reportBytes);
 
   const abi = [
     "function publishReport(bytes32 documentHash, string category, string uri) returns (uint256 reportId)"
   ];
-  const iface = new hre.ethers.Interface(abi);
+  const iface = new ethers.Interface(abi);
   const data = iface.encodeFunctionData("publishReport", [reportHash, category, uri]);
 
   const contractMethod = {
@@ -96,7 +100,7 @@ async function main() {
 
   const outputDir = path.join(__dirname, "..", "operations");
   fs.mkdirSync(outputDir, { recursive: true });
-  const outputPath = path.join(outputDir, `${hre.network.name}-safe-publish-report-2026-06-17.json`);
+  const outputPath = path.join(outputDir, `${networkName}-safe-publish-report-2026-06-17.json`);
   fs.writeFileSync(outputPath, `${JSON.stringify(safeBatch, null, 2)}\n`);
 
   const manifestPath = path.join(__dirname, "..", "docs", "reports", "REPORT_2026_06_17_SAFE_AND_V2_HASH.md");
@@ -128,7 +132,7 @@ async function main() {
 
   console.log("Prepared Safe report publication");
   console.log("--------------------------------");
-  console.log("Network:", hre.network.name);
+  console.log("Network:", networkName);
   console.log("Owner Safe:", deployment.owner);
   console.log("Token:", deployment.token);
   console.log("Report:", reportPath);
@@ -143,3 +147,6 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+

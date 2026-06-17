@@ -1,9 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
-const hre = require("hardhat");
+const { getHardhatConnection } = require("./hardhat-connection.cjs");
+
+let ethers;
+let networkName;
 
 function requireAddress(name, value) {
-  if (!value || !hre.ethers.isAddress(value)) {
+  if (!value || !ethers.isAddress(value)) {
     throw new Error(`${name} must be a valid Ethereum address`);
   }
 }
@@ -36,10 +39,11 @@ function safeTx(to, value, data, contractMethod, contractInputsValues) {
 }
 
 async function main() {
+  ({ ethers, networkName } = await getHardhatConnection());
   const safeAddress = process.env.SAFE_ADDRESS || process.env.NEW_OWNER_ADDRESS;
   requireAddress("SAFE_ADDRESS or NEW_OWNER_ADDRESS", safeAddress);
 
-  const deploymentPath = path.join(__dirname, "..", "deployments", `${hre.network.name}.json`);
+  const deploymentPath = path.join(__dirname, "..", "deployments", `${networkName}.json`);
   if (!fs.existsSync(deploymentPath)) {
     throw new Error(`Missing deployment record: ${deploymentPath}`);
   }
@@ -55,7 +59,7 @@ async function main() {
     "function transferOwnership(address newOwner)",
     "function acceptOwnership()"
   ];
-  const iface = new hre.ethers.Interface(ownableAbi);
+  const iface = new ethers.Interface(ownableAbi);
 
   const proposeMethod = {
     inputs: [
@@ -80,7 +84,7 @@ async function main() {
   const acceptData = iface.encodeFunctionData("acceptOwnership", []);
 
   const ownerProposal = {
-    network: hre.network.name,
+    network: networkName,
     chainId: deployment.chainId,
     generatedAt: new Date().toISOString(),
     currentOwner: deployment.owner,
@@ -120,15 +124,15 @@ async function main() {
     "Accept two-step ownership for TikiDecoToken and TikiDecoVestingVault from the Sepolia Safe."
   );
 
-  const ownerProposalPath = path.join(outputDir, `${hre.network.name}-owner-propose-safe-ownership.json`);
-  const safeAcceptPath = path.join(outputDir, `${hre.network.name}-safe-accept-ownership.json`);
+  const ownerProposalPath = path.join(outputDir, `${networkName}-owner-propose-safe-ownership.json`);
+  const safeAcceptPath = path.join(outputDir, `${networkName}-safe-accept-ownership.json`);
 
   fs.writeFileSync(ownerProposalPath, `${JSON.stringify(ownerProposal, null, 2)}\n`);
   fs.writeFileSync(safeAcceptPath, `${JSON.stringify(safeAccept, null, 2)}\n`);
 
   console.log("Prepared Safe ownership handover files");
   console.log("--------------------------------------");
-  console.log("Network:", hre.network.name);
+  console.log("Network:", networkName);
   console.log("Safe:", safeAddress);
   console.log("Owner proposal:", ownerProposalPath);
   console.log("Safe acceptance:", safeAcceptPath);
@@ -145,3 +149,6 @@ main().catch((error) => {
   console.error(error);
   process.exitCode = 1;
 });
+
+
+
