@@ -29,6 +29,7 @@
     "lint": "npm run compile && node scripts/check-deployment-manifest.cjs && node scripts/check-bytecode-size.cjs",
     "site:build": "node scripts/build-site-manifest.cjs",
     "site:check": "npm run site:build && node scripts/check-site-content.cjs",
+    "release:check": "node scripts/check-release-draft.cjs",
     "bytecode:size": "node scripts/check-bytecode-size.cjs",
     "manifest:check": "node scripts/check-deployment-manifest.cjs",
     "gas:snapshot": "hardhat test --gas-stats",

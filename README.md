@@ -150,6 +150,7 @@ npm run coverage
 npm run gas:snapshot
 npm run audit
 npm run site:check
+npm run release:check
 ```
 
 Slither:
