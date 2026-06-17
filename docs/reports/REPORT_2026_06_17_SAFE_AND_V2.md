@@ -118,7 +118,7 @@ The test suite covers both V1 and V2 contract tracks.
 
 Website:
 
-<https://denterion.github.io/Token-TIkiDeco/>
+<https://tikideco.xyz/>
 
 GitHub:
 

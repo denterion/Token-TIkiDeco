@@ -13,7 +13,7 @@
 ![Supply](https://img.shields.io/badge/Supply-100M%20TIDE-0f766e)
 ![Status](https://img.shields.io/badge/Status-Testnet%20prototype-b7791f)
 
-[Website](https://denterion.github.io/Token-TIkiDeco/) |
+[Website](https://tikideco.xyz/) |
 [Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
 [Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
 [Project Facts](docs/PROJECT_FACTS.md) |
@@ -198,6 +198,7 @@ Reporting cadence: [`docs/REPORTING_CADENCE.md`](docs/REPORTING_CADENCE.md)
 | Governance | [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md), [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md), [`docs/TREASURY_POLICY.md`](docs/TREASURY_POLICY.md), [`docs/ACCESS_CONTROL.md`](docs/ACCESS_CONTROL.md) |
 | Communications | [`docs/CLAIMS_MATRIX.md`](docs/CLAIMS_MATRIX.md), [`docs/COMMUNICATION_POLICY.md`](docs/COMMUNICATION_POLICY.md), [`docs/COMMUNICATION_PLAYBOOK.md`](docs/COMMUNICATION_PLAYBOOK.md), [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) |
 | Legal readiness | [`docs/LEGAL_READINESS.md`](docs/LEGAL_READINESS.md), [`docs/COUNSEL_BRIEF.md`](docs/COUNSEL_BRIEF.md) |
+| Custom domain | [`docs/CUSTOM_DOMAIN.md`](docs/CUSTOM_DOMAIN.md) |
 
 ## Responsible Disclosure
 
