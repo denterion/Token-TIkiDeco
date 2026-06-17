@@ -39,6 +39,14 @@ npm run deploy:sepolia
 
 The deploy script writes a deployment record to `deployments/sepolia.json`.
 
+OpenZeppelin V2 testnet candidate:
+
+```bash
+npm run deploy:v2:sepolia
+```
+
+The V2 deploy script writes a separate deployment record to `deployments/sepolia-v2.json`.
+
 ## 5. After Deployment
 
 1. Confirm owner and treasury addresses.

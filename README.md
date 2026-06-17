@@ -51,12 +51,15 @@ TIDE now has a dedicated token emblem inspired by Miami Beach nightlife, art dec
 | --- | --- |
 | [`TikiDecoToken`](contracts/TikiDecoToken.sol) | ERC-20 compatible fixed-supply token with pause controls and report hash publishing. |
 | [`TikiDecoVestingVault`](contracts/TikiDecoVestingVault.sol) | Vesting vault for team, partners, community rewards, and future hotel perks. |
+| [`TikiDecoTokenV2`](contracts/TikiDecoTokenV2.sol) | OpenZeppelin-based V2 token track for review and future deployment. |
+| [`TikiDecoVestingVaultV2`](contracts/TikiDecoVestingVaultV2.sol) | OpenZeppelin-based V2 vesting vault track. |
 
 Security-minded defaults:
 
 - no public mint function
 - two-step ownership transfer
 - Safe multisig handover runbook
+- OpenZeppelin V2 review branch
 - owner/treasury separation
 - safer allowance adjustments
 - guarded vesting token calls
@@ -164,6 +167,12 @@ Run the full test suite:
 npm test
 ```
 
+Current V1+V2 suite:
+
+```text
+36 passing
+```
+
 Run a local deployment:
 
 ```bash
@@ -219,6 +228,7 @@ npm run report:publish:sepolia
 | [`docs/UTILITY.md`](docs/UTILITY.md) | Realistic hospitality-linked token utility scenarios. |
 | [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md) | Owner operations and multisig migration plan. |
 | [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md) | Safe handover runbook and transaction workflow. |
+| [`docs/OPENZEPPELIN_V2.md`](docs/OPENZEPPELIN_V2.md) | OpenZeppelin-based V2 track, differences, and deploy path. |
 | [`docs/SHOWCASE.md`](docs/SHOWCASE.md) | Public links and safe messaging. |
 | [`docs/FAQ.md`](docs/FAQ.md) | Public FAQ for collaborators and early community members. |
 | [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |
