@@ -1,0 +1,2 @@
+docs/reports/*.md text eol=lf
+operations/*.json text eol=lf

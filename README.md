@@ -234,6 +234,7 @@ npm run report:publish:sepolia
 | [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) | Risk and communication boundaries. |
 | [`docs/METAMASK.md`](docs/METAMASK.md) | How to view TIDE in MetaMask on Sepolia. |
 | [`docs/reports/GENESIS_REPORT.md`](docs/reports/GENESIS_REPORT.md) | First transparency checkpoint report. |
+| [`docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`](docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md) | Safe ownership and OpenZeppelin V2 transparency checkpoint. |
 | [`docs/ETHERSCAN_VERIFY.md`](docs/ETHERSCAN_VERIFY.md) | Source-code verification instructions. |
 | [`SECURITY.md`](SECURITY.md) | Security scope, current protections, and reporting policy. |
 

@@ -9,6 +9,7 @@
     "tokenomics": "hardhat run scripts/print-tokenomics.js",
     "report:hash": "hardhat run scripts/hash-report.js",
     "report:publish:sepolia": "hardhat run scripts/publish-report.js --network sepolia",
+    "report:safe:sepolia": "hardhat run scripts/prepare-safe-report-publication.js --network sepolia",
     "vesting:plan": "hardhat run scripts/plan-vesting.js",
     "owner:check:sepolia": "hardhat run scripts/check-owner-state.js --network sepolia",
     "safe:handover:sepolia": "hardhat run scripts/prepare-safe-ownership-handover.js --network sepolia",
