@@ -211,11 +211,21 @@ Current Genesis Report hash manifest:
 
 [`docs/reports/GENESIS_REPORT_HASH.md`](docs/reports/GENESIS_REPORT_HASH.md)
 
-Publish the report hash from the owner wallet:
+Latest on-chain report:
 
-```bash
-npm run report:publish:sepolia
+[`docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`](docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md)
+
+Latest on-chain report hash:
+
+```text
+0x04119c47a7c09f09bfdcee87d77925e6f5ec89c2ea1fe9759feaae7091c0b5cc
 ```
+
+Publication transaction:
+
+[`0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9`](https://sepolia.etherscan.io/tx/0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9)
+
+Because owner control is now Safe-based, future report publication should be prepared with `npm run report:safe:sepolia` and executed through Safe.
 
 ## Project Docs
 

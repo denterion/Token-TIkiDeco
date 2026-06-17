@@ -17,6 +17,17 @@
   "treasury": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
   "token": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
   "vestingVault": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
+  "publishedReports": [
+    {
+      "reportId": 0,
+      "category": "safe-ownership-openzeppelin-v2",
+      "documentHash": "0x04119c47a7c09f09bfdcee87d77925e6f5ec89c2ea1fe9759feaae7091c0b5cc",
+      "uri": "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md",
+      "transaction": "0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9",
+      "block": 11078795,
+      "publishedAt": "2026-06-17T08:50:12.000Z"
+    }
+  ],
   "businessEntity": "TikiDeco project company / SPV to be formed",
   "jurisdiction": "Florida, USA",
   "projectURI": "https://tikideco.example/project"

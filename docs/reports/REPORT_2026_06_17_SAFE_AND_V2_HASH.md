@@ -19,3 +19,19 @@ Keccak256:
 Safe Transaction Builder file:
 
 `operations/sepolia-safe-publish-report-2026-06-17.json`
+
+On-chain publication transaction:
+
+`0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9`
+
+Published report ID:
+
+`0`
+
+Published at:
+
+`2026-06-17T08:50:12.000Z`
+
+Published in block:
+
+`11078795`
