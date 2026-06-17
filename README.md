@@ -25,6 +25,8 @@
 | --- | --- |
 | Token name | `TikiDeco` |
 | Symbol | `TIDE` |
+| Canonical Sepolia version | `v1-legacy` |
+| Candidate implementation | `v2-openzeppelin-candidate` |
 | Standard | ERC-20 compatible |
 | Fixed supply | `100,000,000 TIDE` |
 | Owner wallet | Sepolia Safe multisig `3-of-3` |
@@ -49,10 +51,14 @@ TIDE now has a dedicated token emblem inspired by Miami Beach nightlife, art dec
 
 | Contract | Purpose |
 | --- | --- |
-| [`TikiDecoToken`](contracts/TikiDecoToken.sol) | ERC-20 compatible fixed-supply token with pause controls and report hash publishing. |
-| [`TikiDecoVestingVault`](contracts/TikiDecoVestingVault.sol) | Vesting vault for team, partners, community rewards, and future hotel perks. |
-| [`TikiDecoTokenV2`](contracts/TikiDecoTokenV2.sol) | OpenZeppelin-based V2 token track for review and future deployment. |
-| [`TikiDecoVestingVaultV2`](contracts/TikiDecoVestingVaultV2.sol) | OpenZeppelin-based V2 vesting vault track. |
+| [`TikiDecoToken`](contracts/TikiDecoToken.sol) | Canonical Sepolia `v1-legacy` fixed-supply token with pause controls and report hash publishing. |
+| [`TikiDecoVestingVault`](contracts/TikiDecoVestingVault.sol) | Canonical Sepolia `v1-legacy` vesting vault preserved as deployed history. |
+| [`TikiDecoTokenV2`](contracts/TikiDecoTokenV2.sol) | Non-canonical OpenZeppelin V2 candidate for review and future deployment. |
+| [`TikiDecoVestingVaultV2`](contracts/TikiDecoVestingVaultV2.sol) | Non-canonical OpenZeppelin V2 vesting candidate with explicit `cliffDuration` and `vestingDuration`. |
+
+Canonical deployment manifest:
+
+[`deployments/canonical.json`](deployments/canonical.json)
 
 Security-minded defaults:
 
@@ -143,6 +149,8 @@ Sepolia deployment:
 
 Both contracts are verified on Sepolia Etherscan.
 
+This is the canonical historical Sepolia deployment (`v1-legacy`). OpenZeppelin V2 contracts in this repository are candidate code and are not the active Sepolia deployment.
+
 ```bash
 npm run sepolia:check
 npm run deploy:sepolia
@@ -232,6 +240,7 @@ Because owner control is now Safe-based, future report publication should be pre
 | Document | Purpose |
 | --- | --- |
 | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) | Deployment runbook and mainnet gate. |
+| [`SECURITY_REVIEW.md`](SECURITY_REVIEW.md) | Internal security review findings and remediation status. |
 | [`docs/SEPOLIA.md`](docs/SEPOLIA.md) | Sepolia-specific deployment checklist. |
 | [`docs/ROADMAP.md`](docs/ROADMAP.md) | Public roadmap from prototype to mainnet gate. |
 | [`docs/PITCH_DECK.md`](docs/PITCH_DECK.md) | Lightweight project pitch deck. |

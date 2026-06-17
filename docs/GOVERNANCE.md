@@ -99,13 +99,19 @@ The contracts use two-step ownership transfer, so ownership is not moved until t
 
 Only the token owner Safe can publish report hashes.
 
-Prepared command:
+Legacy direct-owner command:
 
 ```bash
-npm run report:publish:sepolia
+npm run report:publish:direct-owner:sepolia
 ```
 
 Because the owner is now Safe, report publishing should be proposed and executed through Safe.
+
+Preferred Safe workflow:
+
+```bash
+npm run report:safe:sepolia
+```
 
 ## Do Not
 

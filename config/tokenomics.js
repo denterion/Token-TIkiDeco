@@ -12,8 +12,8 @@ const tokenomics = [
     key: "team",
     label: "Team and advisors",
     bps: 1500,
-    cliff: 12 * MONTH,
-    duration: 36 * MONTH,
+    cliffDuration: 12 * MONTH,
+    vestingDuration: 36 * MONTH,
     revocable: true,
     vesting: "12-month cliff, then linear vesting over 36 months",
     purpose: "Long-term alignment for founders, operators, and advisors."
@@ -22,8 +22,8 @@ const tokenomics = [
     key: "partners",
     label: "Strategic partners",
     bps: 1000,
-    cliff: 6 * MONTH,
-    duration: 24 * MONTH,
+    cliffDuration: 6 * MONTH,
+    vestingDuration: 24 * MONTH,
     revocable: true,
     vesting: "6-month cliff, then linear vesting over 24 months",
     purpose: "Architecture, hospitality, development, and brand partnerships."
@@ -32,8 +32,8 @@ const tokenomics = [
     key: "community",
     label: "Community rewards",
     bps: 2000,
-    cliff: 0,
-    duration: 48 * MONTH,
+    cliffDuration: 0,
+    vestingDuration: 48 * MONTH,
     revocable: false,
     vesting: "Linear distribution over 48 months",
     purpose: "Community campaigns, referrals, education, and guest loyalty rewards."
@@ -42,8 +42,8 @@ const tokenomics = [
     key: "hotel_perks",
     label: "Future hotel perks",
     bps: 1500,
-    cliff: 0,
-    duration: 48 * MONTH,
+    cliffDuration: 0,
+    vestingDuration: 48 * MONTH,
     revocable: false,
     vesting: "Linear distribution over 48 months",
     purpose: "Room upgrades, early booking access, events, and brand experiences."

@@ -13,9 +13,16 @@ async function main() {
   const [deployer] = await hre.ethers.getSigners();
   const owner = process.env.OWNER_ADDRESS || deployer.address;
   const treasury = process.env.TREASURY_ADDRESS || owner;
+  const isLocalNetwork = hre.network.name === "hardhat" || hre.network.name === "localhost";
 
   requireAddress("OWNER_ADDRESS", owner);
   requireAddress("TREASURY_ADDRESS", treasury);
+
+  if (!isLocalNetwork && process.env.CONFIRM_NON_CANONICAL_V2_DEPLOY !== "true") {
+    throw new Error(
+      "TikiDeco V2 is a non-canonical candidate. Set CONFIRM_NON_CANONICAL_V2_DEPLOY=true to deploy it on a public network."
+    );
+  }
 
   const Token = await hre.ethers.getContractFactory("TikiDecoTokenV2");
   const token = await Token.deploy(

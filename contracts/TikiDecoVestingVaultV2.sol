@@ -18,8 +18,8 @@ contract TikiDecoVestingVaultV2 is Ownable2Step, ReentrancyGuard {
         uint128 totalAmount;
         uint128 releasedAmount;
         uint64 start;
-        uint64 cliff;
-        uint64 duration;
+        uint64 cliffDuration;
+        uint64 vestingDuration;
         uint64 revokedAt;
         bool revocable;
         bool revoked;
@@ -33,8 +33,8 @@ contract TikiDecoVestingVaultV2 is Ownable2Step, ReentrancyGuard {
         address indexed beneficiary,
         uint256 amount,
         uint64 start,
-        uint64 cliff,
-        uint64 duration,
+        uint64 cliffDuration,
+        uint64 vestingDuration,
         bool revocable
     );
     event TokensReleased(uint256 indexed scheduleId, address indexed beneficiary, uint256 amount);
@@ -79,14 +79,16 @@ contract TikiDecoVestingVaultV2 is Ownable2Step, ReentrancyGuard {
         address beneficiary,
         uint256 amount,
         uint64 start,
-        uint64 cliff,
-        uint64 duration,
+        uint64 cliffDuration,
+        uint64 vestingDuration,
         bool revocable
     ) external onlyOwner nonReentrant returns (uint256 scheduleId) {
         if (beneficiary == address(0)) revert ZeroAddress();
         if (amount == 0 || amount > type(uint128).max) revert InvalidAmount();
-        if (duration == 0 || cliff > duration) revert InvalidSchedule();
-        if (uint256(start) + uint256(duration) > type(uint64).max) revert InvalidSchedule();
+        if (vestingDuration == 0) revert InvalidSchedule();
+        if (uint256(start) + uint256(cliffDuration) + uint256(vestingDuration) > type(uint64).max) {
+            revert InvalidSchedule();
+        }
 
         scheduleId = scheduleCount;
         scheduleCount += 1;
@@ -96,8 +98,8 @@ contract TikiDecoVestingVaultV2 is Ownable2Step, ReentrancyGuard {
             totalAmount: uint128(amount),
             releasedAmount: 0,
             start: start,
-            cliff: cliff,
-            duration: duration,
+            cliffDuration: cliffDuration,
+            vestingDuration: vestingDuration,
             revokedAt: 0,
             revocable: revocable,
             revoked: false
@@ -105,7 +107,7 @@ contract TikiDecoVestingVaultV2 is Ownable2Step, ReentrancyGuard {
 
         token.safeTransferFrom(_msgSender(), address(this), amount);
 
-        emit ScheduleCreated(scheduleId, beneficiary, amount, start, cliff, duration, revocable);
+        emit ScheduleCreated(scheduleId, beneficiary, amount, start, cliffDuration, vestingDuration, revocable);
     }
 
     function releasable(uint256 scheduleId) public view returns (uint256) {
@@ -170,15 +172,18 @@ contract TikiDecoVestingVaultV2 is Ownable2Step, ReentrancyGuard {
             effectiveTimestamp = schedule.revokedAt;
         }
 
-        if (effectiveTimestamp < schedule.start + schedule.cliff) {
+        uint64 cliffEnd = schedule.start + schedule.cliffDuration;
+        uint64 vestingEnd = cliffEnd + schedule.vestingDuration;
+
+        if (effectiveTimestamp <= cliffEnd) {
             return 0;
         }
 
-        if (effectiveTimestamp >= schedule.start + schedule.duration) {
+        if (effectiveTimestamp >= vestingEnd) {
             return schedule.totalAmount;
         }
 
-        return (uint256(schedule.totalAmount) * (effectiveTimestamp - schedule.start)) / schedule.duration;
+        return (uint256(schedule.totalAmount) * (effectiveTimestamp - cliffEnd)) / schedule.vestingDuration;
     }
 
     receive() external payable {

@@ -53,6 +53,9 @@ describe("TikiDecoVestingVaultV2", function () {
 
     expect(await token.balanceOf(await vault.getAddress())).to.equal(amount);
     expect(await vault.scheduleCount()).to.equal(1);
+    const schedule = await vault.scheduleAt(0);
+    expect(schedule.cliffDuration).to.equal(6 * MONTH);
+    expect(schedule.vestingDuration).to.equal(24 * MONTH);
   });
 
   it("rejects EOA addresses as vesting tokens", async function () {
@@ -77,7 +80,7 @@ describe("TikiDecoVestingVaultV2", function () {
     ).to.be.revertedWithCustomError(vault, "NativeETHRejected");
   });
 
-  it("blocks release before cliff and releases vested tokens after cliff", async function () {
+  it("blocks release through cliff and releases linearly after cliff", async function () {
     const { token, vault, treasury, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("2400", 18);
     const start = await latestTimestamp();
@@ -95,7 +98,11 @@ describe("TikiDecoVestingVaultV2", function () {
     await expect(vault.connect(beneficiary).release(0))
       .to.be.revertedWithCustomError(vault, "InvalidAmount");
 
-    await increaseTime(12 * MONTH);
+    await increaseTime((6 * MONTH) - 10);
+    await expect(vault.connect(beneficiary).release(0))
+      .to.be.revertedWithCustomError(vault, "InvalidAmount");
+
+    await increaseTime((12 * MONTH) + 10);
     await vault.connect(beneficiary).release(0);
 
     const expected = amount / 2n;
@@ -103,6 +110,30 @@ describe("TikiDecoVestingVaultV2", function () {
       expected,
       ethers.parseUnits("2", 18)
     );
+  });
+
+  it("fully vests after cliff duration plus vesting duration", async function () {
+    const { token, vault, treasury, beneficiary } = await deployFixture();
+    const amount = ethers.parseUnits("2400", 18);
+    const start = await latestTimestamp();
+
+    await token.connect(treasury).approve(await vault.getAddress(), amount);
+    await vault.connect(treasury).createSchedule(
+      beneficiary.address,
+      amount,
+      start,
+      6 * MONTH,
+      24 * MONTH,
+      true
+    );
+
+    await increaseTime(29 * MONTH);
+    expect(await vault.releasable(0)).to.be.lessThan(amount);
+
+    await increaseTime(2 * MONTH);
+    await vault.connect(beneficiary).release(0);
+
+    expect(await token.balanceOf(beneficiary.address)).to.equal(amount);
   });
 
   it("returns unvested tokens when a revocable schedule is revoked", async function () {

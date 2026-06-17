@@ -4,6 +4,12 @@
 
 TikiDeco is pre-mainnet software. The contracts are covered by local tests, but they have not yet received an independent audit.
 
+Current internal review:
+
+[`SECURITY_REVIEW.md`](SECURITY_REVIEW.md)
+
+The internal review is not a substitute for an independent audit.
+
 ## Supported Scope
 
 Security review should focus on:

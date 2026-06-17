@@ -51,6 +51,12 @@ Commit `deployments/sepolia.json` after you confirm the addresses are correct. D
 
 ## Current Sepolia Deployment
 
+Canonical manifest:
+
+```text
+deployments/canonical.json
+```
+
 | Contract | Address |
 | --- | --- |
 | TikiDecoToken | [`0xE4c1DE533440b411Be5C17883FF662e95a462097`](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
@@ -60,6 +66,8 @@ Commit `deployments/sepolia.json` after you confirm the addresses are correct. D
 Verification status: both contracts are verified on Sepolia Etherscan.
 
 Ownership status: token and vesting vault owner is the Sepolia Safe `3-of-3`.
+
+Version status: `v1-legacy` is the active canonical Sepolia deployment. OpenZeppelin V2 contracts are non-canonical candidate code unless a future manifest explicitly promotes them.
 
 Check the deployed state:
 

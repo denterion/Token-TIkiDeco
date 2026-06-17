@@ -1,8 +1,8 @@
 # OpenZeppelin V2 Track
 
-This branch introduces an OpenZeppelin-based V2 implementation for TikiDeco / TIDE.
+This document describes the OpenZeppelin-based V2 candidate implementation for TikiDeco / TIDE.
 
-V2 is not a replacement for the currently deployed Sepolia contracts until it is reviewed, deployed, verified, and explicitly published as the active version.
+V2 is non-canonical. It is not a replacement for the currently deployed Sepolia contracts until it is reviewed, deployed, verified, and explicitly published as the active version in `deployments/canonical.json`.
 
 ## What Changed
 
@@ -19,7 +19,7 @@ V2 is not a replacement for the currently deployed Sepolia contracts until it is
 | Contract | Purpose |
 | --- | --- |
 | `contracts/TikiDecoTokenV2.sol` | Fixed-supply TIDE token with OpenZeppelin ERC-20 primitives, two-step ownership, pause controls, zero-first approve hardening, and transparency report publishing. |
-| `contracts/TikiDecoVestingVaultV2.sol` | Vesting vault using OpenZeppelin SafeERC20, Ownable2Step, and ReentrancyGuard. |
+| `contracts/TikiDecoVestingVaultV2.sol` | Vesting vault using OpenZeppelin SafeERC20, Ownable2Step, ReentrancyGuard, and explicit `cliffDuration` plus `vestingDuration`. |
 
 ## Preserved Behavior
 
@@ -34,7 +34,7 @@ V2 keeps the important project-level behavior:
 - zero-first direct `approve()` hardening
 - `increaseAllowance()` and `decreaseAllowance()` helpers
 - report hash publishing
-- cliff and linear vesting
+- explicit cliff duration and post-cliff linear vesting duration
 - revocable schedules with beneficiary/refund split
 - native ETH rejection
 
@@ -47,6 +47,12 @@ OpenZeppelin v5 uses standardized custom errors, so some revert names differ fro
 - insufficient allowance in V2 uses `ERC20InsufficientAllowance`
 
 This is expected and improves compatibility with OpenZeppelin tooling and audits.
+
+V2 also changes vesting semantics to remove ambiguity:
+
+- before `start + cliffDuration`, vested amount is `0`
+- after the cliff, vesting is linear over `vestingDuration`
+- full vesting occurs at `start + cliffDuration + vestingDuration`
 
 ## Verify Locally
 
@@ -79,7 +85,7 @@ Only deploy V2 to Sepolia after reviewing the diff and confirming owner/treasury
 
 ```bash
 npm run sepolia:check
-npm run deploy:v2:sepolia
+CONFIRM_NON_CANONICAL_V2_DEPLOY=true npm run deploy:v2:sepolia
 ```
 
 This writes:

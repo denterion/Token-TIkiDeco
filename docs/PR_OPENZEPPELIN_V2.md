@@ -45,7 +45,7 @@ V2 preserves:
 - zero-first direct `approve()` hardening
 - pause/unpause owner controls
 - report hash publishing
-- cliff and linear vesting
+- explicit cliff duration and post-cliff linear vesting duration
 - revocable vesting schedules
 - native ETH rejection
 
@@ -59,7 +59,7 @@ Expected OpenZeppelin v5 behavior differences:
 
 ```text
 npm test
-36 passing
+37 passing
 ```
 
 ## Review Checklist

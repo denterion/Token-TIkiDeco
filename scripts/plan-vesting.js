@@ -10,7 +10,7 @@ const beneficiaryEnvByKey = {
 
 async function main() {
   const totalSupply = hre.ethers.parseUnits("100000000", 18);
-  const vestingBuckets = validateTokenomics().filter((bucket) => bucket.duration);
+  const vestingBuckets = validateTokenomics().filter((bucket) => bucket.vestingDuration);
 
   console.log("TikiDeco vesting plan");
   console.log("--------------------");
@@ -25,8 +25,9 @@ async function main() {
     console.log(`${bucket.label}`);
     console.log(`  Amount: ${hre.ethers.formatUnits(amount, 18)} TIDE`);
     console.log(`  Beneficiary env: ${envName}=${beneficiary}`);
-    console.log(`  Cliff seconds: ${bucket.cliff}`);
-    console.log(`  Duration seconds: ${bucket.duration}`);
+    console.log(`  Cliff duration seconds: ${bucket.cliffDuration}`);
+    console.log(`  Vesting duration seconds: ${bucket.vestingDuration}`);
+    console.log(`  Full unlock seconds from start: ${bucket.cliffDuration + bucket.vestingDuration}`);
     console.log(`  Revocable: ${bucket.revocable}`);
   }
 
