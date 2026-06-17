@@ -64,7 +64,6 @@ jobs:
         run: npm ci
 
       - name: Run Slither
-        continue-on-error: true
         run: npm run slither
 
   secret-scan:
