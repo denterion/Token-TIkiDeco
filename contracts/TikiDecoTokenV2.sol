@@ -10,6 +10,10 @@ contract TikiDecoTokenV2 is ERC20, AccessControl, Pausable {
     bytes32 public constant REPORTER_ROLE = keccak256("REPORTER_ROLE");
 
     uint256 public constant MAX_SUPPLY = 100_000_000 * 10 ** 18;
+    uint256 public constant NO_SUPERSEDED_REPORT = type(uint256).max;
+    uint256 public constant MAX_REPORT_CATEGORY_LENGTH = 64;
+    uint256 public constant MAX_REPORT_URI_LENGTH = 256;
+    uint256 public constant MAX_REPORT_VERSION_LENGTH = 32;
 
     string public projectName;
     string public businessEntity;
@@ -20,26 +24,36 @@ contract TikiDecoTokenV2 is ERC20, AccessControl, Pausable {
         bytes32 documentHash;
         string category;
         string uri;
+        uint64 periodStart;
+        uint64 periodEnd;
+        string version;
         uint256 publishedAt;
+        uint256 supersedesReportId;
     }
 
     ProjectReport[] private _reports;
 
     event ProjectURIUpdated(string previousURI, string newURI);
-    event AllowanceIncreased(address indexed owner, address indexed spender, uint256 addedValue);
-    event AllowanceDecreased(address indexed owner, address indexed spender, uint256 subtractedValue);
     event ProjectReportPublished(
         uint256 indexed reportId,
         bytes32 indexed documentHash,
         string category,
         string uri,
+        uint64 periodStart,
+        uint64 periodEnd,
+        string version,
         uint256 publishedAt
+    );
+    event ProjectReportSuperseded(
+        uint256 indexed previousReportId,
+        uint256 indexed newReportId,
+        bytes32 indexed newDocumentHash
     );
 
     error ZeroAddress();
     error InvalidAmount();
     error NativeETHRejected();
-    error UnsafeAllowanceChange();
+    error InvalidReport();
 
     constructor(
         address initialOwner,
@@ -70,37 +84,6 @@ contract TikiDecoTokenV2 is ERC20, AccessControl, Pausable {
         return _reports[reportId];
     }
 
-    function approve(address spender, uint256 value) public override returns (bool) {
-        address tokenOwner = _msgSender();
-        uint256 currentAllowance = allowance(tokenOwner, spender);
-        if (currentAllowance != 0 && value != 0) revert UnsafeAllowanceChange();
-
-        _approve(tokenOwner, spender, value);
-        return true;
-    }
-
-    function increaseAllowance(address spender, uint256 addedValue) external returns (bool) {
-        address tokenOwner = _msgSender();
-        _approve(tokenOwner, spender, allowance(tokenOwner, spender) + addedValue);
-        emit AllowanceIncreased(tokenOwner, spender, addedValue);
-        return true;
-    }
-
-    function decreaseAllowance(address spender, uint256 subtractedValue) external returns (bool) {
-        address tokenOwner = _msgSender();
-        uint256 currentAllowance = allowance(tokenOwner, spender);
-        if (currentAllowance < subtractedValue) {
-            revert ERC20InsufficientAllowance(spender, currentAllowance, subtractedValue);
-        }
-
-        unchecked {
-            _approve(tokenOwner, spender, currentAllowance - subtractedValue);
-        }
-
-        emit AllowanceDecreased(tokenOwner, spender, subtractedValue);
-        return true;
-    }
-
     function pause() external onlyRole(PAUSER_ROLE) {
         _pause();
     }
@@ -118,9 +101,24 @@ contract TikiDecoTokenV2 is ERC20, AccessControl, Pausable {
     function publishReport(
         bytes32 documentHash,
         string calldata category,
-        string calldata uri
+        string calldata uri,
+        uint64 periodStart,
+        uint64 periodEnd,
+        string calldata version,
+        uint256 supersedesReportId
     ) external onlyRole(REPORTER_ROLE) returns (uint256 reportId) {
-        if (documentHash == bytes32(0)) revert InvalidAmount();
+        if (
+            documentHash == bytes32(0)
+                || !_isBoundedNonEmpty(category, MAX_REPORT_CATEGORY_LENGTH)
+                || !_isBoundedNonEmpty(uri, MAX_REPORT_URI_LENGTH)
+                || !_isBoundedNonEmpty(version, MAX_REPORT_VERSION_LENGTH)
+                || periodStart > periodEnd
+        ) {
+            revert InvalidReport();
+        }
+        if (supersedesReportId != NO_SUPERSEDED_REPORT && supersedesReportId >= _reports.length) {
+            revert InvalidReport();
+        }
 
         reportId = _reports.length;
         uint256 publishedAt = block.timestamp;
@@ -128,14 +126,26 @@ contract TikiDecoTokenV2 is ERC20, AccessControl, Pausable {
             documentHash: documentHash,
             category: category,
             uri: uri,
-            publishedAt: publishedAt
+            periodStart: periodStart,
+            periodEnd: periodEnd,
+            version: version,
+            publishedAt: publishedAt,
+            supersedesReportId: supersedesReportId
         }));
 
-        emit ProjectReportPublished(reportId, documentHash, category, uri, publishedAt);
+        emit ProjectReportPublished(reportId, documentHash, category, uri, periodStart, periodEnd, version, publishedAt);
+        if (supersedesReportId != NO_SUPERSEDED_REPORT) {
+            emit ProjectReportSuperseded(supersedesReportId, reportId, documentHash);
+        }
     }
 
     function _update(address from, address to, uint256 value) internal override whenNotPaused {
         super._update(from, to, value);
+    }
+
+    function _isBoundedNonEmpty(string calldata value, uint256 maxLength) private pure returns (bool) {
+        uint256 length = bytes(value).length;
+        return length > 0 && length <= maxLength;
     }
 
     receive() external payable {

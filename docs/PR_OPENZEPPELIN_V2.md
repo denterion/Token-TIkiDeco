@@ -44,9 +44,9 @@ V2 preserves:
 - prefunded vesting vault accounting
 - treasury-only refund on revoke
 - two-step treasury transfer
-- zero-first direct `approve()` hardening
-- pause/unpause owner controls
-- report hash publishing
+- standard OpenZeppelin ERC-20 allowance behavior
+- pause/unpause role controls
+- bounded report hash publishing with period, version, and supersede metadata
 - explicit cliff duration and post-cliff linear vesting duration
 - revocable vesting schedules
 - native ETH rejection
@@ -54,14 +54,14 @@ V2 preserves:
 Expected OpenZeppelin v5 behavior differences:
 
 - paused transfers revert with `EnforcedPause`
-- non-owner calls revert with `OwnableUnauthorizedAccount`
+- unauthorized role calls revert with `AccessControlUnauthorizedAccount`
 - insufficient allowance uses `ERC20InsufficientAllowance`
 
 ## Verification
 
 ```text
 npm test
-45 passing
+56 passing
 ```
 
 ## Review Checklist

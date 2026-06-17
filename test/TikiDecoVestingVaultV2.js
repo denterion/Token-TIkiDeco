@@ -184,6 +184,31 @@ describe("TikiDecoVestingVaultV2", function () {
     expect(await vault.outstandingLiabilities()).to.equal(amount - totalReleased);
   });
 
+  it("blocks beneficiary release while the token is paused", async function () {
+    const { token, vault, beneficiary, start, cliffDuration, vestingDuration } = await createFundedSchedule();
+
+    await token.pause();
+    await setNextBlockTimestamp(start + cliffDuration + (vestingDuration / 4));
+
+    await expect(vault.connect(beneficiary).release(0))
+      .to.be.revertedWithCustomError(token, "EnforcedPause");
+
+    await token.unpause();
+    await setNextBlockTimestamp((await latestTimestamp()) + 1);
+    await expect(vault.connect(beneficiary).release(0))
+      .to.emit(vault, "TokensReleased");
+  });
+
+  it("blocks vesting admin release while the token is paused", async function () {
+    const { token, vault, admin, start, cliffDuration, vestingDuration } = await createFundedSchedule();
+
+    await token.pause();
+    await setNextBlockTimestamp(start + cliffDuration + (vestingDuration / 4));
+
+    await expect(vault.connect(admin).release(0))
+      .to.be.revertedWithCustomError(token, "EnforcedPause");
+  });
+
   it("revokes before cliff and refunds only to treasury", async function () {
     const { token, vault, treasury, beneficiary, amount, start, cliffDuration } = await createFundedSchedule();
     const treasuryBefore = await token.balanceOf(treasury.address);

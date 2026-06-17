@@ -1,0 +1,11 @@
+title = "TikiDeco secret scanning"
+
+[allowlist]
+description = "Allow documented public testnet addresses and transaction hashes."
+regexes = [
+  '''0xE4c1DE533440b411Be5C17883FF662e95a462097''',
+  '''0xc480565482af6B08A3b65D0C9aba985d6240702E''',
+  '''0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3''',
+  '''0xf1DAd608ddD5B71F039FEE82026164bc6a245081''',
+  '''0x087f0c360060ab380B2271FdcC32091d91bBec8F'''
+]

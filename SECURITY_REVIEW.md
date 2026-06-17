@@ -244,13 +244,92 @@ Status:
 
 Fixed in this branch for V2 candidate contracts and documented in `docs/ACCESS_CONTROL.md`.
 
+### L-05: V2 direct `approve` behavior diverged from standard OpenZeppelin ERC-20 integrations
+
+Files:
+
+- `contracts/TikiDecoTokenV2.sol`
+- `test/TikiDecoTokenV2.js`
+- `docs/OPENZEPPELIN_V2.md`
+
+Risk scenario:
+
+The V2 candidate previously preserved a zero-first direct `approve(...)` restriction. This can reduce one allowance race pattern, but it diverges from common OpenZeppelin ERC-20 behavior and can break wallets, dapps, routers, and allowance-management tools that expect non-zero to non-zero approvals to work.
+
+Likelihood: Medium.
+
+Impact: Low to Medium. Integrations could fail even though the token otherwise looks like a standard ERC-20.
+
+Recommended fix:
+
+Use the official OpenZeppelin ERC-20 allowance behavior unless a strong integration-reviewed reason exists to diverge. Document the allowance race as a UI/operator risk instead of changing token semantics.
+
+Status:
+
+Fixed in this branch. V2 now uses standard OpenZeppelin `approve(...)`, `transferFrom(...)`, max-uint allowance, zero-value transfer, and self-transfer behavior. The allowance race is documented as an integration/UI consideration.
+
+### L-06: Report publication metadata lacked integrity bounds and correction semantics
+
+Files:
+
+- `contracts/TikiDecoTokenV2.sol`
+- `test/TikiDecoTokenV2.js`
+- `docs/OPENZEPPELIN_V2.md`
+
+Risk scenario:
+
+Report publication accepted a document hash, category, and URI without checking empty strings, string lengths, reporting period, report version, or superseded report references. This could allow low-quality metadata, oversized on-chain strings, or unclear correction history.
+
+Likelihood: Medium.
+
+Impact: Low. The issue affects transparency quality and gas predictability rather than token balances.
+
+Recommended fix:
+
+Require a non-zero document hash, bounded non-empty category/URI/version fields, valid period start/end, and an event that links corrected reports to the previous report ID.
+
+Status:
+
+Fixed in this branch for V2. Reports now validate bounded metadata, include `periodStart`, `periodEnd`, `version`, and `supersedesReportId`, and emit `ProjectReportSuperseded(...)` for corrections.
+
+### L-07: Pause policy for vesting releases needed an explicit operational decision
+
+Files:
+
+- `contracts/TikiDecoTokenV2.sol`
+- `contracts/TikiDecoVestingVaultV2.sol`
+- `test/TikiDecoVestingVaultV2.js`
+- `docs/ACCESS_CONTROL.md`
+
+Risk scenario:
+
+If pause behavior is not documented, users and operators may disagree on whether emergency pause should block vesting claims. Allowing releases during pause preserves beneficiary access but leaves a transfer path open during an incident. Blocking releases improves containment but can delay legitimate claims.
+
+Likelihood: Medium.
+
+Impact: Low to Medium, depending on the incident and allocation size.
+
+Recommended fix:
+
+Choose and document one model. If pause blocks releases, test both beneficiary and vesting-admin release attempts while paused.
+
+Status:
+
+Fixed in this branch. The chosen V2 model is a global token transfer stop: `pause()` blocks direct transfers, `transferFrom(...)`, and vesting vault `release(...)` because releases call token `safeTransfer(...)`. Consequence: beneficiaries can be temporarily delayed during an emergency pause, and every pause/unpause should be explained through governance/reporting.
+
 ## Informational Findings
 
-### I-01: CI covers compile/tests/tokenomics but not static analysis or coverage
+### I-01: CI covered compile/tests/tokenomics but not static analysis or coverage
 
 Files:
 
 - `.github/workflows/ci.yml`
+- `.github/workflows/security.yml`
+- `.github/dependabot.yml`
+- `.gitleaks.toml`
+- `slither.config.json`
+- `scripts/check-bytecode-size.js`
+- `scripts/check-deployment-manifest.js`
 
 Risk scenario:
 
@@ -266,7 +345,73 @@ Add coverage and static analysis later, for example Solidity coverage and Slithe
 
 Status:
 
-Documented.
+Fixed in this branch as CI configuration. The repository now includes Solidity coverage, Slither workflow, npm audit script, pinned direct dependencies, Dependabot, Gitleaks secret scanning workflow, bytecode size check, gas snapshot script, and deployment manifest consistency check.
+
+Local status from this branch:
+
+- `npm run compile`: passed
+- `npm test`: passed, 56 tests
+- `npm run lint`: passed
+- `npm run manifest:check`: passed
+- `npm run bytecode:size`: passed
+
+`npm audit` still reports dependency vulnerabilities in the Hardhat/tooling dependency tree; see remaining risks before production use.
+
+### I-04: Slither static analysis findings require triage before any production promotion
+
+Files:
+
+- `contracts/TikiDecoToken.sol`
+- `contracts/TikiDecoTokenV2.sol`
+- `contracts/TikiDecoVestingVault.sol`
+- `contracts/TikiDecoVestingVaultV2.sol`
+- `slither.config.json`
+- `.github/workflows/security.yml`
+
+Risk scenario:
+
+Local Slither analysis reported 15 results across legacy V1 and V2 candidate contracts:
+
+- `incorrect-equality` on `amount == 0` release checks
+- `locked-ether` on reverting `receive()` and `fallback()` functions without ETH withdrawal
+- `timestamp` on vesting-time comparisons
+- `low-level-calls` in the legacy V1 local safe token wrapper
+
+Likelihood: Low to Medium.
+
+Impact: Informational to Low for the current Sepolia prototype. The timestamp findings are expected for vesting math; the strict equality checks are zero-amount guards; the locked-ether findings are false positives for ordinary ETH sends because the functions revert; the low-level call is legacy V1 code that is already deployed and preserved as historical source.
+
+Recommended fix:
+
+Do not suppress Slither output silently. For V2, keep these findings visible until a focused review decides whether to refactor reverting ETH handlers, tune detector configuration with documented justification, or accept the findings in an audit note. Do not change deployed V1 source semantics merely to silence static analysis.
+
+Status:
+
+Documented. Slither is wired into CI and was run locally. It exits non-zero because findings remain visible.
+
+### I-05: npm audit flags Hardhat/tooling dependency vulnerabilities
+
+Files:
+
+- `package.json`
+- `package-lock.json`
+- `.github/workflows/security.yml`
+
+Risk scenario:
+
+`npm audit --audit-level=moderate` reports vulnerabilities in development dependencies and transitive Hardhat/tooling packages including `bn.js`, `cookie`, `elliptic`, `js-yaml`, `lodash`, `serialize-javascript`, `tmp`, `undici`, `uuid`, and `ws`. The available automated fixes require breaking changes such as Hardhat 3/toolbox 7 migration or coverage downgrades.
+
+Likelihood: Medium.
+
+Impact: Informational to Medium for developer machines and CI. These are not Solidity runtime dependencies, but they affect the build/test toolchain.
+
+Recommended fix:
+
+Keep dependency versions pinned, use Dependabot PRs, and plan a separate Hardhat 3/toolbox 7 migration branch. Do not apply `npm audit fix --force` inside this hardening branch without reviewing breaking changes.
+
+Status:
+
+Open. `npm audit fix` without `--force` made no changes. `npm audit` still exits non-zero with 45 reported vulnerabilities.
 
 ### I-02: V1 custom ERC-20 implementation is historical; V2 uses OpenZeppelin primitives
 

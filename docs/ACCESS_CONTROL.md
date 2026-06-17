@@ -30,6 +30,19 @@ Contract:
 
 The token has no mint role and no public mint function. Supply remains fixed at `100,000,000 TIDE`.
 
+## Pause Policy
+
+V2 uses token-level emergency pause as a global transfer stop.
+
+When the token is paused:
+
+- direct `transfer(...)` reverts
+- `transferFrom(...)` reverts
+- vesting vault `release(...)` reverts because release performs a token transfer from the vault to the beneficiary
+- vesting accounting views remain readable
+
+This model favors incident containment over uninterrupted vesting claims. A pause can temporarily delay beneficiary releases, so pauser authority should sit behind a documented Safe process and every pause/unpause should be explained in a transparency report.
+
 ## Vesting Vault Roles
 
 Contract:
@@ -81,5 +94,6 @@ For any serious deployment:
 - admin roles should be held by Safe or a timelock-controlled Safe
 - pauser and reporter roles may be delegated, but should remain revocable by admin
 - vesting admin should be operationally separate from treasury custody where possible
+- pause/unpause operations should include a written incident note or transparency report
 - treasury changes should be documented before execution
 - role grants and revocations should be included in transparency reports

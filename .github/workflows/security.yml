@@ -1,0 +1,73 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  hardhat-security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile
+        run: npm run compile
+
+      - name: Tests
+        run: npm test
+
+      - name: Coverage
+        run: npm run coverage
+
+      - name: Deployment manifest check
+        run: npm run manifest:check
+
+      - name: Bytecode size check
+        run: npm run bytecode:size
+
+      - name: Gas snapshot
+        run: npm run gas:snapshot
+
+      - name: npm audit
+        run: npm run audit
+
+  slither:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Slither
+        uses: crytic/slither-action@v0.4.1
+        with:
+          node-version: 22
+          slither-config: slither.config.json
+
+  secret-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

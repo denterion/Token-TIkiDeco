@@ -11,6 +11,7 @@
 ![Network](https://img.shields.io/badge/Testnet-Sepolia-2b6cb0)
 ![Supply](https://img.shields.io/badge/Supply-100M%20TIDE-0f766e)
 ![Status](https://img.shields.io/badge/Status-Pre--mainnet-b7791f)
+[![Security](https://github.com/denterion/Token-TIkiDeco/actions/workflows/security.yml/badge.svg)](https://github.com/denterion/Token-TIkiDeco/actions/workflows/security.yml)
 
 [Website](https://denterion.github.io/Token-TIkiDeco/) |
 [Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097) |
@@ -67,11 +68,11 @@ Security-minded defaults:
 - Safe multisig handover runbook
 - OpenZeppelin V2 candidate with role-based access control
 - owner/treasury separation
-- safer allowance adjustments
+- standard OpenZeppelin ERC-20 allowance behavior in V2
 - guarded vesting token calls
 - reentrancy protection in vesting operations
 - accidental native ETH rejection
-- automated tests and GitHub CI
+- automated tests, coverage, bytecode checks, manifest checks, Slither workflow, npm audit, Dependabot, and secret scanning workflow
 
 ## Tokenomics
 
@@ -178,8 +179,20 @@ npm test
 Current V1+V2 suite:
 
 ```text
-45 passing
+56 passing
 ```
+
+Security checks:
+
+```bash
+npm run lint
+npm run coverage
+npm run gas:snapshot
+npm run audit
+npm run slither
+```
+
+`npm run slither` requires Slither to be installed on the machine. GitHub Actions runs it through the Slither action.
 
 Run a local deployment:
 
@@ -201,9 +214,11 @@ For each monthly update, financial summary, permit update, or construction miles
 1. Create a final public report.
 2. Upload it to IPFS or another durable public location.
 3. Hash the final document.
-4. Call `publishReport(hash, category, uri)`.
+4. On V1, call `publishReport(hash, category, uri)` through the Safe workflow.
 
 This creates an on-chain timestamped record proving which version of the document was published.
+
+V1 uses the legacy three-argument report function. The V2 candidate adds bounded report metadata: period start/end, report version, and optional supersede linkage for corrections.
 
 Genesis report:
 

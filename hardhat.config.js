@@ -27,5 +27,11 @@ module.exports = {
   networks,
   etherscan: {
     apiKey: ETHERSCAN_API_KEY || ""
+  },
+  gasReporter: {
+    enabled: process.env.REPORT_GAS === "true",
+    currency: "USD",
+    showTimeSpent: true,
+    excludeContracts: ["contracts/TikiDecoToken.sol", "contracts/TikiDecoVestingVault.sol"]
   }
 };

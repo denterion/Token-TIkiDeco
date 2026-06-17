@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      hardhat-tooling:
+        patterns:
+          - "hardhat"
+          - "@nomicfoundation/*"
+          - "solidity-coverage"
+          - "hardhat-gas-reporter"
+      openzeppelin:
+        patterns:
+          - "@openzeppelin/*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
