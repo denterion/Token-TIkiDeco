@@ -21,14 +21,23 @@ function assertIncludes(text, expected, label) {
   assert(text.includes(expected), `Release draft missing ${label}: ${expected}`);
 }
 
+function getBacktickedValue(text, label) {
+  const pattern = new RegExp(`^${label}:\\s+\`([^\`]+)\`$`, "m");
+  const match = text.match(pattern);
+  assert(match, `Release draft missing ${label} line`);
+  return match[1];
+}
+
 function main() {
   const manifest = readJson(manifestPath);
   const release = readText(releasePath);
   const token = manifest.contracts.token;
   const vault = manifest.contracts.vestingVault;
+  const releaseDate = getBacktickedValue(release, "Release date");
+  const sourceCommit = getBacktickedValue(release, "Source commit");
 
-  assertIncludes(release, "Release date: `TBD`", "release date placeholder");
-  assertIncludes(release, "Source commit: `TBD`", "source commit placeholder");
+  assert(releaseDate === "TBD" || /^\d{4}-\d{2}-\d{2}$/.test(releaseDate), "Release date must be `TBD` or `YYYY-MM-DD`");
+  assert(sourceCommit === "TBD" || /^[0-9a-f]{7,40}$/i.test(sourceCommit), "Source commit must be `TBD` or a git commit hash");
   assertIncludes(release, `Chain ID | \`${manifest.chainId}\``, "chain ID");
   assertIncludes(release, `Canonical version | \`${manifest.contractVersion}\``, "canonical version");
   assertIncludes(release, token.address, "token address");
