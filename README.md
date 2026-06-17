@@ -197,6 +197,7 @@ Reporting cadence: [`docs/REPORTING_CADENCE.md`](docs/REPORTING_CADENCE.md)
 | Security | [`SECURITY.md`](SECURITY.md), [`SECURITY_REVIEW.md`](SECURITY_REVIEW.md), [`docs/OPENZEPPELIN_V2.md`](docs/OPENZEPPELIN_V2.md), [`docs/HARDHAT3_MIGRATION.md`](docs/HARDHAT3_MIGRATION.md) |
 | Governance | [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md), [`docs/SAFE_MULTISIG.md`](docs/SAFE_MULTISIG.md), [`docs/TREASURY_POLICY.md`](docs/TREASURY_POLICY.md), [`docs/ACCESS_CONTROL.md`](docs/ACCESS_CONTROL.md) |
 | Communications | [`docs/CLAIMS_MATRIX.md`](docs/CLAIMS_MATRIX.md), [`docs/COMMUNICATION_POLICY.md`](docs/COMMUNICATION_POLICY.md), [`docs/COMMUNICATION_PLAYBOOK.md`](docs/COMMUNICATION_PLAYBOOK.md), [`docs/RISK_DISCLOSURE.md`](docs/RISK_DISCLOSURE.md) |
+| Legal readiness | [`docs/LEGAL_READINESS.md`](docs/LEGAL_READINESS.md), [`docs/COUNSEL_BRIEF.md`](docs/COUNSEL_BRIEF.md) |
 
 ## Responsible Disclosure
 
