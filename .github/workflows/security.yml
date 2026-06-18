@@ -138,7 +138,9 @@ jobs:
           version: ${{ env.FOUNDRY_VERSION }}
 
       - name: Install pinned Slither
-        run: pipx install slither-analyzer==${{ env.SLITHER_VERSION }}
+        run: |
+          pipx install slither-analyzer==${{ env.SLITHER_VERSION }}
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Install pinned solc
         run: |
