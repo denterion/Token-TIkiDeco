@@ -1,0 +1,27 @@
+{
+  "schema": "tikideco.slither-baseline/1",
+  "scope": "V2 candidate audit target",
+  "updated": "2026-06-18",
+  "acceptedFindings": [
+    {
+      "detector": "locked-ether",
+      "files": ["contracts/TikiDecoTokenV2.sol"],
+      "explanation": "Token receive/fallback are payable only to reject native ETH with a custom error. No native ETH custody is intended."
+    },
+    {
+      "detector": "locked-ether",
+      "files": ["contracts/TikiDecoVestingVaultV2.sol"],
+      "explanation": "Vault receive/fallback are payable only to reject native ETH with a custom error. No native ETH custody is intended."
+    },
+    {
+      "detector": "timestamp",
+      "files": ["contracts/TikiDecoVestingVaultV2.sol"],
+      "explanation": "Vesting math intentionally uses block.timestamp for cliff and linear vesting. Boundary tests and invariant tests cover expected semantics."
+    },
+    {
+      "detector": "incorrect-equality",
+      "files": ["contracts/TikiDecoVestingVaultV2.sol"],
+      "explanation": "Strict equality against zero is used to reject zero releasable amount. This is an explicit API behavior, not authorization logic."
+    }
+  ]
+}

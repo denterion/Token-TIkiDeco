@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tikideco.xyz/schemas/release-manifest.schema.json",
+  "title": "TikiDeco audit-package release manifest",
+  "type": "object",
+  "required": [
+    "release",
+    "generatedAt",
+    "sourceCommit",
+    "sourceArchive",
+    "compiler",
+    "optimizer",
+    "dependencyLockfile",
+    "contracts",
+    "canonicalDeploymentManifest",
+    "roleManifest",
+    "safeConfiguration",
+    "reports",
+    "auditStatus",
+    "knownIssues",
+    "auditScope",
+    "reproduction",
+    "checksums"
+  ],
+  "properties": {
+    "release": { "const": "v0.1.0-sepolia" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sourceCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "sourceArchive": { "type": "string" },
+    "compiler": {
+      "type": "object",
+      "required": ["version", "evmTarget"],
+      "properties": {
+        "version": { "type": "string" },
+        "evmTarget": { "type": "string" }
+      }
+    },
+    "optimizer": {
+      "type": "object",
+      "required": ["enabled", "runs"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "runs": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "dependencyLockfile": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": { "type": "string" },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "contracts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "source", "abi", "creationBytecode", "runtimeBytecode", "bytecodeHashes"],
+        "properties": {
+          "name": { "type": "string" },
+          "source": { "type": "string" },
+          "address": { "type": "string" },
+          "abi": { "type": "string" },
+          "creationBytecode": { "type": "string" },
+          "runtimeBytecode": { "type": "string" },
+          "bytecodeHashes": {
+            "type": "object",
+            "required": ["creationSha256", "runtimeSha256"],
+            "properties": {
+              "creationSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+              "runtimeSha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+            }
+          }
+        }
+      }
+    },
+    "canonicalDeploymentManifest": { "type": "string" },
+    "roleManifest": { "type": "string" },
+    "safeConfiguration": { "type": "string" },
+    "reports": {
+      "type": "object",
+      "required": ["test", "coverage", "gas", "slither", "sbom"],
+      "properties": {
+        "test": { "type": "string" },
+        "coverage": { "type": "string" },
+        "gas": { "type": "string" },
+        "slither": { "type": "string" },
+        "sbom": { "type": "string" }
+      }
+    },
+    "auditStatus": {
+      "type": "object",
+      "required": ["internalReview", "independentAudit", "mainnetApproved"],
+      "properties": {
+        "internalReview": { "type": "string" },
+        "independentAudit": { "type": "string" },
+        "mainnetApproved": { "type": "boolean" }
+      }
+    },
+    "knownIssues": { "type": "string" },
+    "auditScope": { "type": "string" },
+    "reproduction": { "type": "string" },
+    "checksums": { "type": "string" }
+  },
+  "additionalProperties": false
+}

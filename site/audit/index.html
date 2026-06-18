@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' https://ethereum-sepolia-rpc.publicnode.com https://rpc.sepolia.org; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="description" content="Internal review status, canonical V1 versus candidate V2 scope, compiler settings, known issues, and verification artifacts for TikiDeco.">
+    <meta name="theme-color" content="#0b1020">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TikiDeco | Audit Status">
+    <meta property="og:description" content="Internal review status, canonical V1 versus candidate V2 scope, compiler settings, known issues, and verification artifacts for TikiDeco.">
+    <meta property="og:image" content="https://tikideco.xyz/assets/tide-logo.png">
+    <meta property="og:url" content="https://tikideco.xyz/audit/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TikiDeco | Audit Status">
+    <meta name="twitter:description" content="Internal review status, canonical V1 versus candidate V2 scope, compiler settings, known issues, and verification artifacts for TikiDeco.">
+    <meta name="twitter:image" content="https://tikideco.xyz/assets/tide-logo.png">
+    <link rel="canonical" href="https://tikideco.xyz/audit/">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
+    <script defer src="/app.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "TikiDeco Audit Status",
+        "url": "https://tikideco.xyz/audit/",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "TikiDeco",
+          "url": "https://tikideco.xyz/"
+        }
+      }
+    </script>
+    <title>TikiDeco | Audit Status</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="status-badge" href="/legal/no-offer/" aria-label="Sepolia testnet status and no-offer notice">SEPOLIA TESTNET &middot; NO MONETARY VALUE</a>
+    <header class="topbar" aria-label="Primary">
+      <a class="brand" href="/" aria-label="TikiDeco home">
+        <picture>
+          <source srcset="/assets/favicon.webp" type="image/webp">
+          <img class="brand-mark" src="/assets/favicon.png" width="34" height="34" alt="" aria-hidden="true">
+        </picture>
+        <span>TikiDeco</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-lines" aria-hidden="true"></span>
+        <span class="menu-toggle-label">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="nav" aria-label="Sections">
+        <a href="/">Home</a>
+        <a href="/audit/">Audit</a>
+        <a href="/verify/">Verify</a>
+        <a href="/status/">Status</a>
+        <a href="/legal/risk-disclosure/">Risks</a>
+      </nav>
+    </header>
+    <main id="main" class="page-main">
+      <section class="page-hero" aria-labelledby="page-title">
+        <p class="eyebrow">Internal review</p>
+        <h1 id="page-title">Audit status and review scope</h1>
+        <p class="hero-copy">TikiDeco is not independently audited. This page separates the historical Sepolia V1 deployment from the non-canonical V2 candidate review target.</p>
+        <p class="audit-disclaimer">Audit-status disclaimer: this is an internal review page only. TikiDeco has not completed an independent smart-contract audit.</p>
+      </section>
+      <div class="content-grid">
+
+        <section class="content-card" aria-labelledby="status">
+          <h2 id="status">Status</h2>
+          <dl class="record-list">
+            <div><dt>Internal review</dt><dd>in-progress</dd></div>
+            <div><dt>Independent audit</dt><dd>not-started</dd></div>
+            <div><dt>Canonical V1 source commit</dt><dd>9da9b09334031276fbd2bb9d61738a15bfe08c1e</dd></div>
+            <div><dt>Last updated</dt><dd>2026-06-17T08:50:12.000Z</dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="canonical-v1-versus-candidate-v2">
+          <h2 id="canonical-v1-versus-candidate-v2">Canonical V1 Versus Candidate V2</h2>
+          <dl class="record-list">
+            <div><dt>Canonical V1</dt><dd>TikiDecoToken and TikiDecoVestingVault on Ethereum Sepolia</dd></div>
+            <div><dt>Candidate V2</dt><dd>TikiDecoTokenV2.sol and TikiDecoVestingVaultV2.sol are non-canonical audit-target candidates</dd></div>
+            <div><dt>Promotion status</dt><dd>No V2 promotion is recorded in deployments/canonical.json</dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="in-scope-contracts">
+          <h2 id="in-scope-contracts">In-Scope Contracts</h2>
+          <dl class="record-list">
+            <div><dt>V1 token</dt><dd>contracts/TikiDecoToken.sol</dd></div>
+            <div><dt>V1 vesting vault</dt><dd>contracts/TikiDecoVestingVault.sol</dd></div>
+            <div><dt>V2 candidate token</dt><dd>contracts/TikiDecoTokenV2.sol</dd></div>
+            <div><dt>V2 candidate vesting vault</dt><dd>contracts/TikiDecoVestingVaultV2.sol</dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="compiler-and-analysis">
+          <h2 id="compiler-and-analysis">Compiler And Analysis</h2>
+          <dl class="record-list">
+            <div><dt>Compiler</dt><dd>0.8.28, paris, optimizer runs 200</dd></div>
+            <div><dt>Test status</dt><dd>Hardhat suite and Foundry secondary invariant suite are CI gates</dd></div>
+            <div><dt>Coverage status</dt><dd>Foundry line, function, and branch thresholds are configured in CI</dd></div>
+            <div><dt>Static analysis</dt><dd>Slither V1 informational scan and blocking V2 baseline comparison are configured</dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="known-issues-and-governance">
+          <h2 id="known-issues-and-governance">Known Issues And Governance</h2>
+          <dl class="record-list">
+            <div><dt>Known issues</dt><dd>See KNOWN_ISSUES.md and security/slither-baseline-v2.json</dd></div>
+            <div><dt>Owner Safe</dt><dd>0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3</dd></div>
+            <div><dt>Safe threshold</dt><dd>3-of-3</dd></div>
+            <div><dt>Treasury</dt><dd>0xf1DAd608ddD5B71F039FEE82026164bc6a245081</dd></div>
+          </dl>
+        </section>
+        <section class="content-card" aria-labelledby="page-links">
+          <h2 id="page-links">Reference links</h2>
+          <div class="reference-links">
+          <a href="/artifacts/v1/TikiDecoToken/abi.json">ABI artifacts</a>
+          <a href="/artifacts/v1/TikiDecoToken/deployed-bytecode.txt">Token bytecode</a>
+          <a href="/artifacts/v1/TikiDecoVestingVault/deployed-bytecode.txt">Vault bytecode</a>
+          <a href="/deployment-manifest.json">Deployment manifest</a>
+          <a href="/#reports">Reports</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/KNOWN_ISSUES.md">Known issues</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer legal-footer" data-legal-footer>
+      <picture>
+        <source srcset="/assets/favicon.webp" type="image/webp">
+        <img class="footer-mark" src="/assets/favicon.png" width="512" height="512" alt="TikiDeco TIDE emblem">
+      </picture>
+      <div>
+        <p>TikiDeco / TIDE is a public Sepolia prototype. No token sale. No stated monetary value. Not independently audited.</p>
+        <p class="footer-links">
+          <a href="/legal/no-offer/">No offer</a>
+          <a href="/legal/terms/">Terms</a>
+          <a href="/legal/privacy/">Privacy</a>
+          <a href="/legal/risk-disclosure/">Risk disclosure</a>
+          <a href="/legal/project-status/">Project status</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

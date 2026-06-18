@@ -6,34 +6,95 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  NODE_VERSION: "22.13.1"
+  FOUNDRY_VERSION: "v1.4.0"
+  FOUNDRY_FUZZ_SEED: "0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031"
+
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # Action version: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        # Action version: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: 22
+          node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Prepare artifact directories
+        run: mkdir -p security-artifacts/test security-artifacts/gas
+
       - name: Compile
         run: npm run compile
 
       - name: Test
-        run: npm test
+        run: npm test 2>&1 | tee security-artifacts/test/hardhat-test.txt
+
+      - name: Setup Foundry
+        # Action version: foundry-rs/foundry-toolchain@v1
+        uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d
+        with:
+          version: ${{ env.FOUNDRY_VERSION }}
+
+      - name: Foundry fuzz and invariant tests
+        run: |
+          echo "Foundry deterministic seed: $FOUNDRY_FUZZ_SEED"
+          npm run foundry:test 2>&1 | tee security-artifacts/test/foundry-test.txt
+
+      - name: Foundry coverage thresholds
+        run: npm run foundry:coverage 2>&1 | tee security-artifacts/test/foundry-coverage.txt
 
       - name: Deployment manifest check
         run: npm run manifest:check
 
+      - name: Deployment manifest source config check
+        run: npm run manifest:source
+
       - name: Bytecode size check
-        run: npm run bytecode:size
+        run: npm run bytecode:size 2>&1 | tee security-artifacts/test/bytecode-size.txt
+
+      - name: Gas snapshot
+        run: npm run gas:snapshot 2>&1 | tee security-artifacts/gas/gas-snapshot.txt
+
+      - name: Export ABI and bytecode artifacts
+        run: npm run artifacts:contracts
+
+      - name: Generate SPDX SBOM
+        run: npm run sbom:spdx
+
+      - name: Generate release artifact checksums
+        run: npm run checksums
+
+      - name: Workflow pin check
+        run: npm run workflow:pins
 
       - name: Print tokenomics
         run: npm run tokenomics
+
+      - name: Upload test, gas, ABI, bytecode, SBOM, and checksum artifacts
+        if: always()
+        # Action version: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: ci-security-artifacts
+          path: |
+            security-artifacts/**
+            lcov.info
+          if-no-files-found: warn

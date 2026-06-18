@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' https://ethereum-sepolia-rpc.publicnode.com https://rpc.sepolia.org; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="description" content="Reproducible commands for verifying TikiDeco Sepolia network, contracts, bytecode, supply, roles, treasury, Safe threshold, and report hashes.">
+    <meta name="theme-color" content="#0b1020">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TikiDeco | Verify">
+    <meta property="og:description" content="Reproducible commands for verifying TikiDeco Sepolia network, contracts, bytecode, supply, roles, treasury, Safe threshold, and report hashes.">
+    <meta property="og:image" content="https://tikideco.xyz/assets/tide-logo.png">
+    <meta property="og:url" content="https://tikideco.xyz/verify/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TikiDeco | Verify">
+    <meta name="twitter:description" content="Reproducible commands for verifying TikiDeco Sepolia network, contracts, bytecode, supply, roles, treasury, Safe threshold, and report hashes.">
+    <meta name="twitter:image" content="https://tikideco.xyz/assets/tide-logo.png">
+    <link rel="canonical" href="https://tikideco.xyz/verify/">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
+    <script defer src="/app.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "TikiDeco Verify",
+        "url": "https://tikideco.xyz/verify/",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "TikiDeco",
+          "url": "https://tikideco.xyz/"
+        }
+      }
+    </script>
+    <title>TikiDeco | Verify</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="status-badge" href="/legal/no-offer/" aria-label="Sepolia testnet status and no-offer notice">SEPOLIA TESTNET &middot; NO MONETARY VALUE</a>
+    <header class="topbar" aria-label="Primary">
+      <a class="brand" href="/" aria-label="TikiDeco home">
+        <picture>
+          <source srcset="/assets/favicon.webp" type="image/webp">
+          <img class="brand-mark" src="/assets/favicon.png" width="34" height="34" alt="" aria-hidden="true">
+        </picture>
+        <span>TikiDeco</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-lines" aria-hidden="true"></span>
+        <span class="menu-toggle-label">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="nav" aria-label="Sections">
+        <a href="/">Home</a>
+        <a href="/audit/">Audit</a>
+        <a href="/verify/">Verify</a>
+        <a href="/status/">Status</a>
+        <a href="/legal/risk-disclosure/">Risks</a>
+      </nav>
+    </header>
+    <main id="main" class="page-main">
+      <section class="page-hero" aria-labelledby="page-title">
+        <p class="eyebrow">Reproducible verification</p>
+        <h1 id="page-title">Verify the prototype without connecting a wallet</h1>
+        <p class="hero-copy">These commands use public repository files and read-only RPC/Etherscan checks. They do not sign transactions.</p>
+        <p class="audit-disclaimer">Verification disclaimer: this page provides read-only checks and does not certify economic value, sale availability, or independent audit completion.</p>
+      </section>
+      <div class="content-grid">
+
+        <section class="content-card" aria-labelledby="network-and-addresses">
+          <h2 id="network-and-addresses">Network And Addresses</h2>
+          <dl class="record-list">
+            <div><dt>Network</dt><dd>sepolia, chain ID 11155111</dd></div>
+            <div><dt>Token</dt><dd>0xE4c1DE533440b411Be5C17883FF662e95a462097</dd></div>
+            <div><dt>Vesting vault</dt><dd>0xc480565482af6B08A3b65D0C9aba985d6240702E</dd></div>
+            <div><dt>Treasury</dt><dd>0xf1DAd608ddD5B71F039FEE82026164bc6a245081</dd></div>
+            <div><dt>Owner Safe</dt><dd>0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3</dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="commands">
+          <h2 id="commands">Commands</h2>
+          <dl class="record-list">
+            <div><dt>Manifest</dt><dd>npm run manifest:check &amp;&amp; npm run manifest:source</dd></div>
+            <div><dt>Bytecode</dt><dd>npm run compile &amp;&amp; npm run bytecode:size</dd></div>
+            <div><dt>Tests</dt><dd>npm test</dd></div>
+            <div><dt>Foundry</dt><dd>npm run foundry:test</dd></div>
+            <div><dt>Slither</dt><dd>npm run slither:baseline after generating Slither JSON</dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="what-to-verify">
+          <h2 id="what-to-verify">What To Verify</h2>
+          <dl class="record-list">
+            <div><dt>Deployed bytecode</dt><dd>Compare Etherscan deployed bytecode with site/artifacts/v1/*/deployed-bytecode.txt</dd></div>
+            <div><dt>Total supply</dt><dd>Read totalSupply() and compare with MAX_SUPPLY</dd></div>
+            <div><dt>Owner or roles</dt><dd>V1 owner should match the Safe; V2 candidate roles are documented but non-canonical</dd></div>
+            <div><dt>Safe threshold</dt><dd>Read getThreshold() from the Safe address</dd></div>
+            <div><dt>Report hashes</dt><dd>Compare documentHash values in deployment-manifest.json and report markdown hash files</dd></div>
+          </dl>
+        </section>
+        <section class="content-card" aria-labelledby="page-links">
+          <h2 id="page-links">Reference links</h2>
+          <div class="reference-links">
+          <a href="https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code">Token verified source</a>
+          <a href="https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code">Vault verified source</a>
+          <a href="/deployment-manifest.json">Manifest</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY_CI.md">Security CI</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer legal-footer" data-legal-footer>
+      <picture>
+        <source srcset="/assets/favicon.webp" type="image/webp">
+        <img class="footer-mark" src="/assets/favicon.png" width="512" height="512" alt="TikiDeco TIDE emblem">
+      </picture>
+      <div>
+        <p>TikiDeco / TIDE is a public Sepolia prototype. No token sale. No stated monetary value. Not independently audited.</p>
+        <p class="footer-links">
+          <a href="/legal/no-offer/">No offer</a>
+          <a href="/legal/terms/">Terms</a>
+          <a href="/legal/privacy/">Privacy</a>
+          <a href="/legal/risk-disclosure/">Risk disclosure</a>
+          <a href="/legal/project-status/">Project status</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

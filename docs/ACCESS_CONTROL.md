@@ -8,7 +8,7 @@ The current Sepolia deployment remains `v1-legacy`. V2 is candidate code and is 
 
 V2 uses official OpenZeppelin Contracts primitives:
 
-- `AccessControl`
+- `AccessControlDefaultAdminRules`
 - `ERC20`
 - `Pausable`
 - `SafeERC20`
@@ -24,11 +24,15 @@ Contract:
 
 | Role | Identifier | Powers |
 | --- | --- | --- |
-| Admin | `DEFAULT_ADMIN_ROLE` | Grants and revokes token roles; updates project URI. |
+| Default admin | `DEFAULT_ADMIN_ROLE` | Grants and revokes token roles; updates project URI. Managed by OpenZeppelin delayed default-admin transfer rules. |
 | Pauser | `PAUSER_ROLE` | Calls `pause()` and `unpause()`. |
 | Reporter | `REPORTER_ROLE` | Calls `publishReport(...)`. |
 
 The token has no mint role and no public mint function. Supply remains fixed at `100,000,000 TIDE`.
+
+V2 constructor configuration now separates `defaultAdmin`, `pauser`, `reporter`, and `treasury`. `projectName`, `businessEntity`, `projectJurisdiction`, and `projectURI` are constructor metadata fields and must be non-empty and bounded. `projectName` should remain neutral; it must not imply a completed property, sale, partnership, or financial right.
+
+The token admin transfer delay is configured by `V2_DEFAULT_ADMIN_DELAY_SECONDS` during deployment. The default example is `86400` seconds. A default-admin transfer must be started with `beginDefaultAdminTransfer(newAdmin)` and accepted by the pending admin after the delay with `acceptDefaultAdminTransfer()`.
 
 ## Pause Policy
 
@@ -51,8 +55,27 @@ Contract:
 
 | Role | Identifier | Powers |
 | --- | --- | --- |
-| Admin | `DEFAULT_ADMIN_ROLE` | Grants and revokes vault roles; starts or cancels two-step treasury transfer. |
+| Default admin | `DEFAULT_ADMIN_ROLE` | Grants and revokes vault roles; starts or cancels two-step treasury transfer. Managed by OpenZeppelin delayed default-admin transfer rules. |
 | Vesting admin | `VESTING_ADMIN_ROLE` | Creates vesting schedules; releases on behalf of beneficiaries; revokes revocable schedules. |
+
+V2 vault constructor configuration separates `defaultAdmin`, `vestingAdmin`, and `treasury`. The default admin should not be assumed to be the vesting admin unless an explicit reviewed configuration intentionally uses the same address.
+
+## V2 Deployment Role Configuration
+
+The non-canonical V2 deployment script uses these variables:
+
+| Variable | Purpose |
+| --- | --- |
+| `V2_DEFAULT_ADMIN_ADDRESS` | Default admin for both V2 token and V2 vault. |
+| `V2_PAUSER_ADDRESS` | Token pause/unpause operator. |
+| `V2_REPORTER_ADDRESS` | Report publication operator. |
+| `V2_VESTING_ADMIN_ADDRESS` | Vesting schedule and revoke operator. |
+| `V2_TREASURY_ADDRESS` | Initial fixed-supply receiver and vault refund treasury. |
+| `V2_DEFAULT_ADMIN_DELAY_SECONDS` | Delay for OpenZeppelin default-admin transfer acceptance. |
+
+On `hardhat` and `localhost`, the script uses separate local signer defaults for dry-runs. On any non-local network, it fails closed unless every V2 role address is supplied and `CONFIRM_NON_CANONICAL_V2_DEPLOY=true`.
+
+After deployment, the script asserts on-chain role ownership and fails if the deployer retains an unexpected privileged role. It also writes a role manifest next to the deployment artifact.
 
 ## Treasury Policy
 

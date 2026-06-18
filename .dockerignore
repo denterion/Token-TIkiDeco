@@ -1,0 +1,14 @@
+node_modules
+artifacts
+cache
+coverage
+out-foundry
+cache-foundry
+security-artifacts
+.git
+.env
+.appdata
+.localappdata
+.solc-select
+deployments/local.json
+deployments/*.local.json

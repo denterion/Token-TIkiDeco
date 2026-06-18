@@ -5,24 +5,58 @@ import { network } from "hardhat";
 const { ethers } = await network.create();
 
 const MONTH = 30 * 24 * 60 * 60;
+const DEFAULT_ADMIN_DELAY = 60;
 
 describe("TikiDecoVestingVaultV2", function () {
   async function deployFixture() {
-    const [admin, treasury, beneficiary, secondBeneficiary, outsider, newTreasury] = await ethers.getSigners();
+    const [
+      defaultAdmin,
+      treasury,
+      beneficiary,
+      secondBeneficiary,
+      outsider,
+      newTreasury,
+      vestingAdmin,
+      pauser,
+      reporter,
+      newAdmin
+    ] = await ethers.getSigners();
 
     const Token = await ethers.getContractFactory("TikiDecoTokenV2");
     const token = await Token.deploy(
-      admin.address,
+      defaultAdmin.address,
+      pauser.address,
+      reporter.address,
       treasury.address,
+      "TikiDeco Sepolia prototype",
       "TikiDeco LLC",
       "Florida, USA",
-      "ipfs://project"
+      "ipfs://project",
+      DEFAULT_ADMIN_DELAY
     );
 
     const Vault = await ethers.getContractFactory("TikiDecoVestingVaultV2");
-    const vault = await Vault.deploy(await token.getAddress(), admin.address, treasury.address);
+    const vault = await Vault.deploy(
+      await token.getAddress(),
+      defaultAdmin.address,
+      vestingAdmin.address,
+      treasury.address,
+      DEFAULT_ADMIN_DELAY
+    );
 
-    return { token, vault, admin, treasury, beneficiary, secondBeneficiary, outsider, newTreasury };
+    return {
+      token,
+      vault,
+      defaultAdmin,
+      treasury,
+      beneficiary,
+      secondBeneficiary,
+      outsider,
+      newTreasury,
+      vestingAdmin,
+      pauser,
+      newAdmin
+    };
   }
 
   async function latestTimestamp() {
@@ -46,11 +80,11 @@ describe("TikiDecoVestingVaultV2", function () {
     revocable = true
   } = {}) {
     const fixture = await deployFixture();
-    const { token, vault, treasury, admin, beneficiary } = fixture;
+    const { token, vault, treasury, vestingAdmin, beneficiary } = fixture;
     const start = (await latestTimestamp()) + 1000;
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
-    await vault.connect(admin).createSchedule(
+    await vault.connect(vestingAdmin).createSchedule(
       beneficiary.address,
       amount,
       start,
@@ -63,14 +97,14 @@ describe("TikiDecoVestingVaultV2", function () {
   }
 
   it("creates a funded vesting schedule from a prefunded vault", async function () {
-    const { token, vault, treasury, admin, beneficiary } = await deployFixture();
+    const { token, vault, treasury, vestingAdmin, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("1000", 18);
     const start = await latestTimestamp();
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
 
     await expect(
-      vault.connect(admin).createSchedule(
+      vault.connect(vestingAdmin).createSchedule(
         beneficiary.address,
         amount,
         start,
@@ -93,23 +127,34 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("rejects schedules that exceed unreserved prefunded balance", async function () {
-    const { token, vault, treasury, admin, beneficiary } = await deployFixture();
+    const { token, vault, treasury, vestingAdmin, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("1000", 18);
     const start = await latestTimestamp();
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount - 1n);
 
     await expect(
-      vault.connect(admin).createSchedule(beneficiary.address, amount, start, 0, MONTH, true)
+      vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, 0, MONTH, true)
     ).to.be.revertedWithCustomError(vault, "InsufficientUnreservedBalance");
   });
 
-  it("rejects EOA addresses as vesting tokens", async function () {
-    const { admin, treasury } = await deployFixture();
+  it("rejects zero addresses and EOA token addresses", async function () {
+    const { defaultAdmin, treasury, vestingAdmin } = await deployFixture();
     const Vault = await ethers.getContractFactory("TikiDecoVestingVaultV2");
 
-    await expect(Vault.deploy(treasury.address, admin.address, treasury.address))
+    await expect(Vault.deploy(treasury.address, defaultAdmin.address, vestingAdmin.address, treasury.address, DEFAULT_ADMIN_DELAY))
       .to.be.revertedWithCustomError(Vault, "InvalidToken");
+
+    const validToken = (await deployFixture()).token;
+    const validTokenAddress = await validToken.getAddress();
+
+    for (const args of [
+      [ethers.ZeroAddress, defaultAdmin.address, vestingAdmin.address, treasury.address, DEFAULT_ADMIN_DELAY],
+      [validTokenAddress, defaultAdmin.address, ethers.ZeroAddress, treasury.address, DEFAULT_ADMIN_DELAY],
+      [validTokenAddress, defaultAdmin.address, vestingAdmin.address, ethers.ZeroAddress, DEFAULT_ADMIN_DELAY]
+    ]) {
+      await expect(Vault.deploy(...args)).to.be.revertedWithCustomError(Vault, "ZeroAddress");
+    }
   });
 
   it("rejects invalid schedule ids and accidental native ETH", async function () {
@@ -187,37 +232,37 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("blocks beneficiary release while the token is paused", async function () {
-    const { token, vault, beneficiary, start, cliffDuration, vestingDuration } = await createFundedSchedule();
+    const { token, vault, beneficiary, pauser, start, cliffDuration, vestingDuration } = await createFundedSchedule();
 
-    await token.pause();
+    await token.connect(pauser).pause();
     await setNextBlockTimestamp(start + cliffDuration + (vestingDuration / 4));
 
     await expect(vault.connect(beneficiary).release(0))
       .to.be.revertedWithCustomError(token, "EnforcedPause");
 
-    await token.unpause();
+    await token.connect(pauser).unpause();
     await setNextBlockTimestamp((await latestTimestamp()) + 1);
     await expect(vault.connect(beneficiary).release(0))
       .to.emit(vault, "TokensReleased");
   });
 
   it("blocks vesting admin release while the token is paused", async function () {
-    const { token, vault, admin, start, cliffDuration, vestingDuration } = await createFundedSchedule();
+    const { token, vault, vestingAdmin, pauser, start, cliffDuration, vestingDuration } = await createFundedSchedule();
 
-    await token.pause();
+    await token.connect(pauser).pause();
     await setNextBlockTimestamp(start + cliffDuration + (vestingDuration / 4));
 
-    await expect(vault.connect(admin).release(0))
+    await expect(vault.connect(vestingAdmin).release(0))
       .to.be.revertedWithCustomError(token, "EnforcedPause");
   });
 
   it("revokes before cliff and refunds only to treasury", async function () {
-    const { token, vault, treasury, beneficiary, amount, start, cliffDuration } = await createFundedSchedule();
+    const { token, vault, treasury, beneficiary, vestingAdmin, amount, start, cliffDuration } = await createFundedSchedule();
     const treasuryBefore = await token.balanceOf(treasury.address);
 
     await mineAt(start + cliffDuration - 1);
 
-    await expect(vault.revoke(0))
+    await expect(vault.connect(vestingAdmin).revoke(0))
       .to.emit(vault, "ScheduleRevoked")
       .withArgs(0, beneficiary.address, treasury.address, 0, amount, anyValue);
 
@@ -229,11 +274,11 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("revokes after cliff, releases vested amount, and refunds unvested only to treasury", async function () {
-    const { token, vault, treasury, beneficiary, amount, start, cliffDuration, vestingDuration } = await createFundedSchedule();
+    const { token, vault, treasury, beneficiary, vestingAdmin, amount, start, cliffDuration, vestingDuration } = await createFundedSchedule();
     const treasuryBefore = await token.balanceOf(treasury.address);
 
     await setNextBlockTimestamp(start + cliffDuration + (vestingDuration / 4));
-    await vault.revoke(0);
+    await vault.connect(vestingAdmin).revoke(0);
 
     const vested = amount / 4n;
     const refund = amount - vested;
@@ -245,12 +290,12 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("revokes after full vesting without refunding unvested tokens", async function () {
-    const { token, vault, treasury, beneficiary, amount, start, cliffDuration, vestingDuration } = await createFundedSchedule();
+    const { token, vault, treasury, beneficiary, vestingAdmin, amount, start, cliffDuration, vestingDuration } = await createFundedSchedule();
     const treasuryBefore = await token.balanceOf(treasury.address);
 
     await mineAt(start + cliffDuration + vestingDuration);
 
-    await expect(vault.revoke(0))
+    await expect(vault.connect(vestingAdmin).revoke(0))
       .to.emit(vault, "ScheduleRevoked")
       .withArgs(0, beneficiary.address, treasury.address, amount, 0, anyValue);
 
@@ -262,25 +307,25 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("rejects zero vesting duration", async function () {
-    const { token, vault, treasury, admin, beneficiary } = await deployFixture();
+    const { token, vault, treasury, vestingAdmin, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("1", 18);
     const start = await latestTimestamp();
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
 
     await expect(
-      vault.connect(admin).createSchedule(beneficiary.address, amount, start, 0, 0, true)
+      vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, 0, 0, true)
     ).to.be.revertedWithCustomError(vault, "InvalidSchedule");
   });
 
   it("rejects schedules with too distant timestamps", async function () {
-    const { token, vault, treasury, admin, beneficiary } = await deployFixture();
+    const { token, vault, treasury, vestingAdmin, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("1", 18);
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
 
     await expect(
-      vault.connect(admin).createSchedule(
+      vault.connect(vestingAdmin).createSchedule(
         beneficiary.address,
         amount,
         (1n << 64n) - 1n,
@@ -292,13 +337,13 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("supports old start dates using current timestamp vesting math", async function () {
-    const { token, vault, treasury, admin, beneficiary } = await deployFixture();
+    const { token, vault, treasury, vestingAdmin, beneficiary } = await deployFixture();
     const amount = ethers.parseUnits("2400", 18);
     const now = await latestTimestamp();
     const start = now - (13 * MONTH);
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
-    await vault.connect(admin).createSchedule(beneficiary.address, amount, start, 12 * MONTH, 36 * MONTH, true);
+    await vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, 12 * MONTH, 36 * MONTH, true);
 
     const vested = await vault.vestedAmount(0);
     expect(vested).to.be.greaterThan(0);
@@ -306,25 +351,32 @@ describe("TikiDecoVestingVaultV2", function () {
   });
 
   it("supports two-step treasury transfer and cancellation", async function () {
-    const { vault, admin, newTreasury, outsider } = await deployFixture();
+    const { vault, defaultAdmin, newTreasury, outsider } = await deployFixture();
 
-    await expect(vault.connect(admin).transferTreasury(newTreasury.address))
+    await expect(vault.connect(defaultAdmin).transferTreasury(newTreasury.address))
       .to.emit(vault, "TreasuryTransferStarted");
     expect(await vault.pendingTreasury()).to.equal(newTreasury.address);
 
     await expect(vault.connect(outsider).acceptTreasury())
       .to.be.revertedWithCustomError(vault, "NotPendingTreasury");
 
-    await vault.connect(admin).cancelTreasuryTransfer();
+    await vault.connect(defaultAdmin).cancelTreasuryTransfer();
     expect(await vault.pendingTreasury()).to.equal(ethers.ZeroAddress);
 
-    await vault.connect(admin).transferTreasury(newTreasury.address);
+    await vault.connect(defaultAdmin).transferTreasury(newTreasury.address);
     await vault.connect(newTreasury).acceptTreasury();
     expect(await vault.treasury()).to.equal(newTreasury.address);
   });
 
+  it("prevents unauthorized treasury transfer", async function () {
+    const { vault, outsider, newTreasury } = await deployFixture();
+
+    await expect(vault.connect(outsider).transferTreasury(newTreasury.address))
+      .to.be.revertedWithCustomError(vault, "AccessControlUnauthorizedAccount");
+  });
+
   it("prevents non-vesting-admin schedule creation and revocation", async function () {
-    const { token, vault, treasury, beneficiary, outsider } = await deployFixture();
+    const { token, vault, treasury, beneficiary, outsider, vestingAdmin } = await deployFixture();
     const amount = ethers.parseUnits("1", 18);
     const start = await latestTimestamp();
 
@@ -334,9 +386,25 @@ describe("TikiDecoVestingVaultV2", function () {
       vault.connect(outsider).createSchedule(beneficiary.address, amount, start, 0, MONTH, true)
     ).to.be.revertedWithCustomError(vault, "AccessControlUnauthorizedAccount");
 
-    await vault.createSchedule(beneficiary.address, amount, start, 0, MONTH, true);
+    await vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, 0, MONTH, true);
 
     await expect(vault.connect(outsider).revoke(0))
       .to.be.revertedWithCustomError(vault, "AccessControlUnauthorizedAccount");
+  });
+
+  it("transfers default admin through configured delay", async function () {
+    const { vault, defaultAdmin, newAdmin } = await deployFixture();
+
+    expect(await vault.defaultAdminDelay()).to.equal(DEFAULT_ADMIN_DELAY);
+    await vault.connect(defaultAdmin).beginDefaultAdminTransfer(newAdmin.address);
+    await expect(vault.connect(newAdmin).acceptDefaultAdminTransfer())
+      .to.be.revertedWithCustomError(vault, "AccessControlEnforcedDefaultAdminDelay");
+
+    await ethers.provider.send("evm_increaseTime", [DEFAULT_ADMIN_DELAY]);
+    await ethers.provider.send("evm_mine");
+    await vault.connect(newAdmin).acceptDefaultAdminTransfer();
+
+    expect(await vault.hasRole(await vault.DEFAULT_ADMIN_ROLE(), defaultAdmin.address)).to.equal(false);
+    expect(await vault.hasRole(await vault.DEFAULT_ADMIN_ROLE(), newAdmin.address)).to.equal(true);
   });
 });

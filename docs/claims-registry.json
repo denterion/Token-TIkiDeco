@@ -1,0 +1,120 @@
+{
+  "$schema": "https://tikideco.xyz/schemas/claims-registry.schema.json",
+  "version": "2026-06-18",
+  "status": "machine-readable-public-communications-control",
+  "notLegalAdvice": true,
+  "canonicalDeploymentFacts": {
+    "network": "Ethereum Sepolia",
+    "chainId": 11155111,
+    "contractVersion": "v1-legacy",
+    "tokenAddress": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+    "vestingVaultAddress": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
+    "ownerSafe": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+    "safeThreshold": "3-of-3",
+    "treasury": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
+    "totalSupply": "100,000,000 TIDE",
+    "source": "deployments/canonical.json"
+  },
+  "requiredBaselineStatements": [
+    "Ethereum Sepolia prototype",
+    "no sale",
+    "no stated monetary value",
+    "no mainnet deployment",
+    "no independent audit",
+    "no equity, debt, revenue, property or return rights",
+    "hospitality functionality is conceptual or planned"
+  ],
+  "allowedPublicClaims": [
+    "TikiDeco is an Ethereum Sepolia prototype.",
+    "TIDE is not offered for sale.",
+    "TIDE has no stated monetary value.",
+    "TIDE is not deployed on mainnet.",
+    "TikiDeco has not completed an independent audit.",
+    "TIDE does not provide equity, debt, revenue, property, ownership, or return rights.",
+    "Hospitality functionality is conceptual or planned unless separately verified.",
+    "V1 is the historical canonical Sepolia deployment.",
+    "V2 is candidate code and is not canonical unless a future manifest promotes it."
+  ],
+  "prohibitedOrCounselRequiredClaims": [
+    "audited",
+    "secure",
+    "guaranteed",
+    "investment",
+    "profit",
+    "return",
+    "hotel ownership",
+    "revenue share",
+    "exchange listing",
+    "active utility",
+    "partner",
+    "presale",
+    "buy TIDE",
+    "mainnet live"
+  ],
+  "auditStatusTerminology": {
+    "allowed": [
+      "internal review",
+      "not independently audited",
+      "independent audit not started",
+      "audit candidate"
+    ],
+    "prohibitedUnlessVerified": [
+      "audited",
+      "secure",
+      "no vulnerabilities",
+      "production-ready"
+    ]
+  },
+  "v1V2Terminology": {
+    "v1": "historical canonical Sepolia V1 deployment",
+    "v2": "non-canonical candidate code and future audit target"
+  },
+  "saleStatus": "No sale, presale, purchase flow, or offer to sell TIDE is supported by repository facts.",
+  "mainnetStatus": "No mainnet deployment is present or approved.",
+  "utilityStatus": "Hospitality functionality is conceptual or planned unless separately verified.",
+  "propertyStatus": "No completed property claim is supported by repository facts.",
+  "partnershipStatus": "No confirmed partnership claim is supported by repository facts.",
+  "financialRightsStatus": "TIDE does not provide equity, debt, revenue, property, ownership, dividend, profit, or return rights.",
+  "scanner": {
+    "requiredPublicSurfacePhrases": [
+      "Sepolia",
+      "no token sale",
+      "no stated monetary value",
+      "not deployed on mainnet",
+      "not independently audited",
+      "equity",
+      "debt",
+      "revenue",
+      "property",
+      "return",
+      "conceptual",
+      "planned"
+    ],
+    "allowedContextMarkers": [
+      "not",
+      "no ",
+      "without",
+      "do not",
+      "must not",
+      "prohibited",
+      "forbidden",
+      "unsupported",
+      "unknown",
+      "risk",
+      "disclosure",
+      "counsel",
+      "requires legal review",
+      "compliant legal structure",
+      "unless",
+      "historical",
+      "not independently audited",
+      "independent audit not started",
+      "not offered for sale",
+      "not deployed on mainnet",
+      "нет",
+      "conceptual",
+      "planned",
+      "candidate"
+    ]
+  }
+}

@@ -1,7 +1,14 @@
 node_modules/
 artifacts/
+!site/artifacts/
+!site/artifacts/**
 cache/
+out-foundry/
+cache-foundry/
 coverage/
+security-artifacts/
+release-artifacts/
+lcov.info
 .env
 .openzeppelin/
 typechain-types/

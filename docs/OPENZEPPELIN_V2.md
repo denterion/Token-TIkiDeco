@@ -9,7 +9,7 @@ V2 is non-canonical. It is not a replacement for the currently deployed Sepolia 
 | Area | V1 | V2 |
 | --- | --- | --- |
 | ERC-20 base | Local implementation | OpenZeppelin `ERC20` |
-| Access control | Local owner model | OpenZeppelin `AccessControl` roles |
+| Access control | Local owner model | OpenZeppelin `AccessControlDefaultAdminRules` plus separated operational roles |
 | Pause logic | Local pause flag | OpenZeppelin `Pausable` |
 | Vesting token calls | Local safe wrapper | OpenZeppelin `SafeERC20` |
 | Reentrancy guard | Local guard | OpenZeppelin `ReentrancyGuard` |
@@ -19,7 +19,7 @@ V2 is non-canonical. It is not a replacement for the currently deployed Sepolia 
 | Contract | Purpose |
 | --- | --- |
 | `contracts/TikiDecoTokenV2.sol` | Fixed-supply TIDE token with OpenZeppelin ERC-20 primitives, role-based pause controls, and bounded transparency report publishing. |
-| `contracts/TikiDecoVestingVaultV2.sol` | Vesting vault using OpenZeppelin AccessControl, SafeERC20, ReentrancyGuard, and explicit `cliffDuration` plus `vestingDuration`. |
+| `contracts/TikiDecoVestingVaultV2.sol` | Vesting vault using OpenZeppelin AccessControlDefaultAdminRules, SafeERC20, ReentrancyGuard, and explicit `cliffDuration` plus `vestingDuration`. |
 
 ## Preserved Behavior
 
@@ -28,6 +28,8 @@ V2 keeps the important project-level behavior:
 - fixed `100,000,000 TIDE` supply
 - no public mint function
 - separated admin and treasury at deployment
+- separated V2 default admin, pauser, reporter, vesting admin, and treasury configuration
+- delayed two-step default admin transfer through OpenZeppelin rules
 - role-based access control for admin, pauser, reporter, and vesting admin
 - two-step treasury transfer
 - pause/unpause role controls
@@ -109,11 +111,12 @@ This writes:
 
 ```text
 deployments/local-v2.json
+deployments/local-v2-roles.json
 ```
 
 ## Sepolia V2 Deploy
 
-Only deploy V2 to Sepolia after reviewing the diff and confirming owner/treasury addresses.
+Only deploy V2 to Sepolia after reviewing the diff and confirming every V2 role and treasury address.
 
 ```bash
 npm run sepolia:check
@@ -124,6 +127,7 @@ This writes:
 
 ```text
 deployments/sepolia-v2.json
+deployments/sepolia-v2-roles.json
 ```
 
 ## Mainnet Gate

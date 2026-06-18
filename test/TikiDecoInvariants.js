@@ -7,21 +7,25 @@ const DAY = 24 * 60 * 60;
 
 describe("TikiDeco V2 invariants", function () {
   async function deployFixture() {
-    const [admin, treasury, beneficiary, secondBeneficiary, spender, outsider] = await ethers.getSigners();
+    const [defaultAdmin, treasury, beneficiary, secondBeneficiary, spender, outsider, pauser, reporter, vestingAdmin] = await ethers.getSigners();
 
     const Token = await ethers.getContractFactory("TikiDecoTokenV2");
     const token = await Token.deploy(
-      admin.address,
+      defaultAdmin.address,
+      pauser.address,
+      reporter.address,
       treasury.address,
+      "TikiDeco Sepolia prototype",
       "TikiDeco LLC",
       "Florida, USA",
-      "ipfs://project"
+      "ipfs://project",
+      60
     );
 
     const Vault = await ethers.getContractFactory("TikiDecoVestingVaultV2");
-    const vault = await Vault.deploy(await token.getAddress(), admin.address, treasury.address);
+    const vault = await Vault.deploy(await token.getAddress(), defaultAdmin.address, vestingAdmin.address, treasury.address, 60);
 
-    return { token, vault, admin, treasury, beneficiary, secondBeneficiary, spender, outsider };
+    return { token, vault, defaultAdmin, treasury, beneficiary, secondBeneficiary, spender, outsider, vestingAdmin };
   }
 
   async function latestTimestamp() {
@@ -48,14 +52,14 @@ describe("TikiDeco V2 invariants", function () {
   });
 
   it("never lets vault liabilities exceed held token balance", async function () {
-    const { token, vault, treasury, beneficiary, secondBeneficiary } = await deployFixture();
+    const { token, vault, treasury, beneficiary, secondBeneficiary, vestingAdmin } = await deployFixture();
     const firstAmount = ethers.parseUnits("1200", 18);
     const secondAmount = ethers.parseUnits("600", 18);
     const start = (await latestTimestamp()) + DAY;
 
     await token.connect(treasury).transfer(await vault.getAddress(), firstAmount + secondAmount);
-    await vault.createSchedule(beneficiary.address, firstAmount, start, DAY, 10 * DAY, true);
-    await vault.createSchedule(secondBeneficiary.address, secondAmount, start, 0, 5 * DAY, true);
+    await vault.connect(vestingAdmin).createSchedule(beneficiary.address, firstAmount, start, DAY, 10 * DAY, true);
+    await vault.connect(vestingAdmin).createSchedule(secondBeneficiary.address, secondAmount, start, 0, 5 * DAY, true);
 
     async function expectSolvent() {
       expect(await vault.outstandingLiabilities()).to.be.lessThanOrEqual(await token.balanceOf(await vault.getAddress()));
@@ -68,17 +72,17 @@ describe("TikiDeco V2 invariants", function () {
     await expectSolvent();
 
     await setNextBlockTimestamp(start + DAY + 5 * DAY + 1);
-    await vault.revoke(1);
+    await vault.connect(vestingAdmin).revoke(1);
     await expectSolvent();
   });
 
   it("never releases more than vested amount", async function () {
-    const { token, vault, treasury, beneficiary } = await deployFixture();
+    const { token, vault, treasury, beneficiary, vestingAdmin } = await deployFixture();
     const amount = ethers.parseUnits("1000", 18);
     const start = (await latestTimestamp()) + DAY;
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
-    await vault.createSchedule(beneficiary.address, amount, start, DAY, 10 * DAY, true);
+    await vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, DAY, 10 * DAY, true);
 
     await setNextBlockTimestamp(start + DAY + 3 * DAY);
     await vault.connect(beneficiary).release(0);
@@ -88,22 +92,22 @@ describe("TikiDeco V2 invariants", function () {
   });
 
   it("does not release from a revoked schedule again", async function () {
-    const { token, vault, treasury, beneficiary } = await deployFixture();
+    const { token, vault, treasury, beneficiary, vestingAdmin } = await deployFixture();
     const amount = ethers.parseUnits("1000", 18);
     const start = (await latestTimestamp()) + DAY;
 
     await token.connect(treasury).transfer(await vault.getAddress(), amount);
-    await vault.createSchedule(beneficiary.address, amount, start, DAY, 10 * DAY, true);
+    await vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, DAY, 10 * DAY, true);
 
     await setNextBlockTimestamp(start + DAY + 3 * DAY);
-    await vault.revoke(0);
+    await vault.connect(vestingAdmin).revoke(0);
 
     await expect(vault.connect(beneficiary).release(0))
       .to.be.revertedWithCustomError(vault, "InvalidAmount");
   });
 
   it("keeps privileged operations role-gated", async function () {
-    const { token, vault, treasury, beneficiary, outsider } = await deployFixture();
+    const { token, vault, treasury, beneficiary, outsider, vestingAdmin } = await deployFixture();
     const amount = ethers.parseUnits("1", 18);
     const start = await latestTimestamp();
     const hash = ethers.keccak256(ethers.toUtf8Bytes("report"));
@@ -124,7 +128,7 @@ describe("TikiDeco V2 invariants", function () {
     await expect(vault.connect(outsider).createSchedule(beneficiary.address, amount, start, 0, DAY, true))
       .to.be.revertedWithCustomError(vault, "AccessControlUnauthorizedAccount");
 
-    await vault.createSchedule(beneficiary.address, amount, start, 0, DAY, true);
+    await vault.connect(vestingAdmin).createSchedule(beneficiary.address, amount, start, 0, DAY, true);
     await expect(vault.connect(outsider).revoke(0))
       .to.be.revertedWithCustomError(vault, "AccessControlUnauthorizedAccount");
     await expect(vault.connect(outsider).transferTreasury(outsider.address))
