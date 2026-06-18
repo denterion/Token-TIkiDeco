@@ -1,0 +1,16 @@
+{
+  "name": "TikiDeco Solidity DevSecOps",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "NomicFoundation.hardhat-solidity",
+        "tintinweb.solidity-visual-auditor"
+      ]
+    }
+  },
+  "postCreateCommand": "npm run compile && npm test"
+}

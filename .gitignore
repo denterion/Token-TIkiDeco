@@ -4,6 +4,8 @@ cache/
 out-foundry/
 cache-foundry/
 coverage/
+security-artifacts/
+lcov.info
 .env
 .openzeppelin/
 typechain-types/

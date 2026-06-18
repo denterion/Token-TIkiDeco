@@ -35,10 +35,17 @@
     "bytecode": "npm run bytecode:size",
     "manifest:check": "node scripts/check-deployment-manifest.cjs",
     "manifest": "npm run manifest:check",
+    "manifest:source": "node scripts/check-manifest-source-config.cjs",
     "gas:snapshot": "hardhat test --gas-stats",
     "gas": "npm run gas:snapshot",
     "site": "npm run site:check",
     "foundry:test": "forge test --fuzz-seed 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031 -vvv",
+    "foundry:coverage": "forge coverage --report lcov --fuzz-seed 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031 && node scripts/check-coverage-thresholds.cjs lcov.info 80 80 70",
+    "artifacts:contracts": "node scripts/export-contract-artifacts.cjs",
+    "sbom:spdx": "node scripts/generate-sbom.cjs",
+    "checksums": "node scripts/generate-checksums.cjs",
+    "workflow:pins": "node scripts/check-workflow-action-pins.cjs",
+    "slither:baseline": "node scripts/check-slither-baseline.cjs",
     "slither": "slither contracts --config-file slither.config.json --solc-remaps @openzeppelin/=node_modules/@openzeppelin/"
   },
   "dependencies": {
