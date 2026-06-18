@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a non-security bug in the Sepolia prototype.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report suspected security vulnerabilities here. Use the security report template or SECURITY.md instead.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide deterministic steps, commands, or links.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Contracts
+        - Deployment scripts
+        - Tests
+        - Public site
+        - Documentation
+        - CI or release tooling
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Commit SHA
+      description: If known, provide the commit where the issue was observed.
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Communication boundaries
+      options:
+        - label: This report does not include private keys, secrets, or non-public vulnerability details.
+          required: true

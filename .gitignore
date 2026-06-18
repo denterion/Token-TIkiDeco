@@ -7,6 +7,7 @@ out-foundry/
 cache-foundry/
 coverage/
 security-artifacts/
+release-artifacts/
 lcov.info
 .env
 .openzeppelin/

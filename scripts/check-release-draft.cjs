@@ -27,8 +27,9 @@ function main() {
   const token = manifest.contracts.token;
   const vault = manifest.contracts.vestingVault;
 
-  assertIncludes(release, "Release date: `TBD`", "release date placeholder");
-  assertIncludes(release, "Source commit: `TBD`", "source commit placeholder");
+  assert(!/\bTBD\b/i.test(release), "Release draft contains TBD.");
+  assertIncludes(release, "Release date: unpublished draft; set by the release manager before tag creation.", "draft release date boundary");
+  assertIncludes(release, "Source commit: supplied explicitly to the release package generator.", "explicit source commit boundary");
   assertIncludes(release, `Chain ID | \`${manifest.chainId}\``, "chain ID");
   assertIncludes(release, `Canonical version | \`${manifest.contractVersion}\``, "canonical version");
   assertIncludes(release, token.address, "token address");
@@ -62,6 +63,7 @@ function main() {
     "not offered for sale",
     "has no stated monetary value",
     "no mainnet deployment",
+    "not independently audited",
     "Independent smart-contract audit status: not started",
     "Do not describe this release as audited",
     "not a token sale",
@@ -86,6 +88,9 @@ function main() {
   for (const phrase of forbiddenPhrases) {
     assert(!lowerRelease.includes(phrase), `Forbidden release phrase found: ${phrase}`);
   }
+
+  assert(manifest.auditStatus?.independentAudit, "Canonical manifest missing independent audit status.");
+  assert(manifest.auditStatus?.internalReview, "Canonical manifest missing internal review status.");
 
   console.log("Release draft checks passed.");
 }

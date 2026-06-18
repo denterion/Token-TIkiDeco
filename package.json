@@ -30,6 +30,7 @@
     "site:build": "node scripts/build-site-manifest.cjs && node scripts/build-site-pages.cjs",
     "site:check": "npm run site:build && node scripts/check-site-content.cjs",
     "release:check": "node scripts/check-release-draft.cjs",
+    "release:package": "node scripts/generate-audit-release-package.cjs",
     "release": "npm run release:check",
     "bytecode:size": "node scripts/check-bytecode-size.cjs",
     "bytecode": "npm run bytecode:size",

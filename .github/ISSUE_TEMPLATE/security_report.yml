@@ -1,0 +1,21 @@
+name: Security report redirect
+description: Do not disclose vulnerabilities publicly. Use private reporting.
+title: "[Security]: private report required"
+labels:
+  - security
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not submit vulnerability details in a public issue.
+
+        Use GitHub private vulnerability reporting if it is enabled for this repository, or follow the responsible disclosure process in [SECURITY.md](../../SECURITY.md).
+
+        Include affected files, reproduction steps, expected and actual behavior, impact, and any relevant transaction hashes or tests in the private report.
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: I understand that vulnerability details should not be posted publicly.
+          required: true

@@ -1,0 +1,17 @@
+# Default reviewers for repository-wide changes.
+* @denterion
+
+# Contract and deployment changes need owner review.
+/contracts/ @denterion
+/scripts/deploy*.cjs @denterion
+/deployments/ @denterion
+
+# Public communication and site changes need owner review.
+/README.md @denterion
+/docs/ @denterion
+/site/ @denterion
+
+# Release and CI changes need owner review.
+/.github/ @denterion
+/scripts/generate-audit-release-package.cjs @denterion
+/docs/releases/ @denterion

@@ -1,12 +1,11 @@
 const fs = require("fs");
 const path = require("path");
-const { execSync } = require("child_process");
 
 const root = path.join(__dirname, "..");
 const siteDir = path.join(root, "site");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
-const headCommit = execSync("git rev-parse HEAD", { cwd: root, encoding: "utf8" }).trim();
-const lastUpdated = new Date().toISOString();
+const headCommit = manifest.sourceCommit;
+const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
 
 const baseUrl = "https://tikideco.xyz";
 const pages = [
@@ -21,7 +20,7 @@ const pages = [
       ["Status", [
         ["Internal review", manifest.auditStatus.internalReview],
         ["Independent audit", manifest.auditStatus.independentAudit],
-        ["Audit-target commit", headCommit],
+        ["Canonical V1 source commit", headCommit],
         ["Last updated", lastUpdated]
       ]],
       ["Canonical V1 Versus Candidate V2", [
@@ -130,11 +129,12 @@ const pages = [
     description: "No-offer notice for TikiDeco TIDE Sepolia prototype.",
     eyebrow: "Legal notice",
     heading: "No offer, no sale, no monetary value",
-    intro: "TIDE is a Sepolia testnet prototype and is not offered for sale.",
+    intro: "TIDE is a Sepolia testnet prototype, is not deployed on mainnet, and is not offered for sale.",
     sections: [
       ["Notice", [
         ["No sale", "The project does not provide sale or transaction-signing flows."],
         ["No value statement", "TIDE has no stated monetary value."],
+        ["Mainnet status", "TIDE is not deployed on mainnet."],
         ["No financial rights", "The prototype does not represent hotel ownership, revenue rights, or financial upside."]
       ]]
     ],
