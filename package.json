@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Starter Ethereum project for the TikiDeco token.",
+  "description": "Ethereum Sepolia prototype for TikiDeco TIDE; no sale, no stated monetary value, and no mainnet deployment.",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
@@ -32,6 +32,7 @@
     "release:check": "node scripts/check-release-draft.cjs",
     "release:package": "node scripts/generate-audit-release-package.cjs",
     "release": "npm run release:check",
+    "claims:check": "node scripts/check-public-claims.cjs",
     "bytecode:size": "node scripts/check-bytecode-size.cjs",
     "bytecode": "npm run bytecode:size",
     "manifest:check": "node scripts/check-deployment-manifest.cjs",

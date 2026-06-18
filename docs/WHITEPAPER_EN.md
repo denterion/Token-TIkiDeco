@@ -40,12 +40,12 @@ The starter allocation model is:
 | --- | ---: | ---: |
 | Treasury operations | 20% | 20,000,000 TIDE |
 | Team and advisors | 15% | 15,000,000 TIDE |
-| Strategic partners | 10% | 10,000,000 TIDE |
+| Strategic collaboration reserve | 10% | 10,000,000 TIDE |
 | Community rewards | 20% | 20,000,000 TIDE |
 | Future hotel perks | 15% | 15,000,000 TIDE |
 | Strategic reserve | 20% | 20,000,000 TIDE |
 
-Team, partner, community, and hotel-perk allocations can be placed into vesting schedules to reduce short-term pressure and improve accountability.
+Team, collaboration reserve, community, and hotel-perk allocations can be placed into vesting schedules to reduce short-term pressure and improve accountability.
 
 ## Vesting
 

@@ -30,7 +30,7 @@ TIDE 并不是一个不受控制的融资代币。当前智能合约系统重点
 - 透明发布项目更新
 - 围绕 TikiDeco hospitality 概念进行品牌参与
 
-任何未来的金融权利、revenue share、类似股权的功能或投资发行，都必须通过单独且合规的法律结构处理。
+任何未来的金融权利、regulated revenue rights、类似股权的功能或投资发行，都必须通过单独且合规的法律结构处理。
 
 ## 代币经济
 
@@ -40,7 +40,7 @@ TIDE 并不是一个不受控制的融资代币。当前智能合约系统重点
 | --- | ---: | ---: |
 | Treasury operations | 20% | 20,000,000 TIDE |
 | Team and advisors | 15% | 15,000,000 TIDE |
-| Strategic partners | 10% | 10,000,000 TIDE |
+| Strategic collaboration reserve | 10% | 10,000,000 TIDE |
 | Community rewards | 20% | 20,000,000 TIDE |
 | Future hotel perks | 15% | 15,000,000 TIDE |
 | Strategic reserve | 20% | 20,000,000 TIDE |

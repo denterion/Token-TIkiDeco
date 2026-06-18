@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "chainId": "11155111",
+  "createdAt": 1781800000000,
+  "meta": {
+    "name": "TikiDeco V1 projectURI update to public project status page",
+    "description": "Prepared transaction proposal only. Do not broadcast without Safe signer review.",
+    "txBuilderVersion": "1.18.0",
+    "createdFromSafeAddress": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+    "createdFromOwnerAddress": "",
+    "checksum": ""
+  },
+  "transactions": [
+    {
+      "to": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+      "value": "0",
+      "data": "0x2b313ab80000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002a68747470733a2f2f74696b696465636f2e78797a2f6c6567616c2f70726f6a6563742d7374617475732f00000000000000000000000000000000000000000000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "newProjectURI",
+            "type": "string"
+          }
+        ],
+        "name": "updateProjectURI",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "newProjectURI": "https://tikideco.xyz/legal/project-status/"
+      }
+    }
+  ]
+}
