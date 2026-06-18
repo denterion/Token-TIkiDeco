@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://tikideco.xyz/</loc>
-    <lastmod>2026-06-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://tikideco.xyz/</loc></url>
+  <url><loc>https://tikideco.xyz/audit/</loc></url>
+  <url><loc>https://tikideco.xyz/verify/</loc></url>
+  <url><loc>https://tikideco.xyz/status/</loc></url>
+  <url><loc>https://tikideco.xyz/legal/no-offer/</loc></url>
+  <url><loc>https://tikideco.xyz/legal/terms/</loc></url>
+  <url><loc>https://tikideco.xyz/legal/privacy/</loc></url>
+  <url><loc>https://tikideco.xyz/legal/risk-disclosure/</loc></url>
+  <url><loc>https://tikideco.xyz/legal/project-status/</loc></url>
 </urlset>

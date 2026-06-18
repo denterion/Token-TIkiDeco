@@ -1,0 +1,5 @@
+Contact: https://github.com/denterion/Token-TIkiDeco/security/advisories/new
+Policy: https://tikideco.xyz/legal/risk-disclosure/
+Preferred-Languages: en, ru
+Canonical: https://tikideco.xyz/.well-known/security.txt
+Expires: 2027-06-18T00:00:00Z

@@ -4,6 +4,7 @@ const path = require("path");
 const root = path.join(__dirname, "..");
 const canonicalPath = path.join(root, "deployments", "canonical.json");
 const outputPath = path.join(root, "site", "deployment-manifest.json");
+const siteArtifactsDir = path.join(root, "site", "artifacts", "v1");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -39,6 +40,20 @@ function main() {
 
   fs.writeFileSync(outputPath, `${JSON.stringify(publicManifest, null, 2)}\n`);
   console.log(`Wrote ${path.relative(root, outputPath)} from deployments/canonical.json`);
+
+  for (const [key, contract] of Object.entries(canonical.contracts)) {
+    const artifactPath = path.join(root, "artifacts", "contracts", `${contract.name}.sol`, `${contract.name}.json`);
+    if (!fs.existsSync(artifactPath)) {
+      console.log(`Skipped ABI export for ${contract.name}; artifact missing`);
+      continue;
+    }
+    const artifact = readJson(artifactPath);
+    const contractDir = path.join(siteArtifactsDir, contract.name);
+    fs.mkdirSync(contractDir, { recursive: true });
+    fs.writeFileSync(path.join(contractDir, "abi.json"), `${JSON.stringify(artifact.abi, null, 2)}\n`);
+    fs.writeFileSync(path.join(contractDir, "deployed-bytecode.txt"), `${artifact.deployedBytecode || "0x"}\n`);
+    console.log(`Wrote site artifact for ${key}: ${contract.name}`);
+  }
 }
 
 main();

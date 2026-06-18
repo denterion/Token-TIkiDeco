@@ -1,5 +1,7 @@
 node_modules/
 artifacts/
+!site/artifacts/
+!site/artifacts/**
 cache/
 out-foundry/
 cache-foundry/

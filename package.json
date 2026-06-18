@@ -27,7 +27,7 @@
     "coverage": "hardhat test --coverage",
     "audit": "npm audit --audit-level=moderate",
     "lint": "npm run compile && node scripts/check-deployment-manifest.cjs && node scripts/check-bytecode-size.cjs",
-    "site:build": "node scripts/build-site-manifest.cjs",
+    "site:build": "node scripts/build-site-manifest.cjs && node scripts/build-site-pages.cjs",
     "site:check": "npm run site:build && node scripts/check-site-content.cjs",
     "release:check": "node scripts/check-release-draft.cjs",
     "release": "npm run release:check",
