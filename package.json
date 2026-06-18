@@ -38,6 +38,7 @@
     "gas:snapshot": "hardhat test --gas-stats",
     "gas": "npm run gas:snapshot",
     "site": "npm run site:check",
+    "foundry:test": "forge test --fuzz-seed 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031 -vvv",
     "slither": "slither contracts --config-file slither.config.json --solc-remaps @openzeppelin/=node_modules/@openzeppelin/"
   },
   "dependencies": {

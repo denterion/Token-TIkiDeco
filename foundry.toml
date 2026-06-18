@@ -1,0 +1,22 @@
+[profile.default]
+src = "contracts"
+test = "foundry"
+out = "out-foundry"
+cache_path = "cache-foundry"
+solc_version = "0.8.28"
+evm_version = "paris"
+optimizer = true
+optimizer_runs = 200
+libs = ["node_modules"]
+remappings = ["@openzeppelin/=node_modules/@openzeppelin/"]
+
+[fuzz]
+runs = 256
+seed = "0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031"
+
+[invariant]
+runs = 64
+depth = 64
+fail_on_revert = false
+call_override = false
+dictionary_weight = 40

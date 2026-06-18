@@ -29,6 +29,16 @@ jobs:
       - name: Test
         run: npm test
 
+      - name: Setup Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Foundry fuzz and invariant tests
+        run: |
+          echo "Foundry deterministic seed: 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031"
+          npm run foundry:test
+
       - name: Deployment manifest check
         run: npm run manifest:check
 

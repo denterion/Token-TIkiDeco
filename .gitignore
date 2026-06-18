@@ -1,6 +1,8 @@
 node_modules/
 artifacts/
 cache/
+out-foundry/
+cache-foundry/
 coverage/
 .env
 .openzeppelin/
