@@ -27,15 +27,15 @@ Review status: internal review preparation. TikiDeco V2 remains a candidate and 
 
 `TikiDecoTokenV2`:
 
-- `DEFAULT_ADMIN_ROLE`: initial owner passed to constructor.
-- `PAUSER_ROLE`: initial owner.
-- `REPORTER_ROLE`: initial owner.
+- `DEFAULT_ADMIN_ROLE`: explicit `defaultAdmin` constructor argument, managed by `AccessControlDefaultAdminRules`.
+- `PAUSER_ROLE`: explicit `pauser` constructor argument.
+- `REPORTER_ROLE`: explicit `reporter` constructor argument.
 - Treasury receives `100,000,000 TIDE` at construction.
 
 `TikiDecoVestingVaultV2`:
 
-- `DEFAULT_ADMIN_ROLE`: initial admin.
-- `VESTING_ADMIN_ROLE`: initial admin.
+- `DEFAULT_ADMIN_ROLE`: explicit `defaultAdmin` constructor argument, managed by `AccessControlDefaultAdminRules`.
+- `VESTING_ADMIN_ROLE`: explicit `vestingAdmin` constructor argument.
 - Treasury is constructor-defined and can be transferred through a two-step pending treasury flow.
 - Vault uses a prefunded model: treasury or another holder must transfer TIDE to the vault before schedules are created.
 
@@ -92,4 +92,3 @@ Additional CI tooling:
 - Slither via `pipx install slither-analyzer`.
 - Gitleaks GitHub Action.
 - npm audit.
-

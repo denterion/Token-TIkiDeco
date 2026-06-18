@@ -25,11 +25,13 @@ V1 must remain described as historical Sepolia prototype state.
 
 ## V2 Candidate Token
 
-`TikiDecoTokenV2` uses OpenZeppelin ERC-20, AccessControl, and Pausable.
+`TikiDecoTokenV2` uses OpenZeppelin ERC-20, AccessControlDefaultAdminRules, and Pausable.
 
 Key surfaces:
 
 - fixed supply minted once in constructor to treasury;
+- neutral bounded project metadata supplied through constructor configuration;
+- delayed two-step default admin transfer;
 - `PAUSER_ROLE` gates pause/unpause;
 - `REPORTER_ROLE` gates report publication;
 - `DEFAULT_ADMIN_ROLE` can administer roles and project URI;
@@ -37,12 +39,13 @@ Key surfaces:
 
 ## V2 Candidate Vesting Vault
 
-`TikiDecoVestingVaultV2` uses AccessControl, SafeERC20, and ReentrancyGuard.
+`TikiDecoVestingVaultV2` uses AccessControlDefaultAdminRules, SafeERC20, and ReentrancyGuard.
 
 Key surfaces:
 
 - prefunded vault model;
 - schedules reserve already held vault balance;
+- delayed two-step default admin transfer;
 - `outstandingLiabilities()` tracks reserved minus released;
 - releases transfer vested tokens to beneficiaries;
 - revocation sends vested amount to beneficiary and unvested amount to treasury;
@@ -64,4 +67,3 @@ V2 promotion requires at minimum:
 - deployment runbook sign-off;
 - role assignment and treasury confirmation;
 - verification links and release notes.
-

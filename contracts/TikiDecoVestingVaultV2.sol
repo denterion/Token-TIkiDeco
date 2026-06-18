@@ -3,10 +3,10 @@ pragma solidity ^0.8.28;
 
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+import {AccessControlDefaultAdminRules} from "@openzeppelin/contracts/access/extensions/AccessControlDefaultAdminRules.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
-contract TikiDecoVestingVaultV2 is AccessControl, ReentrancyGuard {
+contract TikiDecoVestingVaultV2 is AccessControlDefaultAdminRules, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     bytes32 public constant VESTING_ADMIN_ROLE = keccak256("VESTING_ADMIN_ROLE");
@@ -66,8 +66,18 @@ contract TikiDecoVestingVaultV2 is AccessControl, ReentrancyGuard {
     error InvalidToken();
     error NotPendingTreasury();
 
-    constructor(address tokenAddress, address initialAdmin, address initialTreasury) {
-        if (tokenAddress == address(0) || initialAdmin == address(0) || initialTreasury == address(0)) {
+    constructor(
+        address tokenAddress,
+        address defaultAdmin,
+        address vestingAdmin,
+        address initialTreasury,
+        uint48 defaultAdminDelay
+    ) AccessControlDefaultAdminRules(defaultAdminDelay, defaultAdmin) {
+        if (
+            tokenAddress == address(0)
+                || vestingAdmin == address(0)
+                || initialTreasury == address(0)
+        ) {
             revert ZeroAddress();
         }
         if (tokenAddress.code.length == 0) revert InvalidToken();
@@ -75,8 +85,7 @@ contract TikiDecoVestingVaultV2 is AccessControl, ReentrancyGuard {
         token = IERC20(tokenAddress);
         treasury = initialTreasury;
 
-        _grantRole(DEFAULT_ADMIN_ROLE, initialAdmin);
-        _grantRole(VESTING_ADMIN_ROLE, initialAdmin);
+        _grantRole(VESTING_ADMIN_ROLE, vestingAdmin);
     }
 
     function totalReserved() external view returns (uint256) {

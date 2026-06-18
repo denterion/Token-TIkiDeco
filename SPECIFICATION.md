@@ -8,18 +8,27 @@ Status: candidate specification for internal review. V2 is not canonical and is 
 
 Inputs:
 
-- `initialOwner`
+- `defaultAdmin`
+- `pauser`
+- `reporter`
 - `treasury`
+- `initialProjectName`
 - `initialBusinessEntity`
 - `initialProjectJurisdiction`
 - `initialProjectURI`
+- `defaultAdminDelay`
 
 Requirements:
 
-- `initialOwner != address(0)`
+- `defaultAdmin != address(0)`
+- `pauser != address(0)`
+- `reporter != address(0)`
 - `treasury != address(0)`
+- metadata fields are non-empty and bounded;
 - mint exactly `100_000_000 * 10 ** 18` TIDE to treasury;
-- grant `DEFAULT_ADMIN_ROLE`, `PAUSER_ROLE`, and `REPORTER_ROLE` to `initialOwner`.
+- grant `DEFAULT_ADMIN_ROLE` to `defaultAdmin` using OpenZeppelin `AccessControlDefaultAdminRules`;
+- grant `PAUSER_ROLE` to `pauser`;
+- grant `REPORTER_ROLE` to `reporter`.
 
 ### ERC-20 Behavior
 
@@ -27,6 +36,7 @@ Requirements:
 - Paused state blocks token updates through `_update`.
 - No public mint function after construction.
 - Native ETH receive/fallback reverts.
+- `updateProjectURI` is default-admin only and validates non-empty bounded URI input.
 
 ### Reports
 
@@ -51,14 +61,17 @@ Expected events:
 Inputs:
 
 - `tokenAddress`
-- `initialAdmin`
+- `defaultAdmin`
+- `vestingAdmin`
 - `initialTreasury`
+- `defaultAdminDelay`
 
 Requirements:
 
 - no zero addresses;
 - token address must contain code;
-- grant `DEFAULT_ADMIN_ROLE` and `VESTING_ADMIN_ROLE` to initial admin.
+- grant `DEFAULT_ADMIN_ROLE` to `defaultAdmin` using OpenZeppelin `AccessControlDefaultAdminRules`;
+- grant `VESTING_ADMIN_ROLE` to `vestingAdmin`.
 
 ### Funding Model
 
@@ -94,4 +107,3 @@ Requirements:
 - `transferTreasury` sets pending treasury.
 - `acceptTreasury` must be called by pending treasury.
 - `cancelTreasuryTransfer` clears pending treasury.
-

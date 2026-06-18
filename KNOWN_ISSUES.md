@@ -2,33 +2,33 @@
 
 Status: internal review findings for V2 candidate and release process. These are not independent audit findings.
 
-## Finding KI-01: V2 Token Metadata Can Encode Unverified Public Claims
+## Finding KI-01: V2 Token Metadata Remains A Public Claims Surface
 
 Severity: Medium
 
-Affected file and line: `contracts/TikiDecoTokenV2.sol:67-70`
+Affected file and line: `contracts/TikiDecoTokenV2.sol:60-88`
 
 Attack or failure scenario: `projectName`, `businessEntity`, `projectJurisdiction`, or `projectURI` can be deployed with wording that implies an entity, location, property, or operational status that is not verified. Once deployed, some fields are immutable or only partially updateable, which can create durable public confusion.
 
-Current mitigation: constructor inputs are explicit, and public communications documents restrict sale/value/property claims.
+Current mitigation: constructor inputs are explicit, bounded, and non-empty; the hardcoded property-style project name was removed from V2; public communications documents restrict sale/value/property claims.
 
-Recommended change: replace hardcoded `projectName = "TikiDeco Miami Beach Hotel"` with a neutral prototype label before any V2 audit target freeze, or document a reviewed metadata string in the deployment runbook.
+Recommended change: require release-manager review of exact metadata strings before any public V2 candidate deployment and record them in the deployment artifact and role manifest.
 
-Test that should prove the mitigation: add a constructor metadata test that asserts the deployed V2 candidate project name and URI exactly match counsel/release-approved neutral strings.
+Test that should prove the mitigation: constructor metadata tests should reject empty/oversized values and assert the deployed V2 candidate project name and URI exactly match release-approved neutral strings.
 
-## Finding KI-02: V2 Public Deploy Script Defaults Treasury To Owner
+## Finding KI-02: V2 Public Deploy Script Role Configuration Is Safety-Critical
 
 Severity: Medium
 
-Affected file and line: `scripts/deploy-v2.cjs:18-19`
+Affected file and line: `scripts/deploy-v2.cjs:40-81`
 
-Attack or failure scenario: if `TREASURY_ADDRESS` is omitted, the script sets treasury to owner. A public candidate deployment could mint all supply to an admin/owner address rather than the intended treasury address.
+Attack or failure scenario: if any privileged role address is omitted or incorrect, a public candidate deployment could assign operational authority or treasury custody to the wrong account.
 
-Current mitigation: public-network V2 deployment requires `CONFIRM_NON_CANONICAL_V2_DEPLOY=true`; addresses are validated for shape.
+Current mitigation: public-network V2 deployment requires `CONFIRM_NON_CANONICAL_V2_DEPLOY=true`; all V2 privileged addresses are explicit; deployment asserts roles on-chain and writes a role manifest.
 
-Recommended change: for non-local networks, require explicit `OWNER_ADDRESS` and `TREASURY_ADDRESS`, reject equality unless an additional explicit override is set, and print a pre-deploy confirmation manifest.
+Recommended change: keep the role manifest under release review and document any intentionally shared role addresses before running a public candidate deployment.
 
-Test that should prove the mitigation: script-level test or dry-run harness that fails when `TREASURY_ADDRESS` is missing on Sepolia-like network and passes on localhost.
+Test that should prove the mitigation: script-level tests should fail when any V2 role address is missing on a Sepolia-like network, fail on wrong role assignments, and fail when the deployer retains unexpected privileged roles.
 
 ## Finding KI-03: V2 Vault Has No On-Chain Pause Role
 
