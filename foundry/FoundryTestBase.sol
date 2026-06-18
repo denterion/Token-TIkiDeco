@@ -7,12 +7,11 @@ interface Vm {
     function prank(address msgSender) external;
     function startPrank(address msgSender) external;
     function stopPrank() external;
-    function targetContract(address newTargetedContract) external;
     function warp(uint256 newTimestamp) external;
 }
 
 contract FoundryTestBase {
-    Vm internal constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
+    Vm internal constant vm = Vm(address(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D));
 
     function assertTrue(bool condition, string memory message) internal pure {
         if (!condition) revert(message);

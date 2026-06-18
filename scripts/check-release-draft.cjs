@@ -59,7 +59,7 @@ function main() {
   }
 
   const requiredPhrases = [
-    "56 passing",
+    "69 passing",
     "not offered for sale",
     "has no stated monetary value",
     "no mainnet deployment",

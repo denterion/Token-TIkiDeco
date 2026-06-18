@@ -98,7 +98,7 @@ npm test
 Expected current result:
 
 ```text
-56 passing
+69 passing
 ```
 
 ## Local V2 Deploy

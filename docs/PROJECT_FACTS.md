@@ -58,7 +58,7 @@ Status key:
 
 | Fact | Source | Checked | Status |
 | --- | --- | --- | --- |
-| Current local test suite result is `56 passing`. | `npm test` run in this workspace on 2026-06-17 returned `56 passing`; tests are in `test/*.js`; script is defined in `package.json`. | 2026-06-17 | verified |
+| Current local test suite result is `69 passing`. | `npm test` run in this workspace on 2026-06-18 returned `69 passing`; tests are in `test/*.js`; script is defined in `package.json`. | 2026-06-18 | verified |
 | Tests cover V1 token, V1 vesting vault, V2 token, V2 vesting vault, and V2 invariant-style properties. | `test/TikiDecoToken.js`, `test/TikiDecoVestingVault.js`, `test/TikiDecoTokenV2.js`, `test/TikiDecoVestingVaultV2.js`, `test/TikiDecoInvariants.js`; `npm test` output. | 2026-06-17 | verified |
 | `npm audit --audit-level=moderate` is configured as `npm run audit`. | `package.json`. | 2026-06-17 | verified |
 | Slither command is configured but requires local Slither/solc setup. | `package.json` (`slither` script); `README.md` local development notes. | 2026-06-17 | verified |
@@ -80,7 +80,7 @@ Status key:
 | On-chain report ID `0` has category `safe-ownership-openzeppelin-v2`, document hash `0x04119c47a7c09f09bfdcee87d77925e6f5ec89c2ea1fe9759feaae7091c0b5cc`, and publication transaction `0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9`. | `deployments/canonical.json`; `docs/reports/REPORT_2026_06_17_SAFE_AND_V2_HASH.md`; read-only Sepolia `reportsCount()` confirms at least one report. | 2026-06-17 | verified |
 | `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md` exists as a public repository report. | Repository file `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`. | 2026-06-17 | verified |
 | `docs/reports/GENESIS_REPORT.md` exists as a repository report but is marked prepared, not yet published on-chain. | Repository file `docs/reports/GENESIS_REPORT.md`; `docs/reports/GENESIS_REPORT_HASH.md` (`Publication status: Prepared, not yet published on-chain`). | 2026-06-17 | verified |
-| The `REPORT_2026_06_17_SAFE_AND_V2.md` file contains an older historical test count of `36 passing`; current public copy should prefer the separately verified current test count of `56 passing`. | Repository file `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`; current `npm test` run on 2026-06-17. | 2026-06-17 | verified |
+| The `REPORT_2026_06_17_SAFE_AND_V2.md` file contains an older historical test count of `36 passing`; current public copy should prefer the separately verified current test count of `69 passing`. | Repository file `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`; current `npm test` run on 2026-06-18. | 2026-06-18 | verified |
 
 ## Current Functionality
 

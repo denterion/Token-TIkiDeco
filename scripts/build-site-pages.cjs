@@ -37,7 +37,7 @@ const pages = [
       ["Compiler And Analysis", [
         ["Compiler", `${manifest.compiler.version}, ${manifest.compiler.evmTarget}, optimizer runs ${manifest.compiler.optimizer.runs}`],
         ["Test status", "Hardhat suite and Foundry secondary invariant suite are CI gates"],
-        ["Coverage status", "Foundry line, function, and branch thresholds are configured in CI"],
+        ["Coverage status", "Hardhat coverage is the primary gate; Foundry V2 line, function, and branch thresholds are configured for the secondary invariant suite"],
         ["Static analysis", "Slither V1 informational scan and blocking V2 baseline comparison are configured"]
       ]],
       ["Known Issues And Governance", [

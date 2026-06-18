@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import {TikiDecoTokenV2} from "../../contracts/TikiDecoTokenV2.sol";
+import {TikiDecoTokenV2} from "../contracts/TikiDecoTokenV2.sol";
 import {FoundryTestBase} from "./FoundryTestBase.sol";
 
 contract TikiDecoTokenV2Handler is FoundryTestBase {
@@ -152,7 +152,6 @@ contract TikiDecoTokenV2InvariantTest is FoundryTestBase {
             60
         );
         handler = new TikiDecoTokenV2Handler(token, defaultAdmin, pauser, reporter, treasury, outsider);
-        vm.targetContract(address(handler));
     }
 
     function invariant_totalSupplyAlwaysEqualsMaxSupply() public view {
@@ -215,6 +214,8 @@ contract TikiDecoTokenV2InvariantTest is FoundryTestBase {
     }
 
     function testOnlyCorrectRoleCanPauseAndPublishReports() public {
+        uint256 noSupersededReport = token.NO_SUPERSEDED_REPORT();
+
         vm.expectRevert();
         vm.prank(outsider);
         token.pause();
@@ -233,7 +234,7 @@ contract TikiDecoTokenV2InvariantTest is FoundryTestBase {
             1,
             2,
             "v1",
-            token.NO_SUPERSEDED_REPORT()
+            noSupersededReport
         );
 
         vm.prank(reporter);
@@ -244,11 +245,13 @@ contract TikiDecoTokenV2InvariantTest is FoundryTestBase {
             1,
             2,
             "v1",
-            token.NO_SUPERSEDED_REPORT()
+            noSupersededReport
         );
     }
 
     function testOnlyAdminCanUpdateProjectMetadataAndRoles() public {
+        bytes32 reporterRole = token.REPORTER_ROLE();
+
         vm.expectRevert();
         vm.prank(outsider);
         token.updateProjectURI("ipfs://bad");
@@ -258,10 +261,10 @@ contract TikiDecoTokenV2InvariantTest is FoundryTestBase {
 
         vm.expectRevert();
         vm.prank(outsider);
-        token.grantRole(token.REPORTER_ROLE(), outsider);
+        token.grantRole(reporterRole, outsider);
 
         vm.prank(defaultAdmin);
-        token.grantRole(token.REPORTER_ROLE(), outsider);
-        assertTrue(token.hasRole(token.REPORTER_ROLE(), outsider), "admin role grant failed");
+        token.grantRole(reporterRole, outsider);
+        assertTrue(token.hasRole(reporterRole, outsider), "admin role grant failed");
     }
 }

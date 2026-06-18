@@ -18,3 +18,4 @@ typechain-types/
 deployments/local.json
 deployments/*.local.json
 tmp/
+.tools/
