@@ -30,9 +30,14 @@
     "site:build": "node scripts/build-site-manifest.cjs",
     "site:check": "npm run site:build && node scripts/check-site-content.cjs",
     "release:check": "node scripts/check-release-draft.cjs",
+    "release": "npm run release:check",
     "bytecode:size": "node scripts/check-bytecode-size.cjs",
+    "bytecode": "npm run bytecode:size",
     "manifest:check": "node scripts/check-deployment-manifest.cjs",
+    "manifest": "npm run manifest:check",
     "gas:snapshot": "hardhat test --gas-stats",
+    "gas": "npm run gas:snapshot",
+    "site": "npm run site:check",
     "slither": "slither contracts --config-file slither.config.json --solc-remaps @openzeppelin/=node_modules/@openzeppelin/"
   },
   "dependencies": {
