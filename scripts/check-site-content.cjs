@@ -54,7 +54,7 @@ function main() {
   assert(!html.includes(oldGitHubPagesPath), "old GitHub Pages URL found in HTML");
   assert(robots.includes("https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
   assert(sitemap.includes("https://tikideco.xyz/"), "sitemap.xml must point to tikideco.xyz");
-  assert(html.includes("SEPOLIA TESTNET · NO MONETARY VALUE"), "persistent Sepolia/no value badge missing");
+  assert(html.includes("SEPOLIA TESTNET &middot; NO MONETARY VALUE"), "persistent Sepolia/no value badge missing");
   assert(html.includes("Content-Security-Policy"), "CSP meta tag missing");
   assert(html.includes("application/ld+json"), "JSON-LD missing");
   assert(html.includes("aria-expanded"), "mobile menu accessibility state missing");

@@ -46,7 +46,7 @@
 
   function shortNetwork(network, chainId) {
     if (!network && !chainId) return UNAVAILABLE;
-    return `${network || "unknown"} · chain ${chainId || "unknown"}`;
+    return `${network || "unknown"} - chain ${chainId || "unknown"}`;
   }
 
   function normalizeAuditStatus(auditStatus) {
@@ -60,7 +60,7 @@
     if (!Array.isArray(reports) || reports.length === 0) return "No published reports in manifest";
     const latest = reports[reports.length - 1];
     const date = latest.publishedAt ? latest.publishedAt.slice(0, 10) : "date unavailable";
-    return `#${latest.reportId} · ${date} · ${latest.category}`;
+    return `#${latest.reportId} - ${date} - ${latest.category}`;
   }
 
   function setManifestFields(manifest) {
