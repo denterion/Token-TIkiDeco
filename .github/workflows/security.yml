@@ -18,7 +18,7 @@ env:
   NODE_VERSION: "22.13.1"
   PYTHON_VERSION: "3.12.8"
   SOLC_VERSION: "0.8.28"
-  SOLC_SELECT_VERSION: "1.1.0"
+  SOLC_STATIC_LINUX_SHA256: "9a0fb7e0db2c0641dbae1c5cc645dc686820c83af516226abb1c0a2f76636f25"
   SLITHER_VERSION: "0.11.3"
   FOUNDRY_VERSION: "v1.4.0"
   FOUNDRY_FUZZ_SEED: "0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031"
@@ -141,13 +141,15 @@ jobs:
       - name: Install pinned Slither
         run: |
           pipx install slither-analyzer==${{ env.SLITHER_VERSION }}
-          pipx install solc-select==${{ env.SOLC_SELECT_VERSION }}
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
       - name: Install pinned solc
         run: |
-          solc-select install $SOLC_VERSION
-          solc-select use $SOLC_VERSION
+          curl -fsSL "https://github.com/argotorg/solidity/releases/download/v${SOLC_VERSION}/solc-static-linux" -o /tmp/solc
+          echo "${SOLC_STATIC_LINUX_SHA256}  /tmp/solc" | sha256sum -c -
+          chmod +x /tmp/solc
+          sudo mv /tmp/solc /usr/local/bin/solc
+          solc --version
 
       - name: Run Slither JSON scan
         run: |
