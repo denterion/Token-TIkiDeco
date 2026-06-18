@@ -8,6 +8,7 @@ const releaseName = "v0.1.0-sepolia";
 const outputRoot = path.join(root, "release-artifacts", releaseName);
 const npmBin = process.platform === "win32" ? "npm.cmd" : "npm";
 const nodeBin = process.execPath;
+const npmExecPath = process.env.npm_execpath;
 
 function detectPythonUserSite() {
   const result = spawnSync("python", ["-m", "site", "--user-site"], {
@@ -127,6 +128,13 @@ function run(command, args, options = {}) {
     throw new Error(`${label} failed with exit code ${result.status}\n${output}`);
   }
   return { status: result.status, output };
+}
+
+function runNpm(args, options = {}) {
+  if (npmExecPath) {
+    return run(nodeBin, [npmExecPath, ...args], options);
+  }
+  return run(npmBin, args, options);
 }
 
 function toolAvailable(command, args = ["--version"]) {
@@ -398,12 +406,12 @@ function main() {
   const reportsDir = path.join(bundleDir, "reports");
   const slitherDir = path.join(root, "security-artifacts", "slither");
 
-  run(npmBin, ["run", "compile"], { captureFile: path.join(reportsDir, "compile-report.txt") });
-  run(npmBin, ["test"], { captureFile: path.join(reportsDir, "test-report.txt") });
-  run(npmBin, ["run", "coverage"], { captureFile: path.join(reportsDir, "coverage-report.txt") });
-  run(npmBin, ["run", "gas:snapshot"], { captureFile: path.join(reportsDir, "gas-report.txt") });
-  run(npmBin, ["run", "site:check"], { captureFile: path.join(reportsDir, "site-check-report.txt") });
-  run(npmBin, ["run", "release:check"], { captureFile: path.join(reportsDir, "release-check-report.txt") });
+  runNpm(["run", "compile"], { captureFile: path.join(reportsDir, "compile-report.txt") });
+  runNpm(["test"], { captureFile: path.join(reportsDir, "test-report.txt") });
+  runNpm(["run", "coverage"], { captureFile: path.join(reportsDir, "coverage-report.txt") });
+  runNpm(["run", "gas:snapshot"], { captureFile: path.join(reportsDir, "gas-report.txt") });
+  runNpm(["run", "site:check"], { captureFile: path.join(reportsDir, "site-check-report.txt") });
+  runNpm(["run", "release:check"], { captureFile: path.join(reportsDir, "release-check-report.txt") });
 
   fs.mkdirSync(slitherDir, { recursive: true });
   const slitherJson = path.join(slitherDir, "slither.json");
@@ -425,7 +433,7 @@ function main() {
     captureFile: path.join(reportsDir, "slither-baseline-report.txt")
   });
 
-  run(npmBin, ["run", "sbom:spdx"], { captureFile: path.join(reportsDir, "sbom-report.txt") });
+  runNpm(["run", "sbom:spdx"], { captureFile: path.join(reportsDir, "sbom-report.txt") });
 
   const sourceArchive = path.join(bundleDir, `source-${commit}.zip`);
   run("git", ["archive", "--format=zip", "--output", sourceArchive, commit], {

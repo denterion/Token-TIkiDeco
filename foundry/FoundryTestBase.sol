@@ -13,6 +13,56 @@ interface Vm {
 contract FoundryTestBase {
     Vm internal constant vm = Vm(address(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D));
 
+    struct FuzzSelector {
+        address addr;
+        bytes4[] selectors;
+    }
+
+    struct FuzzInterface {
+        address addr;
+        string[] artifacts;
+    }
+
+    function targetContracts() public pure returns (address[] memory targets) {
+        targets = new address[](0);
+    }
+
+    function excludeContracts() public pure returns (address[] memory targets) {
+        targets = new address[](0);
+    }
+
+    function targetSenders() public pure returns (address[] memory senders) {
+        senders = new address[](0);
+    }
+
+    function excludeSenders() public pure returns (address[] memory senders) {
+        senders = new address[](0);
+    }
+
+    function targetSelectors() public pure returns (FuzzSelector[] memory selectors) {
+        selectors = new FuzzSelector[](0);
+    }
+
+    function excludeSelectors() public pure returns (FuzzSelector[] memory selectors) {
+        selectors = new FuzzSelector[](0);
+    }
+
+    function targetInterfaces() public pure returns (FuzzInterface[] memory interfaces_) {
+        interfaces_ = new FuzzInterface[](0);
+    }
+
+    function targetArtifactSelectors() public pure returns (FuzzSelector[] memory selectors) {
+        selectors = new FuzzSelector[](0);
+    }
+
+    function targetArtifacts() public pure returns (string[] memory artifacts) {
+        artifacts = new string[](0);
+    }
+
+    function excludeArtifacts() public pure returns (string[] memory artifacts) {
+        artifacts = new string[](0);
+    }
+
     function assertTrue(bool condition, string memory message) internal pure {
         if (!condition) revert(message);
     }
