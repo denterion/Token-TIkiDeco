@@ -4,6 +4,7 @@ const filePath = process.argv[2] || "lcov.info";
 const minLines = Number(process.argv[3] || 80);
 const minFunctions = Number(process.argv[4] || 80);
 const minBranches = Number(process.argv[5] || 70);
+const includePatterns = process.argv.slice(6);
 
 if (!fs.existsSync(filePath)) {
   throw new Error(`Coverage file not found: ${filePath}`);
@@ -19,7 +20,25 @@ const totals = {
   branchesHit: 0
 };
 
+let includeRecord = true;
+
+function matchesInclude(fileName) {
+  if (includePatterns.length === 0) return true;
+  const normalized = fileName.replaceAll("\\", "/");
+  return includePatterns.some((pattern) => normalized.includes(pattern.replaceAll("\\", "/")));
+}
+
 for (const line of text.split(/\r?\n/)) {
+  if (line.startsWith("SF:")) {
+    includeRecord = matchesInclude(line.slice(3));
+    continue;
+  }
+  if (line === "end_of_record") {
+    includeRecord = true;
+    continue;
+  }
+  if (!includeRecord) continue;
+
   const [key, value] = line.split(":");
   const number = Number(value);
   if (key === "LF") totals.linesFound += number;

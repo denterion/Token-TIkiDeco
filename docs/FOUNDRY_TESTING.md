@@ -6,6 +6,8 @@ Status: secondary toolchain for V2 candidate tests. Hardhat remains the primary 
 
 Foundry tests are stored in `foundry` and focus on V2 fuzz, invariant, and deterministic vesting boundary coverage.
 
+`npm run foundry:coverage` generates an LCOV artifact and applies V2-only line, function, and branch thresholds to the candidate contracts. Hardhat coverage remains the primary project-wide coverage gate.
+
 The tests do not replace:
 
 - `npm test`

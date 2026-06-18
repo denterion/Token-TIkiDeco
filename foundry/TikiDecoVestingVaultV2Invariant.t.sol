@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.28;
 
-import {TikiDecoTokenV2} from "../../contracts/TikiDecoTokenV2.sol";
-import {TikiDecoVestingVaultV2} from "../../contracts/TikiDecoVestingVaultV2.sol";
+import {TikiDecoTokenV2} from "../contracts/TikiDecoTokenV2.sol";
+import {TikiDecoVestingVaultV2} from "../contracts/TikiDecoVestingVaultV2.sol";
 import {FoundryTestBase} from "./FoundryTestBase.sol";
 
 contract TikiDecoVestingVaultV2Handler is FoundryTestBase {
@@ -129,7 +129,7 @@ contract TikiDecoVestingVaultV2Handler is FoundryTestBase {
     }
 
     function warpTime(uint256 timestampSeed) external {
-        vm.warp(bound(timestampSeed, 1, block.timestamp + 730 days));
+        vm.warp(bound(timestampSeed, block.timestamp, block.timestamp + 730 days));
     }
 }
 
@@ -163,7 +163,6 @@ contract TikiDecoVestingVaultV2InvariantTest is FoundryTestBase {
         token.transfer(address(vault), prefundAmount);
 
         handler = new TikiDecoVestingVaultV2Handler(token, vault, treasury, vestingAdmin, defaultAdmin);
-        vm.targetContract(address(handler));
     }
 
     function invariant_releasedNeverExceedsScheduleTotal() public view {

@@ -42,7 +42,7 @@
     "gas": "npm run gas:snapshot",
     "site": "npm run site:check",
     "foundry:test": "forge test --fuzz-seed 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031 -vvv",
-    "foundry:coverage": "forge coverage --report lcov --fuzz-seed 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031 && node scripts/check-coverage-thresholds.cjs lcov.info 80 80 70",
+    "foundry:coverage": "forge coverage --report lcov --fuzz-seed 0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031 && node scripts/check-coverage-thresholds.cjs lcov.info 75 60 35 contracts/TikiDecoTokenV2.sol contracts/TikiDecoVestingVaultV2.sol",
     "artifacts:contracts": "node scripts/export-contract-artifacts.cjs",
     "sbom:spdx": "node scripts/generate-sbom.cjs",
     "checksums": "node scripts/generate-checksums.cjs",

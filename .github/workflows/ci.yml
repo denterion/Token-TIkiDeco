@@ -58,7 +58,7 @@ jobs:
           echo "Foundry deterministic seed: $FOUNDRY_FUZZ_SEED"
           npm run foundry:test 2>&1 | tee security-artifacts/test/foundry-test.txt
 
-      - name: Foundry coverage thresholds
+      - name: Foundry V2 coverage thresholds
         run: npm run foundry:coverage 2>&1 | tee security-artifacts/test/foundry-coverage.txt
 
       - name: Deployment manifest check

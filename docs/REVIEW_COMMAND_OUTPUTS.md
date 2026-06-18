@@ -49,9 +49,9 @@ Running Solidity tests
 
 Running Mocha tests
 
-56 passing (892ms)
+69 passing (1s)
 
-56 passing (56 mocha)
+69 passing (69 mocha)
 ```
 
 ## `npm run coverage`
@@ -64,9 +64,9 @@ Exit code: `0`
 
 Compiled 4 Solidity files with solc 0.8.28 (evm target: paris)
 
-56 passing (1s)
+69 passing (1s)
 
-56 passing (56 mocha)
+69 passing (69 mocha)
 
 Saved html report to C:\Users\Asus\Documents\tokenTheTikiDeco\coverage\html
 
@@ -171,9 +171,9 @@ Exit code: `0`
 
 Compiled 4 Solidity files with solc 0.8.28 (evm target: paris)
 
-56 passing (978ms)
+69 passing (1s)
 
-56 passing (56 mocha)
+69 passing (69 mocha)
 
 Gas Usage Statistics
 

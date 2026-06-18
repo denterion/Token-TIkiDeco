@@ -61,7 +61,7 @@ Expected OpenZeppelin v5 behavior differences:
 
 ```text
 npm test
-56 passing
+69 passing
 ```
 
 ## Review Checklist

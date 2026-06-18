@@ -62,7 +62,7 @@ jobs:
           echo "Foundry deterministic seed: $FOUNDRY_FUZZ_SEED"
           npm run foundry:test 2>&1 | tee security-artifacts/test/foundry-test.txt
 
-      - name: Foundry branch and function coverage thresholds
+      - name: Foundry V2 branch and function coverage thresholds
         run: npm run foundry:coverage 2>&1 | tee security-artifacts/coverage/foundry-coverage.txt
 
       - name: Hardhat coverage
