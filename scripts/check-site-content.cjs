@@ -115,8 +115,13 @@ function main() {
     assert(fs.existsSync(path.join(siteDir, required)), `Missing required page: ${required}`);
   }
 
+  const restrictedSearchable = searchable
+    .replaceAll("financial, investment, legal or tax advice", "financial, legal or tax advice")
+    .replaceAll("not a financial investment", "not a financial position")
+    .replaceAll("not investment advice", "not advice");
+
   for (const phrase of forbiddenPhrases) {
-    assert(!searchable.includes(phrase), `Forbidden financial phrase found in site assets: ${phrase}`);
+    assert(!restrictedSearchable.includes(phrase), `Forbidden financial phrase found in site assets outside allowed legal context: ${phrase}`);
   }
 
   assert(manifest.contracts.token.address, "public manifest missing token address");
@@ -136,7 +141,10 @@ function main() {
   for (const filePath of htmlPaths) {
     const html = read(filePath);
     const expectedCanonical = pageUrlForFile(filePath);
-    assert(html.includes(`<link rel="canonical" href="${expectedCanonical}">`), `Missing canonical metadata in ${sitePath(filePath)}`);
+    assert(
+      new RegExp(`<link\\s+rel=["']canonical["']\\s+href=["']${expectedCanonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']\\s*/?>`).test(html),
+      `Missing canonical metadata in ${sitePath(filePath)}`
+    );
     assert(html.includes("application/ld+json"), `Structured data missing in ${sitePath(filePath)}`);
     assert(html.includes("data-legal-footer"), `Legal footer missing in ${sitePath(filePath)}`);
     assert(html.includes("skip-link"), `Skip link missing in ${sitePath(filePath)}`);

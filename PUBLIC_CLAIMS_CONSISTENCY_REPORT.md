@@ -172,9 +172,7 @@ None.
 | `docs/WHITEPAPER_ZH.md` | 91 | `revenue share` | 本文档是技术和项目 draft，不构成证券销售要约、投资建议、法律建议或利润承诺。未经 securities counsel 审查并建立合规法律结构，不应将 TIDE 宣传为 equity、debt、revenue share、profit share 或保证升值的资产。 |
 | `site/audit/index.html` | 65 | `audited` | <p class="hero-copy">TikiDeco is not independently audited. This page separates the historical Sepolia V1 deployment from the non-canonical V2 candidate review target.</p> |
 | `site/audit/index.html` | 138 | `audited` | <p>TikiDeco / TIDE is a public Sepolia prototype. No token sale. No stated monetary value. Not independently audited.</p> |
-| `site/index.html` | 296 | `audited` | <p>OpenZeppelin V2 remains review code unless a later canonical manifest explicitly promotes it. It is not described as audited.</p> |
-| `site/index.html` | 388 | `hotel ownership` | TIDE is a Sepolia testnet prototype. Sepolia tokens are testing artifacts and have no stated monetary value. The project is not offering token sales, hotel ownership, revenue rights, or completed hospitality services. |
-| `site/index.html` | 403 | `audited` | <p>TikiDeco / TIDE is a public Sepolia prototype for hospitality infrastructure research. No token sale. No stated monetary value. Not independently audited.</p> |
+| `site/index.html` | 63 | `investment` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice. |
 | `site/legal/no-offer/index.html` | 76 | `hotel ownership` | <div><dt>No financial rights</dt><dd>The prototype does not represent hotel ownership, revenue rights, or financial upside.</dd></div> |
 | `site/legal/no-offer/index.html` | 94 | `audited` | <p>TikiDeco / TIDE is a public Sepolia prototype. No token sale. No stated monetary value. Not independently audited.</p> |
 | `site/legal/privacy/index.html` | 93 | `audited` | <p>TikiDeco / TIDE is a public Sepolia prototype. No token sale. No stated monetary value. Not independently audited.</p> |
