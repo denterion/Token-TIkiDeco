@@ -8,6 +8,16 @@ Foundry tests are stored in `foundry` and focus on V2 fuzz, invariant, and deter
 
 `npm run foundry:coverage` generates an LCOV artifact and applies V2-only line, function, and branch thresholds to the candidate contracts. Hardhat coverage remains the primary project-wide coverage gate.
 
+## Coverage Warning Policy
+
+Forge coverage can print `foundry_evm_coverage::anchors` warnings while mapping optimized bytecode back to Solidity source ranges. These warnings are treated as tooling noise when all of the following are true:
+
+- `forge coverage` exits with status `0`;
+- `scripts/check-coverage-thresholds.cjs` reports passing V2 line, function, and branch thresholds;
+- `npm run coverage` remains the primary Hardhat project-wide coverage gate and passes.
+
+Do not suppress a Foundry warning if it is accompanied by a non-zero exit code, a missing `lcov.info`, or a coverage-threshold failure.
+
 The tests do not replace:
 
 - `npm test`
