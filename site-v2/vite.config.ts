@@ -10,10 +10,10 @@ export default defineConfig({
     emptyOutDir: false,
     sourcemap: false,
     assetsDir: "assets/v2",
+    chunkSizeWarningLimit: 900,
     rollupOptions: {
       output: {
         manualChunks: {
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
           react: ["react", "react-dom", "framer-motion"]
         }
       }
