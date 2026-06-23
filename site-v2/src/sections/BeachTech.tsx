@@ -1,4 +1,10 @@
-export function BeachTech() {
+type BeachCopy = {
+  eyebrow: string;
+  title: string;
+  body: string;
+};
+
+export function BeachTech({ copy }: { copy: BeachCopy }) {
   return (
     <section className="section beach-tech" aria-labelledby="beach-tech-heading">
       <div className="coastline-visual" aria-hidden="true">
@@ -12,11 +18,9 @@ export function BeachTech() {
         <span className="signal-beam beam-two" />
       </div>
       <div className="section-heading">
-        <p className="eyebrow">Digital Tide</p>
-        <h2 id="beach-tech-heading">Hospitality, access, loyalty, and public verification as a research direction.</h2>
-        <p>
-          The visual language is concept visualization, not a completed property or active hospitality benefit. TIDE explores how public records could support transparent future programs.
-        </p>
+        <p className="eyebrow">{copy.eyebrow}</p>
+        <h2 id="beach-tech-heading">{copy.title}</h2>
+        <p>{copy.body}</p>
       </div>
     </section>
   );
