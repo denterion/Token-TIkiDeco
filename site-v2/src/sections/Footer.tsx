@@ -28,9 +28,6 @@ export function Footer() {
           </a>
         ))}
       </nav>
-      <p className="csp-note">
-        Clickjacking note: frame protection requires an HTTP Content-Security-Policy frame-ancestors header from the hosting layer.
-      </p>
     </footer>
   );
 }
