@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Checkout
         # Action version: actions/checkout@v4
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
       - name: Setup Node.js
         # Action version: actions/setup-node@v4
@@ -114,7 +114,7 @@ jobs:
     steps:
       - name: Checkout
         # Action version: actions/checkout@v4
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
       - name: Setup Python
         # Action version: actions/setup-python@v5
@@ -181,7 +181,7 @@ jobs:
     steps:
       - name: Checkout
         # Action version: actions/checkout@v4
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
       - name: Initialize CodeQL
         # Action version: github/codeql-action/init@v4
@@ -200,7 +200,7 @@ jobs:
     steps:
       - name: Checkout full history
         # Action version: actions/checkout@v4
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
         with:
           fetch-depth: 0
 
@@ -218,7 +218,7 @@ jobs:
     steps:
       - name: Checkout
         # Action version: actions/checkout@v4
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
 
       - name: Clean-room Docker build
         run: docker build -f .devcontainer/Dockerfile .
