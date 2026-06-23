@@ -1,8 +1,8 @@
 # TikiDeco Internal Review Scope
 
-Review target commit: `355b751111112d551eda735c3fdb63b43220fc11`
+Review target commit: `022c83c2e7c7624394074c49e511d7658cc759fb`
 
-Branch reviewed: `main`
+Branch reviewed: `codex/release-readiness-fixes`
 
 Review status: internal review preparation. TikiDeco V2 remains a candidate and is not independently audited.
 

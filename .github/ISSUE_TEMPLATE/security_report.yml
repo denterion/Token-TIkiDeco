@@ -1,6 +1,6 @@
-name: Security report redirect
-description: Do not disclose vulnerabilities publicly. Use private reporting.
-title: "[Security]: private report required"
+name: Security note
+description: Do not disclose vulnerabilities publicly. Follow SECURITY.md.
+title: "[Security note]: see SECURITY.md"
 labels:
   - security
 body:

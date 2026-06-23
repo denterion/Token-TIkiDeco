@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Ethereum Sepolia prototype for TikiDeco TIDE; no sale, no stated monetary value, and no mainnet deployment.",
+  "description": "Open-source Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure.",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
