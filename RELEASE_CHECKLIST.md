@@ -10,7 +10,7 @@ This checklist is for a public Sepolia prototype release. It does not publish th
 - [ ] Confirm TIDE is not offered for sale.
 - [ ] Confirm TIDE has no stated monetary value.
 - [ ] Confirm no sale, presale, staking, yield, APY, exchange listing, price, or investment language appears in public materials.
-- [ ] Confirm the project is not described as audited, production-ready, or mainnet-ready.
+- [ ] Confirm the project is not described as audited, approved for production use, or approved for mainnet use.
 - [ ] Confirm independent audit status is `not-started`.
 
 ## Source And Package

@@ -19,7 +19,7 @@ Describe the change and why it is needed.
 - [ ] Does not add secrets, private keys, RPC credentials, or signer instructions that require private keys.
 - [ ] Treats V1 as the canonical Sepolia legacy deployment.
 - [ ] Treats V2 as candidate code only unless a later canonical manifest explicitly promotes it.
-- [ ] Does not claim TIDE is for sale, has stated monetary value, is independently audited, production-ready, or mainnet-ready.
+- [ ] Does not claim TIDE is for sale, has stated monetary value, is independently audited, approved for production use, or approved for mainnet use.
 - [ ] Does not add sale, presale, staking, yield, APY, exchange listing, price, or investment language.
 - [ ] Does not add unsupported claims about hotel ownership, equity, debt, revenue rights, partnerships, active benefits, or completed property.
 

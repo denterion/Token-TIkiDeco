@@ -80,7 +80,7 @@ function main() {
     "has not completed an independent audit",
     "Independent smart-contract audit status: not started",
     "TikiDeco is not independently audited",
-    "Do not describe this release as audited, production-ready, or mainnet-ready",
+    "Do not describe this release as audited, approved for production use, or approved for mainnet use",
     "No token sale",
     "No presale",
     "V2 is candidate code and is not the active deployment",
