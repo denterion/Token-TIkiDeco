@@ -5,9 +5,11 @@ export function BeachTech() {
         <span className="coastline-line line-one" />
         <span className="coastline-line line-two" />
         <span className="coastline-line line-three" />
-        <span className="data-chip chip-one">hash</span>
-        <span className="data-chip chip-two">role</span>
-        <span className="data-chip chip-three">report</span>
+        <span className="signal-node node-one" />
+        <span className="signal-node node-two" />
+        <span className="signal-node node-three" />
+        <span className="signal-beam beam-one" />
+        <span className="signal-beam beam-two" />
       </div>
       <div className="section-heading">
         <p className="eyebrow">Digital Tide</p>

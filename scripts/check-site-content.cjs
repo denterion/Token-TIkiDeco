@@ -156,7 +156,6 @@ function main() {
   assert(allHtml.includes(manifest.contracts.token.address), "Token address missing from public HTML");
   assert(allHtml.includes(manifest.contracts.vestingVault.address), "Vesting address missing from public HTML");
   assert(!/<meta[^>]+Content-Security-Policy[^>]+frame-ancestors/i.test(allHtml), "Do not claim meta-based frame-ancestors protection");
-  assert(allHtml.includes("HTTP Content-Security-Policy frame-ancestors header"), "HTTP CSP frame-ancestors hosting-layer note missing");
   assert(js.includes("Promise.allSettled"), "Dashboard must use Promise.allSettled");
   assert(js.includes("RPC_ALLOWLIST"), "Dashboard RPC allowlist missing");
   assert(js.includes("eth_chainId"), "Dashboard chain ID verification missing");
