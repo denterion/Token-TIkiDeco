@@ -48,5 +48,5 @@ body:
           required: true
         - label: This issue treats V2 as candidate code only unless a later manifest promotes it.
           required: true
-        - label: This issue does not describe TikiDeco as audited, production-ready, or mainnet-ready.
+        - label: This issue does not describe TikiDeco as audited, approved for production use, or approved for mainnet use.
           required: true

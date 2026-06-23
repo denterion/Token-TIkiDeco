@@ -66,7 +66,7 @@ Example:
 Use when asked "Is TikiDeco safe?" or "Has it been audited?"
 
 ```text
-TikiDeco is a Sepolia testnet prototype. The repository includes tests, CI, an internal security review, Slither workflow, and verified Sepolia source code. It has not completed an independent smart-contract audit, so we do not describe it as audited or production-ready. Current security notes are public in SECURITY.md and SECURITY_REVIEW.md.
+TikiDeco is a Sepolia testnet prototype. The repository includes tests, CI, an internal security review, Slither workflow, and verified Sepolia source code. It has not completed an independent smart-contract audit, so we do not describe it as audited or approved for production use. Current security notes are public in SECURITY.md and SECURITY_REVIEW.md.
 ```
 
 Add links:

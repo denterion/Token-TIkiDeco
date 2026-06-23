@@ -132,7 +132,7 @@ deployments/sepolia-v2-roles.json
 
 ## Mainnet Gate
 
-Do not treat V2 as mainnet-ready until:
+Do not treat V2 as approved for mainnet use until:
 
 - Safe ownership is active
 - treasury policy is finalized
