@@ -2,6 +2,10 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
 
+function easeInOutCubic(value: number) {
+  return value < 0.5 ? 4 * value * value * value : 1 - Math.pow(-2 * value + 2, 3) / 2;
+}
+
 function OceanGrid() {
   const gridRef = useRef<THREE.Group>(null);
 
@@ -160,9 +164,155 @@ function BlockchainNodes() {
   );
 }
 
+function TikiCoin() {
+  const coinRef = useRef<THREE.Group>(null);
+  const faceTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 512;
+    canvas.height = 512;
+    const context = canvas.getContext("2d");
+    if (!context) return null;
+
+    const gradient = context.createLinearGradient(80, 80, 432, 432);
+    gradient.addColorStop(0, "#25d9f2");
+    gradient.addColorStop(0.46, "#315bff");
+    gradient.addColorStop(1, "#e442ff");
+    context.fillStyle = "#061120";
+    context.fillRect(0, 0, 512, 512);
+    context.beginPath();
+    context.arc(256, 256, 226, 0, Math.PI * 2);
+    context.fillStyle = gradient;
+    context.fill();
+    context.beginPath();
+    context.arc(256, 256, 196, 0, Math.PI * 2);
+    context.fillStyle = "#07101f";
+    context.fill();
+    context.lineWidth = 12;
+    context.strokeStyle = "#25d9f2";
+    context.stroke();
+    context.font = "900 145px Georgia, serif";
+    context.textAlign = "center";
+    context.textBaseline = "middle";
+    context.fillStyle = "#f8f3e7";
+    context.fillText("T", 256, 234);
+    context.font = "800 54px Arial, sans-serif";
+    context.fillStyle = "#9af7ff";
+    context.fillText("TIDE", 256, 344);
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    return texture;
+  }, []);
+
+  useFrame(({ clock }) => {
+    if (!coinRef.current) return;
+    const cycle = (clock.elapsedTime * 0.19) % 1;
+    const drop = easeInOutCubic(cycle);
+    const arc = Math.sin(cycle * Math.PI) * 0.7;
+    coinRef.current.position.set(-1.25 + drop * 2.75, 1.65 - drop * 2.34 + arc, -1.08 + drop * 0.32);
+    coinRef.current.rotation.y = clock.elapsedTime * 2.55;
+    coinRef.current.rotation.x = 0.34 + Math.sin(clock.elapsedTime * 1.6) * 0.22;
+    const scale = cycle > 0.88 ? 1 - (cycle - 0.88) * 2.2 : 1;
+    coinRef.current.scale.setScalar(Math.max(0.72, scale));
+  });
+
+  return (
+    <group ref={coinRef}>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <cylinderGeometry args={[0.48, 0.48, 0.12, 72]} />
+        <meshStandardMaterial color="#d9fbff" metalness={0.58} roughness={0.22} emissive="#1155ff" emissiveIntensity={0.16} />
+      </mesh>
+      <mesh position={[0, 0, 0.064]}>
+        <circleGeometry args={[0.43, 72]} />
+        <meshBasicMaterial map={faceTexture ?? undefined} toneMapped={false} />
+      </mesh>
+      <mesh position={[0, 0, -0.064]} rotation={[0, Math.PI, 0]}>
+        <circleGeometry args={[0.43, 72]} />
+        <meshBasicMaterial map={faceTexture ?? undefined} toneMapped={false} />
+      </mesh>
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.49, 0.018, 10, 96]} />
+        <meshBasicMaterial color="#25d9f2" />
+      </mesh>
+    </group>
+  );
+}
+
+function CryptoWallet() {
+  const walletRef = useRef<THREE.Group>(null);
+
+  useFrame(({ clock }) => {
+    if (!walletRef.current) return;
+    walletRef.current.rotation.y = -0.28 + Math.sin(clock.elapsedTime * 0.35) * 0.05;
+    walletRef.current.position.y = -1.05 + Math.sin(clock.elapsedTime * 0.9) * 0.025;
+  });
+
+  return (
+    <group ref={walletRef} position={[1.55, -1.05, -1.15]} rotation={[0.08, -0.28, 0]}>
+      <mesh>
+        <boxGeometry args={[1.95, 0.82, 0.34]} />
+        <meshPhysicalMaterial color="#081424" roughness={0.28} metalness={0.18} transmission={0.08} thickness={0.5} />
+      </mesh>
+      <mesh position={[0, 0.34, 0.02]} rotation={[0.18, 0, 0]}>
+        <boxGeometry args={[1.78, 0.18, 0.39]} />
+        <meshStandardMaterial color="#142437" roughness={0.32} metalness={0.2} emissive="#071a25" emissiveIntensity={0.3} />
+      </mesh>
+      <mesh position={[0.68, 0.02, 0.2]}>
+        <boxGeometry args={[0.32, 0.28, 0.04]} />
+        <meshBasicMaterial color="#25d9f2" transparent opacity={0.9} />
+      </mesh>
+      <mesh position={[-0.18, 0.43, 0.24]}>
+        <boxGeometry args={[1.05, 0.035, 0.035]} />
+        <meshBasicMaterial color="#b55cff" transparent opacity={0.86} />
+      </mesh>
+      <mesh position={[0, -0.5, 0.14]}>
+        <torusGeometry args={[0.64, 0.014, 8, 80, Math.PI]} />
+        <meshBasicMaterial color="#25d9f2" transparent opacity={0.38} />
+      </mesh>
+    </group>
+  );
+}
+
+function DigitalPalms() {
+  const groupRef = useRef<THREE.Group>(null);
+  const palmData = [
+    [-4.45, -1.08, -2.2, 1.08],
+    [4.28, -1.02, -2.5, 0.9]
+  ] as const;
+
+  useFrame(({ clock }) => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.z = Math.sin(clock.elapsedTime * 0.22) * 0.012;
+  });
+
+  return (
+    <group ref={groupRef}>
+      {palmData.map(([x, y, z, scale], palmIndex) => (
+        <group key={palmIndex} position={[x, y, z]} scale={scale}>
+          <mesh position={[0, 0.58, 0]} rotation={[0, 0, -0.08]}>
+            <cylinderGeometry args={[0.014, 0.028, 1.5, 7]} />
+            <meshBasicMaterial color="#25d9f2" transparent opacity={0.46} />
+          </mesh>
+          {[-0.9, -0.48, 0, 0.48, 0.9].map((angle, index) => (
+            <mesh key={angle} position={[0.02, 1.28, 0]} rotation={[0, 0, angle + (palmIndex ? -0.18 : 0.18)]}>
+              <boxGeometry args={[0.72 - index * 0.035, 0.022, 0.018]} />
+              <meshBasicMaterial color={index % 2 ? "#7c3cff" : "#25d9f2"} transparent opacity={0.44} />
+            </mesh>
+          ))}
+          <mesh position={[0.02, 1.28, 0]}>
+            <sphereGeometry args={[0.045, 12, 12]} />
+            <meshBasicMaterial color="#f8f3e7" transparent opacity={0.78} />
+          </mesh>
+        </group>
+      ))}
+    </group>
+  );
+}
+
 function NeonSign() {
   return (
-    <group position={[-2.7, 0.55, -1.7]} rotation={[0, 0.2, 0]}>
+    <group position={[-2.88, 0.1, -1.7]} rotation={[0, 0.2, 0]}>
       <mesh>
         <boxGeometry args={[2.3, 0.62, 0.04]} />
         <meshBasicMaterial color="#07101f" transparent opacity={0.72} />
@@ -188,7 +338,10 @@ function SceneObjects() {
       <StarField />
       <OceanGrid />
       <ResortSilhouette />
+      <DigitalPalms />
       <BlockchainNodes />
+      <CryptoWallet />
+      <TikiCoin />
       <NeonSign />
     </>
   );

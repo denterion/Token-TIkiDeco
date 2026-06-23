@@ -70,12 +70,12 @@
     "@nomicfoundation/hardhat-ethers": "4.0.13",
     "@nomicfoundation/hardhat-ethers-chai-matchers": "3.0.10",
     "@nomicfoundation/hardhat-mocha": "3.0.21",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@vitejs/plugin-react": "5.1.2",
     "chai": "5.3.3",
     "dotenv": "16.6.1",
     "hardhat": "3.9.0",
     "mocha": "11.7.5",
-    "typescript": "^5.9.3",
-    "vite": "^5.4.19"
+    "typescript": "5.9.3",
+    "vite": "7.3.5"
   }
 }

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { motion } from "framer-motion";
 import { Architecture } from "./sections/Architecture";
@@ -12,7 +12,28 @@ import "./styles/site.css";
 
 const HeroScene = lazy(() => import("./scenes/HeroScene"));
 
+function useShouldRender3D() {
+  const [shouldRender, setShouldRender] = useState(false);
+
+  useEffect(() => {
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const viewportQuery = window.matchMedia("(min-width: 721px)");
+    const update = () => setShouldRender(viewportQuery.matches && !motionQuery.matches);
+    update();
+    motionQuery.addEventListener("change", update);
+    viewportQuery.addEventListener("change", update);
+    return () => {
+      motionQuery.removeEventListener("change", update);
+      viewportQuery.removeEventListener("change", update);
+    };
+  }, []);
+
+  return shouldRender;
+}
+
 function App() {
+  const shouldRender3D = useShouldRender3D();
+
   return (
     <React.StrictMode>
       <a className="skip-link" href="#main">
@@ -34,9 +55,13 @@ function App() {
         <main id="main">
           <section className="hero-wrap" aria-label="TikiDeco overview">
             <div className="scene-layer" aria-hidden="true">
-              <Suspense fallback={<div className="scene-fallback" />}>
-                <HeroScene />
-              </Suspense>
+              {shouldRender3D ? (
+                <Suspense fallback={<div className="scene-fallback" />}>
+                  <HeroScene />
+                </Suspense>
+              ) : (
+                <div className="scene-fallback" />
+              )}
             </div>
             <Hero />
           </section>
