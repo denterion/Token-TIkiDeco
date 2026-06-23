@@ -1,0 +1,52 @@
+name: Audit-readiness issue
+description: Track internal review or audit-preparation work for candidate code.
+title: "[Audit readiness]: "
+labels:
+  - audit-readiness
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This template is for internal review and audit-preparation tasks. It does not mean the project has completed an independent audit.
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Area
+      options:
+        - V2 candidate contracts
+        - V2 deployment scripts
+        - Tests or invariants
+        - Slither or static analysis
+        - Release package
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: Task
+      description: Describe the review item, gap, or evidence needed.
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: Relevant commit SHA
+      description: Full 40-character commit SHA if known.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence or command output
+      description: Add command names, test names, or links to internal review materials.
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Release boundaries
+      options:
+        - label: This issue treats V1 as the canonical Sepolia legacy deployment.
+          required: true
+        - label: This issue treats V2 as candidate code only unless a later manifest promotes it.
+          required: true
+        - label: This issue does not describe TikiDeco as audited, production-ready, or mainnet-ready.
+          required: true

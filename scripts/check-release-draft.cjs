@@ -21,36 +21,50 @@ function assertIncludes(text, expected, label) {
   assert(text.includes(expected), `Release draft missing ${label}: ${expected}`);
 }
 
+function assertNotIncludesLower(text, phrase, label) {
+  assert(!text.toLowerCase().includes(phrase.toLowerCase()), `Release draft contains forbidden ${label}: ${phrase}`);
+}
+
 function main() {
+  assert(fs.existsSync(releasePath), "Release draft docs/releases/v0.1.0-sepolia.md does not exist.");
+
   const manifest = readJson(manifestPath);
   const release = readText(releasePath);
+  const lowerRelease = release.toLowerCase();
   const token = manifest.contracts.token;
   const vault = manifest.contracts.vestingVault;
 
   assert(!/\bTBD\b/i.test(release), "Release draft contains TBD.");
-  assertIncludes(release, "Release date: unpublished draft; set by the release manager before tag creation.", "draft release date boundary");
-  assertIncludes(release, "Source commit: supplied explicitly to the release package generator.", "explicit source commit boundary");
-  assertIncludes(release, `Chain ID | \`${manifest.chainId}\``, "chain ID");
-  assertIncludes(release, `Canonical version | \`${manifest.contractVersion}\``, "canonical version");
+  assertIncludes(release, "Release date: unpublished draft; set by the release manager before tag creation.", "approved release date placeholder");
+  assertIncludes(release, "Release name: `v0.1.0-sepolia`", "release name");
+  assert(/\b[0-9a-f]{40}\b/.test(release), "Release draft must include at least one exact 40-character commit SHA.");
+
+  assertIncludes(release, "| Network | Ethereum Sepolia |", "network");
+  assertIncludes(release, `| Chain ID | \`${manifest.chainId}\` |`, "chain ID");
+  assertIncludes(release, `| Canonical version | \`${manifest.contractVersion}\` |`, "canonical version");
   assertIncludes(release, token.address, "token address");
   assertIncludes(release, vault.address, "vesting vault address");
   assertIncludes(release, manifest.ownership.ownerSafe, "owner Safe address");
+  assertIncludes(release, manifest.ownership.safeThreshold, "Safe threshold");
   assertIncludes(release, manifest.treasury.address, "treasury address");
+  assertIncludes(release, "100,000,000 TIDE", "human supply");
   assertIncludes(release, token.verification, "token verification link");
   assertIncludes(release, vault.verification, "vault verification link");
-  assertIncludes(release, `Solidity | \`${manifest.compiler.version}\``, "compiler version");
-  assertIncludes(release, `Optimizer runs | \`${manifest.compiler.optimizer.runs}\``, "optimizer runs");
-  assertIncludes(release, `EVM target | \`${manifest.compiler.evmTarget}\``, "EVM target");
+  assertIncludes(release, `| Solidity | \`${manifest.compiler.version}\` |`, "compiler version");
+  assertIncludes(release, `| Optimizer runs | \`${manifest.compiler.optimizer.runs}\` |`, "optimizer runs");
+  assertIncludes(release, `| EVM target | \`${manifest.compiler.evmTarget}\` |`, "EVM target");
 
   const requiredSections = [
-    "## Network",
-    "## Contracts",
-    "## Compiler",
-    "## Implemented Features",
-    "## Tests",
-    "## Known Limitations",
+    "## What Works",
+    "## What Does Not Exist",
     "## Audit Status",
-    "## Legal Status Disclaimer",
+    "## Legal Status",
+    "## Known Limitations",
+    "## Verification Commands",
+    "## Test Commands",
+    "## Site Check Commands",
+    "## Slither Status",
+    "## No-Sale Disclaimer",
     "## Migration Policy"
   ];
 
@@ -59,37 +73,44 @@ function main() {
   }
 
   const requiredPhrases = [
-    "69 passing",
+    "Ethereum Sepolia testnet prototype",
     "not offered for sale",
     "has no stated monetary value",
-    "no mainnet deployment",
-    "not independently audited",
+    "not deployed on mainnet",
+    "has not completed an independent audit",
     "Independent smart-contract audit status: not started",
-    "Do not describe this release as audited",
-    "not a token sale",
-    "not promoted",
+    "TikiDeco is not independently audited",
+    "Do not describe this release as audited, production-ready, or mainnet-ready",
+    "No token sale",
+    "No presale",
+    "V2 is candidate code and is not the active deployment",
     "new canonical manifest update"
   ];
 
   for (const phrase of requiredPhrases) {
-    assertIncludes(release, phrase, `required release boundary phrase`);
+    assertIncludes(release, phrase, "required release boundary phrase");
   }
 
   const forbiddenPhrases = [
     "moon",
     "early investors",
     "last chance",
-    "guaranteed",
+    "guaranteed profit",
+    "guaranteed return",
     "price growth",
-    "presale"
+    "earn yield",
+    "earn apy",
+    "listed on exchange",
+    "risk-free",
+    "buy tide",
+    "join presale"
   ];
-  const lowerRelease = release.toLowerCase();
 
   for (const phrase of forbiddenPhrases) {
-    assert(!lowerRelease.includes(phrase), `Forbidden release phrase found: ${phrase}`);
+    assertNotIncludesLower(release, phrase, "phrase");
   }
 
-  assert(manifest.auditStatus?.independentAudit, "Canonical manifest missing independent audit status.");
+  assert(manifest.auditStatus?.independentAudit === "not-started", "Canonical manifest independent audit status must be not-started.");
   assert(manifest.auditStatus?.internalReview, "Canonical manifest missing internal review status.");
 
   console.log("Release draft checks passed.");
