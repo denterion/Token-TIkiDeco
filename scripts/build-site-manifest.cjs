@@ -33,6 +33,7 @@ function main() {
       vestingVault: publicContract(canonical.contracts.vestingVault)
     },
     ownership: canonical.ownership,
+    mutableMetadataUpdates: canonical.mutableMetadataUpdates || [],
     treasury: canonical.treasury,
     publishedReports: canonical.publishedReports,
     auditStatus: canonical.auditStatus

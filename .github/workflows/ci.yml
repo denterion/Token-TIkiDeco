@@ -20,6 +20,7 @@ env:
 
 jobs:
   test:
+    name: CI
     runs-on: ubuntu-latest
     timeout-minutes: 25
 

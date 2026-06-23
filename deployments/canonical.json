@@ -50,6 +50,17 @@
       "safeAcceptOwnershipBatch": "0x1ddab2941e8d5fc1a550e1a67db05e1d4f57d6705e5bf3f3e1dbfcd9534c145e"
     }
   },
+  "mutableMetadataUpdates": [
+    {
+      "field": "projectURI",
+      "previousValue": "https://tikideco.example/project",
+      "newValue": "https://tikideco.xyz/legal/project-status/",
+      "transaction": "0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811",
+      "block": 11093006,
+      "executedAt": "2026-06-19T08:20:24.000Z",
+      "report": "docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE.md"
+    }
+  ],
   "treasury": {
     "address": "0xf1DAd608ddD5B71F039FEE82026164bc6a245081",
     "initialSupply": "100000000 TIDE",

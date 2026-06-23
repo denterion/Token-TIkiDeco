@@ -1,6 +1,6 @@
 # Safe Proposal: V1 Project URI Update
 
-Status: prepared transaction proposal only. This document does not broadcast a transaction, does not use private keys, and does not modify V1 source code.
+Status: executed on Ethereum Sepolia. This document records a Safe transaction that was manually reviewed and executed by Safe signer flow; it does not use private keys and does not modify V1 source code.
 
 ## Purpose
 
@@ -24,6 +24,9 @@ This does not disguise historical metadata. Immutable V1 metadata remains histor
 | Value | `0` |
 | Expected current value | `https://tikideco.example/project` |
 | Proposed new value | `https://tikideco.xyz/legal/project-status/` |
+| Execution transaction | `0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811` |
+| Execution block | `11093006` |
+| Executed at | `2026-06-19T08:20:24.000Z` |
 | Transaction Builder JSON | [`ops/safe/sepolia-update-project-uri-project-status.json`](../ops/safe/sepolia-update-project-uri-project-status.json) |
 
 Encoded calldata:
@@ -89,7 +92,7 @@ Perform all checks before signing:
 
 ## State Checks After Execution
 
-After the Safe transaction is executed:
+After the Safe transaction was executed:
 
 | Check | Expected |
 | --- | --- |
@@ -97,9 +100,15 @@ After the Safe transaction is executed:
 | Emitted event | `ProjectURIUpdated(previousURI, newURI)` |
 | `projectURI()` | `https://tikideco.xyz/legal/project-status/` |
 | `owner()` | Still `0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3` |
-| `paused()` | Unchanged from pre-execution state |
+| `paused()` | `false` in the post-execution read-only check |
 | `totalSupply()` | Unchanged |
 | `reportsCount()` | Unchanged by this URI update |
+
+Post-execution transaction hash:
+
+```text
+0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811
+```
 
 ## Rollback Or Correction Procedure
 

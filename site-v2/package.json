@@ -1,0 +1,12 @@
+{
+  "name": "@tikideco/site-v2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "node ../scripts/check-site-v2.cjs"
+  }
+}

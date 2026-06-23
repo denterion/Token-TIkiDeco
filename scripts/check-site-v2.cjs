@@ -1,0 +1,89 @@
+const fs = require("fs");
+const path = require("path");
+
+const root = path.join(__dirname, "..");
+const siteDir = path.join(root, "site");
+const siteV2Dir = path.join(root, "site-v2");
+const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
+
+const requiredLinks = [
+  "https://github.com/denterion/Token-TIkiDeco",
+  manifest.contracts.token.verification,
+  manifest.contracts.vestingVault.verification,
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md",
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md"
+];
+
+const requiredDisclaimers = [
+  "Sepolia testnet prototype",
+  "not offered for sale",
+  "no stated monetary value",
+  "not deployed on mainnet",
+  "independent audit not started"
+];
+
+const banned = [
+  "buy TIDE",
+  "presale",
+  "guaranteed",
+  "profit",
+  "APY",
+  "mainnet live",
+  "hotel ownership",
+  "revenue share",
+  "exchange listing"
+];
+
+function walk(dir) {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return walk(full);
+    return [full];
+  });
+}
+
+function assert(condition, message) {
+  if (!condition) throw new Error(message);
+}
+
+function read(file) {
+  return fs.readFileSync(file, "utf8");
+}
+
+const sourceFiles = walk(path.join(siteV2Dir, "src")).filter((file) => /\.(ts|tsx|css)$/.test(file));
+const builtFiles = walk(siteDir).filter((file) => /site[\\/]assets[\\/]v2[\\/].*\.(js|css)$/.test(file));
+const builtIndex = read(path.join(siteDir, "index.html"));
+const source = sourceFiles.map(read).join("\n");
+const builtAssets = builtFiles.map(read).join("\n");
+const searchable = `${builtIndex}\n${builtAssets}\n${source}`;
+const lower = searchable.toLowerCase();
+
+for (const phrase of banned) {
+  assert(!lower.includes(phrase.toLowerCase()), `Banned public claim phrase found in V2 site: ${phrase}`);
+}
+
+assert(!lower.includes("audited"), "Use independent audit status wording instead of audited terminology in V2 site");
+assert(!lower.includes("secure"), "Do not use secure/security-as-outcome wording in V2 site");
+
+const allowedInvestmentContext = "financial, investment, legal or tax advice";
+const investmentStripped = lower.replaceAll(allowedInvestmentContext, "");
+assert(!investmentStripped.includes("investment"), "Investment wording is allowed only inside the required no-advice footer");
+
+for (const disclaimer of requiredDisclaimers) {
+  assert(lower.includes(disclaimer.toLowerCase()), `Missing required disclaimer: ${disclaimer}`);
+}
+
+for (const link of requiredLinks) {
+  assert(searchable.includes(link), `Missing required link: ${link}`);
+}
+
+assert(source.includes("../../../deployments/canonical.json"), "V2 project facts must import canonical deployment manifest");
+assert(searchable.includes(manifest.contracts.token.address), "V2 site must expose canonical token address");
+assert(searchable.includes(manifest.contracts.vestingVault.address), "V2 site must expose canonical vault address");
+assert(source.includes("React Three Fiber") || source.includes("@react-three/fiber"), "V2 README/source must document React Three Fiber usage");
+assert(source.includes("prefers-reduced-motion"), "V2 CSS must include reduced-motion handling");
+assert(!source.includes("dangerouslySetInnerHTML"), "V2 site must not use dangerous HTML insertion");
+assert(source.includes('rel: "noopener noreferrer"'), "External links must use noopener noreferrer helper");
+
+console.log("Site V2 checks passed.");

@@ -1,6 +1,6 @@
 # TikiDeco Project Facts
 
-Verification date: 2026-06-17
+Verification date: 2026-06-19
 
 Purpose: this file is the public-communications source of truth for TikiDeco / TIDE claims. Public README, site, white paper, reports, and social copy should use only facts listed here as `verified`, or clearly label `planned` and `experimental` items as not live.
 
@@ -34,6 +34,7 @@ Status key:
 | Vesting vault token balance is `0 TIDE` on Sepolia at the time checked. | Read-only Sepolia `balanceOf(0xc480565482af6B08A3b65D0C9aba985d6240702E)` returned `0`. | 2026-06-17 | verified |
 | Token transfers are not paused at the time checked. | Read-only Sepolia `paused()` returned `false`. | 2026-06-17 | verified |
 | The deployed V1 token has no public mint function after construction. | `contracts/TikiDecoToken.sol`: `_mint` is private and called only in the constructor; tests cover fixed supply behavior. | 2026-06-17 | verified |
+| V1 `projectURI()` currently returns `https://tikideco.xyz/legal/project-status/`. | Read-only Sepolia `projectURI()` call after Safe execution returned `https://tikideco.xyz/legal/project-status/`; execution transaction `0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811`. | 2026-06-19 | verified |
 
 ## Ownership, Treasury, And Safe
 
@@ -45,6 +46,7 @@ Status key:
 | Treasury address is `0xf1DAd608ddD5B71F039FEE82026164bc6a245081`. | `deployments/canonical.json`; `deployments/sepolia.json`; read-only Sepolia `balanceOf(treasury)` check. | 2026-06-17 | verified |
 | Previous owner was `0xA9a4f99D5902850D3a6Afcd59838110D26B101E4`. | `deployments/canonical.json`; `deployments/sepolia.json`; ownership transfer transaction records listed in manifest. | 2026-06-17 | verified |
 | Safe ownership transfer was recorded as completed at `2026-06-17T08:25:12.000Z`, block `11078670`. | `deployments/canonical.json`; `deployments/sepolia.json`; `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`. | 2026-06-17 | verified |
+| Safe executed the V1 `projectURI` update at block `11093006`, timestamp `2026-06-19T08:20:24.000Z`. | Read-only Sepolia receipt for `0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811`; `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE.md`. | 2026-06-19 | verified |
 
 ## Verification Status
 
@@ -81,6 +83,7 @@ Status key:
 | `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md` exists as a public repository report. | Repository file `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`. | 2026-06-17 | verified |
 | `docs/reports/GENESIS_REPORT.md` exists as a repository report but is marked prepared, not yet published on-chain. | Repository file `docs/reports/GENESIS_REPORT.md`; `docs/reports/GENESIS_REPORT_HASH.md` (`Publication status: Prepared, not yet published on-chain`). | 2026-06-17 | verified |
 | The `REPORT_2026_06_17_SAFE_AND_V2.md` file contains an older historical test count of `36 passing`; current public copy should prefer the separately verified current test count of `69 passing`. | Repository file `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`; current `npm test` run on 2026-06-18. | 2026-06-18 | verified |
+| `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE.md` records the executed V1 `projectURI` update transaction. | Repository file `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE.md`; SHA-256 in `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE_HASH.md`; read-only Sepolia receipt for `0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811`. | 2026-06-19 | verified |
 
 ## Current Functionality
 

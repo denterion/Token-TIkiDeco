@@ -222,3 +222,40 @@ jobs:
 
       - name: Clean-room Docker build
         run: docker build -f .devcontainer/Dockerfile .
+
+  security-gate:
+    name: Security
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs:
+      - hardhat-security
+      - slither
+      - codeql
+      - secret-scan
+      - clean-room-docker
+    if: always()
+
+    steps:
+      - name: Require all security jobs to pass
+        run: |
+          if [ "${{ needs.hardhat-security.result }}" != "success" ]; then
+            echo "hardhat-security failed: ${{ needs.hardhat-security.result }}"
+            exit 1
+          fi
+          if [ "${{ needs.slither.result }}" != "success" ]; then
+            echo "slither failed: ${{ needs.slither.result }}"
+            exit 1
+          fi
+          if [ "${{ needs.codeql.result }}" != "success" ]; then
+            echo "codeql failed: ${{ needs.codeql.result }}"
+            exit 1
+          fi
+          if [ "${{ needs.secret-scan.result }}" != "success" ]; then
+            echo "secret-scan failed: ${{ needs.secret-scan.result }}"
+            exit 1
+          fi
+          if [ "${{ needs.clean-room-docker.result }}" != "success" ]; then
+            echo "clean-room-docker failed: ${{ needs.clean-room-docker.result }}"
+            exit 1
+          fi
+          echo "All security jobs passed."
