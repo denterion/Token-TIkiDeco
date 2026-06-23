@@ -1,18 +1,26 @@
 import { GlassCard } from "../components/GlassCard";
-import { transparencyCards } from "../data/projectFacts";
 
-export function Transparency() {
+type TransparencyCopy = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  cards: readonly Array<{
+    title: string;
+    body: string;
+    href?: string;
+  }>;
+};
+
+export function Transparency({ copy }: { copy: TransparencyCopy }) {
   return (
     <section id="transparency" className="section" aria-labelledby="transparency-heading">
       <div className="section-heading">
-        <p className="eyebrow">Transparency</p>
-        <h2 id="transparency-heading">Public verification surfaces, not transaction flows.</h2>
-        <p>
-          The site points viewers to contracts, Safe control, report hashes, claims rules, and security documentation without connecting a wallet.
-        </p>
+        <p className="eyebrow">{copy.eyebrow}</p>
+        <h2 id="transparency-heading">{copy.title}</h2>
+        <p>{copy.body}</p>
       </div>
       <div className="card-grid">
-        {transparencyCards.map((card) => (
+        {copy.cards.map((card) => (
           <GlassCard key={card.title} title={card.title} body={card.body} href={card.href} />
         ))}
       </div>

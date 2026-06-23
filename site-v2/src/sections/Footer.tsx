@@ -1,25 +1,38 @@
 import { projectFacts } from "../data/projectFacts";
 import { externalLinkProps } from "../lib/links";
 
-const links = [
-  ["Repository", projectFacts.links.repository],
-  ["Project Facts", projectFacts.links.projectFacts],
-  ["Security Policy", projectFacts.links.securityPolicy],
-  ["Claims Matrix", projectFacts.links.claimsMatrix],
-  ["Etherscan Token", projectFacts.verification.token],
-  ["Etherscan Vault", projectFacts.verification.vault],
-  ["No Offer Notice", projectFacts.links.noOffer],
-  ["Risk Disclosure", projectFacts.links.riskDisclosure]
-] as const;
+type FooterCopy = {
+  title: string;
+  disclaimer: string;
+  links: {
+    repository: string;
+    projectFacts: string;
+    securityPolicy: string;
+    claimsMatrix: string;
+    etherscanToken: string;
+    etherscanVault: string;
+    noOffer: string;
+    riskDisclosure: string;
+  };
+};
 
-export function Footer() {
+export function Footer({ copy }: { copy: FooterCopy }) {
+  const links = [
+    [copy.links.repository, projectFacts.links.repository],
+    [copy.links.projectFacts, projectFacts.links.projectFacts],
+    [copy.links.securityPolicy, projectFacts.links.securityPolicy],
+    [copy.links.claimsMatrix, projectFacts.links.claimsMatrix],
+    [copy.links.etherscanToken, projectFacts.verification.token],
+    [copy.links.etherscanVault, projectFacts.verification.vault],
+    [copy.links.noOffer, projectFacts.links.noOffer],
+    [copy.links.riskDisclosure, projectFacts.links.riskDisclosure]
+  ] as const;
+
   return (
     <footer className="site-footer" data-legal-footer>
       <div>
-        <p className="footer-title">TikiDeco / TIDE</p>
-        <p>
-          TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice.
-        </p>
+        <p className="footer-title">{copy.title}</p>
+        <p>{copy.disclaimer}</p>
       </div>
       <nav aria-label="Footer links">
         {links.map(([label, href]) => (

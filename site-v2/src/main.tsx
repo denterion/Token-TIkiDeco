@@ -8,6 +8,7 @@ import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
 import { ProjectStatus } from "./sections/ProjectStatus";
 import { Transparency } from "./sections/Transparency";
+import { copy, defaultLocale, locales, type Locale } from "./data/i18n";
 import "./styles/site.css";
 
 const HeroScene = lazy(() => import("./scenes/HeroScene"));
@@ -33,24 +34,46 @@ function useShouldRender3D() {
 
 function App() {
   const shouldRender3D = useShouldRender3D();
+  const [locale, setLocale] = useState<Locale>(defaultLocale);
+  const t = copy[locale];
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   return (
     <React.StrictMode>
       <a className="skip-link" href="#main">
-        Skip to content
+        {t.skip}
       </a>
       <div className="site-shell">
-        <header className="top-nav" aria-label="Primary navigation">
-          <a className="wordmark" href="/" aria-label="TikiDeco home">
+        <header className="top-nav" aria-label={t.navAria}>
+          <a className="wordmark" href="/" aria-label={t.homeAria}>
             <span className="wordmark-dot" aria-hidden="true" />
             <span>TikiDeco</span>
           </a>
-          <nav aria-label="Page sections">
-            <a href="#status">Status</a>
-            <a href="#transparency">Transparency</a>
-            <a href="#audit">Audit readiness</a>
-            <a href="/verify/">Verify</a>
-          </nav>
+          <div className="nav-cluster">
+            <nav aria-label={t.sectionsAria}>
+              <a href="#status">{t.nav.status}</a>
+              <a href="#transparency">{t.nav.transparency}</a>
+              <a href="#audit">{t.nav.audit}</a>
+              <a href="/verify/">{t.nav.verify}</a>
+            </nav>
+            <div className="language-switcher" aria-label={t.language}>
+              {locales.map((item) => (
+                <button
+                  key={item.code}
+                  type="button"
+                  aria-label={item.aria}
+                  aria-pressed={locale === item.code}
+                  className={locale === item.code ? "active" : ""}
+                  onClick={() => setLocale(item.code)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </header>
         <main id="main">
           <section className="hero-wrap" aria-label="TikiDeco overview">
@@ -63,17 +86,17 @@ function App() {
                 <div className="scene-fallback" />
               )}
             </div>
-            <Hero />
+            <Hero copy={t.hero} />
           </section>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <ProjectStatus />
-            <Transparency />
-            <Architecture />
-            <AuditReadiness />
-            <BeachTech />
+            <ProjectStatus copy={t.status} rows={t.statusRows} />
+            <Transparency copy={t.transparency} />
+            <Architecture copy={t.architecture} />
+            <AuditReadiness copy={t.audit} />
+            <BeachTech copy={t.beach} />
           </motion.div>
         </main>
-        <Footer />
+        <Footer copy={t.footer} />
       </div>
     </React.StrictMode>
   );
