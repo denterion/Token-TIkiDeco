@@ -9,6 +9,10 @@ const outputRoot = path.join(root, "release-artifacts", releaseName);
 const npmBin = process.platform === "win32" ? "npm.cmd" : "npm";
 const nodeBin = process.execPath;
 const npmExecPath = process.env.npm_execpath;
+const localFoundryPaths = [
+  path.join(root, ".tools", "foundry"),
+  path.join(root, ".tools", "foundry", "v1.4.0")
+].filter((candidate) => fs.existsSync(candidate));
 
 function detectPythonUserSite() {
   const result = spawnSync("python", ["-m", "site", "--user-site"], {
@@ -29,9 +33,31 @@ const commandEnv = {
   APPDATA: path.join(root, ".appdata"),
   LOCALAPPDATA: path.join(root, ".localappdata"),
   HOME: root,
-  USERPROFILE: root
+  USERPROFILE: root,
+  PATH: localFoundryPaths.length > 0
+    ? `${localFoundryPaths.join(path.delimiter)}${path.delimiter}${process.env.PATH || ""}`
+    : process.env.PATH
 };
 if (pythonPath) commandEnv.PYTHONPATH = pythonPath;
+
+const generatedSitePaths = [
+  "site/artifacts/v1/TikiDecoToken/abi.json",
+  "site/artifacts/v1/TikiDecoToken/deployed-bytecode.txt",
+  "site/artifacts/v1/TikiDecoVestingVault/abi.json",
+  "site/artifacts/v1/TikiDecoVestingVault/deployed-bytecode.txt",
+  "site/assets/v2/HeroScene-CoMAbIVM.js",
+  "site/assets/v2/index-Ce_mv-g1.css",
+  "site/assets/v2/index-G_hcayIH.js",
+  "site/assets/v2/react-CwaAIojl.js",
+  "site/audit/index.html",
+  "site/legal/no-offer/index.html",
+  "site/legal/privacy/index.html",
+  "site/legal/project-status/index.html",
+  "site/legal/risk-disclosure/index.html",
+  "site/legal/terms/index.html",
+  "site/status/index.html",
+  "site/verify/index.html"
+];
 
 const contracts = [
   {
@@ -172,6 +198,20 @@ function walkFiles(dir) {
 function assertCleanTree() {
   const status = run("git", ["status", "--porcelain"], { captureFile: null }).output.trim();
   assert(status.length === 0, `Git tree is dirty. Commit or stash changes before packaging:\n${status}`);
+}
+
+function restoreGeneratedSiteOutput() {
+  const modifiedGeneratedPaths = generatedSitePaths.filter((sitePath) => {
+    const status = run("git", ["status", "--porcelain", "--", sitePath]).output.trim();
+    return status.length > 0;
+  });
+  if (modifiedGeneratedPaths.length === 0) return;
+  run("git", ["restore", "--", ...modifiedGeneratedPaths]);
+  const remaining = run("git", ["status", "--porcelain"]).output.trim();
+  assert(
+    remaining.length === 0,
+    `Generated site output cleanup left the tree dirty:\n${remaining}`
+  );
 }
 
 function resolveCommit(commit) {
@@ -360,6 +400,8 @@ npm run sbom:spdx
 npm run release:package -- --commit ${commit}
 \`\`\`
 
+On local Windows workstations, the package script automatically prepends the repository-pinned Foundry runtime under \`.tools/foundry\` when it is present. CI should still install the pinned Foundry version explicitly.
+
 The release package generator refuses to create a package when the tree is dirty, the commit is omitted, tests fail, Slither has new untriaged V2 findings, addresses disagree across public surfaces, legal status text is inconsistent, release notes contain \`TBD\`, audit status is missing, or checksums are missing.
 
 ## Signed Tag
@@ -411,6 +453,7 @@ function main() {
   runNpm(["run", "coverage"], { captureFile: path.join(reportsDir, "coverage-report.txt") });
   runNpm(["run", "gas:snapshot"], { captureFile: path.join(reportsDir, "gas-report.txt") });
   runNpm(["run", "site:check"], { captureFile: path.join(reportsDir, "site-check-report.txt") });
+  restoreGeneratedSiteOutput();
   runNpm(["run", "release:check"], { captureFile: path.join(reportsDir, "release-check-report.txt") });
 
   fs.mkdirSync(slitherDir, { recursive: true });
