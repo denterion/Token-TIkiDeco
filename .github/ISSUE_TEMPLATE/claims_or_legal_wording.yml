@@ -1,0 +1,56 @@
+name: Claims or legal wording
+description: Flag wording that may conflict with the claims matrix or require counsel review.
+title: "[Claims]: "
+labels:
+  - legal-wording
+  - claims-review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This template is for communication control only. It is not a request for legal advice and does not create a legal conclusion.
+  - type: input
+    id: location
+    attributes:
+      label: Location
+      description: File, page, post, or release note where the wording appears.
+      placeholder: docs/PUBLIC_MATERIALS.md
+    validations:
+      required: true
+  - type: textarea
+    id: wording
+    attributes:
+      label: Wording to review
+      description: Paste the exact sentence or phrase.
+    validations:
+      required: true
+  - type: dropdown
+    id: concern
+    attributes:
+      label: Concern
+      options:
+        - Could imply sale or presale
+        - Could imply stated monetary value
+        - Could imply mainnet deployment
+        - Could imply independent audit completion
+        - Could imply active hospitality benefit
+        - Could imply partnership or completed property
+        - Could imply equity, debt, revenue, property, or return rights
+        - Needs counsel review
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: safer
+    attributes:
+      label: Safer alternative
+      description: Suggested wording that stays within PROJECT_FACTS.md and CLAIMS_MATRIX.md.
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Scope
+      options:
+        - label: I understand this is a documentation/communications issue, not a legal opinion.
+          required: true
+        - label: This issue does not request sale, price, listing, return, ownership, or active-benefit language.
+          required: true

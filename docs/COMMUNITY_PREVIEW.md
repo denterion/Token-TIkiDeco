@@ -60,6 +60,8 @@ The preview is not a request for:
 6. Read [`RISK_DISCLOSURE.md`](RISK_DISCLOSURE.md).
 7. Open feedback as a GitHub issue using the most relevant template.
 
+Maintainer triage guide: [`GITHUB_ISSUE_TRIAGE.md`](GITHUB_ISSUE_TRIAGE.md).
+
 ## Feedback Labels
 
 Recommended GitHub labels for preview feedback:

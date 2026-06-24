@@ -1,0 +1,51 @@
+# Recommended GitHub labels for the TikiDeco public Sepolia prototype.
+# GitHub does not apply this file automatically without a label-sync workflow or manual setup.
+
+- name: community-preview
+  color: "1d76db"
+  description: Public preview feedback for the Sepolia prototype.
+- name: feedback
+  color: "5319e7"
+  description: General structured feedback.
+- name: translation
+  color: "c5def5"
+  description: EN/ES/RU translation or consistency review.
+- name: verification
+  color: "0e8a16"
+  description: Read-only verification of addresses, reports, releases, or manifests.
+- name: legal-wording
+  color: "fbca04"
+  description: Wording that may need claims-policy or counsel review.
+- name: claims-review
+  color: "fef2c0"
+  description: Public claims matrix consistency review.
+- name: utility-feedback
+  color: "bfdadc"
+  description: Conceptual utility feedback without active-benefit or financial claims.
+- name: security-question
+  color: "d93f0b"
+  description: Public security question that does not disclose vulnerability details.
+- name: audit-readiness
+  color: "b60205"
+  description: Internal review or external-audit preparation work.
+- name: docs
+  color: "0075ca"
+  description: Documentation improvement.
+- name: site
+  color: "7057ff"
+  description: Public website or dashboard issue.
+- name: question
+  color: "d876e3"
+  description: Clarifying question.
+- name: needs-source
+  color: "ededed"
+  description: Needs repository, manifest, or on-chain source support.
+- name: needs-counsel
+  color: "fbca04"
+  description: Needs legal, regulatory, privacy, or consumer-protection review.
+- name: needs-audit
+  color: "b60205"
+  description: Needs smart-contract or deployment-security review.
+- name: out-of-scope
+  color: "000000"
+  description: Conflicts with Sepolia/no-sale/no-value/no-mainnet project boundary.

@@ -1,0 +1,64 @@
+name: Translation review
+description: Report EN/ES/RU wording that is unclear, inconsistent, or too promotional.
+title: "[Translation]: "
+labels:
+  - translation
+  - documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Translation review should preserve the same meaning across languages: Sepolia prototype, no sale, no stated monetary value, no mainnet deployment, no independent audit, no active hospitality benefits.
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      options:
+        - English
+        - Spanish
+        - Russian
+        - Cross-language consistency
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Page or file
+      placeholder: site-v2/src/data/i18n.ts
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current wording
+      description: Paste the exact phrase or sentence.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested
+    attributes:
+      label: Suggested wording
+      description: Keep the meaning cautious and consistent with PROJECT_FACTS.md and CLAIMS_MATRIX.md.
+    validations:
+      required: true
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risk type
+      options:
+        - Clarity issue
+        - Inconsistent meaning
+        - Too promotional
+        - Could imply sale or value
+        - Could imply active benefit
+        - Could imply audit or mainnet readiness
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Translation boundaries
+      options:
+        - label: The suggested wording does not introduce sale, price, listing, return, ownership, active benefit, or audit-completion claims.
+          required: true

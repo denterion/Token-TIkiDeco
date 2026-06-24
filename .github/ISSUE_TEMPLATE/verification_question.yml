@@ -1,0 +1,53 @@
+name: Verification question
+description: Ask how to verify Sepolia contracts, Safe ownership, reports, or release artifacts.
+title: "[Verify]: "
+labels:
+  - verification
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for read-only verification questions. Do not request wallet connection, private keys, transaction signing, token purchase, or mainnet deployment help.
+  - type: dropdown
+    id: target
+    attributes:
+      label: What are you trying to verify?
+      options:
+        - Network and chain ID
+        - Token contract
+        - Vesting vault
+        - Owner Safe
+        - Treasury
+        - Report hash
+        - Release package
+        - Public site dashboard
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What did you try, and what was unclear?
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link or command
+      placeholder: https://sepolia.etherscan.io/address/...
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected verification result
+      description: What result did you expect to see?
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Verification boundaries
+      options:
+        - label: This question is read-only and does not ask for transaction signing or wallet connection.
+          required: true
+        - label: This question does not involve private keys, RPC secrets, or non-public vulnerability details.
+          required: true
