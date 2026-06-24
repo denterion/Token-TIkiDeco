@@ -4,7 +4,14 @@ All notable project changes should be documented here.
 
 This repository follows a conservative release process for a Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and is not independently audited.
 
-## [0.1.0-sepolia] - Unpublished Draft
+## [Unreleased]
+
+### Added
+
+- EN/ES/RU localization for the public 3D site.
+- Improved public-site onboarding copy for new viewers.
+
+## [0.1.0-sepolia] - 2026-06-23
 
 ### Added
 
@@ -15,6 +22,7 @@ This repository follows a conservative release process for a Sepolia prototype. 
 - Internal review, threat model, invariants, known issues, and release-preparation documentation.
 - Static public site with read-only status, audit, verification, and legal-status pages.
 - Release package generator for reproducible audit-target materials.
+- Published GitHub pre-release package for the Sepolia prototype.
 
 ### Security
 

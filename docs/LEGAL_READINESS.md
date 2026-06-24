@@ -97,10 +97,10 @@ Use current counsel for final interpretation. Public official references to disc
 
 ## Practical Next Step
 
-Before publishing `v0.1.0-sepolia`, ask counsel for a narrow written review of:
+After publishing `v0.1.0-sepolia` as a public Sepolia prototype pre-release, ask counsel for a narrow written review before broader promotion, real-world utility, any token distribution beyond testnet/prototype use, or any production/mainnet decision:
 
 1. README and public site wording.
 2. `docs/PUBLIC_MATERIALS.md` posts.
 3. `docs/releases/v0.1.0-sepolia.md`.
 4. The current no-sale / no-value / no-mainnet boundary.
-5. Whether GitHub About, topics, and release notes are acceptable for a public Sepolia prototype.
+5. Whether GitHub About, topics, release notes, and localized EN/ES/RU site copy are acceptable for a public Sepolia prototype.
