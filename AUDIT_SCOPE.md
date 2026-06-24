@@ -1,6 +1,8 @@
 # TikiDeco Internal Review Scope
 
-Review target commit: `58806906a273a95c58944d892eb368fc1b758620`
+V2 code freeze baseline: `58806906a273a95c58944d892eb368fc1b758620`
+
+Current package/source commit: `56cafd376df10a96624816b612039633793a1dc3`
 
 Branch reviewed: `main`
 
@@ -8,7 +10,9 @@ Review status: internal review preparation. TikiDeco V2 remains a candidate and 
 
 Published Sepolia prototype release: `v0.1.0-sepolia` at `e07471936375ffbe13c68da2708b4436931392a2`.
 
-Scope note: the post-release commits through `58806906a273a95c58944d892eb368fc1b758620` add public-site localization, community preview materials, and issue triage. They do not modify V1 deployed semantics, V2 candidate contract semantics, canonical deployment addresses, or release-package contract artifacts.
+Scope note: the post-release commits through `58806906a273a95c58944d892eb368fc1b758620` add public-site localization, community preview materials, issue triage, and the V2 audit-target freeze documentation. Later merge/package commits through `56cafd376df10a96624816b612039633793a1dc3` do not modify V1 deployed semantics, V2 candidate contract semantics, canonical deployment addresses, or release-package contract artifacts.
+
+For an external review package, use the exact package/source commit supplied to `npm run release:package -- --commit <sha>`. Treat the V2 code freeze baseline as the candidate contract baseline and the package/source commit as the reproducibility anchor for documentation, CI evidence, and generated review artifacts.
 
 V2 audit-target freeze notes: [`docs/V2_AUDIT_TARGET_FREEZE.md`](docs/V2_AUDIT_TARGET_FREEZE.md).
 
