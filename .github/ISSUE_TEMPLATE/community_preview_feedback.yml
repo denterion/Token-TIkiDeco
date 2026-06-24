@@ -1,0 +1,53 @@
+name: Community preview feedback
+description: Share feedback on the public Sepolia prototype, website, docs, or utility boundaries.
+title: "[Community preview]: "
+labels:
+  - community-preview
+  - feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for public preview feedback. TikiDeco / TIDE is a Sepolia prototype, not a token sale, mainnet launch, or active hospitality benefit.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Feedback area
+      options:
+        - Website clarity
+        - Documentation clarity
+        - Verification flow
+        - Utility scenario boundaries
+        - Risk or disclaimer clarity
+        - Community preview process
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: What was confusing, missing, or useful?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected improvement
+      description: What would make the project easier to understand or verify?
+  - type: input
+    id: source
+    attributes:
+      label: Page, file, or link
+      placeholder: https://tikideco.xyz/ or docs/COMMUNITY_PREVIEW.md
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Preview boundaries
+      options:
+        - label: This feedback does not request a token sale, presale, purchase flow, price discussion, staking, yield, APY, exchange listing, or mainnet launch.
+          required: true
+        - label: This feedback does not claim active hospitality benefits, hotel ownership, revenue rights, equity, debt, or financial returns.
+          required: true
+        - label: This feedback does not include private keys, secrets, or non-public vulnerability details.
+          required: true

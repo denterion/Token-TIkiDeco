@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Responsible security disclosure
+    url: https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md
+    about: Do not post vulnerability details publicly. Follow SECURITY.md instead.
+  - name: Community preview guide
+    url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COMMUNITY_PREVIEW.md
+    about: Read the public Sepolia prototype feedback scope before opening an issue.
+  - name: Feedback guide
+    url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md
+    about: Use the suggested feedback format and triage categories.

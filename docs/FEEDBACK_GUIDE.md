@@ -66,6 +66,8 @@ For sensitive reports, follow [`../SECURITY.md`](../SECURITY.md) instead of open
 
 ## Maintainer Triage
 
+Maintainers should also use [`GITHUB_ISSUE_TRIAGE.md`](GITHUB_ISSUE_TRIAGE.md) and the recommended labels in [`.github/labels.yml`](../.github/labels.yml).
+
 Suggested triage outcome:
 
 | Outcome | Meaning |
