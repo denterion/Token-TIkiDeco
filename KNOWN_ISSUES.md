@@ -44,6 +44,8 @@ Recommended change: decide whether V2 audit target should include a vault-local 
 
 Test that should prove the mitigation: if local pause is added, test beneficiary release and admin revoke under vault pause; if not added, test and document token pause as the only release circuit breaker.
 
+Freeze decision: token-pause-only is the current V2 audit-target model. A vault-local pause is not added before the freeze baseline. External auditors should review whether this should change before any production or mainnet decision.
+
 ## Finding KI-04: Report Supersede Graph Is Not Policy-Enforced Beyond Existing Id Check
 
 Severity: Low
@@ -57,6 +59,8 @@ Current mitigation: superseded report id must exist, and `ProjectReportSupersede
 Recommended change: define off-chain report policy requiring same category or explicit correction reason in the report content; consider adding optional `correctionReasonHash` in a later candidate if needed.
 
 Test that should prove the mitigation: report workflow test that publishes original and corrected report, verifies event linkage, and checks release documentation requires correction reason.
+
+Freeze decision: keep correction semantics off-chain for this V2 audit-target baseline. V2 validates that the superseded report exists and emits `ProjectReportSuperseded`; maintainers must require correction context in repository reports.
 
 ## Finding KI-05: Public Site Depends On Third-Party RPC Availability
 
@@ -85,6 +89,8 @@ Current mitigation: Slither job still runs and prints output for review.
 Recommended change: before V2 audit target freeze, triage Slither output into accepted/false-positive/action-needed categories and decide whether to make the job blocking.
 
 Test that should prove the mitigation: CI policy check or PR checklist requiring Slither triage file update when Slither output changes.
+
+Freeze decision: `npm run slither:baseline` is the blocking V2 gate. Accepted V2 findings are versioned in `security/slither-baseline-v2.json`, and every new untriaged V2 finding must fail the gate.
 
 ## Finding KI-07: Bytecode Size Check Can Read Coverage-Influenced Artifacts If Run Immediately After Coverage
 

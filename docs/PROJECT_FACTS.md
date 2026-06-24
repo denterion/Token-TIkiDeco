@@ -111,6 +111,7 @@ Status key:
 | Possible utility scenarios include loyalty/access eligibility, community rewards, event RSVP priority, transparent project reporting, partner perk campaigns, and non-binding governance signaling. | `docs/UTILITY.md`. | 2026-06-17 | planned |
 | Utility scenarios are not active guest benefits, not financial rights, and not guaranteed future commitments. | `docs/UTILITY.md`; `docs/ROADMAP.md`; `site/index.html`. | 2026-06-17 | planned |
 | V2 candidate may provide OpenZeppelin ERC-20 base, AccessControl roles, Pausable, SafeERC20, ReentrancyGuard, explicit cliff plus vesting duration, prefunded vault accounting, and bounded report metadata if reviewed and promoted later. | `docs/OPENZEPPELIN_V2.md`; `contracts/TikiDecoTokenV2.sol`; `contracts/TikiDecoVestingVaultV2.sol`. | 2026-06-17 | experimental |
+| A proposed V2 audit-target freeze baseline is documented for external audit preparation. | `docs/V2_AUDIT_TARGET_FREEZE.md`; `AUDIT_SCOPE.md`; `KNOWN_ISSUES.md`. | 2026-06-24 | experimental |
 
 ## Unknown Or Not Publicly Claimable
 

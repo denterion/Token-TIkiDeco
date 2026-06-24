@@ -46,6 +46,7 @@ Status: internal preparation in progress; independent audit not started
 - Freeze a V2 audit-target commit before sending code to external reviewers.
 - Resolve or explicitly defer known V2 review questions in [`KNOWN_ISSUES.md`](../KNOWN_ISSUES.md).
 - Keep Slither baseline, Hardhat tests, Foundry invariants, coverage, gas, and release-package evidence reproducible.
+- Track the proposed freeze baseline in [`V2_AUDIT_TARGET_FREEZE.md`](V2_AUDIT_TARGET_FREEZE.md).
 
 ## Phase 5: Community Preview
 
