@@ -185,13 +185,13 @@ jobs:
 
       - name: Initialize CodeQL
         # Action version: github/codeql-action/init@v4
-        uses: github/codeql-action/init@411bbbe57033eedfc1a82d68c01345aa96c737d7
+        uses: github/codeql-action/init@8aad20d150bbac5944a9f9d289da16a4b0d87c1e
         with:
           languages: javascript-typescript
 
       - name: Perform CodeQL analysis
         # Action version: github/codeql-action/analyze@v4
-        uses: github/codeql-action/analyze@411bbbe57033eedfc1a82d68c01345aa96c737d7
+        uses: github/codeql-action/analyze@8aad20d150bbac5944a9f9d289da16a4b0d87c1e
 
   secret-scan:
     runs-on: ubuntu-latest
