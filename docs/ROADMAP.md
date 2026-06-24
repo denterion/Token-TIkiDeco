@@ -14,12 +14,15 @@ Status: complete
 
 ## Phase 2: Public Presentation Layer
 
-Status: in progress
+Status: substantially complete; continuing polish
 
 - Launch a static landing page.
 - Add a short project pitch deck.
 - Add a public showcase document with links to contracts, docs, and testnet state.
 - Verify source code on Sepolia Etherscan.
+- Publish `v0.1.0-sepolia` as a GitHub pre-release.
+- Add EN/ES/RU public-site localization.
+- Keep the public site read-only with no wallet connection, sale flow, price chart, or transaction signing.
 
 ## Phase 3: Legal and Governance Structure
 
@@ -33,22 +36,28 @@ Status: in progress
 
 ## Phase 4: Security Review
 
-Status: planned
+Status: internal preparation in progress; independent audit not started
 
 - Independent Solidity audit.
 - Deployment script review.
 - Owner and treasury wallet review.
 - Vesting schedule review.
 - Incident response plan.
+- Freeze a V2 audit-target commit before sending code to external reviewers.
+- Resolve or explicitly defer known V2 review questions in [`KNOWN_ISSUES.md`](../KNOWN_ISSUES.md).
+- Keep Slither baseline, Hardhat tests, Foundry invariants, coverage, gas, and release-package evidence reproducible.
 
 ## Phase 5: Community Preview
 
-Status: planned
+Status: preparing
 
 - Share the landing page and Sepolia contract links.
 - Collect feedback on token utility and hospitality perks.
 - Refine white paper language.
 - Prepare FAQ and public risk disclosures.
+- Collect feedback through [`COMMUNITY_PREVIEW.md`](COMMUNITY_PREVIEW.md) and [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md).
+- Keep feedback focused on clarity, verification, translations, utility boundaries, and review readiness.
+- Avoid sale, listing, price, mainnet, or active-benefit messaging.
 
 ## Phase 6: Mainnet Gate
 
