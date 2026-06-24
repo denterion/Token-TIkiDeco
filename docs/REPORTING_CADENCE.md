@@ -88,6 +88,14 @@ Hash manifest:
 
 <https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2_HASH.md>
 
+Latest repository transparency report:
+
+<https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION.md>
+
+Latest repository transparency report hash:
+
+<https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION_HASH.md>
+
 Token contract:
 
 <https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097>

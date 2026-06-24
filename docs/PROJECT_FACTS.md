@@ -84,6 +84,7 @@ Status key:
 | `docs/reports/GENESIS_REPORT.md` exists as a repository report but is marked prepared, not yet published on-chain. | Repository file `docs/reports/GENESIS_REPORT.md`; `docs/reports/GENESIS_REPORT_HASH.md` (`Publication status: Prepared, not yet published on-chain`). | 2026-06-17 | verified |
 | The `REPORT_2026_06_17_SAFE_AND_V2.md` file contains an older historical test count of `36 passing`; current public copy should prefer the separately verified current test count of `69 passing`. | Repository file `docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md`; current `npm test` run on 2026-06-18. | 2026-06-18 | verified |
 | `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE.md` records the executed V1 `projectURI` update transaction. | Repository file `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE.md`; SHA-256 in `docs/reports/REPORT_2026_06_19_V1_PROJECT_URI_UPDATE_HASH.md`; read-only Sepolia receipt for `0xcb344831fbda491e31e373e1a184eb101710de91b679e3b1dedf2fafaf64d811`. | 2026-06-19 | verified |
+| `docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION.md` records the public release and EN/ES/RU site-localization update. | Repository file `docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION.md`; SHA-256 in `docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION_HASH.md`. | 2026-06-24 | verified |
 
 ## Current Functionality
 
@@ -97,6 +98,7 @@ Status key:
 | V1 vesting vault supports schedule creation, release, and revoke flows under the V1 funding model. | `contracts/TikiDecoVestingVault.sol`; `test/TikiDecoVestingVault.js`. | 2026-06-17 | verified |
 | Current public site code includes a read-only trust dashboard that fetches `site/deployment-manifest.json` and uses read-only Sepolia RPC calls; it does not connect a wallet or submit transactions. | `site/app.js`; `scripts/build-site-manifest.cjs`; `site/index.html`. | 2026-06-17 | experimental |
 | `site/deployment-manifest.json` is generated from `deployments/canonical.json` for GitHub Pages. | `scripts/build-site-manifest.cjs`; `.github/workflows/pages.yml`; `package.json` (`site:build`). | 2026-06-17 | experimental |
+| The public 3D site includes EN/ES/RU localized UI copy. | `site-v2/src/data/i18n.ts`; `site-v2/src/main.tsx`; `site/index.html`. | 2026-06-24 | verified |
 
 ## Planned Or Experimental Functionality
 
@@ -104,7 +106,7 @@ Status key:
 | --- | --- | --- | --- |
 | Independent security audit is planned but not complete. | `docs/ROADMAP.md` Phase 4; `deployments/canonical.json` audit status. | 2026-06-17 | planned |
 | Legal and governance structure work is in progress. | `docs/ROADMAP.md` Phase 3. | 2026-06-17 | planned |
-| Community preview is planned. | `docs/ROADMAP.md` Phase 5. | 2026-06-17 | planned |
+| Community preview is preparing. | `docs/ROADMAP.md` Phase 5; `docs/COMMUNITY_PREVIEW.md`; `docs/FEEDBACK_GUIDE.md`. | 2026-06-24 | planned |
 | Mainnet deployment is not approved and should be considered only after legal review, audit, treasury review, final utility, final docs, and risk disclosure. | `docs/ROADMAP.md` Phase 6. | 2026-06-17 | planned |
 | Possible utility scenarios include loyalty/access eligibility, community rewards, event RSVP priority, transparent project reporting, partner perk campaigns, and non-binding governance signaling. | `docs/UTILITY.md`. | 2026-06-17 | planned |
 | Utility scenarios are not active guest benefits, not financial rights, and not guaranteed future commitments. | `docs/UTILITY.md`; `docs/ROADMAP.md`; `site/index.html`. | 2026-06-17 | planned |

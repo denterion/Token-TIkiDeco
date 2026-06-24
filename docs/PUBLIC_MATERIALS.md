@@ -75,7 +75,7 @@ What is available:
 - tokenomics and project facts
 - public report hash workflow
 - read-only trust dashboard
-- bilingual FAQ and communication playbook
+- EN/ES/RU FAQ and communication playbook
 
 Important: TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, and is not deployed on mainnet.
 
@@ -85,6 +85,23 @@ Repo: https://github.com/denterion/Token-TIkiDeco
 ## Media Kit Description
 
 TikiDeco / TIDE is an open-source Ethereum Sepolia prototype researching transparent loyalty and access infrastructure for a future hospitality concept. The prototype includes verified Sepolia contracts, Safe-controlled privileged operations, tokenomics documentation, vesting infrastructure, and on-chain report hash publication. TIDE is not offered for sale and currently has no stated monetary value.
+
+## Community Preview Message
+
+TikiDeco / TIDE is entering a community preview stage for its public Sepolia prototype materials.
+
+We are looking for feedback on:
+- website clarity;
+- EN/ES/RU translation consistency;
+- contract and Safe verification flow;
+- utility scenario boundaries;
+- public claims and risk wording;
+- V2 audit-readiness questions.
+
+Important boundary: TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit.
+
+Community preview guide: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COMMUNITY_PREVIEW.md
+Feedback guide: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md
 
 ## Short Boilerplate
 
