@@ -1,8 +1,10 @@
 # TikiDeco Internal Review Command Outputs
 
-Review target commit: `355b751111112d551eda735c3fdb63b43220fc11`
+Historical review target commit: `355b751111112d551eda735c3fdb63b43220fc11`
 
 Run date: 2026-06-18
+
+Current scope note: this file preserves the command output captured during the June 18 internal review run. The current internal review scope is tracked in `AUDIT_SCOPE.md`; the published `v0.1.0-sepolia` release tag points to `e07471936375ffbe13c68da2708b4436931392a2`, and current `main` later advanced for site-only localization work.
 
 Environment note: Hardhat commands were run on Windows with `APPDATA` and `LOCALAPPDATA` pointed to workspace-local folders to avoid writing outside the workspace. Slither was first run exactly as `npm run slither`; that failed on local permissions. It was then rerun with `USERPROFILE` pointed to the workspace so `solc-select` could use a workspace-local cache.
 

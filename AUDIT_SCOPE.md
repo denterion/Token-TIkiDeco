@@ -1,10 +1,14 @@
 # TikiDeco Internal Review Scope
 
-Review target commit: `0c7741c124de851cc832a645988fad00e3dc47a2`
+Review target commit: `eb5bfc3facd545fcc8ef477bad060a1284372961`
 
 Branch reviewed: `main`
 
 Review status: internal review preparation. TikiDeco V2 remains a candidate and is not independently audited.
+
+Published Sepolia prototype release: `v0.1.0-sepolia` at `e07471936375ffbe13c68da2708b4436931392a2`.
+
+Scope note: the post-release commit `eb5bfc3facd545fcc8ef477bad060a1284372961` adds public-site localization and onboarding copy. It does not modify V1 deployed semantics, V2 candidate contract semantics, canonical deployment addresses, or release-package contract artifacts.
 
 ## Primary V2 Contracts In Scope
 

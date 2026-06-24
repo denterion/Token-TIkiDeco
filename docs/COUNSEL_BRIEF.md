@@ -36,7 +36,7 @@ Canonical source of truth: [`../deployments/canonical.json`](../deployments/cano
 | Claims matrix | [`CLAIMS_MATRIX.md`](CLAIMS_MATRIX.md) |
 | Communication playbook | [`COMMUNICATION_PLAYBOOK.md`](COMMUNICATION_PLAYBOOK.md) |
 | Risk disclosure | [`RISK_DISCLOSURE.md`](RISK_DISCLOSURE.md) |
-| Release notes draft | [`releases/v0.1.0-sepolia.md`](releases/v0.1.0-sepolia.md) |
+| Release notes | [`releases/v0.1.0-sepolia.md`](releases/v0.1.0-sepolia.md) |
 | Public communication review | [`../PUBLIC_COMMUNICATION_REVIEW.md`](../PUBLIC_COMMUNICATION_REVIEW.md) |
 
 ## Current Public Statements
@@ -51,8 +51,8 @@ Canonical source of truth: [`../deployments/canonical.json`](../deployments/cano
 
 ## Questions For Counsel
 
-1. Are the current public statements appropriate for a public Sepolia prototype release?
-2. Should any wording be added to README, website, release notes, or social posts before public announcement?
+1. Are the current public statements appropriate for a public Sepolia prototype release and broader public preview?
+2. Should any wording be added to README, website, release notes, localized site copy, or social posts before broader public announcement?
 3. Does publishing a fixed-supply testnet token and verified source code create any offering concern by itself?
 4. What language should be avoided when discussing future hospitality loyalty/access use cases?
 5. Should token transferability be restricted in any future non-testnet version?
@@ -66,7 +66,7 @@ Canonical source of truth: [`../deployments/canonical.json`](../deployments/cano
 
 Please provide:
 
-- Go/no-go for publishing `v0.1.0-sepolia` as a public GitHub Release.
+- Go/no-go for broader public promotion of `v0.1.0-sepolia` after its GitHub pre-release publication.
 - Required edits to public language.
 - Prohibited claims list.
 - Required disclaimers.

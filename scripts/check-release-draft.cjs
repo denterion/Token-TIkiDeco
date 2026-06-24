@@ -18,15 +18,15 @@ function assert(condition, message) {
 }
 
 function assertIncludes(text, expected, label) {
-  assert(text.includes(expected), `Release draft missing ${label}: ${expected}`);
+  assert(text.includes(expected), `Release document missing ${label}: ${expected}`);
 }
 
 function assertNotIncludesLower(text, phrase, label) {
-  assert(!text.toLowerCase().includes(phrase.toLowerCase()), `Release draft contains forbidden ${label}: ${phrase}`);
+  assert(!text.toLowerCase().includes(phrase.toLowerCase()), `Release document contains forbidden ${label}: ${phrase}`);
 }
 
 function main() {
-  assert(fs.existsSync(releasePath), "Release draft docs/releases/v0.1.0-sepolia.md does not exist.");
+  assert(fs.existsSync(releasePath), "Release document docs/releases/v0.1.0-sepolia.md does not exist.");
 
   const manifest = readJson(manifestPath);
   const release = readText(releasePath);
@@ -34,10 +34,12 @@ function main() {
   const token = manifest.contracts.token;
   const vault = manifest.contracts.vestingVault;
 
-  assert(!/\bTBD\b/i.test(release), "Release draft contains TBD.");
-  assertIncludes(release, "Release date: unpublished draft; set by the release manager before tag creation.", "approved release date placeholder");
+  assert(!/\bTBD\b/i.test(release), "Release document contains TBD.");
+  assertIncludes(release, "Release date: 2026-06-23", "published release date");
+  assertIncludes(release, "Status: published GitHub pre-release for the Ethereum Sepolia prototype.", "published pre-release status");
+  assertIncludes(release, "e07471936375ffbe13c68da2708b4436931392a2", "published release source commit");
   assertIncludes(release, "Release name: `v0.1.0-sepolia`", "release name");
-  assert(/\b[0-9a-f]{40}\b/.test(release), "Release draft must include at least one exact 40-character commit SHA.");
+  assert(/\b[0-9a-f]{40}\b/.test(release), "Release document must include at least one exact 40-character commit SHA.");
 
   assertIncludes(release, "| Network | Ethereum Sepolia |", "network");
   assertIncludes(release, `| Chain ID | \`${manifest.chainId}\` |`, "chain ID");
@@ -113,7 +115,7 @@ function main() {
   assert(manifest.auditStatus?.independentAudit === "not-started", "Canonical manifest independent audit status must be not-started.");
   assert(manifest.auditStatus?.internalReview, "Canonical manifest missing internal review status.");
 
-  console.log("Release draft checks passed.");
+  console.log("Release document checks passed.");
 }
 
 main();
