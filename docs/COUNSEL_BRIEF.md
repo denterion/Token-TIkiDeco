@@ -35,6 +35,7 @@ Canonical source of truth: [`../deployments/canonical.json`](../deployments/cano
 | Public materials | [`PUBLIC_MATERIALS.md`](PUBLIC_MATERIALS.md) |
 | Claims matrix | [`CLAIMS_MATRIX.md`](CLAIMS_MATRIX.md) |
 | Communication playbook | [`COMMUNICATION_PLAYBOOK.md`](COMMUNICATION_PLAYBOOK.md) |
+| Governance decision register | [`GOVERNANCE_DECISION_REGISTER.md`](GOVERNANCE_DECISION_REGISTER.md) |
 | Risk disclosure | [`RISK_DISCLOSURE.md`](RISK_DISCLOSURE.md) |
 | Release notes | [`releases/v0.1.0-sepolia.md`](releases/v0.1.0-sepolia.md) |
 | Public communication review | [`../PUBLIC_COMMUNICATION_REVIEW.md`](../PUBLIC_COMMUNICATION_REVIEW.md) |
