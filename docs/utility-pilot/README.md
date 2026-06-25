@@ -50,3 +50,9 @@ Future hospitality teams may need transparent ways to manage waitlists, RSVP win
 - public post-campaign report.
 
 The pilot remains conditional, limited, and subject to legal, operational, security, privacy, and availability constraints.
+
+## Mock Eligibility Engine
+
+The static site includes a local mock eligibility card for explaining the planned review flow without wallet connection, transaction signing, private key collection, backend deployment, or production booking integration.
+
+See [`MOCK_ELIGIBILITY_ENGINE.md`](MOCK_ELIGIBILITY_ENGINE.md).

@@ -121,6 +121,21 @@ Governance notes: [`docs/GOVERNANCE.md`](docs/GOVERNANCE.md)
 - No independent smart-contract audit has been completed.
 - Legal, securities, hospitality operations, and utility design remain outside the current prototype.
 
+## Mainnet And Value Gate
+
+Mainnet, value-related statements, real guest utility, token distribution, and liquidity/listing activity are **not approved**.
+
+The project uses a fail-closed readiness gate:
+
+```bash
+npm run value:check
+npm run mainnet:check
+```
+
+`npm run value:check` verifies that public value-claim policy remains restricted. `npm run mainnet:check` is expected to fail until legal, security, treasury, tax/accounting, privacy, hospitality operations, guest terms, distribution, communications, and liquidity/listing gates are explicitly approved.
+
+This is not a promise of mainnet, not a value statement, not an offer, and not legal approval. See [`docs/MAINNET_GO_NO_GO.md`](docs/MAINNET_GO_NO_GO.md), [`docs/VALUE_CLAIM_POLICY.md`](docs/VALUE_CLAIM_POLICY.md), and [`docs/HOSPITALITY_OPERATIONS_GATE.md`](docs/HOSPITALITY_OPERATIONS_GATE.md).
+
 ## How To Run Tests
 
 Install dependencies:

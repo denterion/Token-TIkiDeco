@@ -48,6 +48,9 @@ function targetFiles() {
       rel === "docs/PROJECT_FACTS.md" ||
       rel === "docs/VALUE_AND_UTILITY_BOUNDARY.md" ||
       rel === "docs/BUSINESS_MODEL.md" ||
+      rel === "docs/MAINNET_GO_NO_GO.md" ||
+      rel === "docs/VALUE_CLAIM_POLICY.md" ||
+      rel === "docs/HOSPITALITY_OPERATIONS_GATE.md" ||
       /^docs\/utility-pilot\/.*\.md$/.test(rel)
     );
   });

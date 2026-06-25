@@ -47,6 +47,8 @@ export const copy = {
     homeAria: "TikiDeco home",
     nav: {
       status: "Status",
+      utility: "Utility",
+      pilot: "Pilot",
       transparency: "Verify",
       audit: "Review",
       verify: "Docs"
@@ -123,6 +125,8 @@ export const copy = {
     homeAria: "Inicio de TikiDeco",
     nav: {
       status: "Estado",
+      utility: "Utilidad",
+      pilot: "Piloto",
       transparency: "Verificar",
       audit: "Revision",
       verify: "Docs"
@@ -204,6 +208,8 @@ export const copy = {
     homeAria: "Главная TikiDeco",
     nav: {
       status: "Статус",
+      utility: "Utility",
+      pilot: "Pilot",
       transparency: "Проверка",
       audit: "Ревью",
       verify: "Документы"

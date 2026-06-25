@@ -19,6 +19,32 @@ env:
   FOUNDRY_FUZZ_SEED: "0x54494b494445434f5f56325f46555a5a5f534545445f3030303030303031"
 
 jobs:
+  readiness:
+    name: Readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        # Action version: actions/checkout@v4
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+
+      - name: Setup Node.js
+        # Action version: actions/setup-node@v6.4.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Value claim policy check
+        run: npm run value:check
+
+      - name: Mainnet readiness remains blocked
+        run: node scripts/check-mainnet-readiness.cjs --expect-blocked
+
   test:
     name: CI
     runs-on: ubuntu-latest
