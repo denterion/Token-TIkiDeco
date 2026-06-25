@@ -35,6 +35,7 @@ Status: in progress
 - Define public communication rules for community, partners, and potential contributors. See [`COMMUNICATION_POLICY.md`](COMMUNICATION_POLICY.md).
 - Keep governance-sensitive decisions explicit in [`GOVERNANCE_DECISION_REGISTER.md`](GOVERNANCE_DECISION_REGISTER.md).
 - Track the next release gates in [`NEXT_RELEASE_GATES.md`](NEXT_RELEASE_GATES.md).
+- Prepare external counsel intake through [`COUNSEL_INTAKE_PACKAGE.md`](COUNSEL_INTAKE_PACKAGE.md).
 
 ## Phase 4: Security Review
 
