@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { AuditReadiness } from "./sections/AuditReadiness";
 import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
+import { PilotEligibilityCard } from "./components/PilotEligibilityCard";
 import { ProjectStatus } from "./sections/ProjectStatus";
 import { Transparency } from "./sections/Transparency";
 import { copy, defaultLocale, locales, type Locale } from "./data/i18n";
@@ -53,6 +54,8 @@ function App() {
           <div className="nav-cluster">
             <nav aria-label={t.sectionsAria}>
               <a href="#status">{t.nav.status}</a>
+              <a href="/utility/">{t.nav.utility}</a>
+              <a href="/pilot/">{t.nav.pilot}</a>
               <a href="#transparency">{t.nav.transparency}</a>
               <a href="#audit">{t.nav.audit}</a>
               <a href="/verify/">{t.nav.verify}</a>
@@ -88,6 +91,7 @@ function App() {
           </section>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
             <ProjectStatus copy={t.status} rows={t.statusRows} />
+            <PilotEligibilityCard />
             <Transparency copy={t.transparency} />
             <AuditReadiness copy={t.audit} />
           </motion.div>

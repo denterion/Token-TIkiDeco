@@ -6,6 +6,10 @@ const siteDir = path.join(root, "site");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
+const releaseCommit = "e07471936375ffbe13c68da2708b4436931392a2";
+const v2FreezeBaseline = "58806906a273a95c58944d892eb368fc1b758620";
+const currentEvidenceCommit = "e74c85612e745f14aa92260bf8b3633f9fd9fa4a";
+const siteLastUpdated = "2026-06-25";
 
 const baseUrl = "https://tikideco.xyz";
 const pages = [
@@ -20,8 +24,12 @@ const pages = [
       ["Status", [
         ["Internal review", manifest.auditStatus.internalReview],
         ["Independent audit", manifest.auditStatus.independentAudit],
+        ["v0.1.0-sepolia release commit", releaseCommit],
+        ["V2 freeze baseline", v2FreezeBaseline],
+        ["Current evidence/source commit", currentEvidenceCommit],
         ["Canonical V1 source commit", headCommit],
-        ["Last updated", lastUpdated]
+        ["V2 canonical status", "V2 is not canonical and is not promoted by deployments/canonical.json"],
+        ["Last updated", siteLastUpdated]
       ]],
       ["Canonical V1 Versus Candidate V2", [
         ["Canonical V1", `${manifest.contracts.token.name} and ${manifest.contracts.vestingVault.name} on Ethereum Sepolia`],
@@ -106,22 +114,173 @@ const pages = [
       ["Current", [
         ["Network", "Ethereum Sepolia"],
         ["Canonical version", manifest.contractVersion],
-        ["Mainnet", "Not deployed"],
+        ["Utility pilot", "Planned / not live"],
+        ["Mainnet", "Not approved"],
         ["Sale", "No token sale"],
-        ["Monetary value", "No stated monetary value"]
+        ["Monetary value", "No stated monetary value"],
+        ["Audit", "Independent audit not started"],
+        ["Business utility", "Design stage"],
+        ["Active guest benefits", "Not live"]
       ]],
       ["Planned", [
         ["V2", "Candidate review and testing before any promotion"],
         ["Security", "Further Slither triage, Foundry invariants, and independent review planning"],
-        ["Utility", "Hospitality loyalty/access research only"]
+        ["Utility pilot", "Conditional Sepolia-only pilot documentation and mock eligibility design"]
       ]],
       ["Conceptual", [
         ["Hospitality concept", "Not a completed property"],
-        ["Benefits", "No active guest benefits are represented by this prototype"]
+        ["Benefits", "No active guest benefits are represented by this prototype"],
+        ["Mainnet", "No mainnet deployment is approved"]
       ]]
     ],
     links: [["Risk disclosure", "/legal/risk-disclosure/"], ["Project status legal note", "/legal/project-status/"]],
     disclaimer: "Audit-status disclaimer: status information is project-maintained and not an independent audit report."
+  },
+  {
+    path: "utility/index.html",
+    title: "TIDE Utility",
+    description: "A read-only explanation of what TIDE can test on Sepolia, what remains planned, and what TIDE does not provide.",
+    eyebrow: "Utility boundary",
+    heading: "What TIDE can test, and what it does not provide",
+    intro: "TIDE is used here as a Sepolia-only prototype for transparent hospitality-linked eligibility and reporting research.",
+    sections: [
+      ["What TIDE Can Be Used To Test", [
+        ["Eligibility signal", "A testnet balance can be evaluated at a published snapshot block for a limited pilot campaign."],
+        ["Read-only verification", "Public users can verify contract addresses, report hashes, Safe control, and status pages without connecting a wallet."],
+        ["Operating workflow", "The project can test how public rules, manual review, and reports fit future hospitality operations."]
+      ]],
+      ["Guest Loyalty Signal", [
+        ["Purpose", "TIDE can be explored as a signal for future loyalty eligibility review, not as a payment asset."],
+        ["Current status", "Design stage only; no active guest benefit is live."],
+        ["Review", "Any real guest utility requires legal, privacy, security, and operations approval."]
+      ]],
+      ["Early Reservation Windows", [
+        ["Concept", "A future limited pilot may test an earlier RSVP window for selected community previews."],
+        ["Limits", "No guaranteed benefit; inventory, blackout dates, manual review, and cancellation rules apply."],
+        ["Status", "Planned pilot concept, not a live reservation system."]
+      ]],
+      ["Event RSVP Priority", [
+        ["Concept", "A pilot may test priority review for selected community preview events."],
+        ["Limits", "Priority review is not paid access, not cash value, and not confirmation of entry."],
+        ["Status", "Planned pilot concept only."]
+      ]],
+      ["Transparent Project Reports", [
+        ["Current", "The project publishes repository reports and links report hashes from the canonical manifest."],
+        ["Pilot", "Future pilot reports should summarize rules, inventory, request counts, disputes, and corrections without exposing private data."],
+        ["Verification", "Report links and hashes should remain publicly reviewable."]
+      ]],
+      ["Community Rewards", [
+        ["Concept", "Future non-cash community recognition may be explored where legally allowed."],
+        ["Limits", "No resale value, no cash redemption, no revenue rights, and no guaranteed benefit."],
+        ["Status", "Planned only; not active."]
+      ]],
+      ["What TIDE Does Not Provide", [
+        ["No sale", "TIDE is not offered for sale."],
+        ["No value", "TIDE has no stated monetary value."],
+        ["No mainnet", "TIDE is not deployed on mainnet."],
+        ["No independent audit", "Independent audit not started."],
+        ["No property rights", "TIDE does not provide hotel ownership."],
+        ["No revenue rights", "TIDE does not provide revenue rights."],
+        ["No benefit promise", "TIDE does not provide guaranteed benefits."]
+      ]]
+    ],
+    links: [
+      ["Utility pilot docs", "https://github.com/denterion/Token-TIkiDeco/tree/main/docs/utility-pilot"],
+      ["Value and utility boundary", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/VALUE_AND_UTILITY_BOUNDARY.md"],
+      ["Claims matrix", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md"],
+      ["Risk disclosure", "/legal/risk-disclosure/"]
+    ],
+    disclaimer: "No-offer disclaimer: TIDE is a Sepolia testnet prototype, not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started."
+  },
+  {
+    path: "pilot/index.html",
+    title: "TIDE Loyalty Pilot",
+    description: "Planned TIDE Loyalty Pilot page covering eligibility, snapshots, non-cash perk examples, wallet verification, privacy, and reports.",
+    eyebrow: "Planned pilot",
+    heading: "TIDE Loyalty Pilot",
+    intro: "The pilot is a planned Sepolia-only eligibility and reporting test. It is not live and does not create active hospitality benefits.",
+    sections: [
+      ["Pilot Status", [
+        ["Status", "Planned / not live"],
+        ["Network", `Ethereum Sepolia, chain ID ${manifest.chainId}`],
+        ["Canonical version", manifest.contractVersion],
+        ["Audit", "Independent audit not started"]
+      ]],
+      ["How Eligibility Works", [
+        ["Wallet control", "A participant may sign an off-chain message in a mock flow to prove wallet control."],
+        ["Balance check", "Eligibility can reference a Sepolia TIDE balance at a published snapshot block."],
+        ["Manual review", "Staff review and override remain part of the planned process."]
+      ]],
+      ["Snapshot Block Concept", [
+        ["Purpose", "A snapshot block fixes the point in time used for eligibility review."],
+        ["Publication", "Campaign rules should publish the token address, threshold, snapshot block, and review window before review starts."],
+        ["Fallback", "RPC failure should pause review or use documented fallback verification."]
+      ]],
+      ["Non-Cash Perk Examples", [
+        ["Early RSVP", "A limited early RSVP window may be tested for selected community previews."],
+        ["Priority review", "Selected event RSVP requests may receive priority review."],
+        ["Welcome eligibility", "Small non-cash welcome eligibility may be reviewed where legally allowed."]
+      ]],
+      ["Wallet Verification Concept", [
+        ["Message signing", "Optional verification uses a nonce-based message signature only."],
+        ["No transaction signing", "The pilot must not ask users to sign transactions, approve tokens, transfer tokens, or pay fees."],
+        ["No private keys", "The project must never request seed phrases, private keys, or recovery phrases."]
+      ]],
+      ["Privacy Note", [
+        ["Data minimization", "Collect only the minimum data needed for a pilot review."],
+        ["Public reports", "Use aggregate counts and report hashes rather than private participant details."],
+        ["Review gate", "Collecting emails, names, guest records, or wallet-to-person mappings requires privacy and counsel review first."]
+      ]],
+      ["Pilot Reports", [
+        ["Before campaign", "Publish campaign rules, inventory, snapshot block, and dispute window."],
+        ["After campaign", "Publish privacy-safe outcomes, cancellation notes, and correction records if needed."],
+        ["Current status", "Pilot reports are planned; no live pilot report exists yet."]
+      ]]
+    ],
+    links: [
+      ["Pilot README", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/README.md"],
+      ["Eligibility rules", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/ELIGIBILITY_RULES.md"],
+      ["Wallet verification", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/WALLET_VERIFICATION.md"],
+      ["No offer notice", "/legal/no-offer/"]
+    ],
+    disclaimer: "No-offer disclaimer: TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started. No hotel ownership, no revenue rights, and no guaranteed benefits."
+  },
+  {
+    path: "business/index.html",
+    title: "Business Utility",
+    description: "Business utility page explaining hospitality operations plus transparency infrastructure without token sale, value, or mainnet claims.",
+    eyebrow: "Business utility",
+    heading: "Hospitality operations plus transparency infrastructure",
+    intro: "TikiDeco explores how public records and off-chain operations could support clearer future loyalty workflows.",
+    sections: [
+      ["Why Hospitality Needs Transparent Loyalty", [
+        ["Eligibility clarity", "Published rules and snapshot blocks can reduce confusion around limited pilot eligibility."],
+        ["Operational trust", "Reports and hashes can help show when rules, outcomes, or corrections were published."],
+        ["Guest experience", "Clear status pages can separate current, planned, and conceptual features."]
+      ]],
+      ["On-Chain Reports And Off-Chain Operations", [
+        ["On-chain", "Sepolia contracts and report hashes provide public reference points."],
+        ["Off-chain", "Staff review, inventory limits, blackout dates, privacy handling, and disputes remain operational processes."],
+        ["Boundary", "A blockchain record does not replace legal review, privacy review, operations, or safety decisions."]
+      ]],
+      ["Before Real Guest Utility", [
+        ["Legal", "Counsel review and terms are required before any real guest utility claim."],
+        ["Security", "Independent audit not started; V2 remains non-canonical candidate code."],
+        ["Operations", "Inventory rules, cancellation process, staff training, privacy handling, and dispute process must be ready."]
+      ]],
+      ["Legal / Audit / Operations Gates", [
+        ["Legal gate", "No sale, no stated monetary value, no mainnet, no hotel ownership, and no revenue rights."],
+        ["Audit gate", "V2 freeze baseline exists, but external audit not started and V2 is not canonical."],
+        ["Operations gate", "Pilot reports, manual review, staff override, and privacy controls must be documented before launch."]
+      ]]
+    ],
+    links: [
+      ["Business model", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/BUSINESS_MODEL.md"],
+      ["Counsel intake package", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COUNSEL_INTAKE_PACKAGE.md"],
+      ["Project facts", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"],
+      ["Status", "/status/"]
+    ],
+    disclaimer: "No-offer disclaimer: business utility is design-stage only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started."
   },
   {
     path: "legal/no-offer/index.html",
@@ -229,6 +388,9 @@ function nav() {
   return `
       <nav id="site-nav" class="nav" aria-label="Sections">
         <a href="/">Home</a>
+        <a href="/utility/">Utility</a>
+        <a href="/pilot/">Pilot</a>
+        <a href="/business/">Business</a>
         <a href="/audit/">Audit</a>
         <a href="/verify/">Verify</a>
         <a href="/status/">Status</a>
@@ -246,6 +408,9 @@ function legalFooter() {
       <div>
         <p>TikiDeco / TIDE is a public Sepolia prototype. No token sale. No stated monetary value. Not independently audited.</p>
         <p class="footer-links">
+          <a href="/utility/">Utility</a>
+          <a href="/pilot/">Pilot</a>
+          <a href="/business/">Business</a>
           <a href="/legal/no-offer/">No offer</a>
           <a href="/legal/terms/">Terms</a>
           <a href="/legal/privacy/">Privacy</a>
@@ -254,6 +419,11 @@ function legalFooter() {
         </p>
       </div>
     </footer>`;
+}
+
+function linkAttrs(href) {
+  if (href.startsWith("http://") || href.startsWith("https://")) return ' target="_blank" rel="noopener noreferrer"';
+  return "";
 }
 
 function renderPage(page) {
@@ -265,7 +435,7 @@ function renderPage(page) {
             ${rows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("\n            ")}
           </dl>
         </section>`).join("\n");
-  const links = page.links.map(([label, href]) => `<a href="${escapeHtml(href)}">${escapeHtml(label)}</a>`).join("\n          ");
+  const links = page.links.map(([label, href]) => `<a href="${escapeHtml(href)}"${linkAttrs(href)}>${escapeHtml(label)}</a>`).join("\n          ");
 
   return `<!doctype html>
 <html lang="en">

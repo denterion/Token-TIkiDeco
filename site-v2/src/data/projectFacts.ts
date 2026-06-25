@@ -26,6 +26,9 @@ export const projectFacts = {
     securityPolicy: "https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md",
     noOffer: "/legal/no-offer/",
     riskDisclosure: "/legal/risk-disclosure/",
+    utility: "/utility/",
+    pilot: "/pilot/",
+    business: "/business/",
     audit: "/audit/",
     verify: "/verify/",
     status: "/status/"

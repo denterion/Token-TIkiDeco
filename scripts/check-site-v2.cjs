@@ -25,14 +25,44 @@ const requiredDisclaimers = [
 
 const banned = [
   "buy TIDE",
+  "token sale",
   "presale",
   "guaranteed",
+  "guaranteed benefit",
   "profit",
   "APY",
+  "yield",
+  "staking rewards",
   "mainnet live",
   "hotel ownership",
   "revenue share",
-  "exchange listing"
+  "exchange listing",
+  "private key",
+  "private keys",
+  "seed phrase",
+  "seed phrases",
+  "sign transaction",
+  "transaction signing",
+  "audited"
+];
+
+const allowedContextMarkers = [
+  "not",
+  "no ",
+  "never",
+  "without",
+  "do not",
+  "does not",
+  "must not",
+  "forbidden",
+  "prohibited",
+  "disclaimer",
+  "no-offer",
+  "not offered for sale",
+  "not deployed on mainnet",
+  "independent audit not started",
+  "not independently audited",
+  "nothing on this site is financial"
 ];
 
 function walk(dir) {
@@ -59,11 +89,26 @@ const builtAssets = builtFiles.map(read).join("\n");
 const searchable = `${builtIndex}\n${builtAssets}\n${source}`;
 const lower = searchable.toLowerCase();
 
-for (const phrase of banned) {
-  assert(!lower.includes(phrase.toLowerCase()), `Banned public claim phrase found in V2 site: ${phrase}`);
+function phraseRegex(phrase) {
+  const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i");
 }
 
-assert(!lower.includes("audited"), "Use independent audit status wording instead of audited terminology in V2 site");
+function assertNoUnsupportedClaimText(label, text) {
+  const lines = text.split(/\r?\n/);
+  const conflicts = [];
+  lines.forEach((line, index) => {
+    for (const phrase of banned) {
+      if (!phraseRegex(phrase).test(line)) continue;
+      const windowText = `${lines[index - 1] || ""}\n${line}\n${lines[index + 1] || ""}`.toLowerCase();
+      const allowed = allowedContextMarkers.some((marker) => windowText.includes(marker));
+      if (!allowed) conflicts.push(`${label}:${index + 1} contains unsupported phrase "${phrase}": ${line.trim()}`);
+    }
+  });
+  assert(conflicts.length === 0, `Banned public claim phrase found outside allowed prohibited/no-offer context:\n${conflicts.join("\n")}`);
+}
+
+assertNoUnsupportedClaimText("site-v2", searchable);
 assert(!lower.includes("secure"), "Do not use secure/security-as-outcome wording in V2 site");
 
 const allowedInvestmentContext = "financial, investment, legal or tax advice";

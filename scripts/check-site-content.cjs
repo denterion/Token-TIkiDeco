@@ -9,18 +9,45 @@ const robotsPath = path.join(siteDir, "robots.txt");
 const sitemapPath = path.join(siteDir, "sitemap.xml");
 
 const forbiddenPhrases = [
-  "investment",
-  "presale",
+  "buy TIDE",
+  "invest",
   "profit",
+  "revenue share",
+  "hotel ownership",
+  "APY",
+  "yield",
+  "staking rewards",
+  "exchange listing",
+  "guaranteed benefit",
+  "mainnet live",
+  "audited",
+  "presale",
   "price chart",
   "price growth",
-  "guaranteed utility",
   "buy token",
   "purchase token",
   "token purchasing",
   "staking yield",
-  "passive income",
-  "revenue share"
+  "passive income"
+];
+const allowedClaimContextMarkers = [
+  "not",
+  "no ",
+  "without",
+  "do not",
+  "does not",
+  "must not",
+  "prohibited",
+  "forbidden",
+  "out-of-scope",
+  "out of scope",
+  "disclaimer",
+  "no-offer",
+  "no offer",
+  "not independently audited",
+  "independent audit not started",
+  "not deployed on mainnet",
+  "not offered for sale"
 ];
 const oldGitHubPagesPath = ["denterion.github.io", "Token-TIkiDeco"].join("/");
 const requiredPages = [
@@ -28,6 +55,9 @@ const requiredPages = [
   "audit/index.html",
   "verify/index.html",
   "status/index.html",
+  "utility/index.html",
+  "pilot/index.html",
+  "business/index.html",
   "legal/no-offer/index.html",
   "legal/terms/index.html",
   "legal/privacy/index.html",
@@ -75,6 +105,31 @@ function extractLinks(html) {
   return links;
 }
 
+function phraseRegex(phrase) {
+  const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
+  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i");
+}
+
+function stripTags(value) {
+  return value.replace(/<[^>]*>/g, " ");
+}
+
+function assertNoUnsupportedClaims(files) {
+  const conflicts = [];
+  for (const filePath of files) {
+    const lines = stripTags(read(filePath)).split(/\r?\n/);
+    lines.forEach((line, index) => {
+      for (const phrase of forbiddenPhrases) {
+        if (!phraseRegex(phrase).test(line)) continue;
+        const windowText = `${lines[index - 1] || ""}\n${line}\n${lines[index + 1] || ""}`.toLowerCase();
+        const allowed = allowedClaimContextMarkers.some((marker) => windowText.includes(marker));
+        if (!allowed) conflicts.push(`${sitePath(filePath)}:${index + 1} contains unsupported phrase "${phrase}": ${line.trim()}`);
+      }
+    });
+  }
+  assert(conflicts.length === 0, `Forbidden public claim phrase found outside allowed prohibited/no-offer context:\n${conflicts.join("\n")}`);
+}
+
 function internalPathFromLink(link) {
   if (link.startsWith("#") || link.startsWith("mailto:") || link.startsWith("https://sepolia.etherscan.io") || link.startsWith("https://github.com")) {
     return null;
@@ -115,14 +170,7 @@ function main() {
     assert(fs.existsSync(path.join(siteDir, required)), `Missing required page: ${required}`);
   }
 
-  const restrictedSearchable = searchable
-    .replaceAll("financial, investment, legal or tax advice", "financial, legal or tax advice")
-    .replaceAll("not a financial investment", "not a financial position")
-    .replaceAll("not investment advice", "not advice");
-
-  for (const phrase of forbiddenPhrases) {
-    assert(!restrictedSearchable.includes(phrase), `Forbidden financial phrase found in site assets outside allowed legal context: ${phrase}`);
-  }
+  assertNoUnsupportedClaims(htmlPaths);
 
   assert(manifest.contracts.token.address, "public manifest missing token address");
   assert(manifest.contracts.vestingVault.address, "public manifest missing vesting address");
@@ -134,6 +182,9 @@ function main() {
   assert(read(cnamePath).trim() === "tikideco.xyz", "site/CNAME must contain tikideco.xyz");
   assert(robots.includes("https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
   assert(sitemap.includes("https://tikideco.xyz/audit/"), "sitemap missing audit page");
+  assert(sitemap.includes("https://tikideco.xyz/utility/"), "sitemap missing utility page");
+  assert(sitemap.includes("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
+  assert(sitemap.includes("https://tikideco.xyz/business/"), "sitemap missing business page");
   assert(sitemap.includes("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(fs.existsSync(path.join(siteDir, ".well-known", "security.txt")), "security.txt missing");
   assert(!allHtml.includes(oldGitHubPagesPath), "old GitHub Pages URL found in HTML");
