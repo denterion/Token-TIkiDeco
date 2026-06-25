@@ -41,3 +41,14 @@ Observed result: all listed checks passed. `npm ci` still reports the known main
 - Close or supersede #7, #8, #9, #32, #33, #34, #35, #36, and #37 after the batch PR is merged.
 - Close #38 or keep it blocked until a planned React 19 migration is scoped.
 - Keep `@react-three/fiber` semver-major updates ignored in Dependabot until the React 19 migration is ready.
+
+## Post-Merge Status - 2026-06-25
+
+The batch dependency-triage work was merged to `main` through `858c0bbbd67958fdba1ba463fe90f9baa341c01f`.
+
+Open follow-up PRs after the merge:
+
+| PR | Update | Current decision |
+| --- | --- | --- |
+| #40 | `gitleaks/gitleaks-action` `2.3.9` -> `3.0.0` | Green in GitHub checks; treat as a separate CI-tooling major update. |
+| #41 | `vite` `7.3.5` -> `8.1.0` | Blocked. Local `npm ci` fails because `@vitejs/plugin-react@5.1.2` supports Vite `^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0`, not Vite 8. Do not merge with `--force` or `--legacy-peer-deps`; wait for a compatible plugin update or a scoped site-tooling migration. |

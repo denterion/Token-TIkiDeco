@@ -6,6 +6,8 @@ Freeze baseline commit: `58806906a273a95c58944d892eb368fc1b758620`
 
 Freeze date: 2026-06-24
 
+Current evidence/package commit: `858c0bbbd67958fdba1ba463fe90f9baa341c01f`
+
 This document does not promote V2 to canonical deployment status. V2 remains candidate code, not independently audited, not deployed by the canonical manifest, and not approved for mainnet use.
 
 ## Scope
@@ -149,10 +151,10 @@ npm run release
 Optional package generation for auditor review:
 
 ```bash
-npm run release:package -- --commit 58806906a273a95c58944d892eb368fc1b758620
+npm run release:package -- --commit 858c0bbbd67958fdba1ba463fe90f9baa341c01f
 ```
 
-The package command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
+The package commit is the reproducibility anchor for current documentation, dependency versions, CI evidence, and generated review artifacts. The freeze baseline remains the V2 candidate contract baseline unless V2 source, deployment semantics, role schema, or security assumptions change. The package command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
 
 ## Freeze Reset Conditions
 

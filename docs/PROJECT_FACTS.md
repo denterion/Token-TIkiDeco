@@ -1,6 +1,6 @@
 # TikiDeco Project Facts
 
-Verification date: 2026-06-19
+Verification date: 2026-06-25
 
 Purpose: this file is the public-communications source of truth for TikiDeco / TIDE claims. Public README, site, white paper, reports, and social copy should use only facts listed here as `verified`, or clearly label `planned` and `experimental` items as not live.
 
@@ -64,6 +64,8 @@ Status key:
 | Tests cover V1 token, V1 vesting vault, V2 token, V2 vesting vault, and V2 invariant-style properties. | `test/TikiDecoToken.js`, `test/TikiDecoVestingVault.js`, `test/TikiDecoTokenV2.js`, `test/TikiDecoVestingVaultV2.js`, `test/TikiDecoInvariants.js`; `npm test` output. | 2026-06-17 | verified |
 | `npm audit --audit-level=moderate` is configured as `npm run audit`. | `package.json`. | 2026-06-17 | verified |
 | Slither command is configured but requires local Slither/solc setup. | `package.json` (`slither` script); `README.md` local development notes. | 2026-06-17 | verified |
+| Dependency triage for the V2 review track was merged through `858c0bbbd67958fdba1ba463fe90f9baa341c01f` without changing V1 deployed semantics, V2 candidate contract semantics, or canonical deployment addresses. | `AUDIT_SCOPE.md`; `docs/DEPENDENCY_TRIAGE_2026_06_24.md`; `package.json`; `package-lock.json`; git history. | 2026-06-25 | verified |
+| Current dependency-review state keeps `@react-three/fiber` semver-major updates blocked until a dedicated React 19 / R3F 9 migration. | `.github/dependabot.yml`; `docs/DEPENDENCY_TRIAGE_2026_06_24.md`; open Dependabot PR review. | 2026-06-25 | verified |
 
 ## Audit And Review Status
 

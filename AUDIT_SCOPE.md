@@ -2,7 +2,7 @@
 
 V2 code freeze baseline: `58806906a273a95c58944d892eb368fc1b758620`
 
-Current package/source commit: `56cafd376df10a96624816b612039633793a1dc3`
+Current package/source commit: `858c0bbbd67958fdba1ba463fe90f9baa341c01f`
 
 Branch reviewed: `main`
 
@@ -10,7 +10,7 @@ Review status: internal review preparation. TikiDeco V2 remains a candidate and 
 
 Published Sepolia prototype release: `v0.1.0-sepolia` at `e07471936375ffbe13c68da2708b4436931392a2`.
 
-Scope note: the post-release commits through `58806906a273a95c58944d892eb368fc1b758620` add public-site localization, community preview materials, issue triage, and the V2 audit-target freeze documentation. Later merge/package commits through `56cafd376df10a96624816b612039633793a1dc3` do not modify V1 deployed semantics, V2 candidate contract semantics, canonical deployment addresses, or release-package contract artifacts.
+Scope note: the post-release commits through `58806906a273a95c58944d892eb368fc1b758620` add public-site localization, community preview materials, issue triage, and the V2 audit-target freeze documentation. Later merge/package commits through `858c0bbbd67958fdba1ba463fe90f9baa341c01f` do not modify V1 deployed semantics, V2 candidate contract semantics, canonical deployment addresses, or release-package contract artifacts. Those later commits update release-process documentation, dependency triage, and CI-maintenance evidence.
 
 For an external review package, use the exact package/source commit supplied to `npm run release:package -- --commit <sha>`. Treat the V2 code freeze baseline as the candidate contract baseline and the package/source commit as the reproducibility anchor for documentation, CI evidence, and generated review artifacts.
 
@@ -93,9 +93,11 @@ Development dependencies:
 - `@nomicfoundation/hardhat-ethers` `4.0.13`
 - `@nomicfoundation/hardhat-ethers-chai-matchers` `3.0.10`
 - `@nomicfoundation/hardhat-mocha` `3.0.21`
-- `chai` `5.3.3`
-- `dotenv` `16.6.1`
-- `mocha` `11.7.5`
+- `chai` `6.2.2`
+- `dotenv` `17.4.2`
+- `mocha` `11.7.6`
+- `typescript` `6.0.3`
+- `vite` `7.3.5`
 
 Additional CI tooling:
 
