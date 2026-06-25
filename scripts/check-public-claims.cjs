@@ -45,7 +45,10 @@ function targetFiles() {
       rel === "docs/COMMUNICATION_POLICY.md" ||
       rel === "docs/LEGAL_READINESS.md" ||
       rel === "docs/RISK_DISCLOSURE.md" ||
-      rel === "docs/PROJECT_FACTS.md"
+      rel === "docs/PROJECT_FACTS.md" ||
+      rel === "docs/VALUE_AND_UTILITY_BOUNDARY.md" ||
+      rel === "docs/BUSINESS_MODEL.md" ||
+      /^docs\/utility-pilot\/.*\.md$/.test(rel)
     );
   });
   const siteFiles = walk(siteDir).filter((filePath) => {

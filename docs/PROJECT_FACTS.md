@@ -114,6 +114,12 @@ Status key:
 | Utility scenarios are not active guest benefits, not financial rights, and not guaranteed future commitments. | `docs/UTILITY.md`; `docs/ROADMAP.md`; `site/index.html`. | 2026-06-17 | planned |
 | V2 candidate may provide OpenZeppelin ERC-20 base, AccessControl roles, Pausable, SafeERC20, ReentrancyGuard, explicit cliff plus vesting duration, prefunded vault accounting, and bounded report metadata if reviewed and promoted later. | `docs/OPENZEPPELIN_V2.md`; `contracts/TikiDecoTokenV2.sol`; `contracts/TikiDecoVestingVaultV2.sol`. | 2026-06-17 | experimental |
 | A proposed V2 audit-target freeze baseline is documented for external audit preparation. | `docs/V2_AUDIT_TARGET_FREEZE.md`; `AUDIT_SCOPE.md`; `KNOWN_ISSUES.md`. | 2026-06-24 | experimental |
+| TIDE Loyalty Pilot documentation is planned as a limited Sepolia-only utility pilot framework. | `docs/utility-pilot/README.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`. | 2026-06-25 | planned |
+| Eligibility rules for a future pilot are documented but not live. | `docs/utility-pilot/ELIGIBILITY_RULES.md`. | 2026-06-25 | planned |
+| Wallet signature verification for a future pilot is documented as off-chain message signing with no transaction signing and no private key collection. | `docs/utility-pilot/WALLET_VERIFICATION.md`. | 2026-06-25 | planned |
+| Mock RSVP / early RSVP pilot flow is documented as a possible limited non-cash pilot category, not an active benefit. | `docs/utility-pilot/PERK_INVENTORY.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`. | 2026-06-25 | planned |
+| Pilot reports are planned as privacy-safe summaries for future campaigns. | `docs/utility-pilot/README.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`; `docs/BUSINESS_MODEL.md`. | 2026-06-25 | planned |
+| Business model documentation describes hospitality operations plus transparency infrastructure, not token speculation. | `docs/BUSINESS_MODEL.md`; `docs/VALUE_AND_UTILITY_BOUNDARY.md`. | 2026-06-25 | planned |
 
 ## Unknown Or Not Publicly Claimable
 
