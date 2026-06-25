@@ -34,6 +34,7 @@ Exit criteria:
 
 - [ ] `docs/GOVERNANCE_DECISION_REGISTER.md` is current.
 - [ ] `docs/COUNSEL_BRIEF.md` points to the latest public facts and release docs.
+- [ ] `docs/COUNSEL_INTAKE_PACKAGE.md` is current and ready to send for external counsel intake.
 - [ ] Entity/SPV questions are listed as unresolved.
 - [ ] Treasury policy is marked draft/review-needed where appropriate.
 - [ ] Privacy/data collection position is explicit before collecting emails, wallet addresses, or guest data.

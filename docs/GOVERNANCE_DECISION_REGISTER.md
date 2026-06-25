@@ -39,7 +39,7 @@ Record these before the relevant action:
 
 | Action | Required record |
 | --- | --- |
-| Broader public preview | Counsel/public-communications review note or explicit risk acceptance. |
+| Broader public preview | Current counsel intake package, counsel/public-communications review note, or explicit risk acceptance. |
 | Any real-world utility | Counsel review, operating terms, privacy review, and updated risk disclosure. |
 | Any token distribution beyond testnet/prototype use | Counsel review and distribution policy. |
 | V2 external audit package | Current final `main` SHA, release package hash, scope document, known-issues register, and dependency state. |
