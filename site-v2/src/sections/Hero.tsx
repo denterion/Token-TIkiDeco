@@ -43,14 +43,6 @@ export function Hero({ copy }: { copy: HeroCopy }) {
         </a>
       </div>
       <p className="hero-note">{copy.note}</p>
-      <aside className="hero-guide" aria-label={copy.guideTitle}>
-        <strong>{copy.guideTitle}</strong>
-        <ol>
-          {copy.guideItems.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ol>
-      </aside>
     </div>
   );
 }

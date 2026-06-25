@@ -199,7 +199,7 @@ button:focus-visible {
 
 .hero-wrap {
   position: relative;
-  min-height: 100svh;
+  min-height: 86svh;
   display: grid;
   align-items: center;
   padding: 7rem clamp(1.1rem, 5vw, 5rem) 4rem;
@@ -273,14 +273,14 @@ p {
 h1 {
   margin-bottom: 0.75rem;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(4.5rem, 13vw, 10.5rem);
-  line-height: 0.86;
+  font-size: clamp(4rem, 10vw, 8.5rem);
+  line-height: 0.9;
   letter-spacing: 0;
   color: var(--cream);
 }
 
 .hero-subtitle {
-  max-width: 680px;
+  max-width: 620px;
   margin-bottom: 1.4rem;
   color: #d7e4ea;
   font-size: clamp(1.15rem, 2.2vw, 1.65rem);
@@ -378,42 +378,8 @@ h1 {
   font-weight: 700;
 }
 
-.hero-guide {
-  width: min(520px, 100%);
-  margin-top: 1.25rem;
-  padding: 1rem;
-  border: 1px solid rgba(248, 243, 231, 0.16);
-  border-radius: 22px;
-  background:
-    linear-gradient(135deg, rgba(248, 243, 231, 0.12), rgba(37, 217, 242, 0.06)),
-    rgba(5, 9, 20, 0.48);
-  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.24);
-}
-
-.hero-guide strong {
-  display: block;
-  margin-bottom: 0.75rem;
-  color: var(--cream);
-  font-size: 0.82rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.hero-guide ol {
-  display: grid;
-  gap: 0.48rem;
-  margin: 0;
-  padding-left: 1.15rem;
-  color: #d9e7ed;
-}
-
-.hero-guide li::marker {
-  color: var(--cyan);
-  font-weight: 900;
-}
-
 .section {
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.1rem, 5vw, 5rem);
+  padding: clamp(3.2rem, 6vw, 5.6rem) clamp(1.1rem, 5vw, 5rem);
 }
 
 .section-heading {
@@ -424,15 +390,15 @@ h1 {
 .section-heading h2 {
   margin-bottom: 0.85rem;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2rem, 5.5vw, 4.6rem);
-  line-height: 1;
+  font-size: clamp(1.9rem, 4.2vw, 3.7rem);
+  line-height: 1.04;
   letter-spacing: 0;
   color: var(--cream);
 }
 
 .status-panel {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1px;
   padding: 1px;
   border: 1px solid var(--line);
@@ -443,7 +409,7 @@ h1 {
 }
 
 .status-panel div {
-  min-height: 8.8rem;
+  min-height: 7.8rem;
   padding: 1.1rem;
   background: rgba(9, 16, 31, 0.82);
 }
@@ -468,13 +434,13 @@ h1 {
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
 .glass-card {
   position: relative;
-  min-height: 13rem;
+  min-height: 11.5rem;
   padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 24px;
@@ -550,12 +516,12 @@ h1 {
 
 .readiness-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
 }
 
 .readiness-item {
-  min-height: 9rem;
+  min-height: 8rem;
   padding: 1.1rem;
   border: 1px solid var(--line);
   border-radius: 20px;
@@ -815,10 +781,6 @@ h1 {
 
   .button {
     width: 100%;
-  }
-
-  .hero-guide {
-    border-radius: 18px;
   }
 
   .coastline-visual {

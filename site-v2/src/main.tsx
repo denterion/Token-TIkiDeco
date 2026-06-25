@@ -1,9 +1,7 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { motion } from "framer-motion";
-import { Architecture } from "./sections/Architecture";
 import { AuditReadiness } from "./sections/AuditReadiness";
-import { BeachTech } from "./sections/BeachTech";
 import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
 import { ProjectStatus } from "./sections/ProjectStatus";
@@ -91,9 +89,7 @@ function App() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
             <ProjectStatus copy={t.status} rows={t.statusRows} />
             <Transparency copy={t.transparency} />
-            <Architecture copy={t.architecture} />
             <AuditReadiness copy={t.audit} />
-            <BeachTech copy={t.beach} />
           </motion.div>
         </main>
         <Footer copy={t.footer} />

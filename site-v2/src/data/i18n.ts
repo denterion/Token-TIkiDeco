@@ -10,16 +10,34 @@ export const locales: Array<{ code: Locale; label: string; aria: string }> = [
 
 export const defaultLocale: Locale = "en";
 
-const sharedStatusRows = [
+const englishStatusRows = [
   { key: "network", value: projectFacts.network },
-  { key: "chainId", value: String(projectFacts.chainId) },
-  { key: "canonicalVersion", value: projectFacts.canonicalVersion },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: projectFacts.mainnetStatus },
   { key: "sale", value: projectFacts.saleStatus },
   { key: "monetaryValue", value: projectFacts.monetaryValue },
   { key: "audit", value: projectFacts.auditStatus }
 ] as const;
+
+const spanishStatusRows = [
+  { key: "network", value: projectFacts.network },
+  { key: "tokenSupply", value: projectFacts.supply },
+  { key: "mainnet", value: "No desplegado" },
+  { key: "sale", value: "No ofrecido" },
+  { key: "monetaryValue", value: "Sin valor declarado" },
+  { key: "audit", value: "Revision interna; auditoria independiente no iniciada" }
+] as const;
+
+const russianStatusRows = [
+  { key: "network", value: projectFacts.network },
+  { key: "tokenSupply", value: projectFacts.supply },
+  { key: "mainnet", value: "Не развернут" },
+  { key: "sale", value: "Не предлагается" },
+  { key: "monetaryValue", value: "Нет заявленной стоимости" },
+  { key: "audit", value: "Внутренний review; независимый аудит не начат" }
+] as const;
+
+const primaryCards = transparencyCards.slice(0, 4);
 
 export const copy = {
   en: {
@@ -29,71 +47,57 @@ export const copy = {
     homeAria: "TikiDeco home",
     nav: {
       status: "Status",
-      transparency: "Transparency",
-      audit: "Audit readiness",
-      verify: "Verify"
+      transparency: "Verify",
+      audit: "Review",
+      verify: "Docs"
     },
     language: "Language",
     hero: {
-      badge: "SEPOLIA TESTNET · NO MONETARY VALUE",
-      eyebrow: "Miami-inspired transparency layer",
+      badge: "SEPOLIA TESTNET - NO MONETARY VALUE",
+      eyebrow: "Read-only public prototype",
       title: "TikiDeco",
-      subtitle: "A Sepolia prototype for transparent hospitality-linked token infrastructure.",
-      badges: ["Sepolia Prototype", "Fixed Supply", "Read-Only Dashboard", "Internal Review", "Independent Audit Not Started"],
+      subtitle: "A Sepolia prototype exploring transparent token infrastructure for a future hospitality concept.",
+      badges: ["Sepolia Prototype", "No Sale", "Independent Audit Not Started"],
       actionsAria: "Primary links",
-      contracts: "View Contracts",
-      facts: "Read Project Facts",
-      repo: "Open Repository",
-      note: "Read-only public site. No sale flow, no wallet connection, no price chart, and no mainnet deployment.",
+      contracts: "Verify contracts",
+      facts: "Project facts",
+      repo: "Repository",
+      note: "No wallet connection, no purchase flow, no price chart, and no mainnet deployment.",
       guideTitle: "Start here",
-      guideItems: ["Check what exists today", "Verify addresses on Sepolia", "Read the limits before sharing"]
+      guideItems: ["Check current status", "Verify contracts", "Read limitations"]
     },
     status: {
-      eyebrow: "Project Status",
-      title: "Current boundaries, shown before the visual story.",
-      body: "TIDE is an open-source Ethereum Sepolia testnet prototype. It is not offered for sale and has no stated monetary value.",
+      eyebrow: "Current Status",
+      title: "Prototype first. Claims stay limited.",
+      body: "TIDE is public testnet infrastructure, not a sale, not a financial product, and not an active hospitality benefit.",
       labels: {
         network: "Network",
         chainId: "Chain ID",
         canonicalVersion: "Canonical version",
-        tokenSupply: "Token supply",
+        tokenSupply: "Supply",
         mainnet: "Mainnet",
         sale: "Sale",
-        monetaryValue: "Monetary value",
+        monetaryValue: "Value",
         audit: "Audit"
       },
-      helper: "For newcomers: this page is for checking public facts, not for buying or connecting a wallet."
+      helper: "Everything here is read-only and independently verifiable from public docs or Sepolia records."
     },
     transparency: {
-      eyebrow: "Transparency",
-      title: "Public verification surfaces, not transaction flows.",
-      body: "The site points viewers to contracts, Safe control, report hashes, claims rules, and security documentation without connecting a wallet.",
-      cards: transparencyCards.map((card) => ({ ...card }))
-    },
-    architecture: {
-      eyebrow: "Architecture",
-      title: "A read-only path from public viewer to Sepolia records.",
-      body: "The interface is designed for observation. It does not request signatures and does not submit transactions.",
-      aria: "Read-only architecture flow",
-      nodes: ["User / Public Viewer", "Read-only Website", "Sepolia RPC", "Token Contract", "Vesting Vault", "Safe", "Public Reports"]
+      eyebrow: "Verify",
+      title: "Four places to check the project.",
+      body: "Start with the contracts, Safe control, public reports, and vesting documentation.",
+      cards: primaryCards.map((card) => ({ ...card }))
     },
     audit: {
-      eyebrow: "Audit Readiness",
-      title: "Prepared for review, not represented as completed review.",
-      body: "Internal review is repository-maintained material. It is not an independent audit and does not approve the prototype for public operations.",
+      eyebrow: "Review Boundary",
+      title: "Prepared for review; independent audit not started.",
+      body: "V1 is the legacy canonical Sepolia deployment. V2 is candidate review code and is not promoted by the canonical manifest.",
       readiness: [
-        ["Internal review", "Available as repository material"],
+        ["Internal review", "Repository material"],
         ["Independent audit", "Not started"],
-        ["V2 contracts", "Candidate review code"],
-        ["V1", "Legacy canonical Sepolia deployment"],
-        ["Known limitations", "Published"],
-        ["Public claims", "Restricted by claims matrix"]
+        ["V2 contracts", "Candidate only"],
+        ["Mainnet", "Not approved"]
       ]
-    },
-    beach: {
-      eyebrow: "Digital Tide",
-      title: "Hospitality, access, loyalty, and public verification as a research direction.",
-      body: "The visual language is concept visualization, not a completed property or active hospitality benefit. TIDE explores how public records could support transparent future programs."
     },
     footer: {
       title: "TikiDeco / TIDE",
@@ -110,7 +114,7 @@ export const copy = {
         riskDisclosure: "Risk Disclosure"
       }
     },
-    statusRows: sharedStatusRows
+    statusRows: englishStatusRows
   },
   es: {
     skip: "Saltar al contenido",
@@ -119,29 +123,29 @@ export const copy = {
     homeAria: "Inicio de TikiDeco",
     nav: {
       status: "Estado",
-      transparency: "Transparencia",
+      transparency: "Verificar",
       audit: "Revision",
-      verify: "Verificar"
+      verify: "Docs"
     },
     language: "Idioma",
     hero: {
-      badge: "SEPOLIA TESTNET · SIN VALOR MONETARIO",
-      eyebrow: "Capa de transparencia inspirada en Miami",
+      badge: "SEPOLIA TESTNET - SIN VALOR MONETARIO",
+      eyebrow: "Prototipo publico solo lectura",
       title: "TikiDeco",
-      subtitle: "Un prototipo en Sepolia para infraestructura transparente vinculada a hospitality.",
-      badges: ["Prototipo Sepolia", "Suministro fijo", "Panel solo lectura", "Revision interna", "Auditoria independiente no iniciada"],
+      subtitle: "Un prototipo en Sepolia que explora infraestructura token transparente para un futuro concepto hospitality.",
+      badges: ["Prototipo Sepolia", "Sin venta", "Auditoria independiente no iniciada"],
       actionsAria: "Enlaces principales",
-      contracts: "Ver contratos",
-      facts: "Leer hechos del proyecto",
-      repo: "Abrir repositorio",
-      note: "Sitio publico solo lectura. Sin venta, sin conexion de wallet, sin grafico de precio y sin despliegue en mainnet.",
+      contracts: "Verificar contratos",
+      facts: "Hechos del proyecto",
+      repo: "Repositorio",
+      note: "Sin conexion de wallet, sin compra, sin grafico de precio y sin despliegue en mainnet.",
       guideTitle: "Empieza aqui",
-      guideItems: ["Verifica lo que existe hoy", "Comprueba direcciones en Sepolia", "Lee los limites antes de compartir"]
+      guideItems: ["Revisa el estado", "Verifica contratos", "Lee limitaciones"]
     },
     status: {
-      eyebrow: "Estado del proyecto",
-      title: "Limites actuales antes de la historia visual.",
-      body: "TIDE es un prototipo open-source en Ethereum Sepolia. No se ofrece a la venta y no tiene valor monetario declarado.",
+      eyebrow: "Estado actual",
+      title: "Primero prototipo. Claims limitados.",
+      body: "TIDE es infraestructura publica de testnet, no una venta, no un producto financiero y no un beneficio hospitality activo.",
       labels: {
         network: "Red",
         chainId: "Chain ID",
@@ -149,48 +153,32 @@ export const copy = {
         tokenSupply: "Suministro",
         mainnet: "Mainnet",
         sale: "Venta",
-        monetaryValue: "Valor monetario",
+        monetaryValue: "Valor",
         audit: "Auditoria"
       },
-      helper: "Para nuevos usuarios: esta pagina sirve para comprobar hechos publicos, no para comprar ni conectar una wallet."
+      helper: "Todo aqui es solo lectura y verificable desde docs publicos o registros de Sepolia."
     },
     transparency: {
-      eyebrow: "Transparencia",
-      title: "Superficies de verificacion publica, no flujos de transaccion.",
-      body: "El sitio guia a contratos, control Safe, hashes de reportes, reglas de comunicacion y documentacion de seguridad sin conectar una wallet.",
+      eyebrow: "Verificar",
+      title: "Cuatro lugares para revisar el proyecto.",
+      body: "Empieza con contratos, control Safe, reportes publicos y documentacion de vesting.",
       cards: [
-        { ...transparencyCards[0], title: "Verificacion de contratos", body: "Las paginas de fuente verificada en Sepolia estan enlazadas desde el manifest canonico." },
-        { ...transparencyCards[1], title: "Control Safe multisig", body: `La propiedad privilegiada V1 esta documentada bajo control Safe ${projectFacts.safeThreshold}.` },
-        { ...transparencyCards[2], title: "Hashes de reportes publicos", body: "Los reportes del repositorio y los hashes on-chain se enlazan para revision publica." },
-        { ...transparencyCards[3], title: "Transparencia de vesting", body: "La direccion legacy del vault y el modelo candidato V2 se documentan por separado." },
-        { ...transparencyCards[4], title: "Matriz de claims", body: "La comunicacion publica se limita por hechos verificados y reglas de claims prohibidos." },
-        { ...transparencyCards[5], title: "Politica de seguridad", body: "La divulgacion responsable y los materiales de revision interna estan publicados." }
+        { ...primaryCards[0], title: "Contratos verificados", body: "Fuente verificada en Sepolia desde el manifest canonico." },
+        { ...primaryCards[1], title: "Control Safe", body: `Propiedad privilegiada V1 bajo Safe ${projectFacts.safeThreshold}.` },
+        { ...primaryCards[2], title: "Reportes publicos", body: "Reportes del repositorio y hashes on-chain para revision." },
+        { ...primaryCards[3], title: "Vesting", body: "Vault legacy y modelo V2 candidato documentados por separado." }
       ]
-    },
-    architecture: {
-      eyebrow: "Arquitectura",
-      title: "Una ruta solo lectura desde el publico hasta registros en Sepolia.",
-      body: "La interfaz esta disenada para observacion. No solicita firmas y no envia transacciones.",
-      aria: "Flujo de arquitectura solo lectura",
-      nodes: ["Usuario / publico", "Sitio solo lectura", "RPC Sepolia", "Contrato token", "Vesting vault", "Safe", "Reportes publicos"]
     },
     audit: {
-      eyebrow: "Preparacion para revision",
-      title: "Preparado para revision, no presentado como revision completada.",
-      body: "La revision interna es material mantenido en el repositorio. No es una auditoria independiente y no aprueba el prototipo para operaciones publicas.",
+      eyebrow: "Limite de revision",
+      title: "Preparado para revision; auditoria independiente no iniciada.",
+      body: "V1 es el despliegue canonico legacy en Sepolia. V2 es codigo candidato y no esta promovido por el manifest canonico.",
       readiness: [
-        ["Revision interna", "Disponible como material del repositorio"],
+        ["Revision interna", "Material del repositorio"],
         ["Auditoria independiente", "No iniciada"],
-        ["Contratos V2", "Codigo candidato para revision"],
-        ["V1", "Despliegue canonico legacy en Sepolia"],
-        ["Limitaciones conocidas", "Publicadas"],
-        ["Claims publicos", "Limitados por la claims matrix"]
+        ["Contratos V2", "Solo candidato"],
+        ["Mainnet", "No aprobado"]
       ]
-    },
-    beach: {
-      eyebrow: "Digital Tide",
-      title: "Hospitality, acceso, lealtad y verificacion publica como direccion de investigacion.",
-      body: "El lenguaje visual es una visualizacion conceptual, no una propiedad terminada ni un beneficio hospitality activo. TIDE explora como registros publicos podrian apoyar futuros programas transparentes."
     },
     footer: {
       title: "TikiDeco / TIDE",
@@ -207,7 +195,7 @@ export const copy = {
         riskDisclosure: "Riesgos"
       }
     },
-    statusRows: sharedStatusRows
+    statusRows: spanishStatusRows
   },
   ru: {
     skip: "Перейти к содержанию",
@@ -216,83 +204,67 @@ export const copy = {
     homeAria: "Главная TikiDeco",
     nav: {
       status: "Статус",
-      transparency: "Прозрачность",
-      audit: "Проверка",
-      verify: "Верификация"
+      transparency: "Проверка",
+      audit: "Ревью",
+      verify: "Документы"
     },
     language: "Язык",
     hero: {
-      badge: "SEPOLIA TESTNET · БЕЗ ДЕНЕЖНОЙ СТОИМОСТИ",
-      eyebrow: "Прозрачность в стиле Miami hospitality",
+      badge: "SEPOLIA TESTNET - БЕЗ ДЕНЕЖНОЙ СТОИМОСТИ",
+      eyebrow: "Публичный read-only прототип",
       title: "TikiDeco",
-      subtitle: "Прототип в Sepolia для прозрачной token-инфраструктуры, связанной с hospitality.",
-      badges: ["Прототип Sepolia", "Фиксированный supply", "Read-only dashboard", "Внутренний review", "Независимый аудит не начат"],
+      subtitle: "Прототип в Sepolia, который исследует прозрачную token-инфраструктуру для будущей hospitality-концепции.",
+      badges: ["Прототип Sepolia", "Без продажи", "Независимый аудит не начат"],
       actionsAria: "Основные ссылки",
       contracts: "Проверить контракты",
       facts: "Факты проекта",
-      repo: "Открыть GitHub",
-      note: "Публичный read-only сайт. Без продажи, без подключения кошелька, без графика цены и без mainnet deployment.",
+      repo: "Репозиторий",
+      note: "Без подключения кошелька, без покупки, без графика цены и без mainnet deployment.",
       guideTitle: "С чего начать",
-      guideItems: ["Посмотри, что уже существует", "Сверь адреса в Sepolia", "Прочитай ограничения перед публикацией"]
+      guideItems: ["Проверить статус", "Сверить контракты", "Прочитать ограничения"]
     },
     status: {
-      eyebrow: "Статус проекта",
-      title: "Сначала границы проекта, потом визуальная история.",
-      body: "TIDE — open-source прототип в Ethereum Sepolia. Токен не предлагается к продаже и не имеет заявленной денежной стоимости.",
+      eyebrow: "Текущий статус",
+      title: "Сначала прототип. Публичные утверждения ограничены.",
+      body: "TIDE - публичная testnet-инфраструктура, не продажа, не финансовый продукт и не активная hospitality-выгода.",
       labels: {
         network: "Сеть",
         chainId: "Chain ID",
         canonicalVersion: "Каноническая версия",
-        tokenSupply: "Supply токена",
+        tokenSupply: "Supply",
         mainnet: "Mainnet",
         sale: "Продажа",
-        monetaryValue: "Денежная стоимость",
+        monetaryValue: "Стоимость",
         audit: "Аудит"
       },
-      helper: "Для новых пользователей: эта страница помогает проверять публичные факты, а не покупать токен или подключать кошелёк."
+      helper: "Всё здесь read-only и проверяется через публичные документы или записи Sepolia."
     },
     transparency: {
-      eyebrow: "Прозрачность",
-      title: "Публичная проверка без транзакций.",
-      body: "Сайт ведёт к контрактам, Safe control, report hashes, claims rules и security-документации без подключения кошелька.",
+      eyebrow: "Проверка",
+      title: "Четыре точки проверки проекта.",
+      body: "Начни с контрактов, Safe control, публичных отчетов и vesting-документации.",
       cards: [
-        { ...transparencyCards[0], title: "Верификация контрактов", body: "Ссылки на verified source в Sepolia берутся из canonical manifest." },
-        { ...transparencyCards[1], title: "Safe multisig control", body: `Привилегированное владение V1 описано как контроль Safe ${projectFacts.safeThreshold}.` },
-        { ...transparencyCards[2], title: "Публичные report hashes", body: "Отчёты в репозитории и on-chain hashes связаны для публичной проверки." },
-        { ...transparencyCards[3], title: "Vesting transparency", body: "Legacy vault address и candidate V2 vesting model документируются отдельно." },
-        { ...transparencyCards[4], title: "Claims matrix", body: "Публичные формулировки ограничены проверенными фактами и запрещёнными claims." },
-        { ...transparencyCards[5], title: "Security policy", body: "Responsible disclosure и материалы internal review опубликованы." }
+        { ...primaryCards[0], title: "Контракты", body: "Verified source в Sepolia из canonical manifest." },
+        { ...primaryCards[1], title: "Safe control", body: `Привилегированное владение V1 через Safe ${projectFacts.safeThreshold}.` },
+        { ...primaryCards[2], title: "Публичные отчеты", body: "Repository reports и on-chain hashes для проверки." },
+        { ...primaryCards[3], title: "Vesting", body: "Legacy vault и candidate V2 model описаны отдельно." }
       ]
-    },
-    architecture: {
-      eyebrow: "Архитектура",
-      title: "Read-only путь от пользователя к Sepolia records.",
-      body: "Интерфейс создан для наблюдения. Он не запрашивает подписи и не отправляет транзакции.",
-      aria: "Read-only архитектурный поток",
-      nodes: ["Пользователь", "Read-only сайт", "Sepolia RPC", "Token contract", "Vesting vault", "Safe", "Public reports"]
     },
     audit: {
-      eyebrow: "Готовность к review",
-      title: "Подготовлено для проверки, но не представлено как завершённый аудит.",
-      body: "Internal review — это материалы репозитория. Это не независимый аудит и не утверждает прототип для публичных операций.",
+      eyebrow: "Граница review",
+      title: "Готовится к проверке; независимый аудит не начат.",
+      body: "V1 - legacy canonical deployment в Sepolia. V2 - candidate review code и не promoted в canonical manifest.",
       readiness: [
-        ["Internal review", "Доступен как материал репозитория"],
+        ["Внутренний review", "Материалы репозитория"],
         ["Независимый аудит", "Не начат"],
-        ["V2 contracts", "Candidate review code"],
-        ["V1", "Legacy canonical Sepolia deployment"],
-        ["Known limitations", "Опубликованы"],
-        ["Public claims", "Ограничены claims matrix"]
+        ["V2 contracts", "Только candidate"],
+        ["Mainnet", "Не approved"]
       ]
-    },
-    beach: {
-      eyebrow: "Digital Tide",
-      title: "Hospitality, access, loyalty и public verification как направление исследования.",
-      body: "Визуальный стиль — concept visualization, а не завершённый объект и не активная hospitality-выгода. TIDE исследует, как публичные записи могут поддерживать прозрачные будущие программы."
     },
     footer: {
       title: "TikiDeco / TIDE",
       disclaimer:
-        "TIDE — прототип в Sepolia testnet. Он не предлагается к продаже, не имеет заявленной денежной стоимости, не развёрнут в mainnet и не проходил независимый аудит. Ничто на этом сайте не является финансовой, инвестиционной, юридической или налоговой консультацией.",
+        "TIDE - прототип в Sepolia testnet. Он не предлагается к продаже, не имеет заявленной денежной стоимости, не развернут в mainnet; independent audit not started. Ничто на сайте не является финансовой, инвестиционной, юридической или налоговой консультацией.",
       links: {
         repository: "Repository",
         projectFacts: "Факты проекта",
@@ -304,7 +276,7 @@ export const copy = {
         riskDisclosure: "Risk Disclosure"
       }
     },
-    statusRows: sharedStatusRows
+    statusRows: russianStatusRows
   }
 } as const;
 
