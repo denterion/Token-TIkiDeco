@@ -46,6 +46,8 @@ Observed result: all listed checks passed. `npm ci` still reports the known main
 
 The batch dependency-triage work was merged to `main` through `858c0bbbd67958fdba1ba463fe90f9baa341c01f`.
 
+Post-merge audit-evidence sync was later merged through `e74c85612e745f14aa92260bf8b3633f9fd9fa4a` to record the dependency-triage state, local Foundry runtime handling, and current review-package evidence without changing V1 deployed semantics, V2 candidate contract semantics, or canonical deployment addresses.
+
 Open follow-up PRs after the merge:
 
 | PR | Update | Current decision |
