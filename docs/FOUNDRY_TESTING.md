@@ -8,6 +8,8 @@ Foundry tests are stored in `foundry` and focus on V2 fuzz, invariant, and deter
 
 `npm run foundry:coverage` generates an LCOV artifact and applies V2-only line, function, and branch thresholds to the candidate contracts. Hardhat coverage remains the primary project-wide coverage gate.
 
+Local Windows workstations can use the repository-pinned Foundry runtime under `.tools/foundry`. The npm scripts call `scripts/run-foundry.cjs`, which prepends that local runtime when present and otherwise uses `forge` from the normal shell `PATH`.
+
 ## Coverage Warning Policy
 
 Forge coverage can print `foundry_evm_coverage::anchors` warnings while mapping optimized bytecode back to Solidity source ranges. These warnings are treated as tooling noise when all of the following are true:

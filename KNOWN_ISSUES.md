@@ -128,7 +128,7 @@ Affected file and line: `scripts/generate-audit-release-package.cjs`
 
 Attack or failure scenario: a maintainer can have the pinned Foundry runtime available under `.tools/foundry`, while `forge` is not visible in the shell `PATH`. In that case, package generation fails locally even though CI can install Foundry correctly. The package generator also runs `npm run site:check`, which can rewrite tracked static site output and leave the tree dirty after a successful package run. This is not a fund-loss path, but it weakens release reproducibility and makes audit evidence harder to reproduce.
 
-Current mitigation: the package generator now prepends the repository-pinned `.tools/foundry` directories to its child-process `PATH` when present and restores the generated tracked site output after `site:check`.
+Current mitigation: the package generator and npm Foundry scripts now prepend the repository-pinned `.tools/foundry` directories to their child-process `PATH` when present. The package generator also restores the generated tracked site output after `site:check`.
 
 Recommended change: keep CI installing the pinned Foundry version explicitly, and keep generated static site output deterministic. If the generated asset filenames change intentionally, update the package generator's tracked site output list in the same PR.
 
