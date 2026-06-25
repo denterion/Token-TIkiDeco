@@ -47,6 +47,7 @@ Documentation:
 - `docs/V2_DEPLOYMENT_CHECKLIST.md`
 - `docs/V2_MIGRATION_NOTES.md`
 - `docs/V2_ROLE_MANIFEST_SCHEMA.md`
+- `docs/EXTERNAL_AUDIT_READINESS.md`
 
 ## Explicit Exclusions
 
@@ -187,3 +188,5 @@ Please treat:
 3. Are AccessControlDefaultAdminRules delays and role separation appropriate for the intended Safe/governance model?
 4. Are vesting liability invariants sufficient for arbitrary prefunding and schedule lifecycle sequences?
 5. Are the metadata bounds and URI/report fields appropriate for long-term public transparency?
+
+Audit intake plan: [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md).

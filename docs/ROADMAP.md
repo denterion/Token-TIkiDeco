@@ -33,6 +33,8 @@ Status: in progress
 - Define treasury policy. See [`TREASURY_POLICY.md`](TREASURY_POLICY.md).
 - Define report publishing cadence. See [`REPORTING_CADENCE.md`](REPORTING_CADENCE.md).
 - Define public communication rules for community, partners, and potential contributors. See [`COMMUNICATION_POLICY.md`](COMMUNICATION_POLICY.md).
+- Keep governance-sensitive decisions explicit in [`GOVERNANCE_DECISION_REGISTER.md`](GOVERNANCE_DECISION_REGISTER.md).
+- Track the next release gates in [`NEXT_RELEASE_GATES.md`](NEXT_RELEASE_GATES.md).
 
 ## Phase 4: Security Review
 
@@ -47,6 +49,7 @@ Status: internal preparation in progress; independent audit not started
 - Resolve or explicitly defer known V2 review questions in [`KNOWN_ISSUES.md`](../KNOWN_ISSUES.md).
 - Keep Slither baseline, Hardhat tests, Foundry invariants, coverage, gas, and release-package evidence reproducible.
 - Track the proposed freeze baseline in [`V2_AUDIT_TARGET_FREEZE.md`](V2_AUDIT_TARGET_FREEZE.md).
+- Prepare external audit intake through [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md).
 
 ## Phase 5: Community Preview
 
