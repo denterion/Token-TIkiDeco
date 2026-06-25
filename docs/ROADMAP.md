@@ -61,6 +61,7 @@ Status: preparing
 - Refine white paper language.
 - Prepare FAQ and public risk disclosures.
 - Collect feedback through [`COMMUNITY_PREVIEW.md`](COMMUNITY_PREVIEW.md) and [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md).
+- Prepare the conditional Sepolia-only utility pilot package through [`utility-pilot/README.md`](utility-pilot/README.md), [`VALUE_AND_UTILITY_BOUNDARY.md`](VALUE_AND_UTILITY_BOUNDARY.md), and [`BUSINESS_MODEL.md`](BUSINESS_MODEL.md).
 - Keep feedback focused on clarity, verification, translations, utility boundaries, and review readiness.
 - Avoid sale, listing, price, mainnet, or active-benefit messaging.
 

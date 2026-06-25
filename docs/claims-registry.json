@@ -1,6 +1,6 @@
 {
   "$schema": "https://tikideco.xyz/schemas/claims-registry.schema.json",
-  "version": "2026-06-18",
+  "version": "2026-06-25",
   "status": "machine-readable-public-communications-control",
   "notLegalAdvice": true,
   "canonicalDeploymentFacts": {
@@ -49,7 +49,12 @@
     "partner",
     "presale",
     "buy TIDE",
-    "mainnet live"
+    "mainnet live",
+    "TIDE has value",
+    "invest in TIDE",
+    "guaranteed benefit",
+    "active hotel benefit",
+    "independently audited"
   ],
   "auditStatusTerminology": {
     "allowed": [
