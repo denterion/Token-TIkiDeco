@@ -21,6 +21,7 @@ Status: substantially complete; continuing polish
 - Add a public showcase document with links to contracts, docs, and testnet state.
 - Verify source code on Sepolia Etherscan.
 - Publish `v0.1.0-sepolia` as a GitHub pre-release.
+- Publish `v0.2.0-utility-pilot` as a GitHub pre-release for read-only utility-pilot preparation.
 - Add EN/ES/RU public-site localization.
 - Keep the public site read-only with no wallet connection, sale flow, price chart, or transaction signing.
 
@@ -62,6 +63,7 @@ Status: preparing
 - Prepare FAQ and public risk disclosures.
 - Collect feedback through [`COMMUNITY_PREVIEW.md`](COMMUNITY_PREVIEW.md) and [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md).
 - Prepare the conditional Sepolia-only utility pilot package through [`utility-pilot/README.md`](utility-pilot/README.md), [`VALUE_AND_UTILITY_BOUNDARY.md`](VALUE_AND_UTILITY_BOUNDARY.md), and [`BUSINESS_MODEL.md`](BUSINESS_MODEL.md).
+- Keep the utility pilot campaign manifest as `draft-not-live` until legal, privacy, security, operations, and governance gates are approved.
 - Keep feedback focused on clarity, verification, translations, utility boundaries, and review readiness.
 - Avoid sale, listing, price, mainnet, or active-benefit messaging.
 

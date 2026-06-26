@@ -6,6 +6,10 @@ const defaultTargets = [
   "docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md",
   "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md"
 ];
+const reportDir = path.join(root, "operations", "utility-pilot");
+const reportFiles = fs.existsSync(reportDir)
+  ? fs.readdirSync(reportDir).filter((file) => file.endsWith(".json")).map((file) => path.join("operations", "utility-pilot", file))
+  : [];
 
 const banned = [
   "buy TIDE",
@@ -46,6 +50,19 @@ const required = [
   "No private keys",
   "No transaction signing"
 ];
+const requiredReportKeys = [
+  "campaignId",
+  "network",
+  "chainId",
+  "tokenAddress",
+  "snapshotBlock",
+  "saleStatus",
+  "monetaryValueStatus",
+  "mainnetStatus",
+  "auditStatus",
+  "allocationStatus",
+  "status"
+];
 
 function phraseRegex(phrase) {
   const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
@@ -77,4 +94,28 @@ function checkFile(relativePath) {
 }
 
 for (const target of defaultTargets) checkFile(target);
+for (const report of reportFiles) {
+  const filePath = path.join(root, report);
+  const json = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  const missing = requiredReportKeys.filter((key) => !(key in json));
+  if (missing.length > 0) throw new Error(`${report} missing required allocation report fields: ${missing.join(", ")}`);
+  const text = JSON.stringify(json, null, 2).toLowerCase();
+  const requiredPhrases = [
+    "sepolia",
+    "no sale",
+    "no stated monetary value",
+    "no mainnet deployment",
+    "independent audit not started"
+  ];
+  const missingPhrases = requiredPhrases.filter((phrase) => !text.includes(phrase));
+  if (missingPhrases.length > 0) throw new Error(`${report} missing required allocation disclaimers: ${missingPhrases.join(", ")}`);
+  if (json.status !== "draft-not-live" && json.documentSha256 === undefined) {
+    throw new Error(`${report} must include documentSha256 before it can be treated as a published allocation report`);
+  }
+  if (json.status !== "draft-not-live") {
+    for (const key of ["totalWallets", "totalTestnetTideAllocated", "noPrivateData"]) {
+      if (!(key in json)) throw new Error(`${report} missing published report field: ${key}`);
+    }
+  }
+}
 console.log("Allocation policy/report checks passed.");

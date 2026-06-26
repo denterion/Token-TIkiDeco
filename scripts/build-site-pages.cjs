@@ -6,10 +6,11 @@ const siteDir = path.join(root, "site");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
-const releaseCommit = "e07471936375ffbe13c68da2708b4436931392a2";
+const v01ReleaseCommit = "e07471936375ffbe13c68da2708b4436931392a2";
+const v02ReleaseCommit = "5ed20415b569779f8b00245af8b98b9599f77044";
 const v2FreezeBaseline = "58806906a273a95c58944d892eb368fc1b758620";
-const currentEvidenceCommit = "e74c85612e745f14aa92260bf8b3633f9fd9fa4a";
-const siteLastUpdated = "2026-06-25";
+const currentEvidenceCommit = v02ReleaseCommit;
+const siteLastUpdated = "2026-06-26";
 
 const baseUrl = "https://tikideco.xyz";
 const pages = [
@@ -24,11 +25,13 @@ const pages = [
       ["Status", [
         ["Internal review", manifest.auditStatus.internalReview],
         ["Independent audit", manifest.auditStatus.independentAudit],
-        ["v0.1.0-sepolia release commit", releaseCommit],
+        ["Current evidence date", siteLastUpdated],
+        ["v0.1.0-sepolia release status", `Public pre-release at ${v01ReleaseCommit}`],
+        ["v0.2.0-utility-pilot release status", `Public pre-release at ${v02ReleaseCommit}; pilot campaign remains draft-not-live`],
         ["V2 freeze baseline", v2FreezeBaseline],
         ["Current evidence/source commit", currentEvidenceCommit],
         ["Canonical V1 source commit", headCommit],
-        ["V2 canonical status", "V2 is not canonical and is not promoted by deployments/canonical.json"],
+        ["V2 candidate status", "Non-canonical candidate code; independent audit not started; not promoted by deployments/canonical.json"],
         ["Last updated", siteLastUpdated]
       ]],
       ["Canonical V1 Versus Candidate V2", [
@@ -112,8 +115,12 @@ const pages = [
     intro: "This page summarizes what is current, what is planned, and what remains conceptual.",
     sections: [
       ["Current", [
+        ["Current evidence date", siteLastUpdated],
         ["Network", "Ethereum Sepolia"],
         ["Canonical version", manifest.contractVersion],
+        ["v0.1.0-sepolia", "Public pre-release; historical Sepolia V1 canonical deployment"],
+        ["v0.2.0-utility-pilot", "Public pre-release; utility pilot campaign is draft-not-live"],
+        ["V2 candidate", "Candidate code only; not canonical and not deployed by the canonical manifest"],
         ["Utility pilot", "Planned / not live; read-only Sepolia balance check prepared for v0.2"],
         ["Mainnet", "Not approved"],
         ["Sale", "No token sale"],
