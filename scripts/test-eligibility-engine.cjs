@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const ts = require("typescript");
 const vm = require("vm");
+const { createReadOnlyRpcFixture } = require("./fixtures/read-only-rpc-fixture.cjs");
 
 const root = path.join(__dirname, "..");
 const eligibilityDir = path.join(root, "site-v2", "src", "lib", "eligibility");
@@ -64,6 +65,7 @@ const {
 } = loadTsModule(path.join(eligibilityDir, "index.ts"));
 
 const eligibleWallet = "0x1111111111111111111111111111111111111111";
+const checksumNeutralWallet = "0xABCDEFabcdefABCDEFabcdefABCDEFabcdefABCD";
 const duplicateWallet = "0x2222222222222222222222222222222222222222";
 const now = new Date("2026-07-01T12:01:00.000Z");
 const originalFetch = global.fetch;
@@ -101,6 +103,11 @@ await check("empty wallet", () => {
 await check("invalid address", () => {
   const result = evaluateEligibility({ walletAddress: "0x123", chainId: SEPOLIA_CHAIN_ID, now });
   assert.equal(result.code, "invalid-address");
+});
+
+await check("malformed checksum-neutral address", () => {
+  const result = evaluateEligibility({ walletAddress: checksumNeutralWallet, chainId: SEPOLIA_CHAIN_ID, now });
+  assert.notEqual(result.code, "invalid-address");
 });
 
 await check("zero balance", () => {
@@ -208,29 +215,29 @@ await check("campaign draft-not-live", () => {
   assert.equal(result.activeBenefits, false);
 });
 
-function rawAmountHex(amountTide) {
-  return `0x${(BigInt(amountTide) * 10n ** 18n).toString(16)}`;
-}
-
 function installRpcMock({ chainId = SEPOLIA_CHAIN_ID, balanceTide = 0, fail = false } = {}) {
-  global.fetch = async (_endpoint, request) => {
-    if (fail) throw new Error("RPC unavailable");
-    const body = JSON.parse(request.body);
-    let result = "0x0";
-    if (body.method === "eth_chainId") result = `0x${chainId.toString(16)}`;
-    if (body.method === "eth_call" && body.params?.[0]?.data === "0x313ce567") result = "0x12";
-    if (body.method === "eth_call" && body.params?.[0]?.data?.startsWith("0x70a08231")) result = rawAmountHex(balanceTide);
-    return {
-      ok: true,
-      json: async () => ({ jsonrpc: "2.0", id: 1, result })
-    };
-  };
+  const fixture = createReadOnlyRpcFixture({ chainId, balanceTide, fail });
+  global.fetch = fixture.handler;
+  return fixture;
 }
 
 await check("RPC unavailable", async () => {
   installRpcMock({ fail: true });
   const result = await readTideBalance(eligibleWallet, [RPC_ALLOWLIST[0]]);
   assert.equal(result.status, "unavailable");
+});
+
+await check("both RPC endpoints unavailable", async () => {
+  const fixture = createReadOnlyRpcFixture({
+    byEndpoint: {
+      [RPC_ALLOWLIST[0]]: { chainId: SEPOLIA_CHAIN_ID, fail: true },
+      [RPC_ALLOWLIST[1]]: { chainId: SEPOLIA_CHAIN_ID, fail: true }
+    }
+  });
+  global.fetch = fixture.handler;
+  const result = await readTideBalance("0x3333333333333333333333333333333333333333", [RPC_ALLOWLIST[0], RPC_ALLOWLIST[1]]);
+  assert.equal(result.status, "unavailable");
+  assert.deepEqual(new Set(fixture.calls.map((call) => call.endpoint)), new Set([RPC_ALLOWLIST[0], RPC_ALLOWLIST[1]]));
 });
 
 await check("wrong chain RPC", async () => {
@@ -245,6 +252,19 @@ await check("read-only Sepolia balanceOf", async () => {
   const result = await readTideBalance(eligibleWallet, [RPC_ALLOWLIST[0]]);
   assert.equal(result.status, "live");
   assert.equal(result.balanceTide, 250);
+});
+
+await check("one RPC endpoint fails and one succeeds", async () => {
+  const fixture = createReadOnlyRpcFixture({
+    byEndpoint: {
+      [RPC_ALLOWLIST[0]]: { chainId: SEPOLIA_CHAIN_ID, fail: true },
+      [RPC_ALLOWLIST[1]]: { chainId: SEPOLIA_CHAIN_ID, balanceTide: 375 }
+    }
+  });
+  global.fetch = fixture.handler;
+  const result = await readTideBalance("0x4444444444444444444444444444444444444444", [RPC_ALLOWLIST[0], RPC_ALLOWLIST[1]]);
+  assert.equal(result.status, "live");
+  assert.equal(result.balanceTide, 375);
 });
 
 await check("stale cached value", async () => {

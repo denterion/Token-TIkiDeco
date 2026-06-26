@@ -102,6 +102,7 @@ Status key:
 | `site/deployment-manifest.json` is generated from `deployments/canonical.json` for GitHub Pages. | `scripts/build-site-manifest.cjs`; `.github/workflows/pages.yml`; `package.json` (`site:build`). | 2026-06-17 | experimental |
 | The public 3D site includes EN/ES/RU localized UI copy. | `site-v2/src/data/i18n.ts`; `site-v2/src/main.tsx`; `site/index.html`. | 2026-06-24 | verified |
 | `v0.2.0-utility-pilot` is published as a GitHub pre-release for read-only utility-pilot preparation. | GitHub release `v0.2.0-utility-pilot`; `docs/releases/v0.2.0-utility-pilot.md`; source commit `5ed20415b569779f8b00245af8b98b9599f77044`. | 2026-06-26 | verified |
+| `v0.2.0-utility-pilot-rc.1` is a release-candidate draft document, not a published release and not a live campaign. | `docs/releases/v0.2.0-utility-pilot-rc.1.md`; `docs/releases/v0.2.0-utility-pilot-rc.1-checklist.md`. | 2026-06-26 | planned |
 
 ## Planned Or Experimental Functionality
 
@@ -123,6 +124,7 @@ Status key:
 | Business model documentation describes hospitality operations plus transparency infrastructure, not token speculation. | `docs/BUSINESS_MODEL.md`; `docs/VALUE_AND_UTILITY_BOUNDARY.md`. | 2026-06-25 | planned |
 | The v0.2 utility-pilot site flow is planned to perform a real read-only Sepolia `balanceOf(wallet)` check against the canonical TIDE token without wallet connection or transaction signing. | `site-v2/src/components/PilotEligibilityCard.tsx`; `site-v2/src/lib/eligibility/readOnlyBalance.ts`; `scripts/test-eligibility-engine.cjs`. | 2026-06-25 | planned |
 | Testnet allocation policy and allocation report template are prepared for a future Sepolia-only campaign. | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`; `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md`; `scripts/check-allocation-report.cjs`. | 2026-06-25 | planned |
+| Testnet allocation is not active; allocation drafts remain non-broadcast planning artifacts until campaign approvals and manual Safe review are complete. | `operations/utility-pilot/testnet-allocation-draft.json`; `operations/utility-pilot/safe-transaction-builder-draft.json`; `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`. | 2026-06-26 | planned |
 | The first utility pilot campaign manifest is prepared as `draft-not-live` and fails closed unless approvals, campaign window or approved live-check window, snapshot, inventory, and reporting fields are completed before publication. | `config/utility-pilot/tide-community-preview-001.json`; `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md`; `scripts/check-pilot-campaign.cjs`. | 2026-06-26 | planned |
 
 ## Unknown Or Not Publicly Claimable

@@ -7,7 +7,7 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | Area | Current state | Gap |
 | --- | --- | --- |
 | Public Sepolia release | `v0.1.0-sepolia` exists as a prototype pre-release. | Keep release package evidence current after each merge. |
-| Utility pilot release | `v0.2.0-utility-pilot` exists as a public pre-release for read-only pilot preparation. | Campaign remains `draft-not-live`; approvals, snapshot/window, inventory, and report path are not complete. |
+| Utility pilot release | `v0.2.0-utility-pilot` exists as a public pre-release for read-only pilot preparation; `v0.2.0-utility-pilot-rc.1` is prepared as a release-candidate draft. | Campaign remains `draft-not-live`; approvals, snapshot/window, inventory, and report path are not complete. |
 | Public site | Read-only EN/ES/RU site exists. | Continue simplifying, but keep all disclaimers and verification links. |
 | V1 | Historical canonical Sepolia deployment. | Do not present as upgraded. |
 | V2 | Candidate code with freeze baseline. | External audit not started. |
@@ -55,6 +55,7 @@ Exit criteria:
 - [ ] `npm run slither:baseline` shows zero new untriaged V2 findings.
 - [ ] `KNOWN_ISSUES.md` classifies open questions as accepted risk, needs audit, or blocked.
 - [ ] `npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot` succeeds from a clean tree.
+- [ ] `npm run v02:rc` passes after `npm run site`.
 
 ## Gate 4: Community Preview
 
