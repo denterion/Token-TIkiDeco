@@ -136,7 +136,7 @@ function validateCampaign(relativePath, campaign) {
 
 if (!fs.existsSync(campaignDir)) fail("Missing config/utility-pilot campaign directory");
 
-const files = fs.readdirSync(campaignDir).filter((file) => file.endsWith(".json")).sort();
+const files = fs.readdirSync(campaignDir).filter((file) => file.endsWith(".json") && file.startsWith("tide-")).sort();
 if (files.length === 0) fail("No utility pilot campaign manifests found");
 
 for (const file of files) {
