@@ -53,6 +53,7 @@ function loadTsModule(filePath) {
 const {
   RPC_ALLOWLIST,
   SEPOLIA_CHAIN_ID,
+  campaignDisclaimers,
   createMockSignatureMessage,
   createSnapshotBalance,
   evaluateEligibility,
@@ -167,6 +168,21 @@ await check("no transaction flow", () => {
   });
   assert.equal(result.requiresTransaction, false);
   assert.equal(result.transactionFlow, false);
+});
+
+await check("no sale language", () => {
+  const result = evaluateEligibility({
+    walletAddress: eligibleWallet,
+    chainId: SEPOLIA_CHAIN_ID,
+    signatureSession: signed(eligibleWallet),
+    snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
+    now
+  });
+  const publicText = `${result.title} ${result.explanation} ${campaignDisclaimers(mockPilotCampaign).join(" ")}`.toLowerCase();
+  assert.equal(publicText.includes("buy tide"), false);
+  assert.equal(publicText.includes("presale"), false);
+  assert.equal(publicText.includes("token price"), false);
+  assert.equal(publicText.includes("transaction signing"), false);
 });
 
 function rawAmountHex(amountTide) {

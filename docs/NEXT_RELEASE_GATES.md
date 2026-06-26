@@ -7,6 +7,7 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | Area | Current state | Gap |
 | --- | --- | --- |
 | Public Sepolia release | `v0.1.0-sepolia` exists as a prototype pre-release. | Keep release package evidence current after each merge. |
+| Utility pilot release | `v0.2.0-utility-pilot` exists as a public pre-release for read-only pilot preparation. | Campaign remains `draft-not-live`; approvals, snapshot/window, inventory, and report path are not complete. |
 | Public site | Read-only EN/ES/RU site exists. | Continue simplifying, but keep all disclaimers and verification links. |
 | V1 | Historical canonical Sepolia deployment. | Do not present as upgraded. |
 | V2 | Candidate code with freeze baseline. | External audit not started. |
@@ -21,8 +22,8 @@ Exit criteria:
 
 - [ ] Minimal public site merged and deployed by GitHub Pages.
 - [ ] `docs/PROJECT_FACTS.md` current after merge.
-- [ ] `npm run claims:check` passes.
-- [ ] `npm run site:check` passes.
+- [ ] `npm run claims` passes.
+- [ ] `npm run site` passes.
 - [ ] README and site agree on V1 canonical / V2 candidate status.
 - [ ] No wallet connection, purchase flow, price chart, staking, or exchange-listing language.
 
@@ -53,7 +54,7 @@ Exit criteria:
 - [ ] `npm run foundry:coverage` passes.
 - [ ] `npm run slither:baseline` shows zero new untriaged V2 findings.
 - [ ] `KNOWN_ISSUES.md` classifies open questions as accepted risk, needs audit, or blocked.
-- [ ] `npm run release:package -- --commit <final-main-sha>` succeeds from a clean tree.
+- [ ] `npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot` succeeds from a clean tree.
 
 ## Gate 4: Community Preview
 
@@ -66,6 +67,7 @@ Exit criteria:
 - [ ] Public response templates use `docs/COMMUNICATION_PLAYBOOK.md`.
 - [ ] Monthly transparency report format is ready.
 - [ ] Feedback summary separates current, planned, conceptual, and not-claimable items.
+- [ ] `npm run pilot` passes for the `draft-not-live` pilot campaign state.
 
 ## Gate 5: Mainnet Discussion
 
