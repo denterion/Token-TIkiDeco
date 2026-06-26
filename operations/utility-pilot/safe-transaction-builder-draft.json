@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "chainId": "11155111",
-  "createdAt": "2026-06-26T08:23:26.231Z",
+  "createdAt": "2026-06-26T22:29:54.027Z",
   "meta": {
     "name": "tide-community-preview-001 Sepolia allocation draft",
     "description": "Draft only. Review manually in Safe Transaction Builder. Do not broadcast without approvals.",
@@ -10,5 +10,6 @@
     "createdFromOwnerAddress": "",
     "checksum": ""
   },
+  "notes": "Draft only. No transaction was broadcast by this script.",
   "transactions": []
 }

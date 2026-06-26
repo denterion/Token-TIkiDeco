@@ -44,6 +44,7 @@ Primary supporting files:
 | Claims check | No unsupported public claims in public surfaces. | Enforced by `npm run claims`. |
 | Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site`. |
 | V2 audit package | V2 candidate package includes contracts, ABI, bytecode, tests, Foundry artifacts if present, Slither baseline, coverage if present, audit scope, known issues, freeze doc, and checksums. | Enforced by `npm run audit`. |
+| Handoff discipline | Package must be generated from the current commit, include checksums, include known issues and Slither baseline, and keep V2 non-canonical. | Enforced by `npm run audit:handoff`. |
 | Release package | Bundle generated from clean tree and exact commit. | Run only after final merge SHA is known. |
 
 ## Open Review Questions For Auditor
@@ -64,6 +65,7 @@ Run only from a clean tree after the target commit is final:
 
 ```bash
 npm run audit
+npm run audit:handoff
 npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
@@ -79,6 +81,10 @@ The package command must not deploy contracts, broadcast transactions, create a 
 - [ ] Run `npm run coverage`.
 - [ ] Run `npm run lint`.
 - [ ] Run `npm run audit`.
+- [ ] Run `npm run audit:handoff`.
+- [ ] Verify `SHA256SUMS.txt` inside the generated V2 audit package.
+- [ ] Send the package to auditor with `docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md`, `docs/AUDITOR_QUESTIONS.md`, `KNOWN_ISSUES.md`, and `docs/AUDIT_RESPONSE_PROCESS.md`.
+- [ ] Freeze unrelated changes while audit review is active.
 - [ ] Run `npm run manifest`.
 - [ ] Run `npm run bytecode`.
 - [ ] Run `npm run gas`.

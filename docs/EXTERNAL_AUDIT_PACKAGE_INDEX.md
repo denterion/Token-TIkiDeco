@@ -88,7 +88,18 @@ V2 is not canonical, not deployed by `deployments/canonical.json`, not independe
 Run:
 
 ```bash
-npm run audit:package
+npm run audit
+npm run audit:handoff
 ```
 
 The package command must fail if V2 is promoted, if independent audit completion is claimed, or if banned public claims appear.
+
+## Handoff Procedure
+
+1. Generate the package from a clean tree and the intended evidence commit.
+2. Verify `SHA256SUMS.txt`.
+3. Confirm `npm run audit:handoff` passes.
+4. Send the package directory, this index, auditor questions, known issues, and response process to the auditor.
+5. Freeze unrelated changes while review is active.
+6. Track findings by ID and severity.
+7. Publish response material only after maintainer review and, if needed, counsel/communications review.

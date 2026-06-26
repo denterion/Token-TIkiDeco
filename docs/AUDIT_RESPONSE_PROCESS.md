@@ -60,9 +60,20 @@ npm run foundry:coverage
 npm run slither:baseline
 npm run claims:check
 npm run audit:package
+npm run audit:handoff
 ```
 
 The new package must include the updated source commit, checksums, test outputs, Slither baseline result, Foundry artifacts, known issues, and response notes.
+
+## Handoff Discipline
+
+- Generate the package.
+- Verify checksums.
+- Send only the reviewed package and listed scope documents.
+- Freeze unrelated changes during review.
+- Track every finding by severity and finding ID.
+- Publish responses only after maintainer review.
+- Update release package evidence after every remediation branch.
 
 ## Scope Discipline During Audit
 

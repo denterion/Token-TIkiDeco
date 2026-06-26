@@ -38,8 +38,12 @@ This is a compliance-oriented documentation control, not legal advice.
 - `docs/utility-pilot/MOCK_ELIGIBILITY_ENGINE.md`
 - `docs/utility-pilot/PERK_INVENTORY.md`
 - `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md`
+- `docs/utility-pilot/PILOT_OPERATIONS_PLAYBOOK.md`
+- `docs/utility-pilot/PILOT_REPORT_TEMPLATE.md`
+- `docs/utility-pilot/PRIVACY_SAFE_REPORTING.md`
 - `docs/utility-pilot/README.md`
 - `docs/utility-pilot/READ_ONLY_BALANCE_CHECK.md`
+- `docs/utility-pilot/SAFE_ALLOCATION_RUNBOOK.md`
 - `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`
 - `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`
 - `docs/utility-pilot/WALLET_VERIFICATION.md`
@@ -230,6 +234,8 @@ None.
 | `docs/utility-pilot/PERK_INVENTORY.md` | 17 | `guaranteed` | No perk creates ownership, revenue, property, financial return, booking, membership, or guaranteed hospitality rights. |
 | `docs/utility-pilot/PERK_INVENTORY.md` | 17 | `return` | No perk creates ownership, revenue, property, financial return, booking, membership, or guaranteed hospitality rights. |
 | `docs/utility-pilot/PERK_INVENTORY.md` | 75 | `return` | - do not describe the item as compensation, yield, reward income, or financial return; |
+| `docs/utility-pilot/PILOT_REPORT_TEMPLATE.md` | 47 | `guaranteed` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. This report does not create active guest benefits, hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
+| `docs/utility-pilot/PILOT_REPORT_TEMPLATE.md` | 47 | `hotel ownership` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. This report does not create active guest benefits, hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
 | `docs/utility-pilot/README.md` | 21 | `presale` | - No token sale or presale. |
 | `docs/utility-pilot/README.md` | 25 | `guaranteed` | - No guaranteed benefit, access, allocation, discount, booking, membership, or hospitality service. |
 | `docs/utility-pilot/README.md` | 25 | `guaranteed benefit` | - No guaranteed benefit, access, allocation, discount, booking, membership, or hospitality service. |
