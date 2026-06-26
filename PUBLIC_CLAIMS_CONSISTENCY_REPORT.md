@@ -36,6 +36,7 @@ This is a compliance-oriented documentation control, not legal advice.
 - `docs/utility-pilot/MOCK_ELIGIBILITY_ENGINE.md`
 - `docs/utility-pilot/PERK_INVENTORY.md`
 - `docs/utility-pilot/README.md`
+- `docs/utility-pilot/READ_ONLY_BALANCE_CHECK.md`
 - `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`
 - `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`
 - `docs/utility-pilot/WALLET_VERIFICATION.md`
@@ -197,8 +198,8 @@ None.
 | `docs/releases/v0.2.0-utility-pilot.md` | 7 | `audited` | Status: public pre-release for a planned Sepolia-only utility pilot flow. This is not a mainnet release, not a token sale, not a value statement, and not an independent audit report. The project is not independently audited. |
 | `docs/releases/v0.2.0-utility-pilot.md` | 7 | `independently audited` | Status: public pre-release for a planned Sepolia-only utility pilot flow. This is not a mainnet release, not a token sale, not a value statement, and not an independent audit report. The project is not independently audited. |
 | `docs/releases/v0.2.0-utility-pilot.md` | 40 | `exchange listing` | - No staking, yield, APY, exchange listing, price chart, or mainnet flow. |
-| `docs/releases/v0.2.0-utility-pilot.md` | 46 | `guaranteed` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Pilot eligibility does not provide hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
-| `docs/releases/v0.2.0-utility-pilot.md` | 46 | `hotel ownership` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Pilot eligibility does not provide hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
+| `docs/releases/v0.2.0-utility-pilot.md` | 48 | `guaranteed` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Pilot eligibility does not provide hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
+| `docs/releases/v0.2.0-utility-pilot.md` | 48 | `hotel ownership` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Pilot eligibility does not provide hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
 | `docs/RISK_DISCLOSURE.md` | 11 | `investment` | If TIDE is marketed or structured as an investment, profit share, revenue share, debt instrument, ownership right, or expectation of returns from the efforts of others, it may be treated as a regulated securities product. |
 | `docs/RISK_DISCLOSURE.md` | 11 | `profit` | If TIDE is marketed or structured as an investment, profit share, revenue share, debt instrument, ownership right, or expectation of returns from the efforts of others, it may be treated as a regulated securities product. |
 | `docs/RISK_DISCLOSURE.md` | 11 | `revenue share` | If TIDE is marketed or structured as an investment, profit share, revenue share, debt instrument, ownership right, or expectation of returns from the efforts of others, it may be treated as a regulated securities product. |
@@ -207,17 +208,17 @@ None.
 | `docs/RISK_DISCLOSURE.md` | 27 | `revenue share` | Do not describe TIDE as guaranteed profit, hotel equity, real estate ownership, revenue share, dividend rights, debt claims, regulator-approved, or guaranteed to launch on mainnet. |
 | `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md` | 18 | `guaranteed` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Pilot eligibility does not provide hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
 | `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md` | 18 | `hotel ownership` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Pilot eligibility does not provide hotel ownership, revenue rights, cash redemption, resale value, or guaranteed benefits. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 58 | `buy TIDE` | - Prohibited phrase: buy TIDE. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 59 | `presale` | - Prohibited phrase: presale. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 60 | `investment` | - Prohibited phrase: investment. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 61 | `guaranteed` | - Prohibited phrase: guaranteed benefit. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 61 | `guaranteed benefit` | - Prohibited phrase: guaranteed benefit. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 62 | `hotel ownership` | - Prohibited phrase: hotel ownership. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 63 | `revenue share` | - Prohibited phrase: revenue share. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 64 | `mainnet live` | - Prohibited phrase: mainnet live. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 65 | `audited` | - Prohibited phrase: independently audited. |
-| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 65 | `independently audited` | - Prohibited phrase: independently audited. |
-| `docs/utility-pilot/MOCK_ELIGIBILITY_ENGINE.md` | 55 | `hotel ownership` | TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet. The flow does not create cash value, resale value, transfer rights, revenue rights, hotel ownership, or financial rights. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 60 | `buy TIDE` | - Prohibited phrase: buy TIDE. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 61 | `presale` | - Prohibited phrase: presale. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 62 | `investment` | - Prohibited phrase: investment. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 63 | `guaranteed` | - Prohibited phrase: guaranteed benefit. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 63 | `guaranteed benefit` | - Prohibited phrase: guaranteed benefit. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 64 | `hotel ownership` | - Prohibited phrase: hotel ownership. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 65 | `revenue share` | - Prohibited phrase: revenue share. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 66 | `mainnet live` | - Prohibited phrase: mainnet live. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 67 | `audited` | - Prohibited phrase: independently audited. |
+| `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 67 | `independently audited` | - Prohibited phrase: independently audited. |
+| `docs/utility-pilot/MOCK_ELIGIBILITY_ENGINE.md` | 57 | `hotel ownership` | TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet. The flow does not create cash value, resale value, transfer rights, revenue rights, hotel ownership, or financial rights. |
 | `docs/utility-pilot/PERK_INVENTORY.md` | 17 | `guaranteed` | No perk creates ownership, revenue, property, financial return, booking, membership, or guaranteed hospitality rights. |
 | `docs/utility-pilot/PERK_INVENTORY.md` | 17 | `return` | No perk creates ownership, revenue, property, financial return, booking, membership, or guaranteed hospitality rights. |
 | `docs/utility-pilot/PERK_INVENTORY.md` | 75 | `return` | - do not describe the item as compensation, yield, reward income, or financial return; |
@@ -232,6 +233,7 @@ None.
 | `docs/utility-pilot/README.md` | 31 | `buy TIDE` | The pilot is framed as a Sepolia prototype for eligibility and transparency workflows. It does not ask users to buy TIDE, does not describe TIDE as having financial value, and does not provide financial rights or expected returns. |
 | `docs/utility-pilot/README.md` | 37 | `exchange listing` | The pilot does not include a purchase flow, payment flow, presale, exchange listing, token price, redemption process, or mainnet token distribution. |
 | `docs/utility-pilot/README.md` | 37 | `presale` | The pilot does not include a purchase flow, payment flow, presale, exchange listing, token price, redemption process, or mainnet token distribution. |
+| `docs/utility-pilot/READ_ONLY_BALANCE_CHECK.md` | 43 | `hotel ownership` | - no hotel ownership; |
 | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 17 | `guaranteed` | ## No Guaranteed Benefit |
 | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 17 | `guaranteed benefit` | ## No Guaranteed Benefit |
 | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 72 | `audited` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |

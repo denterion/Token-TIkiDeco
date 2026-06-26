@@ -48,6 +48,8 @@ export function createMockSignatureMessage(
   };
 }
 
+export const createOffchainMessageProof = createMockSignatureMessage;
+
 export function isMockSignatureSessionFresh(session: MockSignatureSession, now = new Date()): boolean {
   return now.getTime() <= Date.parse(session.expiresAt);
 }

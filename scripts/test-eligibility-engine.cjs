@@ -56,8 +56,10 @@ const {
   campaignDisclaimers,
   createMockSignatureMessage,
   createSnapshotBalance,
+  cachedBalanceFor,
   evaluateEligibility,
   mockPilotCampaign,
+  pilotCampaignRules,
   readTideBalance
 } = loadTsModule(path.join(eligibilityDir, "index.ts"));
 
@@ -107,7 +109,8 @@ await check("zero balance", () => {
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
     snapshotBalance: balance(eligibleWallet, 0),
-    now
+    now,
+    rules: mockPilotCampaign
   });
   assert.equal(result.code, "insufficient-balance");
 });
@@ -118,7 +121,8 @@ await check("sufficient balance", () => {
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
     snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
-    now
+    now,
+    rules: mockPilotCampaign
   });
   assert.equal(result.code, "eligible-testnet");
   assert.equal(result.eligible, true);
@@ -130,7 +134,8 @@ await check("expired campaign", () => {
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
     snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
-    now: new Date("2027-01-01T00:00:00.000Z")
+    now: new Date("2027-01-01T00:00:00.000Z"),
+    rules: mockPilotCampaign
   });
   assert.equal(result.code, "expired-campaign");
 });
@@ -142,7 +147,8 @@ await check("duplicate wallet", () => {
     signatureSession: signed(duplicateWallet),
     snapshotBalance: balance(duplicateWallet, mockPilotCampaign.minimumTideBalance),
     previouslySubmittedWallets: new Set([duplicateWallet]),
-    now
+    now,
+    rules: mockPilotCampaign
   });
   assert.equal(result.code, "duplicate-wallet");
 });
@@ -153,7 +159,8 @@ await check("no active benefits", () => {
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
     snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
-    now
+    now,
+    rules: mockPilotCampaign
   });
   assert.equal(result.activeBenefits, false);
 });
@@ -164,7 +171,8 @@ await check("no transaction flow", () => {
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
     snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
-    now
+    now,
+    rules: mockPilotCampaign
   });
   assert.equal(result.requiresTransaction, false);
   assert.equal(result.transactionFlow, false);
@@ -176,13 +184,28 @@ await check("no sale language", () => {
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
     snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
-    now
+    now,
+    rules: mockPilotCampaign
   });
   const publicText = `${result.title} ${result.explanation} ${campaignDisclaimers(mockPilotCampaign).join(" ")}`.toLowerCase();
   assert.equal(publicText.includes("buy tide"), false);
   assert.equal(publicText.includes("presale"), false);
   assert.equal(publicText.includes("token price"), false);
   assert.equal(publicText.includes("transaction signing"), false);
+});
+
+await check("campaign draft-not-live", () => {
+  const result = evaluateEligibility({
+    walletAddress: eligibleWallet,
+    chainId: SEPOLIA_CHAIN_ID,
+    signatureSession: createMockSignatureMessage(eligibleWallet, pilotCampaignRules, "2026-07-01T12:00:00.000Z"),
+    snapshotBalance: createSnapshotBalance(eligibleWallet, pilotCampaignRules, pilotCampaignRules.minimumTideBalance),
+    now,
+    rules: pilotCampaignRules
+  });
+  assert.equal(result.code, "campaign-not-live");
+  assert.equal(result.eligible, false);
+  assert.equal(result.activeBenefits, false);
 });
 
 function rawAmountHex(amountTide) {
@@ -222,6 +245,22 @@ await check("read-only Sepolia balanceOf", async () => {
   const result = await readTideBalance(eligibleWallet, [RPC_ALLOWLIST[0]]);
   assert.equal(result.status, "live");
   assert.equal(result.balanceTide, 250);
+});
+
+await check("stale cached value", async () => {
+  const stale = cachedBalanceFor(eligibleWallet, Date.parse("2026-07-01T12:10:01.000Z"));
+  assert.equal(stale.status, "stale");
+  assert.equal(stale.balanceTide, 250);
+});
+
+await check("no transaction or sale buttons in production card", () => {
+  const componentSource = fs.readFileSync(path.join(root, "site-v2", "src", "components", "PilotEligibilityCard.tsx"), "utf8");
+  const lower = componentSource.toLowerCase();
+  for (const forbidden of ["buy tide", "invest", "stake", "token price", "approve", "transfer tide"]) {
+    assert.equal(lower.includes(forbidden), false, `production card contains forbidden copy: ${forbidden}`);
+  }
+  const buttons = componentSource.match(/<button[\s\S]*?<\/button>/gi) || [];
+  assert.equal(buttons.some((button) => /transaction|buy|invest|stake|price/i.test(button)), false);
 });
 
 global.fetch = originalFetch;

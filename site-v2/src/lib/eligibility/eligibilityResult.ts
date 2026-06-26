@@ -1,4 +1,4 @@
-import { isCampaignActive, mockPilotCampaign, SEPOLIA_CHAIN_ID, type PilotCampaignRules } from "./campaignRules";
+import { isCampaignActive, pilotCampaignRules, SEPOLIA_CHAIN_ID, type PilotCampaignRules } from "./campaignRules";
 import { hasMinimumSnapshotBalance, isValidEthereumAddress, normalizeWalletAddress, type SnapshotBalance } from "./snapshot";
 import { isMockSignatureSessionFresh, type MockSignatureSession } from "./walletSignature";
 
@@ -6,6 +6,7 @@ export type EligibilityCode =
   | "wrong-chain"
   | "empty-wallet"
   | "invalid-address"
+  | "campaign-not-live"
   | "expired-campaign"
   | "duplicate-wallet"
   | "missing-signature"
@@ -47,11 +48,11 @@ function result(code: EligibilityCode, eligible: boolean, title: string, explana
 }
 
 export function evaluateEligibility(input: EligibilityInput): EligibilityResult {
-  const rules = input.rules ?? mockPilotCampaign;
+  const rules = input.rules ?? pilotCampaignRules;
   const wallet = normalizeWalletAddress(input.walletAddress);
 
   if (input.chainId !== SEPOLIA_CHAIN_ID) {
-    return result("wrong-chain", false, "Wrong network", "This mock pilot only evaluates Ethereum Sepolia.");
+    return result("wrong-chain", false, "Wrong network", "This pilot only evaluates Ethereum Sepolia.");
   }
 
   if (!wallet) {
@@ -62,8 +63,17 @@ export function evaluateEligibility(input: EligibilityInput): EligibilityResult 
     return result("invalid-address", false, "Invalid address", "Use a valid Ethereum-style address.");
   }
 
+  if (rules.campaignStatus !== "published-testnet") {
+    return result(
+      "campaign-not-live",
+      false,
+      "Pilot not live",
+      "The campaign is draft-not-live. The balance check is read-only evidence for review planning, not an active benefit, booking, or confirmation."
+    );
+  }
+
   if (!isCampaignActive(rules, input.now)) {
-    return result("expired-campaign", false, "Campaign inactive", "The mock campaign window is not active.");
+    return result("expired-campaign", false, "Campaign inactive", "The campaign window is not active.");
   }
 
   if (input.previouslySubmittedWallets?.has(wallet)) {
