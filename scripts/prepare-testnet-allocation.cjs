@@ -12,6 +12,7 @@ const TRANSFER_SELECTOR = "0xa9059cbb";
 
 function parseArgs(argv) {
   const args = {
+    campaignId: campaign.campaignId,
     perWalletCap: Number(campaign.allocation?.perWalletCap || 100),
     campaignCap: Number(campaign.allocation?.campaignCap || 1000),
     report: defaultReportPath,
@@ -20,6 +21,7 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
     if (arg === "--input") args.input = path.resolve(argv[++i]);
+    else if (arg === "--campaign-id") args.campaignId = String(argv[++i] || "");
     else if (arg === "--per-wallet-cap") args.perWalletCap = Number(argv[++i]);
     else if (arg === "--campaign-cap") args.campaignCap = Number(argv[++i]);
     else if (arg === "--report") args.report = path.resolve(argv[++i]);
@@ -31,7 +33,7 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  console.log("Usage: node scripts/prepare-testnet-allocation.cjs [--input allocations.csv|allocations.json] [--per-wallet-cap 100] [--campaign-cap 1000]");
+  console.log("Usage: node scripts/prepare-testnet-allocation.cjs [--input allocations.csv|allocations.json] [--campaign-id tide-community-preview-001] [--per-wallet-cap 100] [--campaign-cap 1000]");
 }
 
 function isAddress(value) {
@@ -53,19 +55,23 @@ function parseCsv(text) {
 }
 
 function readInput(filePath) {
-  if (!filePath) return [];
+  if (!filePath) return { rows: [], campaignId: null };
   const text = fs.readFileSync(filePath, "utf8");
   if (filePath.toLowerCase().endsWith(".json")) {
     const parsed = JSON.parse(text);
-    return Array.isArray(parsed) ? parsed : parsed.allocations || [];
+    return {
+      rows: Array.isArray(parsed) ? parsed : parsed.allocations || [],
+      campaignId: Array.isArray(parsed) ? null : parsed.campaignId || null
+    };
   }
-  if (filePath.toLowerCase().endsWith(".csv")) return parseCsv(text);
+  if (filePath.toLowerCase().endsWith(".csv")) return { rows: parseCsv(text), campaignId: null };
   throw new Error("Allocation input must be CSV or JSON");
 }
 
-function normalizeRows(rows) {
+function normalizeRows(rows, expectedCampaignId) {
   return rows.map((row, index) => ({
     index: index + 1,
+    campaignId: row.campaignId || row.campaign || expectedCampaignId,
     address: normalizeAddress(row.address || row.wallet || row.walletAddress),
     amountTide: Number(row.amountTide || row.amount || row.tide || 0),
     note: row.note || ""
@@ -76,6 +82,7 @@ function assertAllocations(rows, { perWalletCap, campaignCap }) {
   const seen = new Set();
   let total = 0;
   for (const row of rows) {
+    if (row.campaignId !== campaign.campaignId) throw new Error(`Campaign ID mismatch at row ${row.index}: ${row.campaignId}`);
     if (!isAddress(row.address)) throw new Error(`Invalid address at row ${row.index}: ${row.address}`);
     if (seen.has(row.address)) throw new Error(`Duplicate wallet address: ${row.address}`);
     seen.add(row.address);
@@ -114,6 +121,7 @@ function buildSafeDraft(rows) {
       createdFromOwnerAddress: "",
       checksum: ""
     },
+    notes: "Draft only. No transaction was broadcast by this script.",
     transactions: rows.map((row) => ({
       to: canonical.contracts.token.address,
       value: "0",
@@ -149,6 +157,7 @@ function buildReport(rows, total, args, safeRel) {
     mainnetStatus: "no mainnet deployment",
     auditStatus: "independent audit not started",
     allocationStatus: rows.length === 0 ? "draft only; no allocation input provided" : "draft only; not approved and not broadcast",
+    inputCampaignId: args.campaignId,
     requestWindowStatus: campaign.requestWindow.status,
     inventoryStatus: campaign.inventory.status,
     publishedCapacity: campaign.inventory.publishedCapacity,
@@ -176,7 +185,17 @@ function main() {
     return;
   }
 
-  const rows = normalizeRows(readInput(args.input));
+  if (!args.campaignId) throw new Error("Campaign ID is required");
+  if (args.campaignId !== campaign.campaignId) throw new Error(`Campaign ID mismatch: ${args.campaignId} != ${campaign.campaignId}`);
+  if (!["draft-not-live", "published-testnet"].includes(campaign.status)) {
+    throw new Error(`Campaign status does not allow allocation draft generation: ${campaign.status}`);
+  }
+
+  const input = readInput(args.input);
+  if (input.campaignId && input.campaignId !== campaign.campaignId) {
+    throw new Error(`Input campaignId mismatch: ${input.campaignId} != ${campaign.campaignId}`);
+  }
+  const rows = normalizeRows(input.rows, input.campaignId || args.campaignId);
   const total = assertAllocations(rows, args);
   fs.mkdirSync(outputDir, { recursive: true });
 
