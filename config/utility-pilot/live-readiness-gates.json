@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "blocked",
+  "campaignId": "tide-community-preview-001",
+  "purpose": "Machine-readable gate list for a future Sepolia-only utility pilot campaign. This file does not approve a live campaign.",
+  "requiredBeforeLiveCampaign": {
+    "legalReview": {
+      "status": "not-approved",
+      "issue": 56,
+      "evidence": null
+    },
+    "privacyReview": {
+      "status": "not-approved",
+      "issue": 56,
+      "evidence": null
+    },
+    "securityReview": {
+      "status": "not-approved",
+      "issue": 62,
+      "evidence": null
+    },
+    "operationsReview": {
+      "status": "not-approved",
+      "issue": 56,
+      "evidence": null
+    },
+    "governanceReview": {
+      "status": "not-approved",
+      "issue": 60,
+      "evidence": null
+    },
+    "campaignSpecificRules": {
+      "status": "draft",
+      "issue": 56,
+      "evidence": "config/utility-pilot/tide-community-preview-001.json"
+    },
+    "snapshotOrApprovedLiveCheckWindow": {
+      "status": "not-published",
+      "issue": 56,
+      "evidence": null
+    },
+    "requestWindow": {
+      "status": "not-published",
+      "issue": 56,
+      "evidence": null
+    },
+    "inventoryLimits": {
+      "status": "not-published",
+      "issue": 58,
+      "evidence": null
+    },
+    "allocationReportPath": {
+      "status": "draft",
+      "issue": 58,
+      "evidence": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md"
+    },
+    "staffProcess": {
+      "status": "draft",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/TIDE_LOYALTY_PILOT.md"
+    },
+    "disputeProcess": {
+      "status": "draft",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/TIDE_LOYALTY_PILOT.md"
+    },
+    "communityFeedbackSummary": {
+      "status": "not-started",
+      "issue": 66,
+      "evidence": "docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md"
+    },
+    "transparencyUpdate": {
+      "status": "draft",
+      "issue": 65,
+      "evidence": "docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md"
+    }
+  },
+  "hardBoundaries": {
+    "noSale": true,
+    "noStatedMonetaryValue": true,
+    "noMainnetDeployment": true,
+    "noActiveGuestBenefits": true,
+    "independentAuditNotStarted": true,
+    "noPrivateGuestDataCollection": true,
+    "noSafeTransactionBroadcast": true
+  }
+}

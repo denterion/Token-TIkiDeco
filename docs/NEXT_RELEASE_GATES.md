@@ -56,6 +56,7 @@ Exit criteria:
 - [ ] `KNOWN_ISSUES.md` classifies open questions as accepted risk, needs audit, or blocked.
 - [ ] `npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot` succeeds from a clean tree.
 - [ ] `npm run v02:rc` passes after `npm run site`.
+- [ ] `npm run pilot:live:blocked` passes, confirming the live campaign is still intentionally blocked.
 
 ## Gate 4: Community Preview
 
@@ -69,6 +70,7 @@ Exit criteria:
 - [ ] Monthly transparency report format is ready.
 - [ ] Feedback summary separates current, planned, conceptual, and not-claimable items.
 - [ ] `npm run pilot` passes for the `draft-not-live` pilot campaign state.
+- [ ] `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md` maps remaining live-campaign blockers to tracking issues and evidence.
 
 ## Gate 5: Mainnet Discussion
 

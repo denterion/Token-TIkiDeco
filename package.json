@@ -38,6 +38,8 @@
     "allocation": "npm run allocation:check",
     "pilot:campaign:check": "node scripts/check-pilot-campaign.cjs",
     "pilot:campaign": "npm run pilot:campaign:check",
+    "pilot:live:check": "node scripts/check-pilot-live-readiness.cjs",
+    "pilot:live:blocked": "node scripts/check-pilot-live-readiness.cjs --expect-blocked",
     "pilot:check": "npm run eligibility && npm run allocation && node scripts/check-pilot-campaign.cjs && npm run claims",
     "pilot": "npm run pilot:check",
     "site:check": "npm run eligibility:test && npm run site:build && node scripts/check-site-content.cjs && node scripts/check-site-v2.cjs",

@@ -126,6 +126,7 @@ Status key:
 | Testnet allocation policy and allocation report template are prepared for a future Sepolia-only campaign. | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`; `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md`; `scripts/check-allocation-report.cjs`. | 2026-06-25 | planned |
 | Testnet allocation is not active; allocation drafts remain non-broadcast planning artifacts until campaign approvals and manual Safe review are complete. | `operations/utility-pilot/testnet-allocation-draft.json`; `operations/utility-pilot/safe-transaction-builder-draft.json`; `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`. | 2026-06-26 | planned |
 | The first utility pilot campaign manifest is prepared as `draft-not-live` and fails closed unless approvals, campaign window or approved live-check window, snapshot, inventory, and reporting fields are completed before publication. | `config/utility-pilot/tide-community-preview-001.json`; `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md`; `scripts/check-pilot-campaign.cjs`. | 2026-06-26 | planned |
+| A live-campaign blocker register exists and is intentionally blocked until legal, privacy, security, operations, governance, snapshot/window, inventory, allocation-report, staff-process, dispute-process, feedback, and transparency gates have evidence. | `config/utility-pilot/live-readiness-gates.json`; `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md`; `scripts/check-pilot-live-readiness.cjs`. | 2026-06-27 | planned |
 
 ## Unknown Or Not Publicly Claimable
 
