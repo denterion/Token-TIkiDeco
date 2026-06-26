@@ -3,9 +3,15 @@ contact_links:
   - name: Responsible security disclosure
     url: https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md
     about: Do not post vulnerability details publicly. Follow SECURITY.md instead.
+  - name: Project facts
+    url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md
+    about: Source of truth for verified, planned, experimental, and unknown public claims.
+  - name: Claims matrix
+    url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md
+    about: Allowed, prohibited, and counsel-required public wording.
+  - name: Feedback guide
+    url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md
+    about: Use the suggested public feedback format and triage categories.
   - name: Community preview guide
     url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COMMUNITY_PREVIEW.md
     about: Read the public Sepolia prototype feedback scope before opening an issue.
-  - name: Feedback guide
-    url: https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md
-    about: Use the suggested feedback format and triage categories.

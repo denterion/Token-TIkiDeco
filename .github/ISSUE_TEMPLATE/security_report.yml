@@ -1,21 +1,29 @@
-name: Security note
-description: Do not disclose vulnerabilities publicly. Follow SECURITY.md.
-title: "[Security note]: see SECURITY.md"
+name: Security report redirect
+description: Do not post sensitive security details publicly.
+title: "[Security question - no sensitive details]: "
 labels:
-  - security
+  - security-question
 body:
   - type: markdown
     attributes:
       value: |
-        Please do not submit vulnerability details in a public issue.
+        TikiDeco / TIDE is a Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no active guest benefits, and has not started an independent audit.
 
-        Use GitHub private vulnerability reporting if it is enabled for this repository, or follow the responsible disclosure process in [SECURITY.md](../../SECURITY.md).
+        Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, exploit details, or non-public vulnerability information in this issue.
 
-        Include affected files, reproduction steps, expected and actual behavior, impact, and any relevant transaction hashes or tests in the private report.
-  - type: checkboxes
-    id: confirm
+        For suspected vulnerabilities, follow SECURITY.md:
+        https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md
+  - type: textarea
+    id: public_question
     attributes:
-      label: Confirmation
+      label: Public security question
+      description: Share only high-level, non-sensitive context suitable for a public issue.
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Safety confirmation
       options:
-        - label: I understand that vulnerability details should not be posted publicly.
+        - label: I have not included exploit steps, private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
           required: true

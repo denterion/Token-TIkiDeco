@@ -1,5 +1,5 @@
 name: Documentation issue
-description: Report unclear, stale, or inconsistent public documentation.
+description: Report a documentation gap, stale fact, or unclear wording.
 title: "[Docs]: "
 labels:
   - documentation
@@ -7,33 +7,32 @@ body:
   - type: markdown
     attributes:
       value: |
-        Use this for documentation problems only. Do not post private keys, secrets, or vulnerability details.
+        TikiDeco / TIDE is a Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no active guest benefits, and has not started an independent audit.
+
+        Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
   - type: input
-    id: location
+    id: file
     attributes:
-      label: Document or page
-      description: Link or path to the documentation that needs attention.
+      label: File or page
       placeholder: docs/PROJECT_FACTS.md
     validations:
       required: true
   - type: textarea
     id: issue
     attributes:
-      label: What is unclear or incorrect?
-      description: Include the exact sentence when possible.
+      label: Documentation issue
+      description: What is stale, missing, unclear, or risky?
     validations:
       required: true
   - type: textarea
     id: suggested
     attributes:
-      label: Suggested correction
-      description: Keep wording consistent with the claims matrix and no-sale/no-value boundaries.
+      label: Suggested change
+      description: Optional wording or structure suggestion.
   - type: checkboxes
     id: boundaries
     attributes:
-      label: Public communication boundaries
+      label: Boundary confirmation
       options:
-        - label: This issue does not request investment, sale, presale, staking, yield, APY, exchange listing, or price language.
-          required: true
-        - label: This issue does not claim TikiDeco is independently audited or approved for mainnet use.
+        - label: This suggestion preserves the no-sale, no-value, no-mainnet, no-active-benefit, and independent-audit-not-started boundaries.
           required: true

@@ -7,7 +7,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Do not report suspected security vulnerabilities here. Use the security report template or SECURITY.md instead.
+        TikiDeco / TIDE is a Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no active guest benefits, and has not started an independent audit.
+
+        Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details. For security reports, use SECURITY.md.
   - type: textarea
     id: summary
     attributes:
@@ -19,7 +21,7 @@ body:
     id: steps
     attributes:
       label: Steps to reproduce
-      description: Provide deterministic steps, commands, or links.
+      description: Provide deterministic steps, commands, links, screenshots, or affected files.
     validations:
       required: true
   - type: textarea
@@ -51,12 +53,14 @@ body:
   - type: input
     id: commit
     attributes:
-      label: Commit SHA
-      description: If known, provide the commit where the issue was observed.
+      label: Commit SHA or page URL
+      description: If known, provide the commit, page, or release where the issue was observed.
   - type: checkboxes
     id: boundaries
     attributes:
-      label: Communication boundaries
+      label: Boundary confirmation
       options:
-        - label: This report does not include private keys, secrets, or non-public vulnerability details.
+        - label: This report does not request sale, price, mainnet, transaction signing, active benefit, or independent-audit claims.
+          required: true
+        - label: This report does not include private keys, seed phrases, passwords, private guest data, or sensitive personal data.
           required: true

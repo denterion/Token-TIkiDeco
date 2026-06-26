@@ -136,6 +136,20 @@ npm run mainnet:check
 
 This is not a promise of mainnet, not a value statement, not an offer, and not legal approval. See [`docs/MAINNET_GO_NO_GO.md`](docs/MAINNET_GO_NO_GO.md), [`docs/VALUE_CLAIM_POLICY.md`](docs/VALUE_CLAIM_POLICY.md), and [`docs/HOSPITALITY_OPERATIONS_GATE.md`](docs/HOSPITALITY_OPERATIONS_GATE.md).
 
+## Community Preview
+
+The community preview collects public feedback on the read-only website, documentation, verification steps, translations, and Sepolia-only utility-pilot boundaries. It does not create active guest benefits, a token offering, mainnet deployment, or independent audit claim.
+
+Start here:
+
+- [`docs/COMMUNITY_PREVIEW.md`](docs/COMMUNITY_PREVIEW.md)
+- [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md)
+- [`docs/NEXT_ISSUES.md`](docs/NEXT_ISSUES.md)
+- [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md)
+- [`docs/COMMUNITY_PREVIEW_LAUNCH_PLAN.md`](docs/COMMUNITY_PREVIEW_LAUNCH_PLAN.md)
+
+Open public feedback through the GitHub issue templates. Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
+
 ## How To Run Tests
 
 Install dependencies:

@@ -51,7 +51,8 @@ export const copy = {
       pilot: "Pilot",
       transparency: "Verify",
       audit: "Review",
-      verify: "Docs"
+      verify: "Docs",
+      feedback: "Feedback"
     },
     language: "Language",
     hero: {
@@ -110,6 +111,8 @@ export const copy = {
         projectFacts: "Project Facts",
         securityPolicy: "Security Policy",
         claimsMatrix: "Claims Matrix",
+        feedbackGuide: "Feedback Guide",
+        issues: "Give Feedback",
         etherscanToken: "Etherscan Token",
         etherscanVault: "Etherscan Vault",
         noOffer: "No Offer Notice",
@@ -129,7 +132,8 @@ export const copy = {
       pilot: "Piloto",
       transparency: "Verificar",
       audit: "Revision",
-      verify: "Docs"
+      verify: "Docs",
+      feedback: "Feedback"
     },
     language: "Idioma",
     hero: {
@@ -193,6 +197,8 @@ export const copy = {
         projectFacts: "Hechos del proyecto",
         securityPolicy: "Politica de seguridad",
         claimsMatrix: "Claims Matrix",
+        feedbackGuide: "Guia de feedback",
+        issues: "Enviar feedback",
         etherscanToken: "Token en Etherscan",
         etherscanVault: "Vault en Etherscan",
         noOffer: "Aviso de no oferta",
@@ -212,7 +218,8 @@ export const copy = {
       pilot: "Pilot",
       transparency: "Проверка",
       audit: "Ревью",
-      verify: "Документы"
+      verify: "Документы",
+      feedback: "Feedback"
     },
     language: "Язык",
     hero: {
@@ -276,6 +283,8 @@ export const copy = {
         projectFacts: "Факты проекта",
         securityPolicy: "Security Policy",
         claimsMatrix: "Claims Matrix",
+        feedbackGuide: "Feedback Guide",
+        issues: "Give Feedback",
         etherscanToken: "Etherscan Token",
         etherscanVault: "Etherscan Vault",
         noOffer: "No Offer Notice",

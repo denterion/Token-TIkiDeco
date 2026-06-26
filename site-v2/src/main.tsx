@@ -59,6 +59,9 @@ function App() {
               <a href="#transparency">{t.nav.transparency}</a>
               <a href="#audit">{t.nav.audit}</a>
               <a href="/verify/">{t.nav.verify}</a>
+              <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">
+                {t.nav.feedback}
+              </a>
             </nav>
             <div className="language-switcher" aria-label={t.language}>
               {locales.map((item) => (
