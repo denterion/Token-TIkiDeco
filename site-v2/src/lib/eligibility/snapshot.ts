@@ -27,7 +27,7 @@ export function createSnapshotBalance(
 ): SnapshotBalance {
   return {
     walletAddress: normalizeWalletAddress(walletAddress),
-    blockNumber: rules.snapshotBlock,
+    blockNumber: rules.snapshotBlock ?? 0,
     balanceTide,
     source,
     checkedAt
@@ -35,5 +35,6 @@ export function createSnapshotBalance(
 }
 
 export function hasMinimumSnapshotBalance(balance: SnapshotBalance, rules: PilotCampaignRules): boolean {
-  return balance.blockNumber === rules.snapshotBlock && balance.balanceTide >= rules.minimumTideBalance;
+  const blockMatches = rules.snapshotBlock === null || balance.blockNumber === rules.snapshotBlock;
+  return blockMatches && balance.balanceTide >= rules.minimumTideBalance;
 }

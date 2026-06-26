@@ -46,6 +46,27 @@ The pilot may reject or manually review requests involving:
 - attempts to bypass inventory limits;
 - abusive, unsafe, or deceptive behavior.
 
+## Allocation Caps
+
+- Per-wallet cap must be configured before preparing a draft.
+- Total campaign cap must be configured before preparing a draft.
+- The allocation script must reject any row that exceeds the per-wallet cap.
+- The allocation script must reject the full draft if total testnet allocation exceeds the campaign cap.
+- A cap does not create a right, payment, booking, or guaranteed benefit.
+
+## Manual Review
+
+Every allocation draft requires manual review before any Safe signer considers execution. Review should verify:
+
+- canonical token address;
+- Sepolia chain ID;
+- campaign ID;
+- duplicate-wallet rejection;
+- per-wallet cap;
+- campaign cap;
+- no private participant data in public reports;
+- no transaction was broadcast by the preparation script.
+
 ## Wallet And Transaction Safety
 
 - No private keys or seed phrases may be requested.
@@ -68,5 +89,14 @@ After a campaign closes, a privacy-safe report should be published with:
 - disputes and corrections;
 - no private participant data;
 - report hash.
+- Safe Transaction Builder draft hash, if used.
 
 The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits.
+
+## Post-Campaign Report Hash Workflow
+
+1. Complete the allocation report using the public template.
+2. Remove private participant data.
+3. Compute the report SHA-256 hash.
+4. Publish the report in the repository.
+5. If a future governance process approves on-chain report publication, prepare a separate Safe transaction proposal; do not broadcast automatically.

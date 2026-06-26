@@ -1,0 +1,30 @@
+name: Site feedback
+description: Share feedback about the read-only public website.
+title: "[Site feedback]: "
+labels:
+  - site
+  - feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for website clarity, accessibility, mobile layout, translations, or broken read-only links.
+        Do not request token sale, price, wallet transaction, staking, or mainnet features.
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: What page or section should be improved?
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: This feedback does not ask for sale, price, staking, yield, exchange listing, mainnet, or active benefit claims.
+          required: true

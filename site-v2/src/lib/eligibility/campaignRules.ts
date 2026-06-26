@@ -1,12 +1,14 @@
+import campaignManifest from "../../../../config/utility-pilot/tide-community-preview-001.json";
+
 export const SEPOLIA_CHAIN_ID = 11155111;
 
-export type PilotCampaignStatus = "planned" | "published-testnet" | "closed";
+export type PilotCampaignStatus = "draft-not-live" | "planned" | "published-testnet" | "closed";
 
 export type PilotCampaignRules = {
   id: string;
   name: string;
   chainId: typeof SEPOLIA_CHAIN_ID;
-  snapshotBlock: number;
+  snapshotBlock: number | null;
   minimumTideBalance: number;
   startsAt: string;
   endsAt: string;
@@ -19,12 +21,12 @@ export type PilotCampaignRules = {
   campaignStatus: PilotCampaignStatus;
 };
 
-export const mockPilotCampaign: PilotCampaignRules = {
-  id: "tide-community-preview-001",
-  name: "TIDE Loyalty Pilot - Community Preview",
+export const pilotCampaignRules: PilotCampaignRules = {
+  id: campaignManifest.campaignId,
+  name: campaignManifest.campaignName,
   chainId: SEPOLIA_CHAIN_ID,
-  snapshotBlock: 11093006,
-  minimumTideBalance: 100,
+  snapshotBlock: campaignManifest.snapshot.block,
+  minimumTideBalance: Number(campaignManifest.eligibility.minimumTideBalance),
   startsAt: "2026-06-01T00:00:00.000Z",
   endsAt: "2026-12-31T23:59:59.000Z",
   maxRequestsPerWallet: 1,
@@ -33,8 +35,16 @@ export const mockPilotCampaign: PilotCampaignRules = {
   transferPolicy: "no-transfer-of-guest-rights",
   resalePolicy: "no-resale",
   cashPolicy: "no-cash-value",
-  campaignStatus: "planned"
+  campaignStatus: campaignManifest.status
 };
+
+export const testPilotCampaignFixture: PilotCampaignRules = {
+  ...pilotCampaignRules,
+  snapshotBlock: 11093006,
+  campaignStatus: "published-testnet"
+};
+
+export const mockPilotCampaign = testPilotCampaignFixture;
 
 export function isCampaignActive(rules: PilotCampaignRules, now = new Date()): boolean {
   const current = now.getTime();

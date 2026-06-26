@@ -22,6 +22,7 @@ Any status other than `draft-not-live` must have explicit legal, privacy, securi
 - `network` and `chainId`: must match the canonical Sepolia deployment manifest.
 - `tokenAddress`: must match the canonical TIDE token address.
 - `snapshot`: planned or published snapshot block details.
+- `snapshot.mode`: `planned`, a published snapshot block, or an approved live-check window for a future campaign.
 - `eligibility`: minimum balance, wallet-address, off-chain proof, read-only balance check, manual review, and duplicate-wallet policy.
 - `requestWindow`: UTC window for future request intake. Draft campaigns keep this unpublished.
 - `inventory`: published capacity for a future campaign. Draft campaigns keep capacity at zero.
@@ -39,7 +40,8 @@ Any status other than `draft-not-live` must have explicit legal, privacy, securi
 - a forbidden flow is enabled;
 - unsupported public claims appear;
 - a campaign is marked published without all required approvals;
-- a published campaign lacks a snapshot block, request window, inventory, or allocation report path.
+- a published campaign lacks a snapshot block or approved live-check window;
+- a published campaign lacks request window, inventory, review statuses, or allocation report path.
 
 ## Public Communication Boundary
 

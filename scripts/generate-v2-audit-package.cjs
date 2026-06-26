@@ -141,12 +141,16 @@ function assertGuards() {
     "production ready",
     "buy tide",
     "investment opportunity",
+    "hotel ownership token",
     "guaranteed profit",
     "revenue share"
   ];
   for (const phrase of forbidden) {
     assert(!publicText.includes(phrase), `Forbidden audit/value/mainnet claim found: ${phrase}`);
   }
+  assert(readText("docs/V2_AUDIT_TARGET_FREEZE.md").match(/[0-9a-f]{40}/), "V2 freeze commit is missing.");
+  assert(fs.existsSync(path.join(root, "security", "slither-baseline-v2.json")), "Slither baseline is missing.");
+  assert(fs.existsSync(path.join(root, "KNOWN_ISSUES.md")), "KNOWN_ISSUES.md is missing.");
 }
 
 function main() {
