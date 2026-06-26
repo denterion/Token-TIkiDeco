@@ -4,8 +4,8 @@ const crypto = require("crypto");
 const { spawnSync } = require("child_process");
 
 const root = path.join(__dirname, "..");
-const releaseName = "v0.1.0-sepolia";
-const outputRoot = path.join(root, "release-artifacts", releaseName);
+const defaultReleaseName = "v0.1.0-sepolia";
+let releaseName = defaultReleaseName;
 const npmBin = process.platform === "win32" ? "npm.cmd" : "npm";
 const nodeBin = process.execPath;
 const npmExecPath = process.env.npm_execpath;
@@ -83,15 +83,18 @@ const contracts = [
 ];
 
 function usage() {
-  console.error("Usage: npm run release:package -- --commit <40-character-commit-sha> [--output <directory>]");
+  console.error("Usage: npm run release:package -- --commit <40-character-commit-sha> [--release <release-name>] [--output <directory>]");
 }
 
 function parseArgs(argv) {
-  const args = { output: outputRoot };
+  const args = { release: defaultReleaseName };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--commit") {
       args.commit = argv[index + 1];
+      index += 1;
+    } else if (arg === "--release") {
+      args.release = argv[index + 1];
       index += 1;
     } else if (arg === "--output") {
       args.output = path.resolve(argv[index + 1]);
@@ -436,6 +439,10 @@ function main() {
     usage();
     return;
   }
+
+  assert(/^[a-z0-9][a-z0-9._-]*$/i.test(args.release), "Release name contains unsupported characters.");
+  releaseName = args.release;
+  args.output ||= path.join(root, "release-artifacts", releaseName);
 
   assertCleanTree();
   const commit = resolveCommit(args.commit);
