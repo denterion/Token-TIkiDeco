@@ -236,10 +236,12 @@ None.
 | `docs/utility-pilot/READ_ONLY_BALANCE_CHECK.md` | 43 | `hotel ownership` | - no hotel ownership; |
 | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 17 | `guaranteed` | ## No Guaranteed Benefit |
 | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 17 | `guaranteed benefit` | ## No Guaranteed Benefit |
-| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 72 | `audited` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
-| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 72 | `guaranteed` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
-| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 72 | `mainnet live` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
-| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 72 | `independently audited` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
+| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 55 | `guaranteed` | - A cap does not create a right, payment, booking, or guaranteed benefit. |
+| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 55 | `guaranteed benefit` | - A cap does not create a right, payment, booking, or guaranteed benefit. |
+| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 94 | `audited` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
+| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 94 | `guaranteed` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
+| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 94 | `mainnet live` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
+| `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md` | 94 | `independently audited` | The report must not describe TIDE as sold, value-bearing, mainnet live, independently audited, or connected to guaranteed hospitality benefits. |
 | `docs/utility-pilot/TIDE_LOYALTY_PILOT.md` | 7 | `active hotel benefit` | Test whether TIDE can support transparent, limited eligibility workflows for future hospitality-linked community programs without creating financial rights, sale language, or active hotel benefit claims. |
 | `docs/utility-pilot/TIDE_LOYALTY_PILOT.md` | 28 | `presale` | - No token sale, presale, paid access, redemption, or exchange activity. |
 | `docs/utility-pilot/TIDE_LOYALTY_PILOT.md` | 30 | `return` | - No financial value, price, APY, yield, staking, or expected return. |

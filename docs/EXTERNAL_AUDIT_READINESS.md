@@ -41,8 +41,9 @@ Primary supporting files:
 | Foundry tests | V2 fuzz/invariant tests pass with deterministic seed. | Configured through `npm run foundry:test`. |
 | Foundry coverage | V2 thresholds pass. | Configured through `npm run foundry:coverage`; known anchor warnings are tooling noise if exit code is zero. |
 | Slither | New untriaged V2 findings equal zero. | Enforced by `npm run slither:baseline`. |
-| Claims check | No unsupported public claims in public surfaces. | Enforced by `npm run claims:check`. |
-| Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site:check`. |
+| Claims check | No unsupported public claims in public surfaces. | Enforced by `npm run claims`. |
+| Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site`. |
+| V2 audit package | V2 candidate package includes contracts, ABI, bytecode, tests, Foundry artifacts if present, Slither baseline, coverage if present, audit scope, known issues, freeze doc, and checksums. | Enforced by `npm run audit`. |
 | Release package | Bundle generated from clean tree and exact commit. | Run only after final merge SHA is known. |
 
 ## Open Review Questions For Auditor
@@ -62,7 +63,8 @@ These questions should be sent with the audit package:
 Run only from a clean tree after the target commit is final:
 
 ```bash
-npm run release:package -- --commit <final-main-sha>
+npm run audit
+npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
 The package command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
@@ -83,8 +85,8 @@ The package command must not deploy contracts, broadcast transactions, create a 
 - [ ] Run `npm run foundry:test`.
 - [ ] Run `npm run foundry:coverage`.
 - [ ] Run `npm run slither:baseline`.
-- [ ] Run `npm run claims:check`.
-- [ ] Run `npm run site:check`.
+- [ ] Run `npm run claims`.
+- [ ] Run `npm run site`.
 - [ ] Run `npm run release`.
 - [ ] Generate release package with the final `main` SHA.
 - [ ] Attach package SHA-256 checksums.

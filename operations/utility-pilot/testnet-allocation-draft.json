@@ -11,9 +11,19 @@
   "monetaryValueStatus": "no stated monetary value",
   "mainnetStatus": "no mainnet deployment",
   "auditStatus": "independent audit not started",
-  "allocationStatus": "planned only until a campaign notice is published",
+  "allocationStatus": "draft only; no allocation input provided",
   "requestWindowStatus": "not-published",
   "inventoryStatus": "not-published",
   "publishedCapacity": 0,
-  "requiredReportTemplate": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md"
+  "perWalletCap": 100,
+  "campaignCap": 1000,
+  "totalWallets": 0,
+  "totalTestnetTideAllocated": "0 TIDE",
+  "noPrivateData": true,
+  "noGuaranteedBenefit": true,
+  "noHotelOwnership": true,
+  "requiredReportTemplate": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md",
+  "safeTransactionBuilderDraft": "operations/utility-pilot/safe-transaction-builder-draft.json",
+  "allocations": [],
+  "documentSha256": "14650d1b40ff5533beb992fbfe3599307f8279e7ac1a6c1291aa6ccb5d124a63"
 }

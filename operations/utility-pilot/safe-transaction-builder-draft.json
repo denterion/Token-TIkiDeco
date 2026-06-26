@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "chainId": "11155111",
+  "createdAt": "2026-06-26T08:23:26.231Z",
+  "meta": {
+    "name": "tide-community-preview-001 Sepolia allocation draft",
+    "description": "Draft only. Review manually in Safe Transaction Builder. Do not broadcast without approvals.",
+    "txBuilderVersion": "1.18.0",
+    "createdFromSafeAddress": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+    "createdFromOwnerAddress": "",
+    "checksum": ""
+  },
+  "transactions": []
+}

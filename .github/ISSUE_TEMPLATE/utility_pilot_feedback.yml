@@ -1,0 +1,38 @@
+name: Utility pilot feedback
+description: Feedback on the Sepolia-only read-only TIDE utility pilot design.
+title: "[Utility pilot]: "
+labels:
+  - utility-pilot
+  - feedback
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The utility pilot is Sepolia-only and not live. TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet.
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Pilot feedback
+      description: What should be clearer about eligibility, allocation, privacy, reports, or operational gates?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Read-only balance checker
+        - Campaign rules
+        - Allocation policy
+        - Privacy and reporting
+        - Dispute process
+        - Documentation clarity
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundaries
+      options:
+        - label: This feedback does not claim active guest benefits, monetary value, sale, or mainnet readiness.
+          required: true

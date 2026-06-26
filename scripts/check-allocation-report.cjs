@@ -8,7 +8,9 @@ const defaultTargets = [
 ];
 const reportDir = path.join(root, "operations", "utility-pilot");
 const reportFiles = fs.existsSync(reportDir)
-  ? fs.readdirSync(reportDir).filter((file) => file.endsWith(".json")).map((file) => path.join("operations", "utility-pilot", file))
+  ? fs.readdirSync(reportDir)
+    .filter((file) => file.endsWith(".json") && !file.includes("safe-transaction-builder"))
+    .map((file) => path.join("operations", "utility-pilot", file))
   : [];
 
 const banned = [
@@ -61,7 +63,13 @@ const requiredReportKeys = [
   "mainnetStatus",
   "auditStatus",
   "allocationStatus",
-  "status"
+  "status",
+  "totalWallets",
+  "totalTestnetTideAllocated",
+  "documentSha256",
+  "noPrivateData",
+  "noGuaranteedBenefit",
+  "noHotelOwnership"
 ];
 
 function phraseRegex(phrase) {
@@ -109,9 +117,10 @@ for (const report of reportFiles) {
   ];
   const missingPhrases = requiredPhrases.filter((phrase) => !text.includes(phrase));
   if (missingPhrases.length > 0) throw new Error(`${report} missing required allocation disclaimers: ${missingPhrases.join(", ")}`);
-  if (json.status !== "draft-not-live" && json.documentSha256 === undefined) {
-    throw new Error(`${report} must include documentSha256 before it can be treated as a published allocation report`);
-  }
+  if (json.noPrivateData !== true) throw new Error(`${report} must confirm noPrivateData=true`);
+  if (json.noGuaranteedBenefit !== true) throw new Error(`${report} must confirm noGuaranteedBenefit=true`);
+  if (json.noHotelOwnership !== true) throw new Error(`${report} must confirm noHotelOwnership=true`);
+  if (!String(json.documentSha256 || "").match(/^[a-f0-9]{64}$/)) throw new Error(`${report} must include a SHA-256 document hash`);
   if (json.status !== "draft-not-live") {
     for (const key of ["totalWallets", "totalTestnetTideAllocated", "noPrivateData"]) {
       if (!(key in json)) throw new Error(`${report} missing published report field: ${key}`);
