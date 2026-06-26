@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "1.0.0",
+  "campaignId": "tide-community-preview-001",
+  "campaignName": "TIDE Loyalty Pilot - Community Preview",
+  "status": "draft-not-live",
+  "network": "sepolia",
+  "chainId": 11155111,
+  "canonicalVersion": "v1-legacy",
+  "tokenSymbol": "TIDE",
+  "tokenAddress": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+  "snapshot": {
+    "mode": "planned",
+    "block": null,
+    "blockSource": "to-be-published-before-campaign"
+  },
+  "eligibility": {
+    "minimumTideBalance": "100",
+    "minimumTideBalanceUnits": "TIDE",
+    "walletAddressRequired": true,
+    "offchainMessageProofRequired": true,
+    "readOnlyBalanceOfRequired": true,
+    "manualReviewRequired": true,
+    "duplicateWalletPolicy": "one-review-per-wallet-per-campaign"
+  },
+  "requestWindow": {
+    "status": "not-published",
+    "opensAt": null,
+    "closesAt": null,
+    "timezone": "UTC"
+  },
+  "inventory": {
+    "status": "not-published",
+    "publishedCapacity": 0,
+    "notes": "No active hospitality benefit is live. Any future inventory must be published with campaign rules before accepting requests."
+  },
+  "forbiddenFlows": {
+    "saleFlow": false,
+    "presaleFlow": false,
+    "transactionSigning": false,
+    "tokenApproval": false,
+    "tokenTransfer": false,
+    "feeCollection": false,
+    "bookingConfirmation": false,
+    "privateKeyCollection": false,
+    "mainnetFlow": false
+  },
+  "disclaimers": {
+    "sepoliaTestnetPrototype": true,
+    "notOfferedForSale": true,
+    "noStatedMonetaryValue": true,
+    "notDeployedOnMainnet": true,
+    "independentAuditNotStarted": true,
+    "noGuaranteedBenefit": true,
+    "noHotelOwnership": true,
+    "noRevenueRights": true,
+    "noEquityDebtOrReturnRights": true
+  },
+  "requiredApprovalsBeforePublication": {
+    "legal": "not-approved",
+    "privacy": "not-approved",
+    "security": "not-approved",
+    "operations": "not-approved",
+    "governance": "not-approved"
+  },
+  "reports": {
+    "allocationReportTemplate": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md",
+    "publishedAllocationReport": null
+  },
+  "lastUpdated": "2026-06-25"
+}

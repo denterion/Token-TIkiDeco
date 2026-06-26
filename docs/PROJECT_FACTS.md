@@ -117,9 +117,12 @@ Status key:
 | TIDE Loyalty Pilot documentation is planned as a limited Sepolia-only utility pilot framework. | `docs/utility-pilot/README.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`. | 2026-06-25 | planned |
 | Eligibility rules for a future pilot are documented but not live. | `docs/utility-pilot/ELIGIBILITY_RULES.md`. | 2026-06-25 | planned |
 | Wallet signature verification for a future pilot is documented as off-chain message signing with no transaction signing and no private key collection. | `docs/utility-pilot/WALLET_VERIFICATION.md`. | 2026-06-25 | planned |
-| Mock RSVP / early RSVP pilot flow is documented as a possible limited non-cash pilot category, not an active benefit. | `docs/utility-pilot/PERK_INVENTORY.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`. | 2026-06-25 | planned |
+| Early RSVP pilot flow is documented as a possible limited non-cash pilot category, not an active benefit. | `docs/utility-pilot/PERK_INVENTORY.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`. | 2026-06-25 | planned |
 | Pilot reports are planned as privacy-safe summaries for future campaigns. | `docs/utility-pilot/README.md`; `docs/utility-pilot/TIDE_LOYALTY_PILOT.md`; `docs/BUSINESS_MODEL.md`. | 2026-06-25 | planned |
 | Business model documentation describes hospitality operations plus transparency infrastructure, not token speculation. | `docs/BUSINESS_MODEL.md`; `docs/VALUE_AND_UTILITY_BOUNDARY.md`. | 2026-06-25 | planned |
+| The v0.2 utility-pilot site flow is planned to perform a real read-only Sepolia `balanceOf(wallet)` check against the canonical TIDE token without wallet connection or transaction signing. | `site-v2/src/components/PilotEligibilityCard.tsx`; `site-v2/src/lib/eligibility/readOnlyBalance.ts`; `scripts/test-eligibility-engine.cjs`. | 2026-06-25 | planned |
+| Testnet allocation policy and allocation report template are prepared for a future Sepolia-only campaign. | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`; `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md`; `scripts/check-allocation-report.cjs`. | 2026-06-25 | planned |
+| The first utility pilot campaign manifest is prepared as `draft-not-live` and fails closed unless approvals, campaign window, snapshot, inventory, and reporting fields are completed before publication. | `config/utility-pilot/tide-community-preview-001.json`; `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md`; `scripts/check-pilot-campaign.cjs`. | 2026-06-25 | planned |
 
 ## Unknown Or Not Publicly Claimable
 

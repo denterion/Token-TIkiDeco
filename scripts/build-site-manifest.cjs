@@ -50,9 +50,15 @@ function main() {
     }
     const artifact = readJson(artifactPath);
     const contractDir = path.join(siteArtifactsDir, contract.name);
+    const deployedBytecodePath = path.join(contractDir, "deployed-bytecode.txt");
     fs.mkdirSync(contractDir, { recursive: true });
     fs.writeFileSync(path.join(contractDir, "abi.json"), `${JSON.stringify(artifact.abi, null, 2)}\n`);
-    fs.writeFileSync(path.join(contractDir, "deployed-bytecode.txt"), `${artifact.deployedBytecode || "0x"}\n`);
+    if (fs.existsSync(deployedBytecodePath)) {
+      console.log(`Preserved versioned deployed bytecode for ${contract.name}`);
+    } else {
+      fs.writeFileSync(deployedBytecodePath, `${artifact.deployedBytecode || "0x"}\n`);
+      console.log(`Wrote initial deployed bytecode artifact for ${contract.name}`);
+    }
     console.log(`Wrote site artifact for ${key}: ${contract.name}`);
   }
 }
