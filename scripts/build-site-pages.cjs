@@ -114,7 +114,7 @@ const pages = [
       ["Current", [
         ["Network", "Ethereum Sepolia"],
         ["Canonical version", manifest.contractVersion],
-        ["Utility pilot", "Planned / not live"],
+        ["Utility pilot", "Planned / not live; read-only Sepolia balance check prepared for v0.2"],
         ["Mainnet", "Not approved"],
         ["Sale", "No token sale"],
         ["Monetary value", "No stated monetary value"],
@@ -125,7 +125,7 @@ const pages = [
       ["Planned", [
         ["V2", "Candidate review and testing before any promotion"],
         ["Security", "Further Slither triage, Foundry invariants, and independent review planning"],
-        ["Utility pilot", "Conditional Sepolia-only pilot documentation and mock eligibility design"]
+        ["Utility pilot", "Conditional Sepolia-only pilot documentation and read-only balance eligibility design"]
       ]],
       ["Conceptual", [
         ["Hospitality concept", "Not a completed property"],
@@ -146,6 +146,7 @@ const pages = [
     sections: [
       ["What TIDE Can Be Used To Test", [
         ["Eligibility signal", "A testnet balance can be evaluated at a published snapshot block for a limited pilot campaign."],
+        ["Read-only balance check", "The v0.2 flow can read `balanceOf(wallet)` from the canonical Sepolia token through allowlisted RPC endpoints."],
         ["Read-only verification", "Public users can verify contract addresses, report hashes, Safe control, and status pages without connecting a wallet."],
         ["Operating workflow", "The project can test how public rules, manual review, and reports fit future hospitality operations."]
       ]],
@@ -207,8 +208,8 @@ const pages = [
         ["Audit", "Independent audit not started"]
       ]],
       ["How Eligibility Works", [
-        ["Wallet control", "A participant may sign an off-chain message in a mock flow to prove wallet control."],
-        ["Balance check", "Eligibility can reference a Sepolia TIDE balance at a published snapshot block."],
+        ["Wallet control", "A participant may optionally prepare an off-chain message proof for manual review."],
+        ["Balance check", "Eligibility can reference a read-only Sepolia TIDE balance from the canonical token contract."],
         ["Manual review", "Staff review and override remain part of the planned process."]
       ]],
       ["Snapshot Block Concept", [
@@ -234,7 +235,8 @@ const pages = [
       ["Pilot Reports", [
         ["Before campaign", "Publish campaign rules, inventory, snapshot block, and dispute window."],
         ["After campaign", "Publish privacy-safe outcomes, cancellation notes, and correction records if needed."],
-        ["Current status", "Pilot reports are planned; no live pilot report exists yet."]
+        ["Current status", "Pilot reports are planned; no live pilot report exists yet."],
+        ["Allocation policy", "A Sepolia-only allocation policy and report template are prepared for future campaign review."]
       ]]
     ],
     links: [

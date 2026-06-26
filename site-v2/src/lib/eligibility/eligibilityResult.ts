@@ -10,8 +10,9 @@ export type EligibilityCode =
   | "duplicate-wallet"
   | "missing-signature"
   | "expired-signature"
+  | "balance-unavailable"
   | "insufficient-balance"
-  | "eligible-mock";
+  | "eligible-testnet";
 
 export type EligibilityInput = {
   walletAddress: string;
@@ -54,7 +55,7 @@ export function evaluateEligibility(input: EligibilityInput): EligibilityResult 
   }
 
   if (!wallet) {
-    return result("empty-wallet", false, "Wallet required", "Enter a wallet address to run the local mock check.");
+    return result("empty-wallet", false, "Wallet required", "Enter a wallet address to run the read-only Sepolia check.");
   }
 
   if (!isValidEthereumAddress(wallet)) {
@@ -70,21 +71,25 @@ export function evaluateEligibility(input: EligibilityInput): EligibilityResult 
   }
 
   if (!input.signatureSession) {
-    return result("missing-signature", false, "Mock signature missing", "The mock flow requires an off-chain message signature placeholder.");
+    return result("missing-signature", false, "Off-chain message missing", "Optional pilot review requires an off-chain message proof step.");
   }
 
   if (!isMockSignatureSessionFresh(input.signatureSession, input.now)) {
-    return result("expired-signature", false, "Mock signature expired", "Create a fresh mock message before review.");
+    return result("expired-signature", false, "Message expired", "Create a fresh off-chain message before review.");
   }
 
-  if (!input.snapshotBalance || !hasMinimumSnapshotBalance(input.snapshotBalance, rules)) {
-    return result("insufficient-balance", false, "Below mock threshold", "The read-only mock balance is below the campaign threshold.");
+  if (!input.snapshotBalance || input.snapshotBalance.source === "unavailable") {
+    return result("balance-unavailable", false, "Balance unavailable", "Sepolia RPC data is temporarily unavailable. No zero balance was assumed.");
+  }
+
+  if (!hasMinimumSnapshotBalance(input.snapshotBalance, rules)) {
+    return result("insufficient-balance", false, "Below testnet threshold", "The read-only Sepolia balance is below the campaign threshold.");
   }
 
   return result(
-    "eligible-mock",
+    "eligible-testnet",
     true,
-    "Mock eligible for review",
-    "This means the mock checks passed. It is not a live benefit, booking, transfer, cash value, or confirmation."
+    "Eligible for manual pilot review",
+    "The read-only Sepolia balance and off-chain message checks passed. This is not a live benefit, booking, transfer, cash value, or confirmation."
   );
 }

@@ -51,8 +51,30 @@ Future hospitality teams may need transparent ways to manage waitlists, RSVP win
 
 The pilot remains conditional, limited, and subject to legal, operational, security, privacy, and availability constraints.
 
-## Mock Eligibility Engine
+## Read-Only Eligibility Engine
 
-The static site includes a local mock eligibility card for explaining the planned review flow without wallet connection, transaction signing, private key collection, backend deployment, or production booking integration.
+The static site includes a read-only Sepolia eligibility card for explaining the planned review flow without wallet connection, transaction signing, private key collection, backend deployment, or production booking integration.
+
+The v0.2 flow reads `balanceOf(wallet)` from the canonical Sepolia TIDE token through allowlisted RPC endpoints and shows Live, Cached, Stale, or Unavailable data states. It must not assume a zero balance when RPC data is unavailable.
 
 See [`MOCK_ELIGIBILITY_ENGINE.md`](MOCK_ELIGIBILITY_ENGINE.md).
+
+## Testnet Allocation
+
+Future Sepolia-only campaign allocation must follow [`TESTNET_ALLOCATION_POLICY.md`](TESTNET_ALLOCATION_POLICY.md) and publish a privacy-safe report using [`ALLOCATION_REPORT_TEMPLATE.md`](ALLOCATION_REPORT_TEMPLATE.md).
+
+## Campaign Rules Manifest
+
+The first draft campaign manifest is `config/utility-pilot/tide-community-preview-001.json`.
+
+It is intentionally marked `draft-not-live`: no request window is open, no active hospitality benefit exists, published capacity is `0`, and every legal, privacy, security, operations, and governance approval gate is still `not-approved`.
+
+See [`CAMPAIGN_RULES_SCHEMA.md`](CAMPAIGN_RULES_SCHEMA.md).
+
+Run:
+
+```bash
+npm run pilot:campaign:check
+```
+
+The check fails if the campaign manifest disagrees with the canonical Sepolia deployment, enables any sale/transaction/private-key/mainnet flow, misses required disclaimers, or marks a campaign as published without approvals and operational details.

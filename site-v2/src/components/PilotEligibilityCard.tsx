@@ -1,65 +1,83 @@
 import { useMemo, useState } from "react";
 import {
   createMockSignatureMessage,
-  createMockSnapshotBalance,
+  createSnapshotBalance,
   evaluateEligibility,
+  isValidEthereumAddress,
   mockPilotCampaign,
   privacyNotice,
-  SEPOLIA_CHAIN_ID
+  readTideBalance,
+  SEPOLIA_CHAIN_ID,
+  type TideBalanceResult
 } from "../lib/eligibility";
 
-const eligibleMockAddress = "0x1111111111111111111111111111111111111111";
-const duplicateMockAddress = "0x2222222222222222222222222222222222222222";
-
-function mockBalanceFor(walletAddress: string): number {
-  const normalized = walletAddress.trim().toLowerCase();
-  if (normalized === eligibleMockAddress) return 250;
-  if (normalized === duplicateMockAddress) return 250;
-  return 0;
-}
+const duplicateTestnetAddress = "0x2222222222222222222222222222222222222222";
 
 export function PilotEligibilityCard() {
   const [walletAddress, setWalletAddress] = useState("");
-  const [hasMockMessage, setHasMockMessage] = useState(false);
+  const [hasOffchainMessage, setHasOffchainMessage] = useState(false);
+  const [balanceResult, setBalanceResult] = useState<TideBalanceResult>({ status: "idle", blockTag: "latest" });
+  const [isChecking, setIsChecking] = useState(false);
 
-  const balance = mockBalanceFor(walletAddress);
   const signatureSession = useMemo(() => {
-    if (!walletAddress || !hasMockMessage) return undefined;
+    if (!walletAddress || !hasOffchainMessage) return undefined;
     return createMockSignatureMessage(walletAddress, mockPilotCampaign, "2026-07-01T12:00:00.000Z");
-  }, [hasMockMessage, walletAddress]);
+  }, [hasOffchainMessage, walletAddress]);
 
-  const snapshotBalance = walletAddress
-    ? createMockSnapshotBalance(walletAddress, mockPilotCampaign, balance, "mock", "2026-07-01T12:00:00.000Z")
-    : undefined;
+  const snapshotBalance =
+    walletAddress && balanceResult.balanceTide !== undefined && ["live", "cached", "stale"].includes(balanceResult.status)
+      ? createSnapshotBalance(
+          walletAddress,
+          mockPilotCampaign,
+          balanceResult.balanceTide,
+          balanceResult.status,
+          balanceResult.checkedAt || new Date().toISOString()
+        )
+      : balanceResult.status === "unavailable"
+        ? createSnapshotBalance(walletAddress, mockPilotCampaign, 0, "unavailable", new Date().toISOString())
+        : undefined;
 
   const result = evaluateEligibility({
     walletAddress,
-    chainId: SEPOLIA_CHAIN_ID,
+    chainId: balanceResult.status === "wrong-chain" && balanceResult.chainId ? balanceResult.chainId : SEPOLIA_CHAIN_ID,
     snapshotBalance,
     signatureSession,
-    previouslySubmittedWallets: new Set([duplicateMockAddress]),
+    previouslySubmittedWallets: new Set([duplicateTestnetAddress]),
     now: new Date("2026-07-01T12:01:00.000Z")
   });
+
+  async function checkBalance() {
+    if (!isValidEthereumAddress(walletAddress)) {
+      setBalanceResult({ status: "unavailable", blockTag: "latest", error: "Enter a valid Ethereum address first." });
+      return;
+    }
+    setIsChecking(true);
+    try {
+      setBalanceResult(await readTideBalance(walletAddress));
+    } finally {
+      setIsChecking(false);
+    }
+  }
 
   return (
     <section className="section pilot-eligibility" aria-labelledby="pilot-eligibility-title">
       <div className="section-heading">
-        <p className="eyebrow">Mock pilot checker</p>
-        <h2 id="pilot-eligibility-title">TIDE Loyalty Pilot eligibility mock</h2>
+        <p className="eyebrow">Read-only Sepolia checker</p>
+        <h2 id="pilot-eligibility-title">TIDE Loyalty Pilot eligibility flow</h2>
         <p>
-          This local demo shows how a Sepolia-only pilot review could explain eligibility. It is not live, does not
-          connect a wallet, and does not create active guest benefits.
+          This testnet-only flow reads the canonical TIDE balance on Sepolia and explains whether a wallet could enter
+          manual pilot review. It does not connect a wallet, sign transactions, or create active guest benefits.
         </p>
       </div>
 
       <div className="pilot-card" aria-live="polite">
         <div className="pilot-card-header">
           <span className="site-badge">NOT LIVE</span>
-          <span className="pilot-card-network">Ethereum Sepolia · chain {SEPOLIA_CHAIN_ID}</span>
+          <span className="pilot-card-network">Ethereum Sepolia - chain {SEPOLIA_CHAIN_ID}</span>
         </div>
 
         <label className="field-label" htmlFor="pilot-wallet">
-          Optional wallet address
+          Wallet address
         </label>
         <input
           id="pilot-wallet"
@@ -69,22 +87,49 @@ export function PilotEligibilityCard() {
           autoComplete="off"
           spellCheck={false}
           value={walletAddress}
-          onChange={(event) => setWalletAddress(event.target.value)}
-          placeholder={eligibleMockAddress}
+          onChange={(event) => {
+            setWalletAddress(event.target.value);
+            setBalanceResult({ status: "idle", blockTag: "latest" });
+          }}
+          placeholder="0x..."
         />
 
+        <button className="button button-primary pilot-check-button" type="button" onClick={checkBalance} disabled={isChecking}>
+          {isChecking ? "Checking Sepolia" : "Check Sepolia balance"}
+        </button>
+
         <label className="check-row">
-          <input type="checkbox" checked={hasMockMessage} onChange={(event) => setHasMockMessage(event.target.checked)} />
-          <span>Use an off-chain message placeholder for this mock review.</span>
+          <input
+            type="checkbox"
+            checked={hasOffchainMessage}
+            onChange={(event) => setHasOffchainMessage(event.target.checked)}
+          />
+          <span>Prepare an optional off-chain message proof for manual review. This is not a transaction.</span>
         </label>
 
-        <div className="pilot-meter" role="group" aria-label="Read-only mock balance check">
-          <span>Read-only mock balance</span>
-          <strong>{balance.toLocaleString("en-US")} TIDE</strong>
+        {signatureSession ? (
+          <>
+            <label className="field-label" htmlFor="pilot-message">
+              Off-chain message text
+            </label>
+            <textarea id="pilot-message" className="text-field pilot-message" readOnly value={signatureSession.message} />
+          </>
+        ) : null}
+
+        <div className="pilot-meter" role="group" aria-label="Read-only Sepolia balance check">
+          <span>Read-only Sepolia balance</span>
+          <strong>
+            {balanceResult.balanceTide !== undefined ? `${balanceResult.balanceTide.toLocaleString("en-US")} TIDE` : "Not checked"}
+          </strong>
           <small>
             Threshold: {mockPilotCampaign.minimumTideBalance.toLocaleString("en-US")} TIDE at block{" "}
             {mockPilotCampaign.snapshotBlock.toLocaleString("en-US")}
           </small>
+          <small>
+            Data: {balanceResult.status.toUpperCase()}
+            {balanceResult.checkedAt ? ` - ${new Date(balanceResult.checkedAt).toLocaleString("en-US")}` : ""}
+          </small>
+          {balanceResult.error ? <small>{balanceResult.error}</small> : null}
         </div>
 
         <div className={`pilot-result pilot-result-${result.eligible ? "ok" : "hold"}`}>

@@ -1,0 +1,19 @@
+{
+  "status": "draft-not-live",
+  "campaignId": "tide-community-preview-001",
+  "campaignName": "TIDE Loyalty Pilot - Community Preview",
+  "network": "sepolia",
+  "chainId": 11155111,
+  "tokenAddress": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+  "snapshotBlock": null,
+  "minimumTideBalance": "100 TIDE",
+  "saleStatus": "no sale",
+  "monetaryValueStatus": "no stated monetary value",
+  "mainnetStatus": "no mainnet deployment",
+  "auditStatus": "independent audit not started",
+  "allocationStatus": "planned only until a campaign notice is published",
+  "requestWindowStatus": "not-published",
+  "inventoryStatus": "not-published",
+  "publishedCapacity": 0,
+  "requiredReportTemplate": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md"
+}

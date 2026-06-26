@@ -502,6 +502,25 @@ h1 {
   color: rgba(170, 184, 196, 0.6);
 }
 
+.pilot-check-button {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+}
+
+.pilot-check-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.pilot-message {
+  min-height: 11rem;
+  resize: vertical;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
 .check-row {
   display: flex;
   align-items: flex-start;

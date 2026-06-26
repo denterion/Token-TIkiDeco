@@ -25,7 +25,7 @@ export function createMockSignatureMessage(
   const expiresAt = new Date(Date.parse(issuedAt) + ttlMinutes * 60_000).toISOString();
   const nonce = createMockNonce(normalized, rules.id, issuedAt);
   const message = [
-    "TikiDeco TIDE Loyalty Pilot mock verification",
+    "TikiDeco TIDE Loyalty Pilot off-chain verification",
     `Campaign: ${rules.id}`,
     `Wallet: ${normalized}`,
     `Chain ID: ${rules.chainId}`,

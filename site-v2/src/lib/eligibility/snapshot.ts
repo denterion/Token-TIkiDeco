@@ -1,6 +1,6 @@
 import type { PilotCampaignRules } from "./campaignRules";
 
-export type SnapshotBalanceSource = "mock" | "cached" | "unavailable";
+export type SnapshotBalanceSource = "live" | "cached" | "stale" | "unavailable";
 
 export type SnapshotBalance = {
   walletAddress: string;
@@ -18,11 +18,11 @@ export function isValidEthereumAddress(walletAddress: string): boolean {
   return /^0x[a-fA-F0-9]{40}$/.test(walletAddress.trim());
 }
 
-export function createMockSnapshotBalance(
+export function createSnapshotBalance(
   walletAddress: string,
   rules: PilotCampaignRules,
   balanceTide: number,
-  source: SnapshotBalanceSource = "mock",
+  source: SnapshotBalanceSource = "live",
   checkedAt = new Date().toISOString()
 ): SnapshotBalance {
   return {

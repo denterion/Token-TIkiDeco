@@ -1,47 +1,47 @@
-# Mock Eligibility Engine
+# Read-Only Eligibility Engine
 
-Status: planned mock implementation for the Sepolia-only TIDE Loyalty Pilot. This is not a production booking system, not a token sale, not a mainnet deployment, and not a live hospitality benefit.
+Status: planned read-only implementation for the Sepolia-only TIDE Loyalty Pilot. This is not a production booking system, not a token sale, not a mainnet deployment, and not a live hospitality benefit.
 
 ## What It Is
 
-The mock eligibility engine is a local TypeScript rules engine for explaining how a future TIDE Loyalty Pilot eligibility review could work.
+The eligibility engine is a TypeScript rules engine for explaining how a future TIDE Loyalty Pilot eligibility review could work.
 
 It evaluates:
 
 - Ethereum Sepolia chain ID;
 - wallet address format;
-- off-chain message placeholder status;
-- read-only mock balance at a configured snapshot block;
+- canonical TIDE `balanceOf(wallet)` through allowlisted read-only Sepolia RPC endpoints;
+- optional off-chain message proof status;
 - minimum TIDE threshold;
 - campaign active window;
 - duplicate wallet policy.
 
-The mock returns an explanation for the user and always reports that no active benefits are live and no transaction flow is required.
+The flow returns an explanation for the user and always reports that no active benefits are live and no transaction flow is required.
 
-## Mock-Only Status
+## Planned Testnet-Only Status
 
-The implementation is intentionally local and static-site friendly. It does not:
+The implementation is intentionally static-site friendly. It does not:
 
-- connect a wallet;
+- require wallet connection for browsing;
 - submit blockchain transactions;
 - request token approvals;
 - collect private keys or seed phrases;
 - store personal guest data;
-- call a production backend;
-- integrate with a booking system;
+- call a production booking backend;
 - confirm access, reservations, rooms, services, or other live benefits.
 
 ## No Production Booking Integration
 
-There is no booking integration in this mock. Any future booking, venue, access, or guest workflow would require a separate product specification, security review, privacy review, counsel review, staff operating process, and incident plan.
+There is no booking integration in this flow. Any future booking, venue, access, or guest workflow would require a separate product specification, security review, privacy review, counsel review, staff operating process, and incident plan.
 
 ## No Real Benefits
 
-Passing the mock check does not create a live benefit. It only means that the local mock rules returned an eligible-for-review state.
+Passing the read-only check does not create a live benefit. It only means that the rules returned an eligible-for-manual-review state.
 
-Any real pilot would still need:
+Any real campaign would still need:
 
 - published campaign rules;
+- testnet allocation policy;
 - inventory limits;
 - blackout dates;
 - manual review;
@@ -52,11 +52,11 @@ Any real pilot would still need:
 
 ## No Value Claim
 
-TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet. The mock does not create cash value, resale value, transfer rights, revenue rights, hotel ownership, or financial rights.
+TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet. The flow does not create cash value, resale value, transfer rights, revenue rights, hotel ownership, or financial rights.
 
 ## Privacy Boundaries
 
-The static mock should collect only an optional wallet address typed by the user in the browser.
+The static checker should collect only an optional wallet address typed by the user in the browser.
 
 It must not collect:
 
@@ -89,4 +89,4 @@ Before production use, the project needs:
 - public pilot report format;
 - governance approval.
 
-The mock engine should not be treated as production readiness.
+The read-only engine should not be treated as production readiness.

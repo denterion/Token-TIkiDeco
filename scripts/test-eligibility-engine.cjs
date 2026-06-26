@@ -11,7 +11,7 @@ const moduleCache = new Map();
 function resolveModule(fromFile, specifier) {
   if (!specifier.startsWith(".")) return require.resolve(specifier);
   const resolved = path.resolve(path.dirname(fromFile), specifier);
-  const candidates = [`${resolved}.ts`, path.join(resolved, "index.ts")];
+  const candidates = [resolved, `${resolved}.ts`, `${resolved}.json`, path.join(resolved, "index.ts")];
   const match = candidates.find((candidate) => fs.existsSync(candidate));
   if (!match) throw new Error(`Cannot resolve ${specifier} from ${fromFile}`);
   return match;
@@ -20,6 +20,12 @@ function resolveModule(fromFile, specifier) {
 function loadTsModule(filePath) {
   const absolute = path.resolve(filePath);
   if (moduleCache.has(absolute)) return moduleCache.get(absolute).exports;
+
+  if (absolute.endsWith(".json")) {
+    const module = { exports: JSON.parse(fs.readFileSync(absolute, "utf8")) };
+    moduleCache.set(absolute, module);
+    return module.exports;
+  }
 
   const source = fs.readFileSync(absolute, "utf8");
   const output = ts.transpileModule(source, {
@@ -39,33 +45,37 @@ function loadTsModule(filePath) {
     if (specifier.startsWith(".")) return loadTsModule(resolveModule(absolute, specifier));
     return require(specifier);
   };
-  vm.runInNewContext(output, { require: localRequire, exports: module.exports, module, console }, { filename: absolute });
+  const fetchProxy = (...args) => global.fetch(...args);
+  vm.runInNewContext(output, { require: localRequire, exports: module.exports, module, console, fetch: fetchProxy }, { filename: absolute });
   return module.exports;
 }
 
 const {
+  RPC_ALLOWLIST,
   SEPOLIA_CHAIN_ID,
   createMockSignatureMessage,
-  createMockSnapshotBalance,
+  createSnapshotBalance,
   evaluateEligibility,
-  mockPilotCampaign
+  mockPilotCampaign,
+  readTideBalance
 } = loadTsModule(path.join(eligibilityDir, "index.ts"));
 
 const eligibleWallet = "0x1111111111111111111111111111111111111111";
 const duplicateWallet = "0x2222222222222222222222222222222222222222";
 const now = new Date("2026-07-01T12:01:00.000Z");
+const originalFetch = global.fetch;
 
 function signed(wallet, issuedAt = "2026-07-01T12:00:00.000Z") {
   return createMockSignatureMessage(wallet, mockPilotCampaign, issuedAt);
 }
 
 function balance(wallet, amount) {
-  return createMockSnapshotBalance(wallet, mockPilotCampaign, amount, "mock", "2026-07-01T12:00:00.000Z");
+  return createSnapshotBalance(wallet, mockPilotCampaign, amount, "live", "2026-07-01T12:00:00.000Z");
 }
 
-function check(name, fn) {
+async function check(name, fn) {
   try {
-    fn();
+    await fn();
     console.log(`ok - ${name}`);
   } catch (error) {
     console.error(`not ok - ${name}`);
@@ -73,34 +83,35 @@ function check(name, fn) {
   }
 }
 
-check("wrong chain", () => {
+async function main() {
+await check("wrong chain", () => {
   const result = evaluateEligibility({ walletAddress: eligibleWallet, chainId: 1, now });
   assert.equal(result.code, "wrong-chain");
   assert.equal(result.eligible, false);
 });
 
-check("empty wallet", () => {
+await check("empty wallet", () => {
   const result = evaluateEligibility({ walletAddress: " ", chainId: SEPOLIA_CHAIN_ID, now });
   assert.equal(result.code, "empty-wallet");
 });
 
-check("invalid address", () => {
+await check("invalid address", () => {
   const result = evaluateEligibility({ walletAddress: "0x123", chainId: SEPOLIA_CHAIN_ID, now });
   assert.equal(result.code, "invalid-address");
 });
 
-check("insufficient balance", () => {
+await check("zero balance", () => {
   const result = evaluateEligibility({
     walletAddress: eligibleWallet,
     chainId: SEPOLIA_CHAIN_ID,
     signatureSession: signed(eligibleWallet),
-    snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance - 1),
+    snapshotBalance: balance(eligibleWallet, 0),
     now
   });
   assert.equal(result.code, "insufficient-balance");
 });
 
-check("eligible mock address", () => {
+await check("sufficient balance", () => {
   const result = evaluateEligibility({
     walletAddress: eligibleWallet,
     chainId: SEPOLIA_CHAIN_ID,
@@ -108,11 +119,11 @@ check("eligible mock address", () => {
     snapshotBalance: balance(eligibleWallet, mockPilotCampaign.minimumTideBalance),
     now
   });
-  assert.equal(result.code, "eligible-mock");
+  assert.equal(result.code, "eligible-testnet");
   assert.equal(result.eligible, true);
 });
 
-check("expired campaign", () => {
+await check("expired campaign", () => {
   const result = evaluateEligibility({
     walletAddress: eligibleWallet,
     chainId: SEPOLIA_CHAIN_ID,
@@ -123,7 +134,7 @@ check("expired campaign", () => {
   assert.equal(result.code, "expired-campaign");
 });
 
-check("duplicate wallet", () => {
+await check("duplicate wallet", () => {
   const result = evaluateEligibility({
     walletAddress: duplicateWallet,
     chainId: SEPOLIA_CHAIN_ID,
@@ -135,7 +146,7 @@ check("duplicate wallet", () => {
   assert.equal(result.code, "duplicate-wallet");
 });
 
-check("no active benefits", () => {
+await check("no active benefits", () => {
   const result = evaluateEligibility({
     walletAddress: eligibleWallet,
     chainId: SEPOLIA_CHAIN_ID,
@@ -146,7 +157,7 @@ check("no active benefits", () => {
   assert.equal(result.activeBenefits, false);
 });
 
-check("no transaction flow", () => {
+await check("no transaction flow", () => {
   const result = evaluateEligibility({
     walletAddress: eligibleWallet,
     chainId: SEPOLIA_CHAIN_ID,
@@ -158,4 +169,52 @@ check("no transaction flow", () => {
   assert.equal(result.transactionFlow, false);
 });
 
+function rawAmountHex(amountTide) {
+  return `0x${(BigInt(amountTide) * 10n ** 18n).toString(16)}`;
+}
+
+function installRpcMock({ chainId = SEPOLIA_CHAIN_ID, balanceTide = 0, fail = false } = {}) {
+  global.fetch = async (_endpoint, request) => {
+    if (fail) throw new Error("RPC unavailable");
+    const body = JSON.parse(request.body);
+    let result = "0x0";
+    if (body.method === "eth_chainId") result = `0x${chainId.toString(16)}`;
+    if (body.method === "eth_call" && body.params?.[0]?.data === "0x313ce567") result = "0x12";
+    if (body.method === "eth_call" && body.params?.[0]?.data?.startsWith("0x70a08231")) result = rawAmountHex(balanceTide);
+    return {
+      ok: true,
+      json: async () => ({ jsonrpc: "2.0", id: 1, result })
+    };
+  };
+}
+
+await check("RPC unavailable", async () => {
+  installRpcMock({ fail: true });
+  const result = await readTideBalance(eligibleWallet, [RPC_ALLOWLIST[0]]);
+  assert.equal(result.status, "unavailable");
+});
+
+await check("wrong chain RPC", async () => {
+  installRpcMock({ chainId: 1, balanceTide: 250 });
+  const result = await readTideBalance(eligibleWallet, [RPC_ALLOWLIST[0]]);
+  assert.equal(result.status, "wrong-chain");
+  assert.equal(result.chainId, 1);
+});
+
+await check("read-only Sepolia balanceOf", async () => {
+  installRpcMock({ balanceTide: 250 });
+  const result = await readTideBalance(eligibleWallet, [RPC_ALLOWLIST[0]]);
+  assert.equal(result.status, "live");
+  assert.equal(result.balanceTide, 250);
+});
+
+global.fetch = originalFetch;
+
 console.log("Eligibility engine unit tests passed.");
+}
+
+main().catch((error) => {
+  global.fetch = originalFetch;
+  console.error(error);
+  process.exit(1);
+});
