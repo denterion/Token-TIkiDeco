@@ -3,28 +3,44 @@ description: Share feedback about the read-only public website.
 title: "[Site feedback]: "
 labels:
   - site
-  - feedback
+  - community-preview
 body:
   - type: markdown
     attributes:
       value: |
-        Use this for website clarity, accessibility, mobile layout, translations, or broken read-only links.
-        Do not request token sale, price, wallet transaction, staking, or mainnet features.
+        TikiDeco / TIDE is a Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no active guest benefits, and has not started an independent audit.
+
+        Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
   - type: textarea
     id: feedback
     attributes:
       label: Feedback
-      description: What page or section should be improved?
+      description: What page, section, mobile state, accessibility behavior, or wording should be improved?
     validations:
       required: true
   - type: input
     id: url
     attributes:
       label: Page URL
+      placeholder: https://tikideco.xyz/
+  - type: dropdown
+    id: feedback_type
+    attributes:
+      label: Feedback type
+      options:
+        - Clarity
+        - Mobile layout
+        - Accessibility
+        - Broken read-only link
+        - Translation
+        - Verification flow
+        - Other
+    validations:
+      required: true
   - type: checkboxes
     id: boundaries
     attributes:
-      label: Boundaries
+      label: Boundary confirmation
       options:
-        - label: This feedback does not ask for sale, price, staking, yield, exchange listing, mainnet, or active benefit claims.
+        - label: This feedback does not request sale, price, staking, yield, exchange listing, mainnet, transaction signing, or active benefit claims.
           required: true

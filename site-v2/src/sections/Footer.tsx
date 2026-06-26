@@ -9,6 +9,8 @@ type FooterCopy = {
     projectFacts: string;
     securityPolicy: string;
     claimsMatrix: string;
+    feedbackGuide: string;
+    issues: string;
     etherscanToken: string;
     etherscanVault: string;
     noOffer: string;
@@ -22,6 +24,8 @@ export function Footer({ copy }: { copy: FooterCopy }) {
     [copy.links.projectFacts, projectFacts.links.projectFacts],
     [copy.links.securityPolicy, projectFacts.links.securityPolicy],
     [copy.links.claimsMatrix, projectFacts.links.claimsMatrix],
+    [copy.links.feedbackGuide, projectFacts.links.feedbackGuide],
+    [copy.links.issues, projectFacts.links.issues],
     [copy.links.etherscanToken, projectFacts.verification.token],
     [copy.links.etherscanVault, projectFacts.verification.vault],
     [copy.links.noOffer, projectFacts.links.noOffer],
