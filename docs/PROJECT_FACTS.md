@@ -136,6 +136,7 @@ Status key:
 | Phase A utility-pilot evidence exists for campaign rules, request-window/snapshot planning, manual review, and dispute flow, but approvals remain not approved and the campaign remains draft-not-live. | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md`; `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md`; `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md`; `config/utility-pilot/live-readiness-gates.json`. | 2026-06-28 | planned |
 | Phase B utility-pilot evidence exists for inventory limits and aggregate allocation-report review, but approvals remain not approved and no inventory is published. | `docs/utility-pilot/INVENTORY_LIMITS_DRAFT.md`; `docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issue #58. | 2026-06-28 | planned |
 | Phase B reporting evidence exists for transparency updates and weekly community feedback summaries, but approvals remain not approved and no live campaign is published. | `docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md`; `docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issues #65 and #66. | 2026-06-28 | planned |
+| A Phase 2 live-gate status report summarizes 14 live-campaign gates: 9 have draft evidence, 5 still lack approval evidence, and 0 are approved. | `docs/utility-pilot/PHASE2_LIVE_GATE_STATUS.md`; `config/utility-pilot/live-readiness-gates.json`; `npm run pilot:live:blocked`. | 2026-06-28 | planned |
 
 ## Unknown Or Not Publicly Claimable
 
