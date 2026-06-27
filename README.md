@@ -22,6 +22,10 @@
 
 </div>
 
+## Start Here
+
+Use [`docs/START_HERE.md`](docs/START_HERE.md) for the short operator, auditor, community, governance, and release-manager paths. The current operational roadmap is [`docs/THREE_PHASE_ROADMAP.md`](docs/THREE_PHASE_ROADMAP.md).
+
 ## What It Is
 
 TikiDeco / TIDE is a public Ethereum Sepolia testnet prototype. It is built to explore how a hospitality-linked project could publish token rules, allocation plans, vesting records, governance controls, and public report hashes in a transparent way.
