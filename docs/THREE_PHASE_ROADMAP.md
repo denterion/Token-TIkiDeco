@@ -16,7 +16,7 @@ This roadmap converts the current project gaps into three release-management pha
 | Pilot operations | Inventory, disputes, staffing, and privacy docs exist. | Operational evidence is not proven. |
 | UX | Site checks pass. | First-time reader path is still too document-heavy. |
 | Docs | Public docs are thorough. | Need shorter operator/auditor/community start paths. |
-| QA | Contract and content checks are strong. | Add browser-level regression coverage for mobile, RPC unavailable, and long localized strings. |
+| QA | Contract, content, and Playwright browser checks are in place. | Keep mobile, RPC unavailable, mocked balance, and localized overflow regressions green. |
 | Release evidence | Packages can be generated. | Next release should prove reproducibility from a fresh checkout and final `main` SHA. |
 
 ## Phase 1: Make The Project Easy To Verify
@@ -50,7 +50,7 @@ Exit criteria:
 - [ ] Campaign rules, request window, snapshot or approved live-check window, inventory limits, manual review, staff process, dispute process, privacy review, allocation report path, and transparency update path are linked from the gate file.
 - [ ] No private participant data, guest data, emails, private keys, seed phrases, or sensitive personal data are collected by default.
 - [ ] A dry-run allocation report can be generated and reviewed without broadcasting a transaction.
-- [ ] Browser-level regression tests exist for mobile layout, RPC unavailable state, and long localized strings.
+- [x] Browser-level regression tests exist for mobile layout, RPC unavailable state, mocked balance, and long localized strings.
 
 Primary work:
 

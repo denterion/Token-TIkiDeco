@@ -6,71 +6,99 @@
   "requiredBeforeLiveCampaign": {
     "legalReview": {
       "status": "not-approved",
+      "owner": "legal-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": null
     },
     "privacyReview": {
       "status": "not-approved",
+      "owner": "privacy-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": null
     },
     "securityReview": {
       "status": "not-approved",
+      "owner": "security-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 62,
       "evidence": null
     },
     "operationsReview": {
       "status": "not-approved",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": null
     },
     "governanceReview": {
       "status": "not-approved",
+      "owner": "governance-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 60,
       "evidence": null
     },
     "campaignSpecificRules": {
       "status": "draft",
+      "owner": "pilot-operator",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": "config/utility-pilot/tide-community-preview-001.json"
     },
     "snapshotOrApprovedLiveCheckWindow": {
       "status": "not-published",
+      "owner": "pilot-operator",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": null
     },
     "requestWindow": {
       "status": "not-published",
+      "owner": "pilot-operator",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": null
     },
     "inventoryLimits": {
       "status": "not-published",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 58,
       "evidence": null
     },
     "allocationReportPath": {
       "status": "draft",
+      "owner": "reporting-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 58,
       "evidence": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md"
     },
     "staffProcess": {
       "status": "draft",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": "docs/utility-pilot/TIDE_LOYALTY_PILOT.md"
     },
     "disputeProcess": {
       "status": "draft",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
       "issue": 56,
       "evidence": "docs/utility-pilot/TIDE_LOYALTY_PILOT.md"
     },
     "communityFeedbackSummary": {
       "status": "not-started",
+      "owner": "community-maintainer",
+      "approvalStatus": "not-approved",
       "issue": 66,
       "evidence": "docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md"
     },
     "transparencyUpdate": {
       "status": "draft",
+      "owner": "transparency-maintainer",
+      "approvalStatus": "not-approved",
       "issue": 65,
       "evidence": "docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md"
     }

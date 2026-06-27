@@ -3,6 +3,7 @@ const path = require("path");
 
 const root = path.join(__dirname, "..");
 const blockedStatuses = new Set(["blocked", "not-approved", "not-published", "not-started", "requires-review", "draft", "unknown", "missing"]);
+const allowedApprovalStatuses = new Set(["not-approved", "requires-review", "approved"]);
 const requiredBoundaries = [
   "noSale",
   "noStatedMonetaryValue",
@@ -38,8 +39,18 @@ function main() {
   }
   for (const [name, gate] of Object.entries(gates.requiredBeforeLiveCampaign || {})) {
     assert(typeof gate.status === "string" && gate.status.length > 0, `${name} must include status`);
+    assert(typeof gate.owner === "string" && gate.owner.length > 0, `${name} must include owner`);
+    assert(
+      typeof gate.approvalStatus === "string" && allowedApprovalStatuses.has(gate.approvalStatus),
+      `${name} must include approvalStatus: ${Array.from(allowedApprovalStatuses).join(", ")}`
+    );
     assert(Number.isInteger(gate.issue), `${name} must link to a GitHub issue number`);
     if (gate.evidence !== null) assert(exists(gate.evidence), `${name} evidence path does not exist: ${gate.evidence}`);
+    if (gate.status === "approved" || gate.approvalStatus === "approved") {
+      assert(gate.status === "approved", `${name} approvalStatus cannot be approved while status is ${gate.status}`);
+      assert(gate.approvalStatus === "approved", `${name} status cannot be approved while approvalStatus is ${gate.approvalStatus}`);
+      assert(gate.evidence !== null, `${name} must include evidence before approval`);
+    }
   }
 
   const blocked = Object.entries(gates.requiredBeforeLiveCampaign || {}).filter(([, gate]) => blockedStatuses.has(gate.status));
@@ -57,7 +68,7 @@ function main() {
     console.error("Pilot live readiness check failed: campaign is not approved to go live.");
     console.error(`Blocked gates: ${blocked.length}`);
     for (const [name, gate] of blocked) {
-      console.error(`- ${name}: ${gate.status} (#${gate.issue})`);
+      console.error(`- ${name}: ${gate.status}, owner ${gate.owner}, approval ${gate.approvalStatus} (#${gate.issue})`);
     }
     console.error("Run `npm run pilot:live:blocked` to verify the intentionally blocked state.");
     process.exit(1);
