@@ -32,7 +32,7 @@ npm run pilot:live:blocked
 | Issue | Owner role | Gate focus | Required evidence before status can improve |
 | --- | --- | --- | --- |
 | [#56](https://github.com/denterion/Token-TIkiDeco/issues/56) | pilot-operator, legal-reviewer, privacy-reviewer, operations-reviewer | Campaign rules, request window, snapshot/live-check window, staff process, dispute process, legal/privacy/operations review | `CAMPAIGN_RULES_REVIEW_PACKET.md`, `REQUEST_WINDOW_DRAFT.md`, `MANUAL_REVIEW_AND_DISPUTE_FLOW.md`, and later approval notes |
-| [#58](https://github.com/denterion/Token-TIkiDeco/issues/58) | reporting-reviewer, operations-reviewer | Allocation report path and inventory limits | Aggregate-only allocation report path, inventory cap, no private participant data rule |
+| [#58](https://github.com/denterion/Token-TIkiDeco/issues/58) | reporting-reviewer, operations-reviewer | Allocation report path and inventory limits | `INVENTORY_LIMITS_DRAFT.md`, `ALLOCATION_REPORT_REVIEW_PACKET.md`, aggregate-only report path, inventory cap, no private participant data rule |
 | [#60](https://github.com/denterion/Token-TIkiDeco/issues/60) | governance-reviewer | Governance and mainnet/value blockers | Explicit decision that Sepolia preview remains no-sale, no-value, no-mainnet, and draft until approvals exist |
 | [#62](https://github.com/denterion/Token-TIkiDeco/issues/62) | security-reviewer | Security review and audit package readiness | Current checks, audit package evidence, and no independent-audit claim |
 | [#65](https://github.com/denterion/Token-TIkiDeco/issues/65) | transparency-maintainer | Transparency update | Report template, hash workflow, and publication status wording |
@@ -94,6 +94,7 @@ Required boundaries:
 Exit condition:
 
 - `inventoryLimits`, `allocationReportPath`, `communityFeedbackSummary`, and `transparencyUpdate` have approved or reviewable evidence paths.
+- `inventoryLimits` and `allocationReportPath` keep `approvalStatus: not-approved` until issue #58 review is complete.
 
 ## Phase C: Review Legal, Security, Operations, And Governance
 
