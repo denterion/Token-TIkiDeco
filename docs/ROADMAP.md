@@ -2,6 +2,8 @@
 
 This roadmap describes the path from public testnet prototype to a credible production decision. It is not a promise of timing, financial return, token value, or hotel completion.
 
+For the current operational focus, see [`THREE_PHASE_ROADMAP.md`](THREE_PHASE_ROADMAP.md). For a short reader-specific entry point, see [`START_HERE.md`](START_HERE.md).
+
 ## Phase 1: Public Testnet Prototype
 
 Status: complete
@@ -52,6 +54,8 @@ Status: internal preparation in progress; independent audit not started
 - Keep Slither baseline, Hardhat tests, Foundry invariants, coverage, gas, and release-package evidence reproducible.
 - Track the proposed freeze baseline in [`V2_AUDIT_TARGET_FREEZE.md`](V2_AUDIT_TARGET_FREEZE.md).
 - Prepare external audit intake through [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md).
+- Keep owner decisions explicit in [`V2_AUDIT_OWNER_DECISIONS.md`](V2_AUDIT_OWNER_DECISIONS.md).
+- Review any V2 role manifest with [`V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md`](V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md).
 
 ## Phase 5: Community Preview
 
@@ -64,6 +68,7 @@ Status: preparing
 - Collect feedback through [`COMMUNITY_PREVIEW.md`](COMMUNITY_PREVIEW.md) and [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md).
 - Prepare the conditional Sepolia-only utility pilot package through [`utility-pilot/README.md`](utility-pilot/README.md), [`VALUE_AND_UTILITY_BOUNDARY.md`](VALUE_AND_UTILITY_BOUNDARY.md), and [`BUSINESS_MODEL.md`](BUSINESS_MODEL.md).
 - Keep the utility pilot campaign manifest as `draft-not-live` until legal, privacy, security, operations, and governance gates are approved.
+- Use [`utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md`](utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md) to convert blocked live-campaign gates into evidence tasks.
 - Keep feedback focused on clarity, verification, translations, utility boundaries, and review readiness.
 - Avoid sale, listing, price, mainnet, or active-benefit messaging.
 

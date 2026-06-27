@@ -13,6 +13,8 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | V2 | Candidate code with freeze baseline. | External audit not started. |
 | Legal/governance | Draft policies and counsel brief exist. | Entity/SPV and counsel review are not complete. |
 | Community preview | Materials and issue templates exist. | Structured feedback collection has not yet been run. |
+| Operator/auditor/community entry path | Full documentation exists. | Short start paths are required so important facts are not buried. |
+| Browser-level site QA | Static site checks pass. | Add browser regression coverage for mobile layout, RPC unavailable state, and long localized strings. |
 
 ## Gate 1: Public Preview Stabilization
 
@@ -22,6 +24,7 @@ Exit criteria:
 
 - [ ] Minimal public site merged and deployed by GitHub Pages.
 - [ ] `docs/PROJECT_FACTS.md` current after merge.
+- [ ] `docs/START_HERE.md` current after merge.
 - [ ] `npm run claims` passes.
 - [ ] `npm run site` passes.
 - [ ] README and site agree on V1 canonical / V2 candidate status.
@@ -54,6 +57,8 @@ Exit criteria:
 - [ ] `npm run foundry:coverage` passes.
 - [ ] `npm run slither:baseline` shows zero new untriaged V2 findings.
 - [ ] `KNOWN_ISSUES.md` classifies open questions as accepted risk, needs audit, or blocked.
+- [ ] `docs/V2_AUDIT_OWNER_DECISIONS.md` is current.
+- [ ] `docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md` is used for any V2 candidate deployment review.
 - [ ] `npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot` succeeds from a clean tree.
 - [ ] `npm run v02:rc` passes after `npm run site`.
 - [ ] `npm run pilot:live:blocked` passes, confirming the live campaign is still intentionally blocked.
@@ -71,6 +76,7 @@ Exit criteria:
 - [ ] Feedback summary separates current, planned, conceptual, and not-claimable items.
 - [ ] `npm run pilot` passes for the `draft-not-live` pilot campaign state.
 - [ ] `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md` maps remaining live-campaign blockers to tracking issues and evidence.
+- [ ] `docs/utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md` maps the first limited Sepolia preview path without marking the campaign live.
 
 ## Gate 5: Mainnet Discussion
 
