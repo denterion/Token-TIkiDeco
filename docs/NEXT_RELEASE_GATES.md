@@ -78,6 +78,7 @@ Exit criteria:
 - [ ] `npm run pilot` passes for the `draft-not-live` pilot campaign state.
 - [ ] `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md` maps remaining live-campaign blockers to tracking issues and evidence.
 - [ ] `docs/utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md` maps the first limited Sepolia preview path without marking the campaign live.
+- [ ] `docs/utility-pilot/PHASE2_LIVE_GATE_STATUS.md` stays current after each evidence PR.
 
 ## Gate 5: Mainnet Discussion
 
