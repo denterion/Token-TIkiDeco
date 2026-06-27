@@ -36,7 +36,7 @@ The repository therefore runs Slither directly against `contracts/` with solc 0.
 npm run slither
 ```
 
-The known Slither findings are documented and triaged in [`../SECURITY_REVIEW.md`](../SECURITY_REVIEW.md). They remain visible and should be carried into any future V2 promotion review.
+`npm run slither` generates the Slither JSON artifact and then applies the V2 baseline gate. Use `npm run slither:raw` only when you need the unfiltered analyzer result. The known Slither findings are documented and triaged in [`../SECURITY_REVIEW.md`](../SECURITY_REVIEW.md) and `../security/slither-baseline-v2.json`. They remain visible and should be carried into any future V2 promotion review.
 
 ## Checks
 

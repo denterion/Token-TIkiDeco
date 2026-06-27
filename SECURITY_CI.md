@@ -82,8 +82,7 @@ Purpose: enforces EIP-170 bytecode size limit, records gas snapshot output, and 
 Runs:
 
 ```bash
-slither contracts --config-file slither.config.json --solc-remaps @openzeppelin/=node_modules/@openzeppelin/ --json security-artifacts/slither/slither.json
-npm run slither:baseline
+npm run slither
 ```
 
 Policy:
@@ -92,6 +91,7 @@ Policy:
 - V2 candidate findings are compared against `security/slither-baseline-v2.json`.
 - Every accepted V2 finding must include an explanation.
 - Any new untriaged V2 finding fails CI.
+- `npm run slither:raw` is available for an unfiltered Slither run; it may exit non-zero for accepted findings.
 
 ### JavaScript And Site Scanner
 
