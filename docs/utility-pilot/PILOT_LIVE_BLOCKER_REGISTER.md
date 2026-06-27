@@ -20,7 +20,7 @@ npm run pilot:live:blocked
 | Privacy review | privacy-reviewer | not-approved | not-approved | #56 | No private participant data process approved |
 | Security review | security-reviewer | not-approved | not-approved | #62 | External audit not started; V2 remains candidate only |
 | Operations review | operations-reviewer | not-approved | not-approved | #56 | Staff process, support, and dispute flow not approved |
-| Governance review | governance-reviewer | not-approved | not-approved | #60 | Mainnet/value/utility approvals remain blocked |
+| Governance review | governance-reviewer | not-approved | not-approved | #60 | `docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md` |
 | Campaign-specific rules | pilot-operator | draft | not-approved | #56 | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md` |
 | Snapshot block or approved live-check window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |
 | Request window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |

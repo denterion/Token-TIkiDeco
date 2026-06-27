@@ -33,7 +33,7 @@ npm run pilot:live:blocked
 | --- | --- | --- | --- |
 | [#56](https://github.com/denterion/Token-TIkiDeco/issues/56) | pilot-operator, legal-reviewer, privacy-reviewer, operations-reviewer | Campaign rules, request window, snapshot/live-check window, staff process, dispute process, legal/privacy/operations review | `CAMPAIGN_RULES_REVIEW_PACKET.md`, `REQUEST_WINDOW_DRAFT.md`, `MANUAL_REVIEW_AND_DISPUTE_FLOW.md`, and later approval notes |
 | [#58](https://github.com/denterion/Token-TIkiDeco/issues/58) | reporting-reviewer, operations-reviewer | Allocation report path and inventory limits | `INVENTORY_LIMITS_DRAFT.md`, `ALLOCATION_REPORT_REVIEW_PACKET.md`, aggregate-only report path, inventory cap, no private participant data rule |
-| [#60](https://github.com/denterion/Token-TIkiDeco/issues/60) | governance-reviewer | Governance and mainnet/value blockers | Explicit decision that Sepolia preview remains no-sale, no-value, no-mainnet, and draft until approvals exist |
+| [#60](https://github.com/denterion/Token-TIkiDeco/issues/60) | governance-reviewer | Governance and mainnet/value blockers | `GOVERNANCE_REVIEW_DECISION.md`; explicit decision that Sepolia preview remains no-sale, no-value, no-mainnet, and draft until approvals exist |
 | [#62](https://github.com/denterion/Token-TIkiDeco/issues/62) | security-reviewer | Security review and audit package readiness | Current checks, audit package evidence, and no independent-audit claim |
 | [#65](https://github.com/denterion/Token-TIkiDeco/issues/65) | transparency-maintainer | Transparency update | `TRANSPARENCY_UPDATE_REVIEW_PACKET.md`, report hash workflow, validation commands, and publication status wording |
 | [#66](https://github.com/denterion/Token-TIkiDeco/issues/66) | community-maintainer | Community feedback summary | `WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md`, aggregate-only feedback report with current/planned/conceptual/not-claimable separation |
@@ -107,13 +107,14 @@ Required evidence:
 - privacy review status;
 - security review status;
 - operations review status;
-- governance review status;
+- governance review status and no-go decision evidence;
 - owner decision on whether the preview can move from `draft-not-live` to a future `published-testnet` proposal;
 - current `npm run claims`, `npm run value`, `npm run site`, `npm run pilot`, and `npm run pilot:report` outputs.
 
 Exit condition:
 
 - every gate in `live-readiness-gates.json` is changed only after evidence exists and reviewer approval is recorded.
+- `governanceReview` can have no-go evidence while its `approvalStatus` remains `not-approved`; that is expected until every approval gate is resolved.
 - `npm run pilot:live:check` passes.
 
 ## Minimal Preview Proposal Template
