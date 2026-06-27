@@ -14,7 +14,7 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | Legal/governance | Draft policies and counsel brief exist. | Entity/SPV and counsel review are not complete. |
 | Community preview | Materials and issue templates exist. | Structured feedback collection has not yet been run. |
 | Operator/auditor/community entry path | Full documentation exists. | Short start paths are required so important facts are not buried. |
-| Browser-level site QA | Static site checks pass. | Add browser regression coverage for mobile layout, RPC unavailable state, and long localized strings. |
+| Browser-level site QA | Static and Playwright browser checks exist. | Keep desktop/mobile, RPC unavailable, mocked balance, and localized overflow checks green. |
 
 ## Gate 1: Public Preview Stabilization
 

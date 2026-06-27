@@ -27,6 +27,17 @@ npm run pilot:live:blocked
 | Active guest benefits | Not live |
 | Independent audit | Not started |
 
+## Tracking Issues And Owners
+
+| Issue | Owner role | Gate focus | Required evidence before status can improve |
+| --- | --- | --- | --- |
+| [#56](https://github.com/denterion/Token-TIkiDeco/issues/56) | pilot-operator, legal-reviewer, privacy-reviewer, operations-reviewer | Campaign rules, request window, snapshot/live-check window, staff process, dispute process, legal/privacy/operations review | Final campaign manifest, published window, review notes, and no-private-data operating rules |
+| [#58](https://github.com/denterion/Token-TIkiDeco/issues/58) | reporting-reviewer, operations-reviewer | Allocation report path and inventory limits | Aggregate-only allocation report path, inventory cap, no private participant data rule |
+| [#60](https://github.com/denterion/Token-TIkiDeco/issues/60) | governance-reviewer | Governance and mainnet/value blockers | Explicit decision that Sepolia preview remains no-sale, no-value, no-mainnet, and draft until approvals exist |
+| [#62](https://github.com/denterion/Token-TIkiDeco/issues/62) | security-reviewer | Security review and audit package readiness | Current checks, audit package evidence, and no independent-audit claim |
+| [#65](https://github.com/denterion/Token-TIkiDeco/issues/65) | transparency-maintainer | Transparency update | Report template, hash workflow, and publication status wording |
+| [#66](https://github.com/denterion/Token-TIkiDeco/issues/66) | community-maintainer | Community feedback summary | Aggregate-only feedback report with current/planned/conceptual/not-claimable separation |
+
 ## Phase A: Define The Preview Without Collecting Private Data
 
 Owner thread: issue #56.

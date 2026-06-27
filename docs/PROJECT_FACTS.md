@@ -1,6 +1,6 @@
 # TikiDeco Project Facts
 
-Verification date: 2026-06-27
+Verification date: 2026-06-28
 
 Purpose: this file is the public-communications source of truth for TikiDeco / TIDE claims. Public README, site, white paper, reports, and social copy should use only facts listed here as `verified`, or clearly label `planned` and `experimental` items as not live.
 
@@ -127,11 +127,12 @@ Status key:
 | Testnet allocation policy and allocation report template are prepared for a future Sepolia-only campaign. | `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`; `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md`; `scripts/check-allocation-report.cjs`. | 2026-06-25 | planned |
 | Testnet allocation is not active; allocation drafts remain non-broadcast planning artifacts until campaign approvals and manual Safe review are complete. | `operations/utility-pilot/testnet-allocation-draft.json`; `operations/utility-pilot/safe-transaction-builder-draft.json`; `docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md`. | 2026-06-26 | planned |
 | The first utility pilot campaign manifest is prepared as `draft-not-live` and fails closed unless approvals, campaign window or approved live-check window, snapshot, inventory, and reporting fields are completed before publication. | `config/utility-pilot/tide-community-preview-001.json`; `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md`; `scripts/check-pilot-campaign.cjs`. | 2026-06-26 | planned |
-| A live-campaign blocker register exists and is intentionally blocked until legal, privacy, security, operations, governance, snapshot/window, inventory, allocation-report, staff-process, dispute-process, feedback, and transparency gates have evidence. | `config/utility-pilot/live-readiness-gates.json`; `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md`; `scripts/check-pilot-live-readiness.cjs`. | 2026-06-27 | planned |
+| A live-campaign blocker register exists and is intentionally blocked until legal, privacy, security, operations, governance, snapshot/window, inventory, allocation-report, staff-process, dispute-process, feedback, and transparency gates have evidence, owner roles, and approval status. | `config/utility-pilot/live-readiness-gates.json`; `docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md`; `scripts/check-pilot-live-readiness.cjs`. | 2026-06-28 | planned |
 | A three-phase operational roadmap exists for public verification, limited Sepolia preview preparation, and V2 audit handoff readiness. | `docs/THREE_PHASE_ROADMAP.md`; `docs/ROADMAP.md`; `docs/NEXT_RELEASE_GATES.md`. | 2026-06-27 | planned |
 | A short start-here path exists for community, operator, security, release, governance, and legal/privacy reviewers. | `docs/START_HERE.md`; `README.md`. | 2026-06-27 | verified |
 | A limited live-preview path exists, but it is blocked planning documentation and does not publish a live campaign. | `docs/utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md`; `config/utility-pilot/live-readiness-gates.json`; `npm run pilot:live:blocked`. | 2026-06-27 | planned |
 | V2 owner-decision and role-manifest review checklists exist for audit-preparation discipline. | `docs/V2_AUDIT_OWNER_DECISIONS.md`; `docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md`; `KNOWN_ISSUES.md`. | 2026-06-27 | planned |
+| Playwright browser regression checks exist for the public site and read-only eligibility card. | `playwright.config.ts`; `site-v2/tests/site-regression.spec.ts`; `npm run site:browser`. | 2026-06-28 | verified |
 
 ## Unknown Or Not Publicly Claimable
 
