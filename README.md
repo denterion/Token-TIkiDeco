@@ -188,6 +188,8 @@ Slither:
 npm run slither
 ```
 
+`npm run slither` runs the local Slither JSON scan and then applies the V2 baseline gate. Known accepted findings remain visible in generated artifacts; any new untriaged V2 finding fails. Use `npm run slither:raw` when you need Slither's unfiltered analyzer exit code and console output.
+
 Slither requires local Slither and solc `0.8.28` setup. Slither output is review material, not an audit certificate.
 
 ## Reports
