@@ -24,8 +24,8 @@ npm run pilot:live:blocked
 | Campaign-specific rules | pilot-operator | draft | not-approved | #56 | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md` |
 | Snapshot block or approved live-check window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |
 | Request window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |
-| Inventory limits | operations-reviewer | not-published | not-approved | #58 | Not available |
-| Allocation report path | reporting-reviewer | draft | not-approved | #58 | `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md` |
+| Inventory limits | operations-reviewer | not-published | not-approved | #58 | `docs/utility-pilot/INVENTORY_LIMITS_DRAFT.md` |
+| Allocation report path | reporting-reviewer | draft | not-approved | #58 | `docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md` |
 | Staff process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` |
 | Dispute process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` |
 | Community feedback summary | community-maintainer | not-started | not-approved | #66 | `docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md` |

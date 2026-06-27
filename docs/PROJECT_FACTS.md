@@ -134,6 +134,7 @@ Status key:
 | V2 owner-decision and role-manifest review checklists exist for audit-preparation discipline. | `docs/V2_AUDIT_OWNER_DECISIONS.md`; `docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md`; `KNOWN_ISSUES.md`. | 2026-06-27 | planned |
 | Playwright browser regression checks exist for the public site and read-only eligibility card. | `playwright.config.ts`; `site-v2/tests/site-regression.spec.ts`; `npm run site:browser`. | 2026-06-28 | verified |
 | Phase A utility-pilot evidence exists for campaign rules, request-window/snapshot planning, manual review, and dispute flow, but approvals remain not approved and the campaign remains draft-not-live. | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md`; `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md`; `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md`; `config/utility-pilot/live-readiness-gates.json`. | 2026-06-28 | planned |
+| Phase B utility-pilot evidence exists for inventory limits and aggregate allocation-report review, but approvals remain not approved and no inventory is published. | `docs/utility-pilot/INVENTORY_LIMITS_DRAFT.md`; `docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issue #58. | 2026-06-28 | planned |
 
 ## Unknown Or Not Publicly Claimable
 

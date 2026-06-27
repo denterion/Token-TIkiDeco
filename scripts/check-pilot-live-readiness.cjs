@@ -17,6 +17,8 @@ const requiredDraftEvidenceGates = new Set([
   "campaignSpecificRules",
   "snapshotOrApprovedLiveCheckWindow",
   "requestWindow",
+  "inventoryLimits",
+  "allocationReportPath",
   "staffProcess",
   "disputeProcess"
 ]);
