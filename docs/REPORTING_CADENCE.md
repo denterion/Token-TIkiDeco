@@ -90,11 +90,11 @@ Hash manifest:
 
 Latest repository transparency report:
 
-<https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION.md>
+<https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_27_COMMUNITY_PREVIEW_FEEDBACK.md>
 
 Latest repository transparency report hash:
 
-<https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_24_PUBLIC_RELEASE_AND_LOCALIZATION_HASH.md>
+<https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_27_COMMUNITY_PREVIEW_FEEDBACK_HASH.md>
 
 Token contract:
 
