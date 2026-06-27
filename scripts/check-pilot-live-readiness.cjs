@@ -13,6 +13,13 @@ const requiredBoundaries = [
   "noPrivateGuestDataCollection",
   "noSafeTransactionBroadcast"
 ];
+const requiredDraftEvidenceGates = new Set([
+  "campaignSpecificRules",
+  "snapshotOrApprovedLiveCheckWindow",
+  "requestWindow",
+  "staffProcess",
+  "disputeProcess"
+]);
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
@@ -45,6 +52,7 @@ function main() {
       `${name} must include approvalStatus: ${Array.from(allowedApprovalStatuses).join(", ")}`
     );
     assert(Number.isInteger(gate.issue), `${name} must link to a GitHub issue number`);
+    if (requiredDraftEvidenceGates.has(name)) assert(gate.evidence !== null, `${name} must include draft evidence`);
     if (gate.evidence !== null) assert(exists(gate.evidence), `${name} evidence path does not exist: ${gate.evidence}`);
     if (gate.status === "approved" || gate.approvalStatus === "approved") {
       assert(gate.status === "approved", `${name} approvalStatus cannot be approved while status is ${gate.status}`);

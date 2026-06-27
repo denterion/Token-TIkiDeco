@@ -21,13 +21,13 @@ npm run pilot:live:blocked
 | Security review | security-reviewer | not-approved | not-approved | #62 | External audit not started; V2 remains candidate only |
 | Operations review | operations-reviewer | not-approved | not-approved | #56 | Staff process, support, and dispute flow not approved |
 | Governance review | governance-reviewer | not-approved | not-approved | #60 | Mainnet/value/utility approvals remain blocked |
-| Campaign-specific rules | pilot-operator | draft | not-approved | #56 | `config/utility-pilot/tide-community-preview-001.json` |
-| Snapshot block or approved live-check window | pilot-operator | not-published | not-approved | #56 | Not available |
-| Request window | pilot-operator | not-published | not-approved | #56 | Not available |
+| Campaign-specific rules | pilot-operator | draft | not-approved | #56 | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md` |
+| Snapshot block or approved live-check window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |
+| Request window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |
 | Inventory limits | operations-reviewer | not-published | not-approved | #58 | Not available |
 | Allocation report path | reporting-reviewer | draft | not-approved | #58 | `docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md` |
-| Staff process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/TIDE_LOYALTY_PILOT.md` |
-| Dispute process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/TIDE_LOYALTY_PILOT.md` |
+| Staff process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` |
+| Dispute process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` |
 | Community feedback summary | community-maintainer | not-started | not-approved | #66 | `docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md` |
 | Transparency update | transparency-maintainer | draft | not-approved | #65 | `docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md` |
 
