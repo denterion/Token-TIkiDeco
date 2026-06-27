@@ -14,6 +14,7 @@ const requiredBoundaries = [
   "noSafeTransactionBroadcast"
 ];
 const requiredDraftEvidenceGates = new Set([
+  "governanceReview",
   "campaignSpecificRules",
   "snapshotOrApprovedLiveCheckWindow",
   "requestWindow",

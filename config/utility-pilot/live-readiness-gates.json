@@ -37,7 +37,7 @@
       "owner": "governance-reviewer",
       "approvalStatus": "not-approved",
       "issue": 60,
-      "evidence": null
+      "evidence": "docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md"
     },
     "campaignSpecificRules": {
       "status": "draft",
