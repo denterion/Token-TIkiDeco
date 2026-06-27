@@ -15,6 +15,7 @@ const requiredBoundaries = [
 ];
 const requiredDraftEvidenceGates = new Set([
   "governanceReview",
+  "privacyReview",
   "campaignSpecificRules",
   "snapshotOrApprovedLiveCheckWindow",
   "requestWindow",
