@@ -2,6 +2,8 @@
 
 Status: internal review findings for V2 candidate and release process. These are not independent audit findings.
 
+Owner decisions and auditor handoff questions are tracked in [`docs/V2_AUDIT_OWNER_DECISIONS.md`](docs/V2_AUDIT_OWNER_DECISIONS.md). Role-manifest release review is tracked in [`docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md`](docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md).
+
 ## Finding KI-01: V2 Token Metadata Remains A Public Claims Surface
 
 Severity: Medium
