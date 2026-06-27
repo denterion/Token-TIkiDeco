@@ -44,21 +44,21 @@
       "owner": "pilot-operator",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": "config/utility-pilot/tide-community-preview-001.json"
+      "evidence": "docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md"
     },
     "snapshotOrApprovedLiveCheckWindow": {
       "status": "not-published",
       "owner": "pilot-operator",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": null
+      "evidence": "docs/utility-pilot/REQUEST_WINDOW_DRAFT.md"
     },
     "requestWindow": {
       "status": "not-published",
       "owner": "pilot-operator",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": null
+      "evidence": "docs/utility-pilot/REQUEST_WINDOW_DRAFT.md"
     },
     "inventoryLimits": {
       "status": "not-published",
@@ -79,14 +79,14 @@
       "owner": "operations-reviewer",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": "docs/utility-pilot/TIDE_LOYALTY_PILOT.md"
+      "evidence": "docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md"
     },
     "disputeProcess": {
       "status": "draft",
       "owner": "operations-reviewer",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": "docs/utility-pilot/TIDE_LOYALTY_PILOT.md"
+      "evidence": "docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md"
     },
     "communityFeedbackSummary": {
       "status": "not-started",
