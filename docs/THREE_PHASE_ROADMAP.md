@@ -28,6 +28,7 @@ Exit criteria:
 - [ ] Add and maintain [`START_HERE.md`](START_HERE.md).
 - [ ] README links to the operator, auditor, community, and contributor start paths.
 - [ ] Site copy stays minimal while preserving no-sale/no-value/no-mainnet/independent-audit-not-started boundaries.
+- [ ] `npm run site:browser` covers desktop, mobile, RPC unavailable, mocked live balance, and localized overflow checks.
 - [ ] `docs/PROJECT_FACTS.md` remains current after each merge.
 - [ ] `npm run claims`, `npm run value`, `npm run site`, and `npm run pilot:report` pass.
 - [ ] Community feedback summaries stay aggregate-only and privacy-safe.
@@ -84,7 +85,7 @@ Primary work:
 | P0 | Limited live preview path | Convert 14 blocked live gates into owner-review evidence tasks. |
 | P0 | V2 owner decisions | Clarify known-issue decisions before auditor handoff. |
 | P1 | Start-here simplification | Give operator/auditor/community readers a short path. |
-| P1 | Browser regression QA | Add Playwright or equivalent site checks for mobile, RPC failure, and localized text. |
+| P1 | Browser regression QA | Keep Playwright checks green for mobile, RPC failure, mocked balance, and localized text. |
 | P1 | Fresh-checkout release proof | Document and automate release-package reproduction from a clean clone. |
 
 ## Standing Non-Goals

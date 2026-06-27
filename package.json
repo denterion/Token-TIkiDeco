@@ -75,7 +75,9 @@
     "workflow:pins": "node scripts/check-workflow-action-pins.cjs",
     "slither:baseline": "node scripts/check-slither-baseline.cjs",
     "slither:raw": "slither contracts --config-file slither.config.json --solc-remaps @openzeppelin/=node_modules/@openzeppelin/",
-    "slither": "node scripts/run-slither-baseline-scan.cjs"
+    "slither": "node scripts/run-slither-baseline-scan.cjs",
+    "site:browser:install": "playwright install chromium",
+    "site:browser": "playwright test --config playwright.config.ts"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.6.1",
@@ -97,6 +99,7 @@
     "@nomicfoundation/hardhat-ethers": "4.0.13",
     "@nomicfoundation/hardhat-ethers-chai-matchers": "3.0.10",
     "@nomicfoundation/hardhat-mocha": "3.0.21",
+    "@playwright/test": "1.57.0",
     "@vitejs/plugin-react": "5.1.2",
     "chai": "6.2.2",
     "dotenv": "17.4.2",
