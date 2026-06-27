@@ -28,8 +28,8 @@ npm run pilot:live:blocked
 | Allocation report path | reporting-reviewer | draft | not-approved | #58 | `docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md` |
 | Staff process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` |
 | Dispute process | operations-reviewer | draft | not-approved | #56 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` |
-| Community feedback summary | community-maintainer | not-started | not-approved | #66 | `docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md` |
-| Transparency update | transparency-maintainer | draft | not-approved | #65 | `docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md` |
+| Community feedback summary | community-maintainer | not-started | not-approved | #66 | `docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md` |
+| Transparency update | transparency-maintainer | draft | not-approved | #65 | `docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md` |
 
 ## Non-Negotiable Boundaries
 

@@ -20,7 +20,9 @@ const requiredDraftEvidenceGates = new Set([
   "inventoryLimits",
   "allocationReportPath",
   "staffProcess",
-  "disputeProcess"
+  "disputeProcess",
+  "communityFeedbackSummary",
+  "transparencyUpdate"
 ]);
 
 function readJson(relativePath) {

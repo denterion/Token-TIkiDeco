@@ -93,14 +93,14 @@
       "owner": "community-maintainer",
       "approvalStatus": "not-approved",
       "issue": 66,
-      "evidence": "docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md"
+      "evidence": "docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md"
     },
     "transparencyUpdate": {
       "status": "draft",
       "owner": "transparency-maintainer",
       "approvalStatus": "not-approved",
       "issue": 65,
-      "evidence": "docs/COMMUNITY_PREVIEW_REPORT_TEMPLATE.md"
+      "evidence": "docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md"
     }
   },
   "hardBoundaries": {
