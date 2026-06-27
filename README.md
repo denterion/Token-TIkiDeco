@@ -182,6 +182,8 @@ npm run lint
 npm run coverage
 npm run gas:snapshot
 npm run audit
+npm run site:browser:install
+npm run site:browser
 npm run site:check
 npm run release:check
 ```

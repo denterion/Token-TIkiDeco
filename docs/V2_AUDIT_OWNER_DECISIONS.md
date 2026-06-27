@@ -19,7 +19,7 @@ Purpose: make every known V2 question reviewable before external auditor handoff
 | KI-02 | V2 public deploy script role configuration | `blocked-before-deployment` | Role manifest reviewed against expected admin, pauser, reporter, vesting admin, and treasury addresses. | Deployment-script negative tests and role-manifest checklist. |
 | KI-03 | V2 vault has no on-chain pause role | `ask-auditor` | Owner decision confirming token-pause-only incident model or a scoped change request for vault-local pause. | Pause/release tests and auditor response. |
 | KI-04 | Report supersede graph policy | `accepted-for-audit` | Off-chain correction policy requiring same category or explicit correction reason in repository report. | Report supersede tests and documentation check. |
-| KI-05 | Public site RPC availability | `accepted-for-audit` | Dashboard labels Live/Cached/Stale/Unavailable and links to canonical docs. | Site checks plus future browser regression test. |
+| KI-05 | Public site RPC availability | `accepted-for-audit` | Dashboard labels Live/Cached/Stale/Unavailable and links to canonical docs. | `npm run site` and `npm run site:browser`. |
 | KI-06 | Slither baseline model | `accepted-for-audit` | `security/slither-baseline-v2.json` contains accepted findings with explanations; `npm run slither` fails on new untriaged V2 findings. | `npm run slither`. |
 | KI-07 | Bytecode size after coverage artifacts | `accepted-for-audit` | Release/runbook order requires clean compile before bytecode evidence. | `npm run lint` and release package check. |
 | KI-08 | Dependency maintenance warnings | `needs-owner-decision` | Dependency warnings accepted, removed, or tracked with issue references before audit package freeze. | `npm ci` and `npm run audit`. |

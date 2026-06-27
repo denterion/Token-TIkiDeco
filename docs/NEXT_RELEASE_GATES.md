@@ -27,6 +27,7 @@ Exit criteria:
 - [ ] `docs/START_HERE.md` current after merge.
 - [ ] `npm run claims` passes.
 - [ ] `npm run site` passes.
+- [ ] `npm run site:browser` passes after `npm run site:browser:install`.
 - [ ] README and site agree on V1 canonical / V2 candidate status.
 - [ ] No wallet connection, purchase flow, price chart, staking, or exchange-listing language.
 
