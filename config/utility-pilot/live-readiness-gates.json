@@ -16,7 +16,7 @@
       "owner": "privacy-reviewer",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": null
+      "evidence": "docs/utility-pilot/PRIVACY_REVIEW_DECISION.md"
     },
     "securityReview": {
       "status": "not-approved",
