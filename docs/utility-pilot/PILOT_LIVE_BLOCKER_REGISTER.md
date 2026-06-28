@@ -18,7 +18,7 @@ npm run pilot:live:blocked
 | --- | --- | --- | --- | --- | --- |
 | Legal review | legal-reviewer | not-approved | not-approved | #56 | External counsel review not complete |
 | Privacy review | privacy-reviewer | not-approved | not-approved | #56 | `docs/utility-pilot/PRIVACY_REVIEW_DECISION.md` |
-| Security review | security-reviewer | not-approved | not-approved | #62 | External audit not started; V2 remains candidate only |
+| Security review | security-reviewer | not-approved | not-approved | #62 | `docs/utility-pilot/SECURITY_REVIEW_DECISION.md` |
 | Operations review | operations-reviewer | not-approved | not-approved | #56 | Staff process, support, and dispute flow not approved |
 | Governance review | governance-reviewer | not-approved | not-approved | #60 | `docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md` |
 | Campaign-specific rules | pilot-operator | draft | not-approved | #56 | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md` |
