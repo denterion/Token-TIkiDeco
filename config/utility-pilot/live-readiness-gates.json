@@ -23,7 +23,7 @@
       "owner": "security-reviewer",
       "approvalStatus": "not-approved",
       "issue": 62,
-      "evidence": null
+      "evidence": "docs/utility-pilot/SECURITY_REVIEW_DECISION.md"
     },
     "operationsReview": {
       "status": "not-approved",
