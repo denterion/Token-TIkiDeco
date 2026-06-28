@@ -466,19 +466,10 @@ function main() {
   fs.mkdirSync(slitherDir, { recursive: true });
   const slitherJson = path.join(slitherDir, "slither.json");
   assert(toolAvailable("forge"), "Forge is required for the Slither release gate because this repository includes Foundry configuration. Install the pinned Foundry version before packaging.");
-  const slitherRun = run("slither", [
-    "contracts",
-    "--config-file",
-    "slither.config.json",
-    "--solc-remaps",
-    "@openzeppelin/=node_modules/@openzeppelin/",
-    "--json",
-    slitherJson
-  ], {
-    captureFile: path.join(reportsDir, "slither-report.txt"),
-    allowFailure: true
+  runNpm(["run", "slither"], {
+    captureFile: path.join(reportsDir, "slither-report.txt")
   });
-  assert(fs.existsSync(slitherJson), `Slither did not produce ${rel(slitherJson)}. Exit code: ${slitherRun.status}`);
+  assert(fs.existsSync(slitherJson), `Slither did not produce ${rel(slitherJson)}.`);
   run(nodeBin, [path.join(root, "scripts", "check-slither-baseline.cjs")], {
     captureFile: path.join(reportsDir, "slither-baseline-report.txt")
   });

@@ -303,6 +303,7 @@ const pages = [
         ["No sale", "The project does not provide sale or transaction-signing flows."],
         ["No value statement", "TIDE has no stated monetary value."],
         ["Mainnet status", "TIDE is not deployed on mainnet."],
+        ["Audit status", "TikiDeco has not completed an independent audit and is not independently audited."],
         ["No financial rights", "The prototype does not represent hotel ownership, revenue rights, or financial upside."]
       ]]
     ],
@@ -415,7 +416,7 @@ function legalFooter() {
         <img class="footer-mark" src="/assets/favicon.png" width="512" height="512" alt="TikiDeco TIDE emblem">
       </picture>
       <div>
-        <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit.</p>
+        <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and is not independently audited.</p>
         <p class="footer-links">
           <a href="/utility/">Utility</a>
           <a href="/pilot/">Pilot</a>
