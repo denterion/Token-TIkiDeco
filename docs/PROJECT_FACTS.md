@@ -139,7 +139,8 @@ Status key:
 | Governance no-go evidence exists for issue #60, but governance approval remains not approved and the campaign remains draft-not-live. | `docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issue #60. | 2026-06-28 | planned |
 | Privacy no-go evidence exists for issue #56, but privacy approval remains not approved and the campaign must not collect private participant data. | `docs/utility-pilot/PRIVACY_REVIEW_DECISION.md`; `docs/utility-pilot/PRIVACY_SAFE_REPORTING.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issue #56. | 2026-06-28 | planned |
 | Security no-go evidence exists for issue #62, but security approval remains not approved and V2 remains candidate-only. | `docs/utility-pilot/SECURITY_REVIEW_DECISION.md`; `docs/EXTERNAL_AUDIT_READINESS.md`; `KNOWN_ISSUES.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issue #62. | 2026-06-28 | planned |
-| A Phase 2 live-gate status report summarizes 14 live-campaign gates: 12 have draft evidence, 2 still lack approval evidence, and 0 are approved. | `docs/utility-pilot/PHASE2_LIVE_GATE_STATUS.md`; `config/utility-pilot/live-readiness-gates.json`; `npm run pilot:live:blocked`. | 2026-06-28 | planned |
+| Operations no-go evidence exists for issue #56, but operations approval remains not approved and the campaign remains draft-not-live. | `docs/utility-pilot/OPERATIONS_REVIEW_DECISION.md`; `config/utility-pilot/live-readiness-gates.json`; GitHub issue #56. | 2026-06-28 | planned |
+| A Phase 2 live-gate status report summarizes 14 live-campaign gates: 13 remain blocked or draft, 1 has evidence-only no-go status, and 0 are approved. | `docs/utility-pilot/PHASE2_LIVE_GATE_STATUS.md`; `config/utility-pilot/live-readiness-gates.json`; `npm run pilot:live:blocked`. | 2026-06-28 | planned |
 
 ## Unknown Or Not Publicly Claimable
 

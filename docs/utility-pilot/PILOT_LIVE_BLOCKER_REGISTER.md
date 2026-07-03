@@ -10,7 +10,7 @@ Validation:
 npm run pilot:live:blocked
 ```
 
-`npm run pilot:live:check` is expected to fail while this register contains blocked, draft, not-approved, not-published, not-started, unknown, or missing items.
+`npm run pilot:live:check` is expected to fail while this register contains blocked, draft, evidence-only, not-approved, not-published, not-started, unknown, missing, or otherwise unapproved items.
 
 ## Current Blockers
 
@@ -19,7 +19,7 @@ npm run pilot:live:blocked
 | Legal review | legal-reviewer | not-approved | not-approved | #56 | External counsel review not complete |
 | Privacy review | privacy-reviewer | not-approved | not-approved | #56 | `docs/utility-pilot/PRIVACY_REVIEW_DECISION.md` |
 | Security review | security-reviewer | not-approved | not-approved | #62 | `docs/utility-pilot/SECURITY_REVIEW_DECISION.md` |
-| Operations review | operations-reviewer | not-approved | not-approved | #56 | Staff process, support, and dispute flow not approved |
+| Operations review | operations-reviewer | evidence-only | not-approved | #56 | `docs/utility-pilot/OPERATIONS_REVIEW_DECISION.md` |
 | Governance review | governance-reviewer | not-approved | not-approved | #60 | `docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md` |
 | Campaign-specific rules | pilot-operator | draft | not-approved | #56 | `docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md` |
 | Snapshot block or approved live-check window | pilot-operator | not-published | not-approved | #56 | `docs/utility-pilot/REQUEST_WINDOW_DRAFT.md` |
