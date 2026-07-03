@@ -26,11 +26,11 @@
       "evidence": "docs/utility-pilot/SECURITY_REVIEW_DECISION.md"
     },
     "operationsReview": {
-      "status": "not-approved",
+      "status": "evidence-only",
       "owner": "operations-reviewer",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": null
+      "evidence": "docs/utility-pilot/OPERATIONS_REVIEW_DECISION.md"
     },
     "governanceReview": {
       "status": "not-approved",

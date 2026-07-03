@@ -268,7 +268,10 @@ await check("one RPC endpoint fails and one succeeds", async () => {
 });
 
 await check("stale cached value", async () => {
-  const stale = cachedBalanceFor(eligibleWallet, Date.parse("2026-07-01T12:10:01.000Z"));
+  const cached = cachedBalanceFor(eligibleWallet);
+  assert.equal(cached.status, "cached");
+  const staleAt = Date.parse(cached.checkedAt) + 6 * 60 * 1000;
+  const stale = cachedBalanceFor(eligibleWallet, staleAt);
   assert.equal(stale.status, "stale");
   assert.equal(stale.balanceTide, 250);
 });

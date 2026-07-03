@@ -3,6 +3,7 @@ const path = require("path");
 
 const root = path.join(__dirname, "..");
 const blockedStatuses = new Set(["blocked", "not-approved", "not-published", "not-started", "requires-review", "draft", "unknown", "missing"]);
+const evidenceOnlyStatuses = new Set(["evidence-only"]);
 const allowedApprovalStatuses = new Set(["not-approved", "requires-review", "approved"]);
 const requiredBoundaries = [
   "noSale",
@@ -15,6 +16,7 @@ const requiredBoundaries = [
 ];
 const requiredDraftEvidenceGates = new Set([
   "governanceReview",
+  "operationsReview",
   "privacyReview",
   "securityReview",
   "campaignSpecificRules",
@@ -69,19 +71,24 @@ function main() {
   }
 
   const blocked = Object.entries(gates.requiredBeforeLiveCampaign || {}).filter(([, gate]) => blockedStatuses.has(gate.status));
+  const evidenceOnly = Object.entries(gates.requiredBeforeLiveCampaign || {}).filter(([, gate]) => evidenceOnlyStatuses.has(gate.status));
   const approved = Object.entries(gates.requiredBeforeLiveCampaign || {}).filter(([, gate]) => gate.status === "approved");
+  const notApproved = Object.entries(gates.requiredBeforeLiveCampaign || {}).filter(([, gate]) => gate.approvalStatus !== "approved");
 
   if (args.has("--expect-blocked")) {
-    assert(blocked.length > 0, "Expected pilot live readiness to remain blocked");
+    assert(blocked.length > 0 || notApproved.length > 0, "Expected pilot live readiness to remain blocked");
     console.log("Pilot live readiness is intentionally blocked. No live campaign is approved.");
     console.log(`Blocked gates: ${blocked.length}`);
+    console.log(`Evidence-only gates: ${evidenceOnly.length}`);
     console.log(`Approved gates: ${approved.length}`);
     return;
   }
 
-  if (blocked.length > 0) {
+  if (blocked.length > 0 || notApproved.length > 0) {
     console.error("Pilot live readiness check failed: campaign is not approved to go live.");
     console.error(`Blocked gates: ${blocked.length}`);
+    console.error(`Evidence-only gates: ${evidenceOnly.length}`);
+    console.error(`Approved gates: ${approved.length}`);
     for (const [name, gate] of blocked) {
       console.error(`- ${name}: ${gate.status}, owner ${gate.owner}, approval ${gate.approvalStatus} (#${gate.issue})`);
     }
