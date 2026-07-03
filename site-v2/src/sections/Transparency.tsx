@@ -4,7 +4,7 @@ type TransparencyCopy = {
   eyebrow: string;
   title: string;
   body: string;
-  cards: readonly Array<{
+  cards: ReadonlyArray<{
     title: string;
     body: string;
     href?: string;
