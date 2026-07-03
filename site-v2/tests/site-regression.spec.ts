@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+﻿import { expect, test, type Page } from "@playwright/test";
 
 const validWallet = "0x087f0c360060ab380B2271FdcC32091d91bBec8F";
 const rpcPattern = /https:\/\/(ethereum-sepolia-rpc\.publicnode\.com|rpc\.sepolia\.org)\/?/;
@@ -70,7 +70,8 @@ test("eligibility card handles RPC unavailable without fake zero data", async ({
   await page.getByRole("button", { name: /Check Sepolia balance/i }).click();
 
   await expect(page.getByText(/Data: UNAVAILABLE/i)).toBeVisible();
-  await expect(page.getByText(/campaign is not live/i)).toBeVisible();
+  await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
+  await expect(page.locator("p").filter({ hasText: /manual review/i }).last()).toBeVisible();
   await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer/i })).toHaveCount(0);
 });
 
@@ -83,15 +84,16 @@ test("eligibility card displays mocked sufficient Sepolia balance as live read-o
 
   await expect(page.getByText(/150 TIDE/i)).toBeVisible();
   await expect(page.getByText(/Data: LIVE/i)).toBeVisible();
-  await expect(page.getByText(/Campaign status: draft-not-live/i)).toBeVisible();
+  await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
+  await expect(page.locator("p").filter({ hasText: /manual review/i }).last()).toBeVisible();
   await expect(page.getByText(/No transaction button/i)).toBeVisible();
 });
 
 test("localized long strings remain readable without horizontal overflow", async ({ page }) => {
   await page.goto("/");
 
-  for (const locale of ["ES", "RU"]) {
-    await page.locator(".language-switcher button").filter({ hasText: locale }).click();
+  for (const locale of [/espanol/i, /русском/i]) {
+    await page.getByRole("button", { name: locale }).click();
     await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
     await assertNoHorizontalOverflow(page);
   }
