@@ -16,7 +16,7 @@ npm run pilot:live:blocked
 
 | Blocker | Owner | Current status | Approval status | Tracking issue | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| Legal review | legal-reviewer | not-approved | not-approved | #56 | External counsel review not complete |
+| Legal review | legal-reviewer | evidence-only | not-approved | #56 | `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` |
 | Privacy review | privacy-reviewer | not-approved | not-approved | #56 | `docs/utility-pilot/PRIVACY_REVIEW_DECISION.md` |
 | Security review | security-reviewer | not-approved | not-approved | #62 | `docs/utility-pilot/SECURITY_REVIEW_DECISION.md` |
 | Operations review | operations-reviewer | evidence-only | not-approved | #56 | `docs/utility-pilot/OPERATIONS_REVIEW_DECISION.md` |

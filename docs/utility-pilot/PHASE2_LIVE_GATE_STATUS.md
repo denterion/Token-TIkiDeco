@@ -17,10 +17,10 @@ npm run pilot:live:blocked
 | Metric | Count |
 | --- | ---: |
 | Total live-campaign gates | 14 |
-| Gates blocked or draft | 13 |
-| Gates with evidence-only no-go status | 1 |
+| Gates blocked or draft | 12 |
+| Gates with evidence-only no-go status | 2 |
 | Gates approved | 0 |
-| Gates missing approval evidence | 1 |
+| Gates missing approval evidence | 0 |
 
 The campaign remains `draft-not-live`. `npm run pilot:live:blocked` is expected to pass, and `npm run pilot:live:check` is expected to fail until every gate is approved.
 
@@ -28,6 +28,7 @@ The campaign remains `draft-not-live`. `npm run pilot:live:blocked` is expected 
 
 | Gate | Owner | Issue | Status | Approval | Evidence |
 | --- | --- | --- | --- | --- | --- |
+| Legal review | legal-reviewer | #56 | evidence-only | not-approved | `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` |
 | Governance review | governance-reviewer | #60 | not-approved | not-approved | `docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md` |
 | Privacy review | privacy-reviewer | #56 | not-approved | not-approved | `docs/utility-pilot/PRIVACY_REVIEW_DECISION.md` |
 | Security review | security-reviewer | #62 | not-approved | not-approved | `docs/utility-pilot/SECURITY_REVIEW_DECISION.md` |
@@ -46,15 +47,11 @@ Draft evidence means the project has a reviewable file. It does not mean the gat
 
 ## Gates Still Missing Approval Evidence
 
-| Gate | Owner | Issue | Current status | Approval needed |
-| --- | --- | --- | --- | --- |
-| Legal review | legal-reviewer | #56 | not-approved | Counsel or legal-review evidence for the specific pilot proposal |
-
-The operations-review gate now has no-go evidence, but it is still not approved. Legal review remains the only live-campaign gate without an evidence document. No gate should be marked approved until reviewer evidence and explicit approval exist.
+No live-campaign gate is missing a reviewable evidence document. Legal and operations review now have no-go evidence, but both remain not approved. No gate should be marked approved until reviewer evidence and explicit approval exist.
 
 ## Next Owner Actions
 
-1. Issue #56: review campaign rules, request-window draft, manual review, dispute flow, privacy no-go boundaries, operations no-go evidence, and the remaining legal blocker.
+1. Issue #56: review campaign rules, request-window draft, manual review, dispute flow, privacy no-go boundaries, legal no-go evidence, and operations no-go evidence.
 2. Issue #58: review inventory limits and aggregate allocation-report workflow.
 3. Issue #60: keep the governance no-go decision current while mainnet, sale, value-claim, V2-promotion, audit, and active-utility gates remain blocked.
 4. Issue #62: keep security no-go evidence current while V2 remains candidate-only and independent audit has not started.
