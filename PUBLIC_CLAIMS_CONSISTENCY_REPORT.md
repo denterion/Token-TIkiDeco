@@ -39,6 +39,7 @@ This is a compliance-oriented documentation control, not legal advice.
 - `docs/utility-pilot/ELIGIBILITY_RULES.md`
 - `docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md`
 - `docs/utility-pilot/INVENTORY_LIMITS_DRAFT.md`
+- `docs/utility-pilot/LEGAL_REVIEW_DECISION.md`
 - `docs/utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md`
 - `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md`
 - `docs/utility-pilot/MOCK_ELIGIBILITY_ENGINE.md`
@@ -186,19 +187,19 @@ None.
 | `docs/PROJECT_FACTS.md` | 77 | `audited` | \| The project must not be described as audited. \| `SECURITY_REVIEW.md` out-of-scope section excludes formal audit certification; `deployments/canonical.json` independent audit status is `not-started`. \| 2026-06-17 \| verified \| |
 | `docs/PROJECT_FACTS.md` | 116 | `partner` | \| Possible utility scenarios include loyalty/access eligibility, community rewards, event RSVP priority, transparent project reporting, partner perk campaigns, and non-binding governance signaling. \| `docs/UTILITY.md`. \| 2026-06-17 \| planned \| |
 | `docs/PROJECT_FACTS.md` | 117 | `guaranteed` | \| Utility scenarios are not active guest benefits, not financial rights, and not guaranteed future commitments. \| `docs/UTILITY.md`; `docs/ROADMAP.md`; `site/index.html`. \| 2026-06-17 \| planned \| |
-| `docs/PROJECT_FACTS.md` | 151 | `exchange listing` | \| TIDE has a monetary value, sale price, presale, exchange listing, or mainnet market. \| No confirming repository or on-chain source found; docs repeatedly state testnet/no offering boundaries. \| 2026-06-17 \| unknown \| |
-| `docs/PROJECT_FACTS.md` | 151 | `presale` | \| TIDE has a monetary value, sale price, presale, exchange listing, or mainnet market. \| No confirming repository or on-chain source found; docs repeatedly state testnet/no offering boundaries. \| 2026-06-17 \| unknown \| |
-| `docs/PROJECT_FACTS.md` | 152 | `investment` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
-| `docs/PROJECT_FACTS.md` | 152 | `profit` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
-| `docs/PROJECT_FACTS.md` | 152 | `return` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
-| `docs/PROJECT_FACTS.md` | 152 | `revenue share` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
-| `docs/PROJECT_FACTS.md` | 170 | `investment` | - "investment" |
-| `docs/PROJECT_FACTS.md` | 171 | `presale` | - "presale" |
-| `docs/PROJECT_FACTS.md` | 172 | `profit` | - "profit" |
-| `docs/PROJECT_FACTS.md` | 174 | `guaranteed` | - "guaranteed utility" |
-| `docs/PROJECT_FACTS.md` | 175 | `hotel ownership` | - "hotel ownership" |
-| `docs/PROJECT_FACTS.md` | 176 | `revenue share` | - "revenue share" |
-| `docs/PROJECT_FACTS.md` | 177 | `audited` | - "audited" |
+| `docs/PROJECT_FACTS.md` | 152 | `exchange listing` | \| TIDE has a monetary value, sale price, presale, exchange listing, or mainnet market. \| No confirming repository or on-chain source found; docs repeatedly state testnet/no offering boundaries. \| 2026-06-17 \| unknown \| |
+| `docs/PROJECT_FACTS.md` | 152 | `presale` | \| TIDE has a monetary value, sale price, presale, exchange listing, or mainnet market. \| No confirming repository or on-chain source found; docs repeatedly state testnet/no offering boundaries. \| 2026-06-17 \| unknown \| |
+| `docs/PROJECT_FACTS.md` | 153 | `investment` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
+| `docs/PROJECT_FACTS.md` | 153 | `profit` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
+| `docs/PROJECT_FACTS.md` | 153 | `return` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
+| `docs/PROJECT_FACTS.md` | 153 | `revenue share` | \| TIDE gives equity, debt, revenue share, profit share, dividends, real-estate ownership, or investment return rights. \| No confirming repository or on-chain source found; docs explicitly prohibit this framing. \| 2026-06-17 \| unknown \| |
+| `docs/PROJECT_FACTS.md` | 171 | `investment` | - "investment" |
+| `docs/PROJECT_FACTS.md` | 172 | `presale` | - "presale" |
+| `docs/PROJECT_FACTS.md` | 173 | `profit` | - "profit" |
+| `docs/PROJECT_FACTS.md` | 175 | `guaranteed` | - "guaranteed utility" |
+| `docs/PROJECT_FACTS.md` | 176 | `hotel ownership` | - "hotel ownership" |
+| `docs/PROJECT_FACTS.md` | 177 | `revenue share` | - "revenue share" |
+| `docs/PROJECT_FACTS.md` | 178 | `audited` | - "audited" |
 | `docs/PUBLIC_MATERIALS.md` | 61 | `hotel ownership` | This is not a token sale. TIDE currently has no stated monetary value and is not offered for sale. The project does not claim hotel ownership rights, revenue rights, exchange listings, active guest benefits, or an independent audit. |
 | `docs/releases/RELEASE_CHECKLIST.md` | 12 | `audited` | - [ ] Confirm public text says TIDE is a Sepolia prototype, not offered for sale, has no stated monetary value, is not deployed on mainnet, and is not independently audited. |
 | `docs/releases/RELEASE_CHECKLIST.md` | 12 | `independently audited` | - [ ] Confirm public text says TIDE is a Sepolia prototype, not offered for sale, has no stated monetary value, is not deployed on mainnet, and is not independently audited. |
@@ -248,6 +249,12 @@ None.
 | `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 67 | `audited` | - Prohibited phrase: independently audited. |
 | `docs/utility-pilot/CAMPAIGN_RULES_SCHEMA.md` | 67 | `independently audited` | - Prohibited phrase: independently audited. |
 | `docs/utility-pilot/INVENTORY_LIMITS_DRAFT.md` | 64 | `guaranteed` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Inventory planning does not create booking rights, property rights, revenue rights, cash redemption, resale value, or guaranteed benefits. |
+| `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` | 40 | `return` | - no hotel ownership, revenue rights, equity, debt, redemption, exchange, or return rights are provided; |
+| `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` | 40 | `hotel ownership` | - no hotel ownership, revenue rights, equity, debt, redemption, exchange, or return rights are provided; |
+| `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` | 52 | `investment` | - no public statement may imply investment, value, price, profit, ownership, revenue share, active benefits, or independent audit completion. |
+| `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` | 52 | `profit` | - no public statement may imply investment, value, price, profit, ownership, revenue share, active benefits, or independent audit completion. |
+| `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` | 52 | `revenue share` | - no public statement may imply investment, value, price, profit, ownership, revenue share, active benefits, or independent audit completion. |
+| `docs/utility-pilot/LEGAL_REVIEW_DECISION.md` | 64 | `guaranteed` | - confirmation that testnet allocation, if any, remains no-sale, no-value, no-mainnet, and no-guaranteed-benefit; |
 | `docs/utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md` | 136 | `audited` | \| Disclaimers \| No sale, no stated monetary value, no mainnet, no active guest benefit, not independently audited \| |
 | `docs/utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md` | 136 | `independently audited` | \| Disclaimers \| No sale, no stated monetary value, no mainnet, no active guest benefit, not independently audited \| |
 | `docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md` | 94 | `guaranteed` | Disputes do not create cash rights, compensation rights, property rights, revenue rights, resale value, or guaranteed access. |

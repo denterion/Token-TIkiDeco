@@ -5,11 +5,11 @@
   "purpose": "Machine-readable gate list for a future Sepolia-only utility pilot campaign. This file does not approve a live campaign.",
   "requiredBeforeLiveCampaign": {
     "legalReview": {
-      "status": "not-approved",
+      "status": "evidence-only",
       "owner": "legal-reviewer",
       "approvalStatus": "not-approved",
       "issue": 56,
-      "evidence": null
+      "evidence": "docs/utility-pilot/LEGAL_REVIEW_DECISION.md"
     },
     "privacyReview": {
       "status": "not-approved",

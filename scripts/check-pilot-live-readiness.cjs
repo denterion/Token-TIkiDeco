@@ -16,6 +16,7 @@ const requiredBoundaries = [
 ];
 const requiredDraftEvidenceGates = new Set([
   "governanceReview",
+  "legalReview",
   "operationsReview",
   "privacyReview",
   "securityReview",
