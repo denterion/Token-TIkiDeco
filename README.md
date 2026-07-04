@@ -24,7 +24,7 @@
 
 ## Start Here
 
-Use [`docs/START_HERE.md`](docs/START_HERE.md) for the short operator, auditor, community, governance, and release-manager paths. The current operational roadmap is [`docs/THREE_PHASE_ROADMAP.md`](docs/THREE_PHASE_ROADMAP.md).
+Use [`docs/START_HERE.md`](docs/START_HERE.md) for the short operator, auditor, community, governance, and release-manager paths. The official public preview packet is [`docs/OFFICIAL_PUBLIC_PREVIEW.md`](docs/OFFICIAL_PUBLIC_PREVIEW.md). The current operational roadmap is [`docs/THREE_PHASE_ROADMAP.md`](docs/THREE_PHASE_ROADMAP.md).
 
 ## What It Is
 
@@ -146,11 +146,13 @@ The community preview collects public feedback on the read-only website, documen
 
 Start here:
 
+- [`docs/OFFICIAL_PUBLIC_PREVIEW.md`](docs/OFFICIAL_PUBLIC_PREVIEW.md)
 - [`docs/COMMUNITY_PREVIEW.md`](docs/COMMUNITY_PREVIEW.md)
 - [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md)
 - [`docs/NEXT_ISSUES.md`](docs/NEXT_ISSUES.md)
 - [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md)
 - [`docs/COMMUNITY_PREVIEW_LAUNCH_PLAN.md`](docs/COMMUNITY_PREVIEW_LAUNCH_PLAN.md)
+- [`docs/reports/REPORT_2026_07_04_OFFICIAL_PUBLIC_PREVIEW.md`](docs/reports/REPORT_2026_07_04_OFFICIAL_PUBLIC_PREVIEW.md)
 
 Open public feedback through the GitHub issue templates. Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
 

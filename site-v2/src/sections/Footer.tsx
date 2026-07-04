@@ -6,6 +6,7 @@ type FooterCopy = {
   disclaimer: string;
   links: {
     repository: string;
+    officialPreview: string;
     projectFacts: string;
     securityPolicy: string;
     claimsMatrix: string;
@@ -21,6 +22,7 @@ type FooterCopy = {
 export function Footer({ copy }: { copy: FooterCopy }) {
   const links = [
     [copy.links.repository, projectFacts.links.repository],
+    [copy.links.officialPreview, projectFacts.links.officialPreview],
     [copy.links.projectFacts, projectFacts.links.projectFacts],
     [copy.links.securityPolicy, projectFacts.links.securityPolicy],
     [copy.links.claimsMatrix, projectFacts.links.claimsMatrix],

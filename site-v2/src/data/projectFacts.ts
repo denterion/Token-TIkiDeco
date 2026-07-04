@@ -22,6 +22,7 @@ export const projectFacts = {
   links: {
     repository: "https://github.com/denterion/Token-TIkiDeco",
     issues: "https://github.com/denterion/Token-TIkiDeco/issues",
+    officialPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OFFICIAL_PUBLIC_PREVIEW.md",
     projectFacts: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
     claimsMatrix: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md",
     feedbackGuide: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md",
