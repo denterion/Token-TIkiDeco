@@ -108,6 +108,7 @@ export const copy = {
         "TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice.",
       links: {
         repository: "Repository",
+        officialPreview: "Official Preview",
         projectFacts: "Project Facts",
         securityPolicy: "Security Policy",
         claimsMatrix: "Claims Matrix",
@@ -194,6 +195,7 @@ export const copy = {
         "TIDE es un prototipo en Sepolia testnet. No se ofrece a la venta, no tiene valor monetario declarado, no esta desplegado en mainnet y no ha completado una auditoria independiente. Nada en este sitio es asesoramiento financiero, de inversion, legal o fiscal.",
       links: {
         repository: "Repositorio",
+        officialPreview: "Preview oficial",
         projectFacts: "Hechos del proyecto",
         securityPolicy: "Politica de seguridad",
         claimsMatrix: "Claims Matrix",
@@ -280,6 +282,7 @@ export const copy = {
         "TIDE - прототип в Sepolia testnet. Он не предлагается к продаже, не имеет заявленной денежной стоимости, не развернут в mainnet; independent audit not started. Ничто на сайте не является финансовой, инвестиционной, юридической или налоговой консультацией.",
       links: {
         repository: "Repository",
+        officialPreview: "Official Preview",
         projectFacts: "Факты проекта",
         securityPolicy: "Security Policy",
         claimsMatrix: "Claims Matrix",

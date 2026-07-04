@@ -12,7 +12,7 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | V1 | Historical canonical Sepolia deployment. | Do not present as upgraded. |
 | V2 | Candidate code with freeze baseline. | External audit not started. |
 | Legal/governance | Draft policies and counsel brief exist. | Entity/SPV and counsel review are not complete. |
-| Community preview | Materials and issue templates exist. | Structured feedback collection has not yet been run. |
+| Community preview | Materials, issue templates, and the Official Public Preview packet exist. | Continue structured feedback collection and publish privacy-safe summaries. |
 | Operator/auditor/community entry path | Full documentation exists. | Short start paths are required so important facts are not buried. |
 | Browser-level site QA | Static and Playwright browser checks exist. | Keep desktop/mobile, RPC unavailable, mocked balance, and localized overflow checks green. |
 
@@ -23,6 +23,8 @@ Goal: make the project easy for a non-technical reader to understand without cre
 Exit criteria:
 
 - [ ] Minimal public site merged and deployed by GitHub Pages.
+- [ ] Official Public Preview packet is current and linked from README / Start Here.
+- [ ] Public transparency report exists for the preview packet.
 - [ ] `docs/PROJECT_FACTS.md` current after merge.
 - [ ] `docs/START_HERE.md` current after merge.
 - [ ] `npm run claims` passes.
