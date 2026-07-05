@@ -39,6 +39,13 @@ async function mockRpcBalance(page: Page, tideBalance: bigint, chainId = 1115511
   });
 }
 
+async function checkSepoliaBalanceWithKeyboard(page: Page) {
+  const button = page.getByRole("button", { name: /Check Sepolia balance/i });
+  await button.focus();
+  await expect(button).toBeFocused();
+  await page.keyboard.press("Enter");
+}
+
 test("homepage explains current status and avoids transaction CTAs", async ({ page }) => {
   await page.goto("/");
 
@@ -67,7 +74,7 @@ test("eligibility card handles RPC unavailable without fake zero data", async ({
   await page.goto("/");
 
   await page.getByLabel("Wallet address").fill(validWallet);
-  await page.getByRole("button", { name: /Check Sepolia balance/i }).click();
+  await checkSepoliaBalanceWithKeyboard(page);
 
   await expect(page.getByText(/Data: UNAVAILABLE/i)).toBeVisible();
   await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
@@ -80,7 +87,7 @@ test("eligibility card displays mocked sufficient Sepolia balance as live read-o
   await page.goto("/");
 
   await page.getByLabel("Wallet address").fill(validWallet);
-  await page.getByRole("button", { name: /Check Sepolia balance/i }).click();
+  await checkSepoliaBalanceWithKeyboard(page);
 
   await expect(page.getByText(/150 TIDE/i)).toBeVisible();
   await expect(page.getByText(/Data: LIVE/i)).toBeVisible();
