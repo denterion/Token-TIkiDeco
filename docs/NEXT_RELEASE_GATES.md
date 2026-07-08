@@ -15,6 +15,7 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | Community preview | Materials, issue templates, and the Official Public Preview packet exist. | Continue structured feedback collection and publish privacy-safe summaries. |
 | Operator/auditor/community entry path | Full documentation exists. | Short start paths are required so important facts are not buried. |
 | Browser-level site QA | Static and Playwright browser checks exist. | Keep desktop/mobile, RPC unavailable, mocked balance, and localized overflow checks green. |
+| Release control | `npm run project:control` summarizes current branch, release evidence, canonical deployment, pilot gates, and next actions. | Keep it green after release-doc, site, audit, or gate changes. |
 
 ## Gate 1: Public Preview Stabilization
 
@@ -27,6 +28,7 @@ Exit criteria:
 - [ ] Public transparency report exists for the preview packet.
 - [ ] `docs/PROJECT_FACTS.md` current after merge.
 - [ ] `docs/START_HERE.md` current after merge.
+- [ ] `npm run project:control` points to the correct next release action.
 - [ ] `npm run claims` passes.
 - [ ] `npm run site` passes.
 - [ ] `npm run site:browser` passes after `npm run site:browser:install`.
