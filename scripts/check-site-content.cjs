@@ -105,6 +105,20 @@ function extractLinks(html) {
   return links;
 }
 
+function normalizedAbsoluteUrl(value) {
+  try {
+    const url = new URL(value);
+    url.hash = "";
+    return url.toString();
+  } catch {
+    return null;
+  }
+}
+
+function absoluteLinkSet(links) {
+  return new Set(links.map(normalizedAbsoluteUrl).filter(Boolean));
+}
+
 function phraseRegex(phrase) {
   const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
   return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i");
@@ -164,6 +178,8 @@ function main() {
   const sitemap = read(sitemapPath);
   const htmlPaths = htmlFiles();
   const allHtml = htmlPaths.map(read).join("\n");
+  const allLinks = htmlPaths.flatMap((filePath) => extractLinks(read(filePath)));
+  const absoluteLinks = absoluteLinkSet(allLinks);
   const searchable = `${allHtml}\n${css}\n${js}`.toLowerCase();
 
   for (const required of requiredPages) {
@@ -186,6 +202,10 @@ function main() {
   assert(sitemap.includes("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
   assert(sitemap.includes("https://tikideco.xyz/business/"), "sitemap missing business page");
   assert(sitemap.includes("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"), "Site must link to Project Facts");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md"), "Site must link to Release Control Center");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md"), "Site must link to Roadmap");
   assert(fs.existsSync(path.join(siteDir, ".well-known", "security.txt")), "security.txt missing");
   assert(!allHtml.includes(oldGitHubPagesPath), "old GitHub Pages URL found in HTML");
 

@@ -11,8 +11,11 @@ const requiredLinks = [
   manifest.contracts.token.verification,
   manifest.contracts.vestingVault.verification,
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md",
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md",
-  "https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md"
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md",
+  "https://github.com/denterion/Token-TIkiDeco/issues"
 ];
 
 const requiredDisclaimers = [
@@ -20,7 +23,15 @@ const requiredDisclaimers = [
   "not offered for sale",
   "no stated monetary value",
   "not deployed on mainnet",
-  "independent audit not started"
+  "independent audit not started",
+  "not independently audited"
+];
+
+const requiredFirstScreenText = [
+  "Sepolia",
+  "No Sale",
+  "no stated monetary value",
+  "not independently audited"
 ];
 
 const banned = [
@@ -117,6 +128,10 @@ assert(!investmentStripped.includes("investment"), "Investment wording is allowe
 
 for (const disclaimer of requiredDisclaimers) {
   assert(lower.includes(disclaimer.toLowerCase()), `Missing required disclaimer: ${disclaimer}`);
+}
+
+for (const phrase of requiredFirstScreenText) {
+  assert(searchable.toLowerCase().includes(phrase.toLowerCase()), `Missing first-screen safety phrase: ${phrase}`);
 }
 
 for (const link of requiredLinks) {

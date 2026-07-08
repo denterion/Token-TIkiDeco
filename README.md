@@ -24,19 +24,39 @@
 
 ## Start Here
 
-Use [`docs/START_HERE.md`](docs/START_HERE.md) for the short operator, auditor, community, governance, and release-manager paths. The official public preview packet is [`docs/OFFICIAL_PUBLIC_PREVIEW.md`](docs/OFFICIAL_PUBLIC_PREVIEW.md). The current operational roadmap is [`docs/THREE_PHASE_ROADMAP.md`](docs/THREE_PHASE_ROADMAP.md).
+TikiDeco / TIDE is a public Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure. It is designed to make token rules, public reports, governance controls, and future pilot boundaries easier to verify.
 
-Maintainers can run the release-management control view with:
+For a first-time reader, use the four public entry points:
+
+| Entry point | Use it for |
+| --- | --- |
+| [Overview](docs/PUBLIC_ENTRYPOINTS.md#overview) | What TikiDeco is and what is safe to say publicly. |
+| [Status](docs/PUBLIC_ENTRYPOINTS.md#status) | Current Sepolia deployment, releases, and blockers. |
+| [Pilot](docs/PUBLIC_ENTRYPOINTS.md#pilot) | Planned read-only utility-pilot flow and why it is not live. |
+| [Audit](docs/PUBLIC_ENTRYPOINTS.md#audit) | V1 legacy scope, V2 candidate scope, and audit-readiness evidence. |
+
+- Short paths: [`docs/START_HERE.md`](docs/START_HERE.md)
+- Public entrypoint rules: [`docs/PUBLIC_ENTRYPOINTS.md`](docs/PUBLIC_ENTRYPOINTS.md)
+- Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
+
+## 30-Second Project Status
+
+| Question | Current answer |
+| --- | --- |
+| What is it? | Open-source Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure. |
+| What exists now? | Canonical V1 legacy token and vesting vault on Sepolia, verified source links, Safe ownership, public docs, read-only website, v0.1 and v0.2 pre-releases. |
+| What does not exist? | No token sale, no stated monetary value, no mainnet deployment, no active guest benefits, no V2 canonical promotion, no completed independent audit. |
+| What is the next release candidate? | `v0.2.0-utility-pilot-rc.1`: read-only utility-pilot evidence, with the campaign still `draft-not-live`. |
+| How do I verify it? | Start with [`deployments/canonical.json`](deployments/canonical.json), Sepolia Etherscan links below, [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md), and `npm run project:control`. |
+| How do I give feedback? | Use [GitHub Issues](https://github.com/denterion/Token-TIkiDeco/issues) and [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md). |
+
+Maintainer status command:
 
 ```bash
 npm run project:control
 ```
 
-See [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md).
-
-## What It Is
-
-TikiDeco / TIDE is a public Ethereum Sepolia testnet prototype. It is built to explore how a hospitality-linked project could publish token rules, allocation plans, vesting records, governance controls, and public report hashes in a transparent way.
+## Public Boundary
 
 TIDE is not sold, is not deployed on mainnet, has no stated monetary value, and does not represent hotel ownership, equity, debt, revenue rights, or a completed hospitality service.
 

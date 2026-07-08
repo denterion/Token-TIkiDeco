@@ -23,7 +23,10 @@ export const projectFacts = {
     repository: "https://github.com/denterion/Token-TIkiDeco",
     issues: "https://github.com/denterion/Token-TIkiDeco/issues",
     officialPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OFFICIAL_PUBLIC_PREVIEW.md",
+    publicEntrypoints: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_ENTRYPOINTS.md",
     projectFacts: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
+    releaseControl: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md",
+    roadmap: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md",
     claimsMatrix: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md",
     feedbackGuide: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md",
     communityPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COMMUNITY_PREVIEW.md",
@@ -49,24 +52,24 @@ export const requiredDisclaimers = [
 
 export const transparencyCards = [
   {
-    title: "Contract verification",
-    body: "Verified Sepolia source pages are linked from the canonical manifest.",
-    href: projectFacts.verification.token
+    title: "Project facts",
+    body: "The source-of-truth file separates verified, planned, experimental, and unknown claims.",
+    href: projectFacts.links.projectFacts
   },
   {
-    title: "Safe multisig control",
-    body: `Privileged V1 ownership is documented as ${projectFacts.safeThreshold} Safe control.`,
-    href: `https://sepolia.etherscan.io/address/${projectFacts.safeAddress}`
+    title: "Release control",
+    body: "The maintainer control view shows stale evidence, pilot blockers, and next release actions.",
+    href: projectFacts.links.releaseControl
   },
   {
-    title: "Public report hashes",
-    body: "Repository reports and on-chain hashes are cross-linked for public review.",
-    href: "https://github.com/denterion/Token-TIkiDeco/tree/main/docs/reports"
+    title: "Roadmap",
+    body: "The roadmap keeps public preview, utility pilot, and V2 audit preparation separated.",
+    href: projectFacts.links.roadmap
   },
   {
-    title: "Vesting transparency",
-    body: "The legacy vault address and candidate V2 vesting model are documented separately.",
-    href: projectFacts.verification.vault
+    title: "GitHub issues",
+    body: "Public feedback is collected through issue templates, not sale or transaction flows.",
+    href: projectFacts.links.issues
   },
   {
     title: "Claims matrix",
