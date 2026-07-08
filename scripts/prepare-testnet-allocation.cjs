@@ -9,12 +9,14 @@ const outputDir = path.join(root, "operations", "utility-pilot");
 const defaultReportPath = path.join(outputDir, "testnet-allocation-draft.json");
 const defaultSafePath = path.join(outputDir, "safe-transaction-builder-draft.json");
 const TRANSFER_SELECTOR = "0xa9059cbb";
+const defaultCreatedAt = campaign.lastUpdated ? new Date(`${campaign.lastUpdated}T00:00:00.000Z`).toISOString() : "1970-01-01T00:00:00.000Z";
 
 function parseArgs(argv) {
   const args = {
     campaignId: campaign.campaignId,
     perWalletCap: Number(campaign.allocation?.perWalletCap || 100),
     campaignCap: Number(campaign.allocation?.campaignCap || 1000),
+    createdAt: process.env.ALLOCATION_DRAFT_CREATED_AT || defaultCreatedAt,
     report: defaultReportPath,
     safe: defaultSafePath
   };
@@ -24,6 +26,7 @@ function parseArgs(argv) {
     else if (arg === "--campaign-id") args.campaignId = String(argv[++i] || "");
     else if (arg === "--per-wallet-cap") args.perWalletCap = Number(argv[++i]);
     else if (arg === "--campaign-cap") args.campaignCap = Number(argv[++i]);
+    else if (arg === "--created-at") args.createdAt = String(argv[++i] || "");
     else if (arg === "--report") args.report = path.resolve(argv[++i]);
     else if (arg === "--safe") args.safe = path.resolve(argv[++i]);
     else if (arg === "--help" || arg === "-h") args.help = true;
@@ -33,7 +36,7 @@ function parseArgs(argv) {
 }
 
 function usage() {
-  console.log("Usage: node scripts/prepare-testnet-allocation.cjs [--input allocations.csv|allocations.json] [--campaign-id tide-community-preview-001] [--per-wallet-cap 100] [--campaign-cap 1000]");
+  console.log("Usage: node scripts/prepare-testnet-allocation.cjs [--input allocations.csv|allocations.json] [--campaign-id tide-community-preview-001] [--per-wallet-cap 100] [--campaign-cap 1000] [--created-at 1970-01-01T00:00:00.000Z]");
 }
 
 function isAddress(value) {
@@ -108,11 +111,11 @@ function sha256Text(text) {
   return crypto.createHash("sha256").update(text).digest("hex");
 }
 
-function buildSafeDraft(rows) {
+function buildSafeDraft(rows, createdAt) {
   return {
     version: "1.0",
     chainId: String(canonical.chainId),
-    createdAt: new Date().toISOString(),
+    createdAt,
     meta: {
       name: `${campaign.campaignId} Sepolia allocation draft`,
       description: "Draft only. Review manually in Safe Transaction Builder. Do not broadcast without approvals.",
@@ -142,7 +145,7 @@ function buildSafeDraft(rows) {
   };
 }
 
-function buildReport(rows, total, args, safeRel) {
+function buildReport(rows, total, args, safeRel, safeSha256) {
   const report = {
     status: campaign.status,
     campaignId: campaign.campaignId,
@@ -163,14 +166,21 @@ function buildReport(rows, total, args, safeRel) {
     publishedCapacity: campaign.inventory.publishedCapacity,
     perWalletCap: args.perWalletCap,
     campaignCap: args.campaignCap,
+    totalInputRows: rows.length,
     totalWallets: rows.length,
+    validTestWallets: rows.length,
+    duplicateWalletsRejected: 0,
+    invalidRowsRejected: 0,
     totalTestnetTideAllocated: `${total} TIDE`,
     noPrivateData: true,
     noGuaranteedBenefit: true,
     noHotelOwnership: true,
+    aggregateOnlyReport: true,
+    walletAddressesIncluded: false,
+    walletAddressPolicy: "Wallet addresses are included only in the Safe Transaction Builder draft for manual signer review; this report is aggregate-only.",
     requiredReportTemplate: campaign.reports.allocationReportTemplate,
     safeTransactionBuilderDraft: safeRel,
-    allocations: rows.map((row) => ({ address: row.address, amountTide: row.amountTide })),
+    safeTransactionBuilderDraftSha256: safeSha256,
     documentSha256: null
   };
   const withoutHash = JSON.stringify(report, null, 2);
@@ -186,6 +196,7 @@ function main() {
   }
 
   if (!args.campaignId) throw new Error("Campaign ID is required");
+  if (Number.isNaN(Date.parse(args.createdAt))) throw new Error(`Invalid createdAt timestamp: ${args.createdAt}`);
   if (args.campaignId !== campaign.campaignId) throw new Error(`Campaign ID mismatch: ${args.campaignId} != ${campaign.campaignId}`);
   if (!["draft-not-live", "published-testnet"].includes(campaign.status)) {
     throw new Error(`Campaign status does not allow allocation draft generation: ${campaign.status}`);
@@ -198,11 +209,14 @@ function main() {
   const rows = normalizeRows(input.rows, input.campaignId || args.campaignId);
   const total = assertAllocations(rows, args);
   fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(path.dirname(args.safe), { recursive: true });
+  fs.mkdirSync(path.dirname(args.report), { recursive: true });
 
-  const safeDraft = buildSafeDraft(rows);
-  fs.writeFileSync(args.safe, `${JSON.stringify(safeDraft, null, 2)}\n`);
+  const safeDraft = buildSafeDraft(rows, new Date(args.createdAt).toISOString());
+  const safeText = `${JSON.stringify(safeDraft, null, 2)}\n`;
+  fs.writeFileSync(args.safe, safeText);
   const safeRel = path.relative(root, args.safe).replaceAll(path.sep, "/");
-  const report = buildReport(rows, total, args, safeRel);
+  const report = buildReport(rows, total, args, safeRel, sha256Text(safeText));
   fs.writeFileSync(args.report, `${JSON.stringify(report, null, 2)}\n`);
 
   console.log(`Prepared allocation report draft: ${path.relative(root, args.report)}`);

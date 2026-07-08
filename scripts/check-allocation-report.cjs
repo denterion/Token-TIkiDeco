@@ -7,11 +7,21 @@ const defaultTargets = [
   "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md"
 ];
 const reportDir = path.join(root, "operations", "utility-pilot");
-const reportFiles = fs.existsSync(reportDir)
-  ? fs.readdirSync(reportDir)
-    .filter((file) => file.endsWith(".json") && !file.includes("safe-transaction-builder"))
-    .map((file) => path.join("operations", "utility-pilot", file))
-  : [];
+
+function walk(dir) {
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) return walk(fullPath);
+    return [fullPath];
+  });
+}
+
+const reportFiles = walk(reportDir)
+  .filter((file) => file.endsWith(".json"))
+  .filter((file) => !path.basename(file).includes("safe-transaction-builder"))
+  .filter((file) => !path.basename(file).includes("allocation-input"))
+  .map((file) => path.relative(root, file).replaceAll(path.sep, "/"));
 
 const banned = [
   "buy TIDE",
@@ -69,7 +79,9 @@ const requiredReportKeys = [
   "documentSha256",
   "noPrivateData",
   "noGuaranteedBenefit",
-  "noHotelOwnership"
+  "noHotelOwnership",
+  "aggregateOnlyReport",
+  "walletAddressesIncluded"
 ];
 
 function phraseRegex(phrase) {
@@ -120,6 +132,9 @@ for (const report of reportFiles) {
   if (json.noPrivateData !== true) throw new Error(`${report} must confirm noPrivateData=true`);
   if (json.noGuaranteedBenefit !== true) throw new Error(`${report} must confirm noGuaranteedBenefit=true`);
   if (json.noHotelOwnership !== true) throw new Error(`${report} must confirm noHotelOwnership=true`);
+  if (json.aggregateOnlyReport !== true) throw new Error(`${report} must confirm aggregateOnlyReport=true`);
+  if (json.walletAddressesIncluded !== false) throw new Error(`${report} must confirm walletAddressesIncluded=false`);
+  if ("allocations" in json) throw new Error(`${report} must not include address-level allocations; keep public report aggregate-only`);
   if (!String(json.documentSha256 || "").match(/^[a-f0-9]{64}$/)) throw new Error(`${report} must include a SHA-256 document hash`);
   if (json.status !== "draft-not-live") {
     for (const key of ["totalWallets", "totalTestnetTideAllocated", "noPrivateData"]) {

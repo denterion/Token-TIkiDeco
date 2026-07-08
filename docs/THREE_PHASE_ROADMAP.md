@@ -46,7 +46,9 @@ Goal: create an executable review path for the first limited Sepolia-only utilit
 Exit criteria:
 
 - [ ] [`utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md`](utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md) is current.
+- [ ] [`utility-pilot/LIMITED_SEPOLIA_PREVIEW_EVIDENCE.md`](utility-pilot/LIMITED_SEPOLIA_PREVIEW_EVIDENCE.md) and [`utility-pilot/LIVE_GATE_OWNER_MATRIX.md`](utility-pilot/LIVE_GATE_OWNER_MATRIX.md) map every live gate to owner, evidence, blocking reason, reviewer, approval format, and command.
 - [ ] `npm run pilot:live:blocked` passes until every live gate has evidence.
+- [ ] `npm run pilot:evidence` passes while confirming the campaign is still blocked and evidence-owned.
 - [ ] Campaign rules, request window, snapshot or approved live-check window, inventory limits, manual review, staff process, dispute process, privacy review, allocation report path, and transparency update path are linked from the gate file.
 - [ ] No private participant data, guest data, emails, private keys, seed phrases, or sensitive personal data are collected by default.
 - [ ] A dry-run allocation report can be generated and reviewed without broadcasting a transaction.

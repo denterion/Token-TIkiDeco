@@ -30,6 +30,7 @@ const requiredDraftEvidenceGates = new Set([
   "communityFeedbackSummary",
   "transparencyUpdate"
 ]);
+const liveCampaignApprovalKeys = ["legal", "privacy", "security", "operations", "governance"];
 
 function readJson(relativePath) {
   return JSON.parse(fs.readFileSync(path.join(root, relativePath), "utf8"));
@@ -49,7 +50,16 @@ function main() {
   const campaign = readJson("config/utility-pilot/tide-community-preview-001.json");
 
   assert(gates.campaignId === campaign.campaignId, "Live-readiness campaignId must match campaign manifest");
+  assert(gates.status === "blocked", "Live-readiness gate register must remain blocked until a separate approval PR changes it");
   assert(campaign.status === "draft-not-live", "Campaign must remain draft-not-live until every live blocker is approved");
+  assert(campaign.requestWindow?.status !== "published", "Request window must not be published while campaign approvals are blocked");
+  assert(!campaign.requestWindow?.opensAt && !campaign.requestWindow?.closesAt, "Request window dates must stay empty while campaign approvals are blocked");
+  assert(Number(campaign.inventory?.publishedCapacity || 0) === 0, "Inventory capacity must stay zero while campaign approvals are blocked");
+  assert(campaign.inventory?.status !== "published", "Inventory must not be published while campaign approvals are blocked");
+  assert(!campaign.reports?.publishedAllocationReport, "Published allocation report must stay empty until review approval exists");
+  for (const key of liveCampaignApprovalKeys) {
+    assert(campaign.requiredApprovalsBeforePublication?.[key] !== "approved", `Campaign approval ${key} must not be approved in draft-not-live state`);
+  }
 
   for (const boundary of requiredBoundaries) {
     assert(gates.hardBoundaries?.[boundary] === true, `Missing required hard boundary: ${boundary}`);
@@ -68,6 +78,8 @@ function main() {
       assert(gate.status === "approved", `${name} approvalStatus cannot be approved while status is ${gate.status}`);
       assert(gate.approvalStatus === "approved", `${name} status cannot be approved while approvalStatus is ${gate.approvalStatus}`);
       assert(gate.evidence !== null, `${name} must include evidence before approval`);
+      assert(typeof gate.approvedBy === "string" && gate.approvedBy.trim().length > 0, `${name} approved gate must include approvedBy`);
+      assert(typeof gate.approvedAt === "string" && !Number.isNaN(Date.parse(gate.approvedAt)), `${name} approved gate must include approvedAt timestamp`);
     }
   }
 
