@@ -11,6 +11,9 @@ const requiredDocs = [
   "docs/AUDITOR_QUESTIONS.md",
   "docs/AUDIT_RESPONSE_PROCESS.md",
   "docs/V2_AUDIT_TARGET_FREEZE.md",
+  "docs/V2_AUDIT_OWNER_DECISIONS.md",
+  "docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md",
+  "docs/FRESH_CHECKOUT_RELEASE_PROOF.md",
   "KNOWN_ISSUES.md",
   "security/slither-baseline-v2.json"
 ];
@@ -25,6 +28,20 @@ const bannedClaims = [
   "revenue share",
   "hotel ownership",
   "profit"
+];
+const knownIssueIds = ["KI-01", "KI-02", "KI-03", "KI-04", "KI-05", "KI-06", "KI-07", "KI-08", "KI-09"];
+const roleChecklistRequired = [
+  "default admin",
+  "pauser",
+  "reporter",
+  "vesting admin",
+  "treasury",
+  "deployer",
+  "zero addresses",
+  "safe threshold",
+  "emergency pause owner",
+  "role-transfer evidence",
+  "public-network config fails closed"
 ];
 
 const allowedContext = [
@@ -95,11 +112,29 @@ for (const doc of requiredDocs) assertNoUnsupportedClaims(doc, read(doc));
 const freezeDoc = read("docs/V2_AUDIT_TARGET_FREEZE.md");
 const indexDoc = read("docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md");
 const readinessDoc = read("docs/EXTERNAL_AUDIT_READINESS.md");
+const ownerDecisionsDoc = read("docs/V2_AUDIT_OWNER_DECISIONS.md");
+const roleChecklistDoc = read("docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md").toLowerCase();
+const freshProofDoc = read("docs/FRESH_CHECKOUT_RELEASE_PROOF.md");
+const knownIssuesDoc = read("KNOWN_ISSUES.md");
 if (!/[a-f0-9]{40}/i.test(freezeDoc)) fail("V2 freeze commit missing from docs/V2_AUDIT_TARGET_FREEZE.md");
 if (!/V2 freeze commit\s*\|\s*`?[a-f0-9]{40}`?/i.test(indexDoc)) fail("V2 freeze commit missing from EXTERNAL_AUDIT_PACKAGE_INDEX.md");
 if (!/Current evidence commit\s*\|\s*`?[a-f0-9]{40}`?/i.test(indexDoc)) fail("Current evidence commit missing from EXTERNAL_AUDIT_PACKAGE_INDEX.md");
 if (!readinessDoc.includes("npm run foundry:test") || !readinessDoc.includes("npm run foundry:coverage")) {
   fail("EXTERNAL_AUDIT_READINESS.md must reference Foundry tests and coverage");
+}
+if (ownerDecisionsDoc.includes("needs-owner-decision")) fail("V2 owner decisions still contain needs-owner-decision");
+for (const id of knownIssueIds) {
+  if (!knownIssuesDoc.includes(id)) fail(`KNOWN_ISSUES.md missing expected finding ${id}`);
+  if (!ownerDecisionsDoc.includes(id)) fail(`V2_AUDIT_OWNER_DECISIONS.md missing decision for ${id}`);
+}
+for (const phrase of ["decision", "rationale", "accepted risk", "planned remediation", "auditor should review", "linked test"]) {
+  if (!ownerDecisionsDoc.toLowerCase().includes(phrase)) fail(`V2 owner decisions missing required field wording: ${phrase}`);
+}
+for (const phrase of roleChecklistRequired) {
+  if (!roleChecklistDoc.includes(phrase)) fail(`V2 role manifest checklist missing required item: ${phrase}`);
+}
+for (const phrase of ["clean clone", "npm ci", "npm run compile", "npm test", "npm run foundry:test", "npm run foundry:coverage", "npm run slither", "npm run site", "npm run site:browser", "checksum", "expected blocked gates"]) {
+  if (!freshProofDoc.toLowerCase().includes(phrase.toLowerCase())) fail(`Fresh checkout proof doc missing: ${phrase}`);
 }
 
 const packageDir = latestPackageDir();
@@ -107,13 +142,26 @@ const packageCommit = path.basename(packageDir);
 if (packageCommit !== currentCommit()) {
   fail(`Latest V2 audit package is not generated from current commit: ${packageCommit} != ${currentCommit()}`);
 }
+const auditPackageManifestPath = path.join(packageDir, "audit-package-manifest.json");
+if (!fs.existsSync(auditPackageManifestPath)) fail("Audit package missing audit-package-manifest.json");
+const auditPackageManifest = JSON.parse(fs.readFileSync(auditPackageManifestPath, "utf8"));
+if (auditPackageManifest.headCommit !== currentCommit()) {
+  fail(`Audit package manifest headCommit is stale: ${auditPackageManifest.headCommit} != ${currentCommit()}`);
+}
+if (auditPackageManifest.nonCanonical !== true) fail("Audit package manifest must mark V2 as non-canonical");
+if (auditPackageManifest.independentAuditStatus !== "not-started") fail("Audit package manifest must keep independent audit status not-started");
 
 const requiredPackageFiles = [
   "contracts/TikiDecoTokenV2.sol",
   "contracts/TikiDecoVestingVaultV2.sol",
   "KNOWN_ISSUES.md",
   "docs/V2_AUDIT_TARGET_FREEZE.md",
+  "docs/V2_AUDIT_OWNER_DECISIONS.md",
+  "docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md",
+  "docs/FRESH_CHECKOUT_RELEASE_PROOF.md",
   "security/slither-baseline-v2.json",
+  "lcov.info",
+  "security-artifacts/slither/slither.json",
   "SHA256SUMS.txt"
 ];
 for (const rel of requiredPackageFiles) {

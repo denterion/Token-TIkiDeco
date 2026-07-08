@@ -65,8 +65,8 @@ Exit criteria:
 - [ ] `docs/V2_AUDIT_OWNER_DECISIONS.md` is current.
 - [ ] `docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md` is used for any V2 candidate deployment review.
 - [x] Current baseline review bundle generated for `218d35f381e40487a77503a27076e0907d0bfaf4`.
-- [ ] `npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot` succeeds from a clean tree.
-- [ ] Regenerate `npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot` after this evidence PR merges.
+- [ ] `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot` succeeds from a clean tree.
+- [ ] Regenerate `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot` after this evidence PR merges.
 - [ ] `npm run v02:rc` passes after `npm run site`.
 - [ ] `npm run pilot:live:blocked` passes, confirming the live campaign is still intentionally blocked.
 

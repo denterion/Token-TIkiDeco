@@ -146,16 +146,16 @@ npm run foundry:test
 npm run foundry:coverage
 npm run slither:baseline
 npm run claims:check
-npm run release
+npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
 Optional package generation for auditor review:
 
 ```bash
-npm run release:package -- --commit e74c85612e745f14aa92260bf8b3633f9fd9fa4a
+npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
-The package commit is the reproducibility anchor for current documentation, dependency versions, CI evidence, and generated review artifacts. The freeze baseline remains the V2 candidate contract baseline unless V2 source, deployment semantics, role schema, or security assumptions change. The package command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
+The package commit is the reproducibility anchor for current documentation, dependency versions, CI evidence, and generated review artifacts. The freeze baseline remains the V2 candidate contract baseline unless V2 source, deployment semantics, role schema, or security assumptions change. The proof command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
 
 ## Freeze Reset Conditions
 

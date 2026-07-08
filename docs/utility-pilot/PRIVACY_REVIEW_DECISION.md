@@ -81,7 +81,7 @@ npm run pilot:report
 npm run pilot
 npm run pilot:live:blocked
 npm run site
-npm run release
+npm run release:check
 ```
 
 The following command is expected to fail until every live-campaign gate is approved:

@@ -42,6 +42,9 @@ The freeze commit is the V2 candidate contract baseline. The evidence commit is 
 - `KNOWN_ISSUES.md`
 - `SECURITY_REVIEW.md`
 - `docs/V2_AUDIT_TARGET_FREEZE.md`
+- `docs/V2_AUDIT_OWNER_DECISIONS.md`
+- `docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md`
+- `docs/FRESH_CHECKOUT_RELEASE_PROOF.md`
 - `docs/ACCESS_CONTROL.md`
 - `docs/V2_DEPLOYMENT_CHECKLIST.md`
 - `docs/V2_MIGRATION_NOTES.md`
@@ -90,6 +93,7 @@ Run:
 ```bash
 npm run audit
 npm run audit:handoff
+npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
 The package command must fail if V2 is promoted, if independent audit completion is claimed, or if banned public claims appear.

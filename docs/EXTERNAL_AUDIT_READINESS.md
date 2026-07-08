@@ -45,7 +45,9 @@ Primary supporting files:
 | Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site`. |
 | V2 audit package | V2 candidate package includes contracts, ABI, bytecode, tests, Foundry artifacts if present, Slither baseline, coverage if present, audit scope, known issues, freeze doc, and checksums. | Enforced by `npm run audit`. |
 | Handoff discipline | Package must be generated from the current commit, include checksums, include known issues and Slither baseline, and keep V2 non-canonical. | Enforced by `npm run audit:handoff`. |
-| Release package | Bundle generated from clean tree and exact commit. | Run only after final merge SHA is known. |
+| Owner decisions | Every V2 known issue has an owner decision, planned remediation, accepted risk, or explicit auditor question. | Enforced by `npm run audit:handoff`. |
+| Role-manifest review | Default admin, pauser, reporter, vesting admin, treasury, deployer role removal, Safe threshold, emergency pause owner, role-transfer evidence, and fail-closed public config are checklist items. | Enforced by `npm run audit:handoff`. |
+| Fresh-checkout proof | Bundle generated from clean tree and exact commit. | Enforced by `npm run release -- --commit <sha> --release v0.2.0-utility-pilot`. |
 
 ## Open Review Questions For Auditor
 
@@ -66,7 +68,7 @@ Run only from a clean tree after the target commit is final:
 ```bash
 npm run audit
 npm run audit:handoff
-npm run release:package -- --commit <final-main-sha> --release v0.2.0-utility-pilot
+npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
 The package command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
@@ -82,6 +84,7 @@ The package command must not deploy contracts, broadcast transactions, create a 
 - [ ] Run `npm run lint`.
 - [ ] Run `npm run audit`.
 - [ ] Run `npm run audit:handoff`.
+- [ ] Run `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot`.
 - [ ] Verify `SHA256SUMS.txt` inside the generated V2 audit package.
 - [ ] Send the package to auditor with `docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md`, `docs/AUDITOR_QUESTIONS.md`, `KNOWN_ISSUES.md`, and `docs/AUDIT_RESPONSE_PROCESS.md`.
 - [ ] Freeze unrelated changes while audit review is active.
@@ -93,8 +96,8 @@ The package command must not deploy contracts, broadcast transactions, create a 
 - [ ] Run `npm run slither:baseline`.
 - [ ] Run `npm run claims`.
 - [ ] Run `npm run site`.
-- [ ] Run `npm run release`.
-- [ ] Generate release package with the final `main` SHA.
+- [ ] Run `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot`.
+- [ ] Generate release package with the final `main` SHA through the reproducibility proof command.
 - [ ] Attach package SHA-256 checksums.
 - [ ] Include `KNOWN_ISSUES.md` and accepted Slither baseline.
 - [ ] Explicitly state that V2 is candidate code and not independently audited.

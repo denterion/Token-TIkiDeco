@@ -59,7 +59,7 @@ npm run pilot
 npm run pilot:report
 npm run pilot:live:blocked
 npm run site
-npm run release
+npm run release:check
 ```
 
 The following commands are expected to fail until the relevant approvals exist:

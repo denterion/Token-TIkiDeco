@@ -36,7 +36,7 @@ npm run manifest
 npm run bytecode
 npm run gas
 npm run site
-npm run release
+npm run release:check
 ```
 
 List any checks not run and why.
