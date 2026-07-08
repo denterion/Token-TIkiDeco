@@ -26,6 +26,14 @@
 
 Use [`docs/START_HERE.md`](docs/START_HERE.md) for the short operator, auditor, community, governance, and release-manager paths. The official public preview packet is [`docs/OFFICIAL_PUBLIC_PREVIEW.md`](docs/OFFICIAL_PUBLIC_PREVIEW.md). The current operational roadmap is [`docs/THREE_PHASE_ROADMAP.md`](docs/THREE_PHASE_ROADMAP.md).
 
+Maintainers can run the release-management control view with:
+
+```bash
+npm run project:control
+```
+
+See [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md).
+
 ## What It Is
 
 TikiDeco / TIDE is a public Ethereum Sepolia testnet prototype. It is built to explore how a hospitality-linked project could publish token rules, allocation plans, vesting records, governance controls, and public report hashes in a transparent way.

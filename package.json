@@ -77,7 +77,9 @@
     "slither:raw": "slither contracts --config-file slither.config.json --solc-remaps @openzeppelin/=node_modules/@openzeppelin/",
     "slither": "node scripts/run-slither-baseline-scan.cjs",
     "site:browser:install": "playwright install chromium",
-    "site:browser": "playwright test --config playwright.config.ts"
+    "site:browser": "playwright test --config playwright.config.ts",
+    "project:control": "node scripts/project-control-center.cjs",
+    "project:control:verify": "node scripts/project-control-center.cjs --verify"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.6.1",

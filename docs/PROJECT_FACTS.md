@@ -107,6 +107,7 @@ Status key:
 | `v0.2.0-utility-pilot` is published as a GitHub pre-release for read-only utility-pilot preparation. | GitHub release `v0.2.0-utility-pilot`; `docs/releases/v0.2.0-utility-pilot.md`; source commit `5ed20415b569779f8b00245af8b98b9599f77044`. | 2026-06-26 | verified |
 | `v0.2.0-utility-pilot-rc.1` is a release-candidate draft document, not a published release and not a live campaign. | `docs/releases/v0.2.0-utility-pilot-rc.1.md`; `docs/releases/v0.2.0-utility-pilot-rc.1-checklist.md`. | 2026-06-26 | planned |
 | A v0.2 utility-pilot review bundle was generated for the Official Public Preview baseline commit `218d35f381e40487a77503a27076e0907d0bfaf4`; it must be regenerated after any later release-documentation merge. | `docs/releases/v0.2.0-utility-pilot-rc.1.md`; `docs/reports/REPORT_2026_07_05_V02_RC_EVIDENCE.md`; local `npm run release:package -- --commit 218d35f381e40487a77503a27076e0907d0bfaf4 --release v0.2.0-utility-pilot` output. | 2026-07-05 | verified |
+| `npm run project:control` summarizes the current release-management state, including canonical deployment, v0.2 RC evidence freshness, pilot gate counts, roadmap gate counts, and next maintainer actions. | `scripts/project-control-center.cjs`; `package.json`; `docs/RELEASE_CONTROL_CENTER.md`. | 2026-07-08 | verified |
 
 ## Planned Or Experimental Functionality
 
