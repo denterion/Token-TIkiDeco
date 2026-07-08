@@ -400,12 +400,12 @@ npm run release:check
 npm run slither
 npm run slither:baseline
 npm run sbom:spdx
-npm run release:package -- --commit ${commit}
+npm run release -- --commit ${commit} --release ${releaseName}
 \`\`\`
 
 On local Windows workstations, the package script automatically prepends the repository-pinned Foundry runtime under \`.tools/foundry\` when it is present. CI should still install the pinned Foundry version explicitly.
 
-The release package generator refuses to create a package when the tree is dirty, the commit is omitted, tests fail, Slither has new untriaged V2 findings, addresses disagree across public surfaces, legal status text is inconsistent, release notes contain \`TBD\`, audit status is missing, or checksums are missing.
+The release reproducibility proof refuses to create a package when the tree is dirty, the commit is omitted, tests fail, Slither has new untriaged V2 findings, addresses disagree across public surfaces, legal status text is inconsistent, release notes contain \`TBD\`, audit status is missing, or checksums are missing.
 
 ## Signed Tag
 

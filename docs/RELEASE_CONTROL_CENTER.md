@@ -92,7 +92,7 @@ After each merge that affects release docs, site, tests, gates, audit package, o
 2. If the evidence commit is stale, run:
 
    ```bash
-   npm run release:package -- --commit <current-main-sha> --release v0.2.0-utility-pilot
+   npm run release -- --commit <current-main-sha> --release v0.2.0-utility-pilot
    ```
 
 3. Update the RC evidence hashes and transparency report if a new release package is intended.

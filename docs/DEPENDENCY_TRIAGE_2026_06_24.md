@@ -29,7 +29,7 @@ npm run audit
 npm run workflow:pins
 npm run claims:check
 npm run site:check
-npm run release
+npm run release:check
 npm run slither:baseline
 npm run manifest:source
 ```

@@ -12,7 +12,7 @@ Published Sepolia prototype release: `v0.1.0-sepolia` at `e07471936375ffbe13c68d
 
 Scope note: the post-release commits through `58806906a273a95c58944d892eb368fc1b758620` add public-site localization, community preview materials, issue triage, and the V2 audit-target freeze documentation. Later merge/package commits through `e74c85612e745f14aa92260bf8b3633f9fd9fa4a` do not modify V1 deployed semantics, V2 candidate contract semantics, canonical deployment addresses, or release-package contract artifacts. Those later commits update release-process documentation, dependency triage, Foundry local-runtime handling, and CI-maintenance evidence.
 
-For an external review package, use the exact package/source commit supplied to `npm run release:package -- --commit <sha>`. Treat the V2 code freeze baseline as the candidate contract baseline and the package/source commit as the reproducibility anchor for documentation, CI evidence, and generated review artifacts.
+For an external review package, use the exact package/source commit supplied to `npm run release -- --commit <sha> --release v0.2.0-utility-pilot`. Treat the V2 code freeze baseline as the candidate contract baseline and the package/source commit as the reproducibility anchor for documentation, CI evidence, and generated review artifacts.
 
 V2 audit-target freeze notes: [`docs/V2_AUDIT_TARGET_FREEZE.md`](docs/V2_AUDIT_TARGET_FREEZE.md).
 

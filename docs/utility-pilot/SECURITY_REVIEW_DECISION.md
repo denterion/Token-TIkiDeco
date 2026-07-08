@@ -83,7 +83,7 @@ npm run pilot:report
 npm run pilot
 npm run pilot:live:blocked
 npm run site
-npm run release
+npm run release:check
 npm run audit
 npm run audit:handoff
 ```
