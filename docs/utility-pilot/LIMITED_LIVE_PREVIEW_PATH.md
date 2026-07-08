@@ -6,10 +6,15 @@ The goal is to turn the current `draft-not-live` utility pilot into a reviewable
 
 Machine-readable blocker source: [`../../config/utility-pilot/live-readiness-gates.json`](../../config/utility-pilot/live-readiness-gates.json)
 
+Evidence checklist: [`LIMITED_SEPOLIA_PREVIEW_EVIDENCE.md`](LIMITED_SEPOLIA_PREVIEW_EVIDENCE.md)
+
+Owner matrix: [`LIVE_GATE_OWNER_MATRIX.md`](LIVE_GATE_OWNER_MATRIX.md)
+
 Validation:
 
 ```bash
 npm run pilot:live:blocked
+npm run pilot:evidence
 ```
 
 ## Current Live-Preview State
@@ -26,6 +31,12 @@ npm run pilot:live:blocked
 | Monetary value | No stated monetary value |
 | Active guest benefits | Not live |
 | Independent audit | Not started |
+
+## Evidence Control
+
+Every required evidence item must have an owner, evidence file, blocking reason, reviewer requirement, approval format, and checking command. The owner matrix is intentionally stricter than narrative roadmap text so a reviewer can see why the campaign is still blocked.
+
+`npm run pilot:evidence` fails if a live gate lacks an owner or evidence file, if a gate is marked approved without reviewer and timestamp fields, if the campaign publishes a request window or inventory while approvals are blocked, or if public text claims live benefits.
 
 ## Tracking Issues And Owners
 

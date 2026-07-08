@@ -10,6 +10,7 @@ const verificationCommands = [
   ["npm", ["run", "release:check"]],
   ["npm", ["run", "v02:rc"]],
   ["npm", ["run", "pilot:live:blocked"]],
+  ["npm", ["run", "pilot:evidence"]],
   ["node", ["scripts/check-mainnet-readiness.cjs", "--expect-blocked"]]
 ];
 

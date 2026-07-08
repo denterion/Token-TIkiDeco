@@ -2,7 +2,10 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.join(__dirname, "..");
-const defaultTargets = ["docs/utility-pilot/PILOT_REPORT_TEMPLATE.md"];
+const defaultTargets = [
+  "docs/utility-pilot/PILOT_REPORT_TEMPLATE.md",
+  "docs/reports/REPORT_YYYY_MM_DD_LIMITED_PREVIEW_DRY_RUN_TEMPLATE.md"
+];
 const reportDir = path.join(root, "docs", "utility-pilot", "reports");
 
 const bannedClaims = [
