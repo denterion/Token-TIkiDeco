@@ -12,6 +12,8 @@ export const defaultLocale: Locale = "en";
 
 const englishStatusRows = [
   { key: "network", value: projectFacts.network },
+  { key: "v02", value: "Public pre-release; RC evidence pending current main package" },
+  { key: "campaign", value: "Draft-not-live" },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: projectFacts.mainnetStatus },
   { key: "sale", value: projectFacts.saleStatus },
@@ -21,6 +23,8 @@ const englishStatusRows = [
 
 const spanishStatusRows = [
   { key: "network", value: projectFacts.network },
+  { key: "v02", value: "Pre-release publica; evidencia RC pendiente del paquete main actual" },
+  { key: "campaign", value: "Borrador, no live" },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: "No desplegado" },
   { key: "sale", value: "No ofrecido" },
@@ -30,6 +34,8 @@ const spanishStatusRows = [
 
 const russianStatusRows = [
   { key: "network", value: projectFacts.network },
+  { key: "v02", value: "Public pre-release; RC evidence pending current main package" },
+  { key: "campaign", value: "Draft-not-live" },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: "Не развернут" },
   { key: "sale", value: "Не предлагается" },
@@ -46,37 +52,37 @@ export const copy = {
     sectionsAria: "Page sections",
     homeAria: "TikiDeco home",
     nav: {
+      overview: "Overview",
       status: "Status",
-      utility: "Utility",
       pilot: "Pilot",
-      transparency: "Verify",
-      audit: "Review",
-      verify: "Docs",
+      audit: "Audit",
       feedback: "Feedback"
     },
     language: "Language",
     hero: {
       badge: "SEPOLIA TESTNET - NO MONETARY VALUE",
-      eyebrow: "Read-only public prototype",
+      eyebrow: "Public Sepolia prototype",
       title: "TikiDeco",
-      subtitle: "A Sepolia prototype exploring transparent token infrastructure for a future hospitality concept.",
-      badges: ["Sepolia Prototype", "No Sale", "Independent Audit Not Started"],
+      subtitle: "Transparent hospitality-linked token infrastructure, currently limited to Sepolia review and read-only public verification.",
+      badges: ["v0.2 Pre-Release", "Campaign Draft-Not-Live", "No Sale", "Not Independently Audited"],
       actionsAria: "Primary links",
       contracts: "Verify contracts",
       facts: "Project facts",
       repo: "Repository",
-      note: "No wallet connection, no purchase flow, no price chart, and no mainnet deployment.",
+      note: "No sale, no stated monetary value, no mainnet deployment, and not independently audited.",
       guideTitle: "Start here",
       guideItems: ["Check current status", "Verify contracts", "Read limitations"]
     },
     status: {
       eyebrow: "Current Status",
-      title: "Prototype first. Claims stay limited.",
-      body: "TIDE is public testnet infrastructure, not a sale, not a financial product, and not an active hospitality benefit.",
+      title: "Current status in one panel.",
+      body: "TIDE is Sepolia-only public infrastructure. The v0.2 utility-pilot flow is a pre-release track, and the first campaign is draft-not-live.",
       labels: {
         network: "Network",
         chainId: "Chain ID",
         canonicalVersion: "Canonical version",
+        v02: "v0.2 status",
+        campaign: "Pilot campaign",
         tokenSupply: "Supply",
         mainnet: "Mainnet",
         sale: "Sale",
@@ -87,8 +93,8 @@ export const copy = {
     },
     transparency: {
       eyebrow: "Verify",
-      title: "Four places to check the project.",
-      body: "Start with the contracts, Safe control, public reports, and vesting documentation.",
+      title: "Four public entry points.",
+      body: "Start with project facts, release control, roadmap, and GitHub feedback issues.",
       cards: primaryCards.map((card) => ({ ...card }))
     },
     audit: {
@@ -110,6 +116,8 @@ export const copy = {
         repository: "Repository",
         officialPreview: "Official Preview",
         projectFacts: "Project Facts",
+        releaseControl: "Release Control",
+        roadmap: "Roadmap",
         securityPolicy: "Security Policy",
         claimsMatrix: "Claims Matrix",
         feedbackGuide: "Feedback Guide",
@@ -128,37 +136,37 @@ export const copy = {
     sectionsAria: "Secciones de la pagina",
     homeAria: "Inicio de TikiDeco",
     nav: {
+      overview: "Resumen",
       status: "Estado",
-      utility: "Utilidad",
       pilot: "Piloto",
-      transparency: "Verificar",
-      audit: "Revision",
-      verify: "Docs",
+      audit: "Auditoria",
       feedback: "Feedback"
     },
     language: "Idioma",
     hero: {
       badge: "SEPOLIA TESTNET - SIN VALOR MONETARIO",
-      eyebrow: "Prototipo publico solo lectura",
+      eyebrow: "Prototipo publico en Sepolia",
       title: "TikiDeco",
-      subtitle: "Un prototipo en Sepolia que explora infraestructura token transparente para un futuro concepto hospitality.",
-      badges: ["Prototipo Sepolia", "Sin venta", "Auditoria independiente no iniciada"],
+      subtitle: "Infraestructura token transparente vinculada a hospitality, actualmente limitada a revision en Sepolia y verificacion publica solo lectura.",
+      badges: ["v0.2 pre-release", "Campana no live", "Sin venta", "No auditado independientemente"],
       actionsAria: "Enlaces principales",
       contracts: "Verificar contratos",
       facts: "Hechos del proyecto",
       repo: "Repositorio",
-      note: "Sin conexion de wallet, sin compra, sin grafico de precio y sin despliegue en mainnet.",
+      note: "Sin venta, sin valor declarado, sin mainnet y no auditado independientemente.",
       guideTitle: "Empieza aqui",
       guideItems: ["Revisa el estado", "Verifica contratos", "Lee limitaciones"]
     },
     status: {
       eyebrow: "Estado actual",
-      title: "Primero prototipo. Claims limitados.",
-      body: "TIDE es infraestructura publica de testnet, no una venta, no un producto financiero y no un beneficio hospitality activo.",
+      title: "Estado actual en un panel.",
+      body: "TIDE es infraestructura publica solo en Sepolia. El flujo v0.2 utility-pilot es pre-release y la primera campana no esta live.",
       labels: {
         network: "Red",
         chainId: "Chain ID",
         canonicalVersion: "Version canonica",
+        v02: "Estado v0.2",
+        campaign: "Campana piloto",
         tokenSupply: "Suministro",
         mainnet: "Mainnet",
         sale: "Venta",
@@ -169,13 +177,13 @@ export const copy = {
     },
     transparency: {
       eyebrow: "Verificar",
-      title: "Cuatro lugares para revisar el proyecto.",
-      body: "Empieza con contratos, control Safe, reportes publicos y documentacion de vesting.",
+      title: "Cuatro entradas publicas.",
+      body: "Empieza con project facts, release control, roadmap y feedback issues.",
       cards: [
-        { ...primaryCards[0], title: "Contratos verificados", body: "Fuente verificada en Sepolia desde el manifest canonico." },
-        { ...primaryCards[1], title: "Control Safe", body: `Propiedad privilegiada V1 bajo Safe ${projectFacts.safeThreshold}.` },
-        { ...primaryCards[2], title: "Reportes publicos", body: "Reportes del repositorio y hashes on-chain para revision." },
-        { ...primaryCards[3], title: "Vesting", body: "Vault legacy y modelo V2 candidato documentados por separado." }
+        { ...primaryCards[0], title: "Project facts", body: "Fuente de verdad para claims verificados, planeados y desconocidos." },
+        { ...primaryCards[1], title: "Release control", body: "Muestra evidencia stale, blockers y proximas acciones." },
+        { ...primaryCards[2], title: "Roadmap", body: "Separa public preview, pilot y preparacion de auditoria V2." },
+        { ...primaryCards[3], title: "GitHub issues", body: "Feedback publico sin flujos de venta o transaccion." }
       ]
     },
     audit: {
@@ -197,6 +205,8 @@ export const copy = {
         repository: "Repositorio",
         officialPreview: "Preview oficial",
         projectFacts: "Hechos del proyecto",
+        releaseControl: "Release Control",
+        roadmap: "Roadmap",
         securityPolicy: "Politica de seguridad",
         claimsMatrix: "Claims Matrix",
         feedbackGuide: "Guia de feedback",
@@ -215,37 +225,37 @@ export const copy = {
     sectionsAria: "Разделы страницы",
     homeAria: "Главная TikiDeco",
     nav: {
+      overview: "Overview",
       status: "Статус",
-      utility: "Utility",
       pilot: "Pilot",
-      transparency: "Проверка",
-      audit: "Ревью",
-      verify: "Документы",
+      audit: "Audit",
       feedback: "Feedback"
     },
     language: "Язык",
     hero: {
       badge: "SEPOLIA TESTNET - БЕЗ ДЕНЕЖНОЙ СТОИМОСТИ",
-      eyebrow: "Публичный read-only прототип",
+      eyebrow: "Public Sepolia prototype",
       title: "TikiDeco",
-      subtitle: "Прототип в Sepolia, который исследует прозрачную token-инфраструктуру для будущей hospitality-концепции.",
-      badges: ["Прототип Sepolia", "Без продажи", "Независимый аудит не начат"],
+      subtitle: "Transparent hospitality-linked token infrastructure, currently limited to Sepolia review and read-only public verification.",
+      badges: ["v0.2 Pre-Release", "Campaign Draft-Not-Live", "No Sale", "Not Independently Audited"],
       actionsAria: "Основные ссылки",
       contracts: "Проверить контракты",
       facts: "Факты проекта",
       repo: "Репозиторий",
-      note: "Без подключения кошелька, без покупки, без графика цены и без mainnet deployment.",
+      note: "No sale, no stated monetary value, no mainnet deployment, and not independently audited.",
       guideTitle: "С чего начать",
       guideItems: ["Проверить статус", "Сверить контракты", "Прочитать ограничения"]
     },
     status: {
       eyebrow: "Текущий статус",
-      title: "Сначала прототип. Публичные утверждения ограничены.",
-      body: "TIDE - публичная testnet-инфраструктура, не продажа, не финансовый продукт и не активная hospitality-выгода.",
+      title: "Current status in one panel.",
+      body: "TIDE is Sepolia-only public infrastructure. The v0.2 utility-pilot flow is a pre-release track, and the first campaign is draft-not-live.",
       labels: {
         network: "Сеть",
         chainId: "Chain ID",
         canonicalVersion: "Каноническая версия",
+        v02: "v0.2 status",
+        campaign: "Pilot campaign",
         tokenSupply: "Supply",
         mainnet: "Mainnet",
         sale: "Продажа",
@@ -256,13 +266,13 @@ export const copy = {
     },
     transparency: {
       eyebrow: "Проверка",
-      title: "Четыре точки проверки проекта.",
-      body: "Начни с контрактов, Safe control, публичных отчетов и vesting-документации.",
+      title: "Four public entry points.",
+      body: "Start with project facts, release control, roadmap, and GitHub feedback issues.",
       cards: [
-        { ...primaryCards[0], title: "Контракты", body: "Verified source в Sepolia из canonical manifest." },
-        { ...primaryCards[1], title: "Safe control", body: `Привилегированное владение V1 через Safe ${projectFacts.safeThreshold}.` },
-        { ...primaryCards[2], title: "Публичные отчеты", body: "Repository reports и on-chain hashes для проверки." },
-        { ...primaryCards[3], title: "Vesting", body: "Legacy vault и candidate V2 model описаны отдельно." }
+        { ...primaryCards[0], title: "Project facts", body: "Source of truth for verified, planned, and unknown claims." },
+        { ...primaryCards[1], title: "Release control", body: "Shows stale evidence, blockers, and next actions." },
+        { ...primaryCards[2], title: "Roadmap", body: "Separates public preview, pilot, and V2 audit preparation." },
+        { ...primaryCards[3], title: "GitHub issues", body: "Public feedback without sale or transaction flows." }
       ]
     },
     audit: {
@@ -284,6 +294,8 @@ export const copy = {
         repository: "Repository",
         officialPreview: "Official Preview",
         projectFacts: "Факты проекта",
+        releaseControl: "Release Control",
+        roadmap: "Roadmap",
         securityPolicy: "Security Policy",
         claimsMatrix: "Claims Matrix",
         feedbackGuide: "Feedback Guide",

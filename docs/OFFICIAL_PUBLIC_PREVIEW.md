@@ -27,7 +27,7 @@ The preview should answer five questions quickly:
 | v0.2 RC | Read-only utility-pilot release candidate documentation | Candidate review packet only; first campaign remains `draft-not-live`. |
 | Feedback issues | Public GitHub issue templates and prepared issue topics | Feedback only; do not submit private keys, seed phrases, private guest data, or sensitive personal data. |
 | Transparency reports | Repository reports and hash files under `docs/reports/` | Reports are project-maintained transparency records, not independent audit reports. |
-| Start Here path | [`START_HERE.md`](START_HERE.md) | Short paths for community, operator, security, release, governance, and legal/privacy reviewers. |
+| Public entry points | [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md), [`START_HERE.md`](START_HERE.md) | Four short paths: Overview, Status, Pilot, and Audit; Feedback is the action path. |
 
 ## What Is Current
 
@@ -85,11 +85,10 @@ The preview should answer five questions quickly:
 
 | Reader | First document | Goal |
 | --- | --- | --- |
-| Community reviewer | [`COMMUNITY_PREVIEW.md`](COMMUNITY_PREVIEW.md) | Give useful public feedback. |
-| Auditor | [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md) | Understand V2 candidate scope and evidence. |
-| Operator | [`utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md`](utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md) | Understand why the pilot is not live. |
-| Governance reviewer | [`GOVERNANCE_DECISION_REGISTER.md`](GOVERNANCE_DECISION_REGISTER.md) | Review Safe, treasury, and role decisions. |
-| Legal/privacy reviewer | [`COUNSEL_INTAKE_PACKAGE.md`](COUNSEL_INTAKE_PACKAGE.md) | Review counsel questions before any real utility, data collection, sale, or mainnet discussion. |
+| Community reviewer | [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md), [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md) | Understand the public overview and give useful feedback. |
+| Operator / release manager | [`RELEASE_CONTROL_CENTER.md`](RELEASE_CONTROL_CENTER.md), [`NEXT_RELEASE_GATES.md`](NEXT_RELEASE_GATES.md) | Keep release evidence and pilot blockers current. |
+| Auditor / security reviewer | [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md), [`V2_AUDIT_OWNER_DECISIONS.md`](V2_AUDIT_OWNER_DECISIONS.md) | Understand V2 candidate scope and evidence. |
+| Legal / governance reviewer | [`COUNSEL_INTAKE_PACKAGE.md`](COUNSEL_INTAKE_PACKAGE.md), [`GOVERNANCE_DECISION_REGISTER.md`](GOVERNANCE_DECISION_REGISTER.md) | Review counsel questions, Safe, treasury, and role decisions. |
 
 ## Publication Standard
 

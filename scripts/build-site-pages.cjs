@@ -397,14 +397,11 @@ function escapeHtml(value) {
 function nav() {
   return `
       <nav id="site-nav" class="nav" aria-label="Sections">
-        <a href="/">Home</a>
-        <a href="/utility/">Utility</a>
-        <a href="/pilot/">Pilot</a>
-        <a href="/business/">Business</a>
-        <a href="/audit/">Audit</a>
-        <a href="/verify/">Verify</a>
+        <a href="/">Overview</a>
         <a href="/status/">Status</a>
-        <a href="/legal/risk-disclosure/">Risks</a>
+        <a href="/pilot/">Pilot</a>
+        <a href="/audit/">Audit</a>
+        <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
       </nav>`;
 }
 
@@ -421,6 +418,10 @@ function legalFooter() {
           <a href="/utility/">Utility</a>
           <a href="/pilot/">Pilot</a>
           <a href="/business/">Business</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md" target="_blank" rel="noopener noreferrer">Release Control</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md" target="_blank" rel="noopener noreferrer">Roadmap</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
           <a href="/legal/no-offer/">No offer</a>
           <a href="/legal/terms/">Terms</a>
           <a href="/legal/privacy/">Privacy</a>

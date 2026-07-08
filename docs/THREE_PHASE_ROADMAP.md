@@ -25,7 +25,7 @@ Goal: a new reader, reviewer, or maintainer can understand the current state in 
 
 Exit criteria:
 
-- [ ] Add and maintain [`START_HERE.md`](START_HERE.md).
+- [x] Add and maintain [`START_HERE.md`](START_HERE.md).
 - [ ] README links to the operator, auditor, community, and contributor start paths.
 - [ ] Site copy stays minimal while preserving no-sale/no-value/no-mainnet/independent-audit-not-started boundaries.
 - [ ] `npm run site:browser` covers desktop, mobile, RPC unavailable, mocked live balance, and localized overflow checks.
@@ -35,7 +35,7 @@ Exit criteria:
 
 Primary work:
 
-- Reduce public entry points to four: overview, status, pilot, audit.
+- Reduce public entry points to four: overview, status, pilot, audit. Current source: [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md).
 - Keep deep documents available, but do not force first-time readers through them.
 - Keep all utility language separated into current, planned, conceptual, and not claimable.
 

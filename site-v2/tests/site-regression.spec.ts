@@ -51,7 +51,15 @@ test("homepage explains current status and avoids transaction CTAs", async ({ pa
 
   await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
   await expect(page.getByText("SEPOLIA TESTNET - NO MONETARY VALUE")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Prototype first/i })).toBeVisible();
+  await expect(page.getByText(/No Sale/i).first()).toBeVisible();
+  await expect(page.getByText(/not independently audited/i).first()).toBeVisible();
+  const topNav = page.locator("header.top-nav");
+  await expect(topNav.getByRole("link", { name: /Overview/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /Status/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /^Pilot$/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /Audit/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /Feedback/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Current status in one panel/i })).toBeVisible();
   await expect(page.getByRole("heading", { name: /TIDE Loyalty Pilot eligibility flow/i })).toBeVisible();
 
   await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer/i })).toHaveCount(0);

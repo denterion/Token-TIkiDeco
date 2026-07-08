@@ -8,6 +8,8 @@ type FooterCopy = {
     repository: string;
     officialPreview: string;
     projectFacts: string;
+    releaseControl: string;
+    roadmap: string;
     securityPolicy: string;
     claimsMatrix: string;
     feedbackGuide: string;
@@ -24,6 +26,8 @@ export function Footer({ copy }: { copy: FooterCopy }) {
     [copy.links.repository, projectFacts.links.repository],
     [copy.links.officialPreview, projectFacts.links.officialPreview],
     [copy.links.projectFacts, projectFacts.links.projectFacts],
+    [copy.links.releaseControl, projectFacts.links.releaseControl],
+    [copy.links.roadmap, projectFacts.links.roadmap],
     [copy.links.securityPolicy, projectFacts.links.securityPolicy],
     [copy.links.claimsMatrix, projectFacts.links.claimsMatrix],
     [copy.links.feedbackGuide, projectFacts.links.feedbackGuide],
