@@ -2,7 +2,7 @@
 
 Review date: 2026-06-17
 
-Branch: `codex/security-hardening`
+Review track: `security-hardening`
 
 Reviewed commit: `9da9b09334031276fbd2bb9d61738a15bfe08c1e`
 

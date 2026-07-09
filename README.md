@@ -17,6 +17,7 @@
 [Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
 [Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
 [Project Facts](docs/PROJECT_FACTS.md) |
+[Competitive Landscape](docs/COMPETITIVE_LANDSCAPE.md) |
 [Claims Matrix](docs/CLAIMS_MATRIX.md) |
 [Security Policy](SECURITY.md)
 
@@ -37,6 +38,7 @@ For a first-time reader, use the four public entry points:
 
 - Short paths: [`docs/START_HERE.md`](docs/START_HERE.md)
 - Public entrypoint rules: [`docs/PUBLIC_ENTRYPOINTS.md`](docs/PUBLIC_ENTRYPOINTS.md)
+- Market position: [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md)
 - Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
 
 ## 30-Second Project Status

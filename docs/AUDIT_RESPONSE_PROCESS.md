@@ -17,13 +17,13 @@ Status: audit-response procedure for V2 candidate review. This is not audit comp
 Use:
 
 ```text
-codex/audit-fix-<finding-id>-<short-topic>
+audit-fix/<finding-id>-<short-topic>
 ```
 
 Examples:
 
-- `codex/audit-fix-v2-001-vault-accounting`
-- `codex/audit-fix-v2-004-report-metadata`
+- `audit-fix/v2-001-vault-accounting`
+- `audit-fix/v2-004-report-metadata`
 
 ## Disputed Findings
 

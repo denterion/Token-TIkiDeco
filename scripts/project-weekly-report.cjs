@@ -143,7 +143,7 @@ function buildReport({ latest, statusSummary, roadmap, gitStatus, factsPresent, 
   lines.push("");
   lines.push(markdownCode(gitStatus || "clean"));
   lines.push("");
-  lines.push("## Next Recommended Codex Prompt");
+  lines.push("## Next Recommended Maintainer Task");
   lines.push("");
   lines.push("```text");
   lines.push("Review the latest TikiDeco weekly steering report and daily automation status. Pick the highest-impact small PR-sized task that improves release readiness, public clarity, or automation safety without changing token economics or unsupported public claims.");
