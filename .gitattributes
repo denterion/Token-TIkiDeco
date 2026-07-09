@@ -2,6 +2,7 @@ docs/reports/*.md text eol=lf
 operations/*.json text eol=lf
 PUBLIC_CLAIMS_CONSISTENCY_REPORT.md text eol=lf
 site/**/*.html text eol=lf
+site-v2/**/*.html text eol=lf
 site/**/*.css text eol=lf
 site/**/*.js text eol=lf
 site/**/*.json text eol=lf
