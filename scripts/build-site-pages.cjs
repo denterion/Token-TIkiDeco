@@ -527,7 +527,7 @@ ${legalFooter()}
 for (const page of pages) {
   const target = path.join(siteDir, page.path);
   fs.mkdirSync(path.dirname(target), { recursive: true });
-  fs.writeFileSync(target, renderPage(page));
+  fs.writeFileSync(target, renderPage(page).replace(/\r\n?/g, "\n"), "utf8");
 }
 
 console.log(`Wrote ${pages.length} static pages.`);
