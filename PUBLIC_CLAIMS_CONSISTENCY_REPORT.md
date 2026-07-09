@@ -102,15 +102,15 @@ None.
 
 | File | Line | Phrase | Sentence |
 | --- | ---: | --- | --- |
-| `README.md` | 61 | `hotel ownership` | TIDE is not sold, is not deployed on mainnet, has no stated monetary value, and does not represent hotel ownership, equity, debt, revenue rights, or a completed hospitality service. |
-| `README.md` | 98 | `presale` | \| Token sale \| No sale, no presale, no purchase flow. \| |
-| `README.md` | 99 | `exchange listing` | \| Monetary value \| No stated value and no exchange listing claim. \| |
-| `README.md` | 102 | `partner` | \| Confirmed hotel partners \| No public partner claim is supported by repository facts. \| |
-| `README.md` | 289 | `audited` | Allowed framing: Sepolia testnet prototype, fixed supply in the deployed contract, publicly verifiable source code, experimental loyalty and access infrastructure, no token sale, no current monetary value, not independently audited. |
-| `README.md` | 289 | `independently audited` | Allowed framing: Sepolia testnet prototype, fixed supply in the deployed contract, publicly verifiable source code, experimental loyalty and access infrastructure, no token sale, no current monetary value, not independently audited. |
-| `README.md` | 291 | `guaranteed` | Do not market TIDE as a financial product, hotel ownership, revenue participation, guaranteed access, exchange listing, or completed hospitality service without verified facts and legal review. |
-| `README.md` | 291 | `hotel ownership` | Do not market TIDE as a financial product, hotel ownership, revenue participation, guaranteed access, exchange listing, or completed hospitality service without verified facts and legal review. |
-| `README.md` | 291 | `exchange listing` | Do not market TIDE as a financial product, hotel ownership, revenue participation, guaranteed access, exchange listing, or completed hospitality service without verified facts and legal review. |
+| `README.md` | 63 | `hotel ownership` | TIDE is not sold, is not deployed on mainnet, has no stated monetary value, and does not represent hotel ownership, equity, debt, revenue rights, or a completed hospitality service. |
+| `README.md` | 100 | `presale` | \| Token sale \| No sale, no presale, no purchase flow. \| |
+| `README.md` | 101 | `exchange listing` | \| Monetary value \| No stated value and no exchange listing claim. \| |
+| `README.md` | 104 | `partner` | \| Confirmed hotel partners \| No public partner claim is supported by repository facts. \| |
+| `README.md` | 291 | `audited` | Allowed framing: Sepolia testnet prototype, fixed supply in the deployed contract, publicly verifiable source code, experimental loyalty and access infrastructure, no token sale, no current monetary value, not independently audited. |
+| `README.md` | 291 | `independently audited` | Allowed framing: Sepolia testnet prototype, fixed supply in the deployed contract, publicly verifiable source code, experimental loyalty and access infrastructure, no token sale, no current monetary value, not independently audited. |
+| `README.md` | 293 | `guaranteed` | Do not market TIDE as a financial product, hotel ownership, revenue participation, guaranteed access, exchange listing, or completed hospitality service without verified facts and legal review. |
+| `README.md` | 293 | `hotel ownership` | Do not market TIDE as a financial product, hotel ownership, revenue participation, guaranteed access, exchange listing, or completed hospitality service without verified facts and legal review. |
+| `README.md` | 293 | `exchange listing` | Do not market TIDE as a financial product, hotel ownership, revenue participation, guaranteed access, exchange listing, or completed hospitality service without verified facts and legal review. |
 | `docs/BUSINESS_MODEL.md` | 33 | `guaranteed` | Engagement should not be framed as investment participation, price participation, or a route to guaranteed hospitality benefits. |
 | `docs/BUSINESS_MODEL.md` | 33 | `investment` | Engagement should not be framed as investment participation, price participation, or a route to guaranteed hospitality benefits. |
 | `docs/BUSINESS_MODEL.md` | 37 | `partner` | Partner or venue campaigns require legal review before any public claim or launch. Until then, this project should only describe such campaigns as possible future concepts, not confirmed relationships. |

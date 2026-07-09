@@ -4,6 +4,8 @@ This roadmap describes the path from public testnet prototype to a credible prod
 
 For the current operational focus, see [`THREE_PHASE_ROADMAP.md`](THREE_PHASE_ROADMAP.md). For a short reader-specific entry point, see [`START_HERE.md`](START_HERE.md).
 
+For competitive positioning and near-term product opportunities, see [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md).
+
 ## Phase 1: Public Testnet Prototype
 
 Status: complete

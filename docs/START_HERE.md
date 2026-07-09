@@ -12,7 +12,7 @@ TIDE is not offered for sale, has no stated monetary value, is not deployed on m
 - Website: read-only, no wallet connection required for browsing, no transaction flow.
 - Public boundaries: no sale, no stated monetary value, no mainnet, no active guest benefits, independent audit not started.
 
-## Four Short Paths
+## Short Reader Paths
 
 ### Community Reviewer
 
@@ -21,6 +21,7 @@ Start with:
 - [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md)
 - [`OFFICIAL_PUBLIC_PREVIEW.md`](OFFICIAL_PUBLIC_PREVIEW.md)
 - [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md)
+- [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md)
 
 Goal: understand what is current, give feedback through GitHub issues, and avoid unsupported claims.
 
@@ -33,6 +34,16 @@ Start with:
 - [`PROJECT_FACTS.md`](PROJECT_FACTS.md)
 
 Goal: keep release evidence reproducible, verify stale package blockers, and keep the pilot blocked until approvals exist.
+
+### Product / Market Reviewer
+
+Start with:
+
+- [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md)
+- [`BUSINESS_MODEL.md`](BUSINESS_MODEL.md)
+- [`THREE_PHASE_ROADMAP.md`](THREE_PHASE_ROADMAP.md)
+
+Goal: compare TikiDeco against hospitality loyalty, web3 travel, and loyalty-infrastructure projects without turning planned utility into a public promise.
 
 ### Auditor / Security Reviewer
 

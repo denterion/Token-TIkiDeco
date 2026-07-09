@@ -1,6 +1,6 @@
 # TikiDeco Automation Development Plan
 
-Status: internal execution plan for Codex-driven project operations.
+Status: internal execution plan for maintainer-operated project workflows.
 
 This plan does not approve mainnet, token sale, value claims, active utility, independent audit claims, hotel partnerships, or completed-property claims.
 
@@ -47,7 +47,7 @@ Goal: make reports generate small execution tasks.
 - Add a triage section that maps failing gates to exact files.
 - Add a next-task queue with one small PR-sized recommendation.
 - Add labels for task type: docs, site, contracts, tests, security, communications.
-- Add a weekly prompt for Codex to execute the top safe task.
+- Add a weekly maintainer task brief for the top safe task.
 
 Acceptance:
 

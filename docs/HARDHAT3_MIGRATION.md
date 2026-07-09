@@ -2,7 +2,7 @@
 
 Date: 2026-06-17
 
-Branch: `codex/security-hardening`
+Review track: `security-hardening`
 
 ## What Changed
 
