@@ -24,6 +24,7 @@ export const projectFacts = {
     issues: "https://github.com/denterion/Token-TIkiDeco/issues",
     officialPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OFFICIAL_PUBLIC_PREVIEW.md",
     publicEntrypoints: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_ENTRYPOINTS.md",
+    pilotProofPack: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md",
     projectFacts: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
     releaseControl: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md",
     roadmap: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md",
@@ -51,6 +52,11 @@ export const requiredDisclaimers = [
 ] as const;
 
 export const transparencyCards = [
+  {
+    title: "Pilot proof pack",
+    body: "One short path shows pilot status, blocked gates, dry-run evidence, and verification commands.",
+    href: projectFacts.links.pilotProofPack
+  },
   {
     title: "Project facts",
     body: "The source-of-truth file separates verified, planned, experimental, and unknown claims.",

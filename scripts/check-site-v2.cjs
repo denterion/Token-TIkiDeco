@@ -10,6 +10,7 @@ const requiredLinks = [
   "https://github.com/denterion/Token-TIkiDeco",
   manifest.contracts.token.verification,
   manifest.contracts.vestingVault.verification,
+  "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md",

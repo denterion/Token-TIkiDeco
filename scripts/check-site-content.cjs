@@ -55,6 +55,7 @@ const requiredPages = [
   "audit/index.html",
   "verify/index.html",
   "status/index.html",
+  "proof/index.html",
   "utility/index.html",
   "pilot/index.html",
   "business/index.html",
@@ -198,11 +199,13 @@ function main() {
   assert(read(cnamePath).trim() === "tikideco.xyz", "site/CNAME must contain tikideco.xyz");
   assert(robots.includes("https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
   assert(sitemap.includes("https://tikideco.xyz/audit/"), "sitemap missing audit page");
+  assert(sitemap.includes("https://tikideco.xyz/proof/"), "sitemap missing proof page");
   assert(sitemap.includes("https://tikideco.xyz/utility/"), "sitemap missing utility page");
   assert(sitemap.includes("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
   assert(sitemap.includes("https://tikideco.xyz/business/"), "sitemap missing business page");
   assert(sitemap.includes("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"), "Site must link to Pilot Proof Pack");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"), "Site must link to Project Facts");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md"), "Site must link to Release Control Center");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md"), "Site must link to Roadmap");

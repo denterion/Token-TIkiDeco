@@ -7,6 +7,7 @@ type FooterCopy = {
   links: {
     repository: string;
     officialPreview: string;
+    pilotProofPack: string;
     projectFacts: string;
     releaseControl: string;
     roadmap: string;
@@ -25,6 +26,7 @@ export function Footer({ copy }: { copy: FooterCopy }) {
   const links = [
     [copy.links.repository, projectFacts.links.repository],
     [copy.links.officialPreview, projectFacts.links.officialPreview],
+    [copy.links.pilotProofPack, projectFacts.links.pilotProofPack],
     [copy.links.projectFacts, projectFacts.links.projectFacts],
     [copy.links.releaseControl, projectFacts.links.releaseControl],
     [copy.links.roadmap, projectFacts.links.roadmap],
