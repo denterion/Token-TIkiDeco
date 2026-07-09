@@ -1,29 +1,29 @@
 # TikiDeco v0.2 RC Evidence Sync Report
 
-Date: 2026-07-05
+Date: 2026-07-09
 
 Status: release-evidence report. This report is not a token sale, mainnet launch, live utility announcement, independent audit report, legal opinion, value statement, or hospitality launch.
 
 ## Summary
 
-The v0.2 utility-pilot release-candidate documentation was synchronized with the current Official Public Preview merge commit.
+The v0.2 utility-pilot release-candidate documentation was synchronized with the current `main` merge commit after the generated-site line-ending fix.
 
 Current evidence commit:
 
 ```text
-218d35f381e40487a77503a27076e0907d0bfaf4
+1ec905aba369f4908936f942508de35ba92a49ae
 ```
 
 Current review bundle:
 
 ```text
-release-artifacts/v0.2.0-utility-pilot/218d35f381e40487a77503a27076e0907d0bfaf4
+release-artifacts/v0.2.0-utility-pilot/1ec905aba369f4908936f942508de35ba92a49ae
 ```
 
 The review bundle was generated locally with:
 
 ```bash
-npm run release:package -- --commit 218d35f381e40487a77503a27076e0907d0bfaf4 --release v0.2.0-utility-pilot
+npm run release -- --commit 1ec905aba369f4908936f942508de35ba92a49ae --release v0.2.0-utility-pilot
 ```
 
 No tag was created. No deployment was performed. No transaction was broadcast.
@@ -32,9 +32,9 @@ No tag was created. No deployment was performed. No transaction was broadcast.
 
 | Item | SHA-256 |
 | --- | --- |
-| Source archive | `4e1e5e62f93cd8da775275d388593d13a014615ceef5e0dadd0373723c39e453` |
-| Release manifest | `f27620ad7f6505908cef664c6775611a3dd7d238ed37af57976e26e3ce9f552f` |
-| `SHA256SUMS.txt` | `7c87fa16f898a40e46391b52310afa85602164277b3a1bf11fb5f7b7f1f7c359` |
+| Source archive | `2f4e7f590565a3f6e05fc9fbbbb20bc292ce3e994e05a4b9c9d1fdb8fd49effb` |
+| Release manifest | `09d799a71933191760298cee21c0cddba7284f3942462a0bbef64940e833968e` |
+| `SHA256SUMS.txt` | `ef4360c303219ae7fdd66e9d18ba329fc594c802f301afeffcb604778cbde892` |
 
 ## Evidence Captured
 
@@ -60,7 +60,7 @@ The generated review bundle includes:
 
 ## Validation Result
 
-The package generation completed successfully from a clean tree.
+The release reproducibility proof completed successfully from a clean tree.
 
 The bundle captured `69 passing` in the Hardhat test report.
 
@@ -76,12 +76,12 @@ The project still preserves these boundaries:
 
 ## Required Follow-Up
 
-This report records the current evidence baseline. After this PR is merged, the release manager must regenerate the package on the final merge commit before attaching or announcing the v0.2 release candidate.
+This report records the current evidence baseline. After any later release-documentation, site, audit, or gate PR is merged, the release manager must regenerate the package on that final merge commit before attaching or announcing a newer v0.2 release candidate.
 
 Expected command after merge:
 
 ```bash
-npm run release:package -- --commit <final-merge-sha> --release v0.2.0-utility-pilot
+npm run release -- --commit <final-merge-sha> --release v0.2.0-utility-pilot
 ```
 
 ## Privacy Statement
