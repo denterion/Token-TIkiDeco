@@ -6,6 +6,8 @@ For the current operational focus, see [`THREE_PHASE_ROADMAP.md`](THREE_PHASE_RO
 
 For competitive positioning and near-term product opportunities, see [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md).
 
+For the short proof path for the planned Sepolia utility pilot, see [`PILOT_PROOF_PACK.md`](PILOT_PROOF_PACK.md).
+
 ## Phase 1: Public Testnet Prototype
 
 Status: complete

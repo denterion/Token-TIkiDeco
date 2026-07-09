@@ -115,6 +115,7 @@ export const copy = {
       links: {
         repository: "Repository",
         officialPreview: "Official Preview",
+        pilotProofPack: "Pilot Proof Pack",
         projectFacts: "Project Facts",
         releaseControl: "Release Control",
         roadmap: "Roadmap",
@@ -204,6 +205,7 @@ export const copy = {
       links: {
         repository: "Repositorio",
         officialPreview: "Preview oficial",
+        pilotProofPack: "Pilot Proof Pack",
         projectFacts: "Hechos del proyecto",
         releaseControl: "Release Control",
         roadmap: "Roadmap",
@@ -293,6 +295,7 @@ export const copy = {
       links: {
         repository: "Repository",
         officialPreview: "Official Preview",
+        pilotProofPack: "Pilot Proof Pack",
         projectFacts: "Факты проекта",
         releaseControl: "Release Control",
         roadmap: "Roadmap",

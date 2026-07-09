@@ -18,6 +18,7 @@
 [Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
 [Project Facts](docs/PROJECT_FACTS.md) |
 [Competitive Landscape](docs/COMPETITIVE_LANDSCAPE.md) |
+[Pilot Proof Pack](docs/PILOT_PROOF_PACK.md) |
 [Claims Matrix](docs/CLAIMS_MATRIX.md) |
 [Security Policy](SECURITY.md)
 
@@ -39,6 +40,7 @@ For a first-time reader, use the four public entry points:
 - Short paths: [`docs/START_HERE.md`](docs/START_HERE.md)
 - Public entrypoint rules: [`docs/PUBLIC_ENTRYPOINTS.md`](docs/PUBLIC_ENTRYPOINTS.md)
 - Market position: [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md)
+- Pilot proof pack: [`docs/PILOT_PROOF_PACK.md`](docs/PILOT_PROOF_PACK.md)
 - Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
 
 ## 30-Second Project Status
@@ -49,7 +51,7 @@ For a first-time reader, use the four public entry points:
 | What exists now? | Canonical V1 legacy token and vesting vault on Sepolia, verified source links, Safe ownership, public docs, read-only website, v0.1 and v0.2 pre-releases. |
 | What does not exist? | No token sale, no stated monetary value, no mainnet deployment, no active guest benefits, no V2 canonical promotion, no completed independent audit. |
 | What is the next release candidate? | `v0.2.0-utility-pilot-rc.1`: read-only utility-pilot evidence, with the campaign still `draft-not-live`. |
-| How do I verify it? | Start with [`deployments/canonical.json`](deployments/canonical.json), Sepolia Etherscan links below, [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md), and `npm run project:control`. |
+| How do I verify it? | Start with [`deployments/canonical.json`](deployments/canonical.json), Sepolia Etherscan links below, [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md), [`docs/PILOT_PROOF_PACK.md`](docs/PILOT_PROOF_PACK.md), and `npm run project:control`. |
 | How do I give feedback? | Use [GitHub Issues](https://github.com/denterion/Token-TIkiDeco/issues) and [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md). |
 
 Maintainer status command:
