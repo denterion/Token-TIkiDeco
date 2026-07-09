@@ -106,7 +106,7 @@ function buildSummary(options = {}) {
 
   const nextActions = [];
   if (staleReleaseEvidence) {
-    nextActions.push(`Run npm run release:package -- --commit ${head} --release v0.2.0-utility-pilot from a clean tree.`);
+    nextActions.push(`Run npm run release -- --commit ${head} --release v0.2.0-utility-pilot from a clean tree.`);
     nextActions.push("Update the v0.2 RC evidence hashes/report after package generation.");
   }
   nextActions.push("Keep npm run pilot:live:blocked green until legal, privacy, security, operations, and governance approvals exist.");
