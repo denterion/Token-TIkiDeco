@@ -20,6 +20,7 @@ Start with:
 
 - [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md)
 - [`OFFICIAL_PUBLIC_PREVIEW.md`](OFFICIAL_PUBLIC_PREVIEW.md)
+- [`PILOT_PROOF_PACK.md`](PILOT_PROOF_PACK.md)
 - [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md)
 - [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md)
 
@@ -31,6 +32,7 @@ Start with:
 
 - [`RELEASE_CONTROL_CENTER.md`](RELEASE_CONTROL_CENTER.md)
 - [`NEXT_RELEASE_GATES.md`](NEXT_RELEASE_GATES.md)
+- [`PILOT_PROOF_PACK.md`](PILOT_PROOF_PACK.md)
 - [`PROJECT_FACTS.md`](PROJECT_FACTS.md)
 
 Goal: keep release evidence reproducible, verify stale package blockers, and keep the pilot blocked until approvals exist.

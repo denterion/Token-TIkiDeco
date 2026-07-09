@@ -144,6 +144,65 @@ const pages = [
     disclaimer: "Audit-status disclaimer: status information is project-maintained and not an independent audit report."
   },
   {
+    path: "proof/index.html",
+    title: "Pilot Proof Pack",
+    description: "A verification-first proof pack for the planned TikiDeco Sepolia utility pilot, including status, blockers, commands, and dry-run evidence.",
+    eyebrow: "Pilot proof pack",
+    heading: "Proof before promotion",
+    intro: "This page gives reviewers one short path to check the planned Sepolia-only pilot without treating it as live.",
+    sections: [
+      ["Current Proof", [
+        ["Network", "Ethereum Sepolia"],
+        ["Canonical version", manifest.contractVersion],
+        ["Campaign status", "draft-not-live"],
+        ["Read-only balance check", "Implemented for v0.2 pre-release review"],
+        ["Dry-run report", "Aggregate-only; fake/test addresses; no Safe broadcast"],
+        ["V2 status", "Candidate only; not canonical"],
+        ["Independent audit", "Not started"]
+      ]],
+      ["What Works Now", [
+        ["Manifest", "Canonical Sepolia V1 deployment facts are recorded in deployments/canonical.json."],
+        ["Website", "Public pages are read-only and do not require wallet connection for browsing."],
+        ["Eligibility checker", "The v0.2 flow can read Sepolia TIDE balance without transaction signing."],
+        ["Gate register", "Live-pilot blockers are mapped to owner roles, evidence files, and tracking issues."],
+        ["Dry-run evidence", "Allocation dry run exists as Safe Transaction Builder JSON draft plus aggregate report."]
+      ]],
+      ["What Is Blocked", [
+        ["Request window", "Not published."],
+        ["Snapshot or live-check mode", "Not published or approved."],
+        ["Inventory", "Not published."],
+        ["Approvals", "Legal, privacy, security, operations, and governance gates are not approved."],
+        ["Live utility", "No active guest benefit is live."],
+        ["Mainnet", "Not approved."]
+      ]],
+      ["Verification Commands", [
+        ["Claims", "npm run claims"],
+        ["Value boundary", "npm run value"],
+        ["Site", "npm run site"],
+        ["Pilot", "npm run pilot"],
+        ["Blocked live gate", "npm run pilot:live:blocked"],
+        ["Mainnet blocked gate", "node scripts/check-mainnet-readiness.cjs --expect-blocked"]
+      ]],
+      ["Dry-Run Evidence", [
+        ["Total input rows", "3"],
+        ["Valid test wallets", "3"],
+        ["Duplicate wallets rejected", "0"],
+        ["Invalid rows rejected", "0"],
+        ["Draft testnet allocation", "150 TIDE"],
+        ["Safe draft hash", "38bd27fdd7ed42bd95aec498034eb52ee996308748d8ee4f317be5f1ecc2f61d"],
+        ["Report hash", "e86e00ce3ff03de0ab73b7e2b1889c3e9cc4e792f7d2bb4fa9b9158c07b181ae"]
+      ]]
+    ],
+    links: [
+      ["Pilot Proof Pack", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"],
+      ["Dry-run report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_09_PILOT_PROOF_DRY_RUN.md"],
+      ["Live blocker register", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md"],
+      ["Project facts", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"],
+      ["GitHub feedback", "https://github.com/denterion/Token-TIkiDeco/issues"]
+    ],
+    disclaimer: "No-offer disclaimer: TIDE is a Sepolia testnet prototype, not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started."
+  },
+  {
     path: "utility/index.html",
     title: "TIDE Utility",
     description: "A read-only explanation of what TIDE can test on Sepolia, what remains planned, and what TIDE does not provide.",
@@ -416,6 +475,7 @@ function legalFooter() {
         <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit has not started.</p>
         <p class="footer-links">
           <a href="/utility/">Utility</a>
+          <a href="/proof/">Proof Pack</a>
           <a href="/pilot/">Pilot</a>
           <a href="/business/">Business</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
