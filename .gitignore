@@ -8,6 +8,7 @@ cache-foundry/
 coverage/
 security-artifacts/
 release-artifacts/
+test-results/
 lcov.info
 .env
 .openzeppelin/
