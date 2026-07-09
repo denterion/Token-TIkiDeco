@@ -120,6 +120,14 @@ function absoluteLinkSet(links) {
   return new Set(links.map(normalizedAbsoluteUrl).filter(Boolean));
 }
 
+function sitemapLocSet(xml) {
+  return new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].trim()));
+}
+
+function lineSet(value) {
+  return new Set(value.split(/\r?\n/).map((line) => line.trim()).filter(Boolean));
+}
+
 function phraseRegex(phrase) {
   const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+");
   return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i");
@@ -181,6 +189,8 @@ function main() {
   const allHtml = htmlPaths.map(read).join("\n");
   const allLinks = htmlPaths.flatMap((filePath) => extractLinks(read(filePath)));
   const absoluteLinks = absoluteLinkSet(allLinks);
+  const sitemapLocs = sitemapLocSet(sitemap);
+  const robotsLines = lineSet(robots);
   const searchable = `${allHtml}\n${css}\n${js}`.toLowerCase();
 
   for (const required of requiredPages) {
@@ -197,13 +207,13 @@ function main() {
   assert(!manifest.contracts.vestingVault.constructorArguments, "public manifest should not expose vault constructor arguments");
   assert(fs.existsSync(cnamePath), "site/CNAME missing for custom domain tracking");
   assert(read(cnamePath).trim() === "tikideco.xyz", "site/CNAME must contain tikideco.xyz");
-  assert(robots.includes("https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
-  assert(sitemap.includes("https://tikideco.xyz/audit/"), "sitemap missing audit page");
-  assert(sitemap.includes("https://tikideco.xyz/proof/"), "sitemap missing proof page");
-  assert(sitemap.includes("https://tikideco.xyz/utility/"), "sitemap missing utility page");
-  assert(sitemap.includes("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
-  assert(sitemap.includes("https://tikideco.xyz/business/"), "sitemap missing business page");
-  assert(sitemap.includes("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
+  assert(robotsLines.has("Sitemap: https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
+  assert(sitemapLocs.has("https://tikideco.xyz/audit/"), "sitemap missing audit page");
+  assert(sitemapLocs.has("https://tikideco.xyz/proof/"), "sitemap missing proof page");
+  assert(sitemapLocs.has("https://tikideco.xyz/utility/"), "sitemap missing utility page");
+  assert(sitemapLocs.has("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
+  assert(sitemapLocs.has("https://tikideco.xyz/business/"), "sitemap missing business page");
+  assert(sitemapLocs.has("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"), "Site must link to Pilot Proof Pack");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"), "Site must link to Project Facts");
