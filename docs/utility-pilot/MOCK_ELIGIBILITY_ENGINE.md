@@ -1,10 +1,10 @@
 # Read-Only Eligibility Engine
 
-Status: planned read-only implementation for the Sepolia-only TIDE Loyalty Pilot. This is not a production booking system, not a token sale, not a mainnet deployment, and not a live hospitality benefit.
+Status: read-only implementation notes for the Sepolia-only TIDE Loyalty Pilot. This is not a production booking system, not a token sale, not a mainnet deployment, and not a live hospitality benefit.
 
 ## What It Is
 
-The eligibility engine is a TypeScript rules engine for explaining how a future TIDE Loyalty Pilot eligibility review could work.
+The eligibility engine is a TypeScript rules engine for explaining how a future TIDE Loyalty Pilot eligibility review could work. The production UI reads the canonical Sepolia TIDE `balanceOf(wallet)` through allowlisted RPC endpoints. Deterministic mock/test fixtures are kept only for automated tests.
 
 It evaluates:
 
@@ -15,6 +15,8 @@ It evaluates:
 - minimum TIDE threshold;
 - campaign active window;
 - duplicate wallet policy.
+
+See [`READ_ONLY_BALANCE_CHECK.md`](READ_ONLY_BALANCE_CHECK.md) for the live read-only RPC flow.
 
 The flow returns an explanation for the user and always reports that no active benefits are live and no transaction flow is required.
 

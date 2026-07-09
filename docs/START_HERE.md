@@ -1,0 +1,76 @@
+# Start Here
+
+TikiDeco / TIDE is an open-source Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure.
+
+TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no live guest benefits, and has not completed an independent audit.
+
+## Current State In 30 Seconds
+
+- Canonical deployment: V1 legacy contracts on Ethereum Sepolia.
+- V2: candidate code only, not canonical.
+- v0.2: public pre-release for a read-only utility-pilot flow; campaign is `draft-not-live`.
+- Website: read-only, no wallet connection required for browsing, no transaction flow.
+- Public boundaries: no sale, no stated monetary value, no mainnet, no active guest benefits, independent audit not started.
+
+## Four Short Paths
+
+### Community Reviewer
+
+Start with:
+
+- [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md)
+- [`OFFICIAL_PUBLIC_PREVIEW.md`](OFFICIAL_PUBLIC_PREVIEW.md)
+- [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md)
+
+Goal: understand what is current, give feedback through GitHub issues, and avoid unsupported claims.
+
+### Operator / Release Manager
+
+Start with:
+
+- [`RELEASE_CONTROL_CENTER.md`](RELEASE_CONTROL_CENTER.md)
+- [`NEXT_RELEASE_GATES.md`](NEXT_RELEASE_GATES.md)
+- [`PROJECT_FACTS.md`](PROJECT_FACTS.md)
+
+Goal: keep release evidence reproducible, verify stale package blockers, and keep the pilot blocked until approvals exist.
+
+### Auditor / Security Reviewer
+
+Start with:
+
+- [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md)
+- [`V2_AUDIT_OWNER_DECISIONS.md`](V2_AUDIT_OWNER_DECISIONS.md)
+- [`../KNOWN_ISSUES.md`](../KNOWN_ISSUES.md)
+
+Goal: review V2 candidate scope, known issues, role decisions, Slither baseline, and test evidence without treating V2 as canonical.
+
+### Legal / Governance Reviewer
+
+Start with:
+
+- [`COUNSEL_INTAKE_PACKAGE.md`](COUNSEL_INTAKE_PACKAGE.md)
+- [`GOVERNANCE_DECISION_REGISTER.md`](GOVERNANCE_DECISION_REGISTER.md)
+- [`VALUE_CLAIM_POLICY.md`](VALUE_CLAIM_POLICY.md)
+
+Goal: review public boundaries, governance decisions, value/sale restrictions, privacy requirements, and mainnet blockers.
+
+## Commands For Review
+
+```bash
+npm run project:control
+npm run claims
+npm run value
+npm run site
+npm run pilot:live:blocked
+node scripts/check-mainnet-readiness.cjs --expect-blocked
+```
+
+Expected blocked state:
+
+- `npm run mainnet:check` fails until mainnet/value/real-utility gates are approved.
+- `npm run pilot:live:check` fails until live-campaign gates are approved.
+- `npm run project:control` may report stale v0.2 RC evidence after a merge; regenerate the release package on the final `main` SHA before announcing a release candidate.
+
+## What Not To Infer
+
+Do not infer from this repository that TIDE is for sale, has a price, is on mainnet, has live guest benefits, grants hotel ownership, grants financial rights, or has completed an independent audit.

@@ -17,6 +17,15 @@ const requiredDocs = [
   "deployments/canonical.json"
 ];
 
+const explicitNoGoMarkers = [
+  ["mainnet is not approved", "No mainnet deployment is approved."],
+  ["token sale is not approved", "No token sale is approved."],
+  ["V2 promotion is not approved", "No V2 promotion is approved."],
+  ["value statement is not approved", "No value statement is approved."],
+  ["independent audit claim is not approved", "No independent audit claim is approved."],
+  ["real-world guest utility is not live", "No real-world guest utility is live."]
+];
+
 const blockedMarkers = [
   "not approved",
   "requires review",
@@ -87,11 +96,22 @@ function checkMainnetArtifacts() {
   for (const phrase of requiredBaseline) {
     assert(`${mainnet}\n${value}`.includes(phrase), `Readiness docs missing required cautious wording: ${phrase}`);
   }
+  for (const [label, phrase] of explicitNoGoMarkers) {
+    assert(mainnet.includes(phrase.toLowerCase()), `MAINNET_GO_NO_GO.md missing explicit no-go marker for ${label}`);
+  }
 
   assert(canonical.network === "sepolia", "Canonical deployment must remain Sepolia for this blocked gate");
   assert(canonical.auditStatus?.independentAudit === "not-started", "Independent audit must not be claimed complete");
   assert(canonical.auditStatus?.mainnetApproved === false, "Canonical manifest must not approve mainnet");
   assert(canonical.contractVersion === "v1-legacy", "V2 must not be promoted by this readiness gate");
+
+  const canonicalNoGo = [
+    ["mainnet", canonical.auditStatus?.mainnetApproved === false],
+    ["independent audit", canonical.auditStatus?.independentAudit === "not-started"],
+    ["canonical V2 promotion", canonical.contractVersion !== "v2"],
+    ["canonical network", canonical.network === "sepolia"]
+  ].filter(([, ok]) => !ok);
+  assert(canonicalNoGo.length === 0, `Canonical manifest has unexpected readiness approvals: ${canonicalNoGo.map(([label]) => label).join(", ")}`);
 
   const statuses = [...tableStatuses(mainnet), ...tableStatuses(hospitality), ...tableStatuses(value)];
   assert(statuses.length > 0, "No readiness statuses found");

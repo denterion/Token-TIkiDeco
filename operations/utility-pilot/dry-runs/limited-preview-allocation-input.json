@@ -1,0 +1,21 @@
+{
+  "campaignId": "tide-community-preview-001",
+  "note": "Dry-run fixture only. These are fake/test addresses and do not identify participants.",
+  "allocations": [
+    {
+      "address": "0x0000000000000000000000000000000000001001",
+      "amountTide": 25,
+      "note": "fake-test-address-1"
+    },
+    {
+      "address": "0x0000000000000000000000000000000000001002",
+      "amountTide": 50,
+      "note": "fake-test-address-2"
+    },
+    {
+      "address": "0x0000000000000000000000000000000000001003",
+      "amountTide": 75,
+      "note": "fake-test-address-3"
+    }
+  ]
+}

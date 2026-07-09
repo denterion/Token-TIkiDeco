@@ -9,6 +9,7 @@ coverage/
 security-artifacts/
 release-artifacts/
 test-results/
+playwright-report/
 lcov.info
 .env
 .openzeppelin/

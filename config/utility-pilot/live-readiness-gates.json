@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "blocked",
+  "campaignId": "tide-community-preview-001",
+  "purpose": "Machine-readable gate list for a future Sepolia-only utility pilot campaign. This file does not approve a live campaign.",
+  "requiredBeforeLiveCampaign": {
+    "legalReview": {
+      "status": "evidence-only",
+      "owner": "legal-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/LEGAL_REVIEW_DECISION.md"
+    },
+    "privacyReview": {
+      "status": "not-approved",
+      "owner": "privacy-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/PRIVACY_REVIEW_DECISION.md"
+    },
+    "securityReview": {
+      "status": "not-approved",
+      "owner": "security-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 62,
+      "evidence": "docs/utility-pilot/SECURITY_REVIEW_DECISION.md"
+    },
+    "operationsReview": {
+      "status": "evidence-only",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/OPERATIONS_REVIEW_DECISION.md"
+    },
+    "governanceReview": {
+      "status": "not-approved",
+      "owner": "governance-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 60,
+      "evidence": "docs/utility-pilot/GOVERNANCE_REVIEW_DECISION.md"
+    },
+    "campaignSpecificRules": {
+      "status": "draft",
+      "owner": "pilot-operator",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md"
+    },
+    "snapshotOrApprovedLiveCheckWindow": {
+      "status": "not-published",
+      "owner": "pilot-operator",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/REQUEST_WINDOW_DRAFT.md"
+    },
+    "requestWindow": {
+      "status": "not-published",
+      "owner": "pilot-operator",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/REQUEST_WINDOW_DRAFT.md"
+    },
+    "inventoryLimits": {
+      "status": "not-published",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 58,
+      "evidence": "docs/utility-pilot/INVENTORY_LIMITS_DRAFT.md"
+    },
+    "allocationReportPath": {
+      "status": "draft",
+      "owner": "reporting-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 58,
+      "evidence": "docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md"
+    },
+    "staffProcess": {
+      "status": "draft",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md"
+    },
+    "disputeProcess": {
+      "status": "draft",
+      "owner": "operations-reviewer",
+      "approvalStatus": "not-approved",
+      "issue": 56,
+      "evidence": "docs/utility-pilot/MANUAL_REVIEW_AND_DISPUTE_FLOW.md"
+    },
+    "communityFeedbackSummary": {
+      "status": "not-started",
+      "owner": "community-maintainer",
+      "approvalStatus": "not-approved",
+      "issue": 66,
+      "evidence": "docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md"
+    },
+    "transparencyUpdate": {
+      "status": "draft",
+      "owner": "transparency-maintainer",
+      "approvalStatus": "not-approved",
+      "issue": 65,
+      "evidence": "docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md"
+    }
+  },
+  "hardBoundaries": {
+    "noSale": true,
+    "noStatedMonetaryValue": true,
+    "noMainnetDeployment": true,
+    "noActiveGuestBenefits": true,
+    "independentAuditNotStarted": true,
+    "noPrivateGuestDataCollection": true,
+    "noSafeTransactionBroadcast": true
+  }
+}

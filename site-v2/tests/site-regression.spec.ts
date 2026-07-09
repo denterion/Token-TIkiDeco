@@ -39,12 +39,27 @@ async function mockRpcBalance(page: Page, tideBalance: bigint, chainId = 1115511
   });
 }
 
+async function checkSepoliaBalanceWithKeyboard(page: Page) {
+  const button = page.getByRole("button", { name: /Check Sepolia balance/i });
+  await button.focus();
+  await expect(button).toBeFocused();
+  await page.keyboard.press("Enter");
+}
+
 test("homepage explains current status and avoids transaction CTAs", async ({ page }) => {
   await page.goto("/");
 
   await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
   await expect(page.getByText("SEPOLIA TESTNET - NO MONETARY VALUE")).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Prototype first/i })).toBeVisible();
+  await expect(page.getByText(/No Sale/i).first()).toBeVisible();
+  await expect(page.getByText(/not independently audited/i).first()).toBeVisible();
+  const topNav = page.locator("header.top-nav");
+  await expect(topNav.getByRole("link", { name: /Overview/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /Status/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /^Pilot$/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /Audit/i })).toBeVisible();
+  await expect(topNav.getByRole("link", { name: /Feedback/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Current status in one panel/i })).toBeVisible();
   await expect(page.getByRole("heading", { name: /TIDE Loyalty Pilot eligibility flow/i })).toBeVisible();
 
   await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer/i })).toHaveCount(0);
@@ -58,7 +73,7 @@ test("mobile layout has no horizontal overflow", async ({ page, isMobile }) => {
   await page.goto("/");
 
   await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
-  await expect(page.getByLabel(/Primary navigation|Navegacion principal|РћСЃРЅРѕРІРЅР°СЏ/i)).toBeVisible();
+  await expect(page.locator("header.top-nav")).toBeVisible();
   await assertNoHorizontalOverflow(page);
 });
 
@@ -67,11 +82,11 @@ test("eligibility card handles RPC unavailable without fake zero data", async ({
   await page.goto("/");
 
   await page.getByLabel("Wallet address").fill(validWallet);
-  await page.getByRole("button", { name: /Check Sepolia balance/i }).click();
+  await checkSepoliaBalanceWithKeyboard(page);
 
   await expect(page.getByText(/Data: UNAVAILABLE/i)).toBeVisible();
-  await expect(page.getByText("NOT LIVE")).toBeVisible();
-  await expect(page.getByText(/manual review/i)).toBeVisible();
+  await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
+  await expect(page.locator("p").filter({ hasText: /manual review/i }).last()).toBeVisible();
   await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer/i })).toHaveCount(0);
 });
 
@@ -80,12 +95,12 @@ test("eligibility card displays mocked sufficient Sepolia balance as live read-o
   await page.goto("/");
 
   await page.getByLabel("Wallet address").fill(validWallet);
-  await page.getByRole("button", { name: /Check Sepolia balance/i }).click();
+  await checkSepoliaBalanceWithKeyboard(page);
 
   await expect(page.getByText(/150 TIDE/i)).toBeVisible();
   await expect(page.getByText(/Data: LIVE/i)).toBeVisible();
-  await expect(page.getByText("NOT LIVE")).toBeVisible();
-  await expect(page.getByText(/manual review/i)).toBeVisible();
+  await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
+  await expect(page.locator("p").filter({ hasText: /manual review/i }).last()).toBeVisible();
   await expect(page.getByText(/No transaction button/i)).toBeVisible();
 });
 

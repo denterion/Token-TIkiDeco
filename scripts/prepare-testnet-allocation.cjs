@@ -1,34 +1,227 @@
 const fs = require("fs");
 const path = require("path");
+const crypto = require("crypto");
 
 const root = path.join(__dirname, "..");
 const canonical = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
-const campaign = JSON.parse(
-  fs.readFileSync(path.join(root, "config", "utility-pilot", "tide-community-preview-001.json"), "utf8")
-);
+const campaign = JSON.parse(fs.readFileSync(path.join(root, "config", "utility-pilot", "tide-community-preview-001.json"), "utf8"));
 const outputDir = path.join(root, "operations", "utility-pilot");
-const outputPath = path.join(outputDir, "testnet-allocation-draft.json");
+const defaultReportPath = path.join(outputDir, "testnet-allocation-draft.json");
+const defaultSafePath = path.join(outputDir, "safe-transaction-builder-draft.json");
+const TRANSFER_SELECTOR = "0xa9059cbb";
+const defaultCreatedAt = campaign.lastUpdated ? new Date(`${campaign.lastUpdated}T00:00:00.000Z`).toISOString() : "1970-01-01T00:00:00.000Z";
 
-const draft = {
-  status: campaign.status,
-  campaignId: campaign.campaignId,
-  campaignName: campaign.campaignName,
-  network: canonical.network,
-  chainId: canonical.chainId,
-  tokenAddress: canonical.contracts.token.address,
-  snapshotBlock: campaign.snapshot?.block || null,
-  minimumTideBalance: `${campaign.eligibility.minimumTideBalance} ${campaign.eligibility.minimumTideBalanceUnits}`,
-  saleStatus: "no sale",
-  monetaryValueStatus: "no stated monetary value",
-  mainnetStatus: "no mainnet deployment",
-  auditStatus: "independent audit not started",
-  allocationStatus: "planned only until a campaign notice is published",
-  requestWindowStatus: campaign.requestWindow.status,
-  inventoryStatus: campaign.inventory.status,
-  publishedCapacity: campaign.inventory.publishedCapacity,
-  requiredReportTemplate: campaign.reports.allocationReportTemplate
-};
+function parseArgs(argv) {
+  const args = {
+    campaignId: campaign.campaignId,
+    perWalletCap: Number(campaign.allocation?.perWalletCap || 100),
+    campaignCap: Number(campaign.allocation?.campaignCap || 1000),
+    createdAt: process.env.ALLOCATION_DRAFT_CREATED_AT || defaultCreatedAt,
+    report: defaultReportPath,
+    safe: defaultSafePath
+  };
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (arg === "--input") args.input = path.resolve(argv[++i]);
+    else if (arg === "--campaign-id") args.campaignId = String(argv[++i] || "");
+    else if (arg === "--per-wallet-cap") args.perWalletCap = Number(argv[++i]);
+    else if (arg === "--campaign-cap") args.campaignCap = Number(argv[++i]);
+    else if (arg === "--created-at") args.createdAt = String(argv[++i] || "");
+    else if (arg === "--report") args.report = path.resolve(argv[++i]);
+    else if (arg === "--safe") args.safe = path.resolve(argv[++i]);
+    else if (arg === "--help" || arg === "-h") args.help = true;
+    else throw new Error(`Unknown argument: ${arg}`);
+  }
+  return args;
+}
 
-fs.mkdirSync(outputDir, { recursive: true });
-fs.writeFileSync(outputPath, `${JSON.stringify(draft, null, 2)}\n`);
-console.log(`Prepared testnet allocation draft: ${path.relative(root, outputPath)}`);
+function usage() {
+  console.log("Usage: node scripts/prepare-testnet-allocation.cjs [--input allocations.csv|allocations.json] [--campaign-id tide-community-preview-001] [--per-wallet-cap 100] [--campaign-cap 1000] [--created-at 1970-01-01T00:00:00.000Z]");
+}
+
+function isAddress(value) {
+  return /^0x[a-fA-F0-9]{40}$/.test(String(value || "").trim());
+}
+
+function normalizeAddress(value) {
+  return String(value).trim().toLowerCase();
+}
+
+function parseCsv(text) {
+  const lines = text.split(/\r?\n/).filter((line) => line.trim());
+  if (lines.length === 0) return [];
+  const headers = lines[0].split(",").map((cell) => cell.trim().toLowerCase());
+  return lines.slice(1).map((line) => {
+    const cells = line.split(",").map((cell) => cell.trim());
+    return Object.fromEntries(headers.map((header, index) => [header, cells[index] || ""]));
+  });
+}
+
+function readInput(filePath) {
+  if (!filePath) return { rows: [], campaignId: null };
+  const text = fs.readFileSync(filePath, "utf8");
+  if (filePath.toLowerCase().endsWith(".json")) {
+    const parsed = JSON.parse(text);
+    return {
+      rows: Array.isArray(parsed) ? parsed : parsed.allocations || [],
+      campaignId: Array.isArray(parsed) ? null : parsed.campaignId || null
+    };
+  }
+  if (filePath.toLowerCase().endsWith(".csv")) return { rows: parseCsv(text), campaignId: null };
+  throw new Error("Allocation input must be CSV or JSON");
+}
+
+function normalizeRows(rows, expectedCampaignId) {
+  return rows.map((row, index) => ({
+    index: index + 1,
+    campaignId: row.campaignId || row.campaign || expectedCampaignId,
+    address: normalizeAddress(row.address || row.wallet || row.walletAddress),
+    amountTide: Number(row.amountTide || row.amount || row.tide || 0),
+    note: row.note || ""
+  }));
+}
+
+function assertAllocations(rows, { perWalletCap, campaignCap }) {
+  const seen = new Set();
+  let total = 0;
+  for (const row of rows) {
+    if (row.campaignId !== campaign.campaignId) throw new Error(`Campaign ID mismatch at row ${row.index}: ${row.campaignId}`);
+    if (!isAddress(row.address)) throw new Error(`Invalid address at row ${row.index}: ${row.address}`);
+    if (seen.has(row.address)) throw new Error(`Duplicate wallet address: ${row.address}`);
+    seen.add(row.address);
+    if (!Number.isFinite(row.amountTide) || row.amountTide <= 0) throw new Error(`Invalid amount at row ${row.index}`);
+    if (row.amountTide > perWalletCap) throw new Error(`Per-wallet cap exceeded at row ${row.index}: ${row.amountTide} > ${perWalletCap}`);
+    total += row.amountTide;
+    if (total > campaignCap) throw new Error(`Campaign cap exceeded: ${total} > ${campaignCap}`);
+  }
+  return total;
+}
+
+function tokenUnits(amountTide) {
+  return BigInt(Math.trunc(amountTide * 1_000_000)) * 10n ** 12n;
+}
+
+function encodeTransfer(address, amountTide) {
+  const addressWord = address.replace(/^0x/, "").padStart(64, "0");
+  const amountWord = tokenUnits(amountTide).toString(16).padStart(64, "0");
+  return `${TRANSFER_SELECTOR}${addressWord}${amountWord}`;
+}
+
+function sha256Text(text) {
+  return crypto.createHash("sha256").update(text).digest("hex");
+}
+
+function buildSafeDraft(rows, createdAt) {
+  return {
+    version: "1.0",
+    chainId: String(canonical.chainId),
+    createdAt,
+    meta: {
+      name: `${campaign.campaignId} Sepolia allocation draft`,
+      description: "Draft only. Review manually in Safe Transaction Builder. Do not broadcast without approvals.",
+      txBuilderVersion: "1.18.0",
+      createdFromSafeAddress: canonical.ownership.ownerSafe,
+      createdFromOwnerAddress: "",
+      checksum: ""
+    },
+    notes: "Draft only. No transaction was broadcast by this script.",
+    transactions: rows.map((row) => ({
+      to: canonical.contracts.token.address,
+      value: "0",
+      data: encodeTransfer(row.address, row.amountTide),
+      contractMethod: {
+        inputs: [
+          { internalType: "address", name: "to", type: "address" },
+          { internalType: "uint256", name: "amount", type: "uint256" }
+        ],
+        name: "transfer",
+        payable: false
+      },
+      contractInputsValues: {
+        to: row.address,
+        amount: tokenUnits(row.amountTide).toString()
+      }
+    }))
+  };
+}
+
+function buildReport(rows, total, args, safeRel, safeSha256) {
+  const report = {
+    status: campaign.status,
+    campaignId: campaign.campaignId,
+    campaignName: campaign.campaignName,
+    network: canonical.network,
+    chainId: canonical.chainId,
+    tokenAddress: canonical.contracts.token.address,
+    snapshotBlock: campaign.snapshot?.block || null,
+    minimumTideBalance: `${campaign.eligibility.minimumTideBalance} ${campaign.eligibility.minimumTideBalanceUnits}`,
+    saleStatus: "no sale",
+    monetaryValueStatus: "no stated monetary value",
+    mainnetStatus: "no mainnet deployment",
+    auditStatus: "independent audit not started",
+    allocationStatus: rows.length === 0 ? "draft only; no allocation input provided" : "draft only; not approved and not broadcast",
+    inputCampaignId: args.campaignId,
+    requestWindowStatus: campaign.requestWindow.status,
+    inventoryStatus: campaign.inventory.status,
+    publishedCapacity: campaign.inventory.publishedCapacity,
+    perWalletCap: args.perWalletCap,
+    campaignCap: args.campaignCap,
+    totalInputRows: rows.length,
+    totalWallets: rows.length,
+    validTestWallets: rows.length,
+    duplicateWalletsRejected: 0,
+    invalidRowsRejected: 0,
+    totalTestnetTideAllocated: `${total} TIDE`,
+    noPrivateData: true,
+    noGuaranteedBenefit: true,
+    noHotelOwnership: true,
+    aggregateOnlyReport: true,
+    walletAddressesIncluded: false,
+    walletAddressPolicy: "Wallet addresses are included only in the Safe Transaction Builder draft for manual signer review; this report is aggregate-only.",
+    requiredReportTemplate: campaign.reports.allocationReportTemplate,
+    safeTransactionBuilderDraft: safeRel,
+    safeTransactionBuilderDraftSha256: safeSha256,
+    documentSha256: null
+  };
+  const withoutHash = JSON.stringify(report, null, 2);
+  report.documentSha256 = sha256Text(withoutHash);
+  return report;
+}
+
+function main() {
+  const args = parseArgs(process.argv.slice(2));
+  if (args.help) {
+    usage();
+    return;
+  }
+
+  if (!args.campaignId) throw new Error("Campaign ID is required");
+  if (Number.isNaN(Date.parse(args.createdAt))) throw new Error(`Invalid createdAt timestamp: ${args.createdAt}`);
+  if (args.campaignId !== campaign.campaignId) throw new Error(`Campaign ID mismatch: ${args.campaignId} != ${campaign.campaignId}`);
+  if (!["draft-not-live", "published-testnet"].includes(campaign.status)) {
+    throw new Error(`Campaign status does not allow allocation draft generation: ${campaign.status}`);
+  }
+
+  const input = readInput(args.input);
+  if (input.campaignId && input.campaignId !== campaign.campaignId) {
+    throw new Error(`Input campaignId mismatch: ${input.campaignId} != ${campaign.campaignId}`);
+  }
+  const rows = normalizeRows(input.rows, input.campaignId || args.campaignId);
+  const total = assertAllocations(rows, args);
+  fs.mkdirSync(outputDir, { recursive: true });
+  fs.mkdirSync(path.dirname(args.safe), { recursive: true });
+  fs.mkdirSync(path.dirname(args.report), { recursive: true });
+
+  const safeDraft = buildSafeDraft(rows, new Date(args.createdAt).toISOString());
+  const safeText = `${JSON.stringify(safeDraft, null, 2)}\n`;
+  fs.writeFileSync(args.safe, safeText);
+  const safeRel = path.relative(root, args.safe).replaceAll(path.sep, "/");
+  const report = buildReport(rows, total, args, safeRel, sha256Text(safeText));
+  fs.writeFileSync(args.report, `${JSON.stringify(report, null, 2)}\n`);
+
+  console.log(`Prepared allocation report draft: ${path.relative(root, args.report)}`);
+  console.log(`Prepared Safe Transaction Builder draft: ${path.relative(root, args.safe)}`);
+  console.log("No transaction was broadcast. Manual Safe signer review is required before any execution.");
+}
+
+main();

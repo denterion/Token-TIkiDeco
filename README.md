@@ -22,9 +22,41 @@
 
 </div>
 
-## What It Is
+## Start Here
 
-TikiDeco / TIDE is a public Ethereum Sepolia testnet prototype. It is built to explore how a hospitality-linked project could publish token rules, allocation plans, vesting records, governance controls, and public report hashes in a transparent way.
+TikiDeco / TIDE is a public Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure. It is designed to make token rules, public reports, governance controls, and future pilot boundaries easier to verify.
+
+For a first-time reader, use the four public entry points:
+
+| Entry point | Use it for |
+| --- | --- |
+| [Overview](docs/PUBLIC_ENTRYPOINTS.md#overview) | What TikiDeco is and what is safe to say publicly. |
+| [Status](docs/PUBLIC_ENTRYPOINTS.md#status) | Current Sepolia deployment, releases, and blockers. |
+| [Pilot](docs/PUBLIC_ENTRYPOINTS.md#pilot) | Planned read-only utility-pilot flow and why it is not live. |
+| [Audit](docs/PUBLIC_ENTRYPOINTS.md#audit) | V1 legacy scope, V2 candidate scope, and audit-readiness evidence. |
+
+- Short paths: [`docs/START_HERE.md`](docs/START_HERE.md)
+- Public entrypoint rules: [`docs/PUBLIC_ENTRYPOINTS.md`](docs/PUBLIC_ENTRYPOINTS.md)
+- Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
+
+## 30-Second Project Status
+
+| Question | Current answer |
+| --- | --- |
+| What is it? | Open-source Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure. |
+| What exists now? | Canonical V1 legacy token and vesting vault on Sepolia, verified source links, Safe ownership, public docs, read-only website, v0.1 and v0.2 pre-releases. |
+| What does not exist? | No token sale, no stated monetary value, no mainnet deployment, no active guest benefits, no V2 canonical promotion, no completed independent audit. |
+| What is the next release candidate? | `v0.2.0-utility-pilot-rc.1`: read-only utility-pilot evidence, with the campaign still `draft-not-live`. |
+| How do I verify it? | Start with [`deployments/canonical.json`](deployments/canonical.json), Sepolia Etherscan links below, [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md), and `npm run project:control`. |
+| How do I give feedback? | Use [GitHub Issues](https://github.com/denterion/Token-TIkiDeco/issues) and [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md). |
+
+Maintainer status command:
+
+```bash
+npm run project:control
+```
+
+## Public Boundary
 
 TIDE is not sold, is not deployed on mainnet, has no stated monetary value, and does not represent hotel ownership, equity, debt, revenue rights, or a completed hospitality service.
 
@@ -136,6 +168,22 @@ npm run mainnet:check
 
 This is not a promise of mainnet, not a value statement, not an offer, and not legal approval. See [`docs/MAINNET_GO_NO_GO.md`](docs/MAINNET_GO_NO_GO.md), [`docs/VALUE_CLAIM_POLICY.md`](docs/VALUE_CLAIM_POLICY.md), and [`docs/HOSPITALITY_OPERATIONS_GATE.md`](docs/HOSPITALITY_OPERATIONS_GATE.md).
 
+## Community Preview
+
+The community preview collects public feedback on the read-only website, documentation, verification steps, translations, and Sepolia-only utility-pilot boundaries. It does not create active guest benefits, a token offering, mainnet deployment, or independent audit claim.
+
+Start here:
+
+- [`docs/OFFICIAL_PUBLIC_PREVIEW.md`](docs/OFFICIAL_PUBLIC_PREVIEW.md)
+- [`docs/COMMUNITY_PREVIEW.md`](docs/COMMUNITY_PREVIEW.md)
+- [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md)
+- [`docs/NEXT_ISSUES.md`](docs/NEXT_ISSUES.md)
+- [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md)
+- [`docs/COMMUNITY_PREVIEW_LAUNCH_PLAN.md`](docs/COMMUNITY_PREVIEW_LAUNCH_PLAN.md)
+- [`docs/reports/REPORT_2026_07_04_OFFICIAL_PUBLIC_PREVIEW.md`](docs/reports/REPORT_2026_07_04_OFFICIAL_PUBLIC_PREVIEW.md)
+
+Open public feedback through the GitHub issue templates. Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
+
 ## How To Run Tests
 
 Install dependencies:
@@ -164,6 +212,8 @@ npm run lint
 npm run coverage
 npm run gas:snapshot
 npm run audit
+npm run site:browser:install
+npm run site:browser
 npm run site:check
 npm run release:check
 ```
@@ -173,6 +223,8 @@ Slither:
 ```bash
 npm run slither
 ```
+
+`npm run slither` runs the local Slither JSON scan and then applies the V2 baseline gate. Known accepted findings remain visible in generated artifacts; any new untriaged V2 finding fails. Use `npm run slither:raw` when you need Slither's unfiltered analyzer exit code and console output.
 
 Slither requires local Slither and solc `0.8.28` setup. Slither output is review material, not an audit certificate.
 

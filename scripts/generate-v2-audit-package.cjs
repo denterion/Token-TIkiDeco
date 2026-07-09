@@ -28,6 +28,9 @@ const requiredFiles = [
   "KNOWN_ISSUES.md",
   "SECURITY_REVIEW.md",
   "docs/V2_AUDIT_TARGET_FREEZE.md",
+  "docs/V2_AUDIT_OWNER_DECISIONS.md",
+  "docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md",
+  "docs/FRESH_CHECKOUT_RELEASE_PROOF.md",
   "docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md",
   "docs/AUDITOR_QUESTIONS.md",
   "docs/AUDIT_RESPONSE_PROCESS.md",
@@ -141,12 +144,16 @@ function assertGuards() {
     "production ready",
     "buy tide",
     "investment opportunity",
+    "hotel ownership token",
     "guaranteed profit",
     "revenue share"
   ];
   for (const phrase of forbidden) {
     assert(!publicText.includes(phrase), `Forbidden audit/value/mainnet claim found: ${phrase}`);
   }
+  assert(readText("docs/V2_AUDIT_TARGET_FREEZE.md").match(/[0-9a-f]{40}/), "V2 freeze commit is missing.");
+  assert(fs.existsSync(path.join(root, "security", "slither-baseline-v2.json")), "Slither baseline is missing.");
+  assert(fs.existsSync(path.join(root, "KNOWN_ISSUES.md")), "KNOWN_ISSUES.md is missing.");
 }
 
 function main() {
@@ -195,7 +202,7 @@ function main() {
     generatedAt: new Date().toISOString(),
     headCommit: head,
     v2FreezeCommit: "58806906a273a95c58944d892eb368fc1b758620",
-    evidenceCommit: "e74c85612e745f14aa92260bf8b3633f9fd9fa4a",
+    evidenceCommit: head,
     nonCanonical: true,
     independentAuditStatus: "not-started",
     requiredFiles,

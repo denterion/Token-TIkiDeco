@@ -1,0 +1,91 @@
+{
+  "version": "1.0",
+  "chainId": "11155111",
+  "createdAt": "2026-06-25T00:00:00.000Z",
+  "meta": {
+    "name": "tide-community-preview-001 Sepolia allocation draft",
+    "description": "Draft only. Review manually in Safe Transaction Builder. Do not broadcast without approvals.",
+    "txBuilderVersion": "1.18.0",
+    "createdFromSafeAddress": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+    "createdFromOwnerAddress": "",
+    "checksum": ""
+  },
+  "notes": "Draft only. No transaction was broadcast by this script.",
+  "transactions": [
+    {
+      "to": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+      "value": "0",
+      "data": "0xa9059cbb00000000000000000000000000000000000000000000000000000000000010010000000000000000000000000000000000000000000000015af1d78b58c40000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "transfer",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "to": "0x0000000000000000000000000000000000001001",
+        "amount": "25000000000000000000"
+      }
+    },
+    {
+      "to": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+      "value": "0",
+      "data": "0xa9059cbb0000000000000000000000000000000000000000000000000000000000001002000000000000000000000000000000000000000000000002b5e3af16b1880000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "transfer",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "to": "0x0000000000000000000000000000000000001002",
+        "amount": "50000000000000000000"
+      }
+    },
+    {
+      "to": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+      "value": "0",
+      "data": "0xa9059cbb000000000000000000000000000000000000000000000000000000000000100300000000000000000000000000000000000000000000000410d586a20a4c0000",
+      "contractMethod": {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "to",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          }
+        ],
+        "name": "transfer",
+        "payable": false
+      },
+      "contractInputsValues": {
+        "to": "0x0000000000000000000000000000000000001003",
+        "amount": "75000000000000000000"
+      }
+    }
+  ]
+}

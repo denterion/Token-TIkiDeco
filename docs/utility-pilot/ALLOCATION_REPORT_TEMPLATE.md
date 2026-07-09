@@ -29,6 +29,8 @@ TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated m
 ## Privacy-Safe Results
 
 - Total requests:
+- Total wallets:
+- Total testnet TIDE allocated:
 - Duplicate-wallet rejections:
 - Below-threshold rejections:
 - Manual-review holds:
@@ -44,8 +46,10 @@ TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated m
 - No transaction signing was requested.
 - No approvals, transfers, fees, booking confirmation, sale, or mainnet flow was used.
 - No private participant data is included in this public report.
+- The report status is stated clearly as draft, published-testnet, corrected, or closed.
 
 ## Hash
 
 - Document SHA-256:
 - Optional on-chain report hash:
+- Safe Transaction Builder draft SHA-256, if applicable:

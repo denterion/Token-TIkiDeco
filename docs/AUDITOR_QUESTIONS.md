@@ -20,6 +20,8 @@ Please treat V2 as candidate code only. Do not treat V2 as canonical deployment,
 12. Do deployment script guardrails fail closed on public networks and prove no unintended deployer role remains?
 13. Are accepted Slither baseline findings reasonable, or should any be remediated before audit freeze?
 14. Are Foundry invariants broad enough for total supply, role gating, liabilities, release, revoke, treasury transfer, and arbitrary operation sequences?
+15. Is the V2 audit package complete enough for reproducible review, including checksums, known issues, Slither baseline, Foundry references, and exact freeze/evidence commits?
+16. Are any public docs likely to confuse V2 candidate status with canonical deployment status?
 
 ## Requested Output
 
@@ -32,3 +34,5 @@ For every finding, please include:
 - likelihood;
 - recommended remediation;
 - test or invariant that should prove remediation.
+
+Please identify any finding that requires public-communications or release-package updates before publication.

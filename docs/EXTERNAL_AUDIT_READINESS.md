@@ -41,9 +41,13 @@ Primary supporting files:
 | Foundry tests | V2 fuzz/invariant tests pass with deterministic seed. | Configured through `npm run foundry:test`. |
 | Foundry coverage | V2 thresholds pass. | Configured through `npm run foundry:coverage`; known anchor warnings are tooling noise if exit code is zero. |
 | Slither | New untriaged V2 findings equal zero. | Enforced by `npm run slither:baseline`. |
-| Claims check | No unsupported public claims in public surfaces. | Enforced by `npm run claims:check`. |
-| Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site:check`. |
-| Release package | Bundle generated from clean tree and exact commit. | Run only after final merge SHA is known. |
+| Claims check | No unsupported public claims in public surfaces. | Enforced by `npm run claims`. |
+| Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site`. |
+| V2 audit package | V2 candidate package includes contracts, ABI, bytecode, tests, Foundry artifacts if present, Slither baseline, coverage if present, audit scope, known issues, freeze doc, and checksums. | Enforced by `npm run audit`. |
+| Handoff discipline | Package must be generated from the current commit, include checksums, include known issues and Slither baseline, and keep V2 non-canonical. | Enforced by `npm run audit:handoff`. |
+| Owner decisions | Every V2 known issue has an owner decision, planned remediation, accepted risk, or explicit auditor question. | Enforced by `npm run audit:handoff`. |
+| Role-manifest review | Default admin, pauser, reporter, vesting admin, treasury, deployer role removal, Safe threshold, emergency pause owner, role-transfer evidence, and fail-closed public config are checklist items. | Enforced by `npm run audit:handoff`. |
+| Fresh-checkout proof | Bundle generated from clean tree and exact commit. | Enforced by `npm run release -- --commit <sha> --release v0.2.0-utility-pilot`. |
 
 ## Open Review Questions For Auditor
 
@@ -62,7 +66,9 @@ These questions should be sent with the audit package:
 Run only from a clean tree after the target commit is final:
 
 ```bash
-npm run release:package -- --commit <final-main-sha>
+npm run audit
+npm run audit:handoff
+npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
 The package command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
@@ -77,16 +83,21 @@ The package command must not deploy contracts, broadcast transactions, create a 
 - [ ] Run `npm run coverage`.
 - [ ] Run `npm run lint`.
 - [ ] Run `npm run audit`.
+- [ ] Run `npm run audit:handoff`.
+- [ ] Run `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot`.
+- [ ] Verify `SHA256SUMS.txt` inside the generated V2 audit package.
+- [ ] Send the package to auditor with `docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md`, `docs/AUDITOR_QUESTIONS.md`, `KNOWN_ISSUES.md`, and `docs/AUDIT_RESPONSE_PROCESS.md`.
+- [ ] Freeze unrelated changes while audit review is active.
 - [ ] Run `npm run manifest`.
 - [ ] Run `npm run bytecode`.
 - [ ] Run `npm run gas`.
 - [ ] Run `npm run foundry:test`.
 - [ ] Run `npm run foundry:coverage`.
 - [ ] Run `npm run slither:baseline`.
-- [ ] Run `npm run claims:check`.
-- [ ] Run `npm run site:check`.
-- [ ] Run `npm run release`.
-- [ ] Generate release package with the final `main` SHA.
+- [ ] Run `npm run claims`.
+- [ ] Run `npm run site`.
+- [ ] Run `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot`.
+- [ ] Generate release package with the final `main` SHA through the reproducibility proof command.
 - [ ] Attach package SHA-256 checksums.
 - [ ] Include `KNOWN_ISSUES.md` and accepted Slither baseline.
 - [ ] Explicitly state that V2 is candidate code and not independently audited.

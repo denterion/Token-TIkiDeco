@@ -400,12 +400,12 @@ npm run release:check
 npm run slither
 npm run slither:baseline
 npm run sbom:spdx
-npm run release:package -- --commit ${commit}
+npm run release -- --commit ${commit} --release ${releaseName}
 \`\`\`
 
 On local Windows workstations, the package script automatically prepends the repository-pinned Foundry runtime under \`.tools/foundry\` when it is present. CI should still install the pinned Foundry version explicitly.
 
-The release package generator refuses to create a package when the tree is dirty, the commit is omitted, tests fail, Slither has new untriaged V2 findings, addresses disagree across public surfaces, legal status text is inconsistent, release notes contain \`TBD\`, audit status is missing, or checksums are missing.
+The release reproducibility proof refuses to create a package when the tree is dirty, the commit is omitted, tests fail, Slither has new untriaged V2 findings, addresses disagree across public surfaces, legal status text is inconsistent, release notes contain \`TBD\`, audit status is missing, or checksums are missing.
 
 ## Signed Tag
 
@@ -466,19 +466,10 @@ function main() {
   fs.mkdirSync(slitherDir, { recursive: true });
   const slitherJson = path.join(slitherDir, "slither.json");
   assert(toolAvailable("forge"), "Forge is required for the Slither release gate because this repository includes Foundry configuration. Install the pinned Foundry version before packaging.");
-  const slitherRun = run("slither", [
-    "contracts",
-    "--config-file",
-    "slither.config.json",
-    "--solc-remaps",
-    "@openzeppelin/=node_modules/@openzeppelin/",
-    "--json",
-    slitherJson
-  ], {
-    captureFile: path.join(reportsDir, "slither-report.txt"),
-    allowFailure: true
+  runNpm(["run", "slither"], {
+    captureFile: path.join(reportsDir, "slither-report.txt")
   });
-  assert(fs.existsSync(slitherJson), `Slither did not produce ${rel(slitherJson)}. Exit code: ${slitherRun.status}`);
+  assert(fs.existsSync(slitherJson), `Slither did not produce ${rel(slitherJson)}.`);
   run(nodeBin, [path.join(root, "scripts", "check-slither-baseline.cjs")], {
     captureFile: path.join(reportsDir, "slither-baseline-report.txt")
   });

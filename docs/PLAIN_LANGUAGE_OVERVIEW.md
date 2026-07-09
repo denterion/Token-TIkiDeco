@@ -45,7 +45,7 @@ TikiDeco / TIDE is not currently:
 - an investment product;
 - a mainnet launch;
 - an exchange-listed asset;
-- an independently audited production system;
+- a production system with a completed independent audit;
 - a confirmed hotel partnership;
 - a live hotel benefit or membership program.
 

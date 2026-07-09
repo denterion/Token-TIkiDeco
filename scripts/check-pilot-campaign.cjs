@@ -7,6 +7,7 @@ const canonical = JSON.parse(fs.readFileSync(path.join(root, "deployments", "can
 
 const allowedStatuses = new Set(["draft-not-live", "published-testnet", "closed"]);
 const requiredApprovals = ["legal", "privacy", "security", "operations", "governance"];
+const requiredReviewStatuses = ["legal", "privacy", "security", "operations", "governance"];
 const forbiddenFlowKeys = [
   "saleFlow",
   "presaleFlow",
@@ -114,13 +115,20 @@ function validateCampaign(relativePath, campaign) {
         fail(`${relativePath} cannot be ${campaign.status} until ${key} approval is marked approved`);
       }
     }
-    if (!Number.isInteger(campaign.snapshot?.block) || campaign.snapshot.block <= 0) {
-      fail(`${relativePath} published campaigns require a positive snapshot block`);
+    const hasSnapshot = Number.isInteger(campaign.snapshot?.block) && campaign.snapshot.block > 0;
+    const hasApprovedLiveWindow = campaign.snapshot?.mode === "approved-live-check-window" && campaign.snapshot?.approvedLiveCheckWindow === true;
+    if (!hasSnapshot && !hasApprovedLiveWindow) {
+      fail(`${relativePath} published campaigns require a positive snapshot block or approved live-check window`);
     }
     assertString(campaign.requestWindow?.opensAt, `${relativePath}.requestWindow.opensAt`);
     assertString(campaign.requestWindow?.closesAt, `${relativePath}.requestWindow.closesAt`);
     if (!Number.isInteger(campaign.inventory?.publishedCapacity) || campaign.inventory.publishedCapacity <= 0) {
       fail(`${relativePath} published campaigns require positive publishedCapacity`);
+    }
+    for (const key of requiredReviewStatuses) {
+      if (campaign.reviewStatus?.[key] !== "approved" && campaign.requiredApprovalsBeforePublication?.[key] !== "approved") {
+        fail(`${relativePath} published campaigns require ${key} review status`);
+      }
     }
     assertString(campaign.reports?.publishedAllocationReport, `${relativePath}.reports.publishedAllocationReport`);
   }
@@ -128,7 +136,7 @@ function validateCampaign(relativePath, campaign) {
 
 if (!fs.existsSync(campaignDir)) fail("Missing config/utility-pilot campaign directory");
 
-const files = fs.readdirSync(campaignDir).filter((file) => file.endsWith(".json")).sort();
+const files = fs.readdirSync(campaignDir).filter((file) => file.endsWith(".json") && file.startsWith("tide-")).sort();
 if (files.length === 0) fail("No utility pilot campaign manifests found");
 
 for (const file of files) {

@@ -1,17 +1,16 @@
 import { useMemo, useState } from "react";
 import {
-  createMockSignatureMessage,
+  campaignDisclaimers,
+  createOffchainMessageProof,
   createSnapshotBalance,
   evaluateEligibility,
   isValidEthereumAddress,
-  mockPilotCampaign,
+  pilotCampaignRules,
   privacyNotice,
   readTideBalance,
   SEPOLIA_CHAIN_ID,
   type TideBalanceResult
 } from "../lib/eligibility";
-
-const duplicateTestnetAddress = "0x2222222222222222222222222222222222222222";
 
 export function PilotEligibilityCard() {
   const [walletAddress, setWalletAddress] = useState("");
@@ -21,20 +20,20 @@ export function PilotEligibilityCard() {
 
   const signatureSession = useMemo(() => {
     if (!walletAddress || !hasOffchainMessage) return undefined;
-    return createMockSignatureMessage(walletAddress, mockPilotCampaign, "2026-07-01T12:00:00.000Z");
+    return createOffchainMessageProof(walletAddress, pilotCampaignRules);
   }, [hasOffchainMessage, walletAddress]);
 
   const snapshotBalance =
     walletAddress && balanceResult.balanceTide !== undefined && ["live", "cached", "stale"].includes(balanceResult.status)
       ? createSnapshotBalance(
           walletAddress,
-          mockPilotCampaign,
+          pilotCampaignRules,
           balanceResult.balanceTide,
           balanceResult.status,
           balanceResult.checkedAt || new Date().toISOString()
         )
       : balanceResult.status === "unavailable"
-        ? createSnapshotBalance(walletAddress, mockPilotCampaign, 0, "unavailable", new Date().toISOString())
+        ? createSnapshotBalance(walletAddress, pilotCampaignRules, 0, "unavailable", new Date().toISOString())
         : undefined;
 
   const result = evaluateEligibility({
@@ -42,8 +41,7 @@ export function PilotEligibilityCard() {
     chainId: balanceResult.status === "wrong-chain" && balanceResult.chainId ? balanceResult.chainId : SEPOLIA_CHAIN_ID,
     snapshotBalance,
     signatureSession,
-    previouslySubmittedWallets: new Set([duplicateTestnetAddress]),
-    now: new Date("2026-07-01T12:01:00.000Z")
+    now: new Date()
   });
 
   async function checkBalance() {
@@ -73,6 +71,7 @@ export function PilotEligibilityCard() {
       <div className="pilot-card" aria-live="polite">
         <div className="pilot-card-header">
           <span className="site-badge">NOT LIVE</span>
+          <span className="site-badge">{pilotCampaignRules.campaignStatus.toUpperCase()}</span>
           <span className="pilot-card-network">Ethereum Sepolia - chain {SEPOLIA_CHAIN_ID}</span>
         </div>
 
@@ -122,14 +121,24 @@ export function PilotEligibilityCard() {
             {balanceResult.balanceTide !== undefined ? `${balanceResult.balanceTide.toLocaleString("en-US")} TIDE` : "Not checked"}
           </strong>
           <small>
-            Threshold: {mockPilotCampaign.minimumTideBalance.toLocaleString("en-US")} TIDE at block{" "}
-            {mockPilotCampaign.snapshotBlock.toLocaleString("en-US")}
+            Threshold: {pilotCampaignRules.minimumTideBalance.toLocaleString("en-US")} TIDE;{" "}
+            {pilotCampaignRules.snapshotBlock
+              ? `snapshot block ${pilotCampaignRules.snapshotBlock.toLocaleString("en-US")}`
+              : "snapshot block not published"}
           </small>
           <small>
             Data: {balanceResult.status.toUpperCase()}
             {balanceResult.checkedAt ? ` - ${new Date(balanceResult.checkedAt).toLocaleString("en-US")}` : ""}
           </small>
           {balanceResult.error ? <small>{balanceResult.error}</small> : null}
+        </div>
+
+        <div className="pilot-result pilot-result-hold">
+          <h3>Campaign status: draft-not-live</h3>
+          <p>
+            This checker can read a Sepolia balance for planning and manual review design, but the campaign is not live.
+            No request window, inventory, allocation report, or approval gate is complete.
+          </p>
         </div>
 
         <div className={`pilot-result pilot-result-${result.eligible ? "ok" : "hold"}`}>
@@ -143,6 +152,11 @@ export function PilotEligibilityCard() {
         </div>
 
         <p className="privacy-note">{privacyNotice()}</p>
+        <p className="privacy-note">{campaignDisclaimers(pilotCampaignRules).join(" ")}</p>
+        <p className="privacy-note">
+          TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed
+          on mainnet, and has not completed an independent audit.
+        </p>
       </div>
     </section>
   );

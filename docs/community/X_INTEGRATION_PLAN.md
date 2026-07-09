@@ -82,7 +82,7 @@ Use:
 Avoid:
 
 - sale, presale, buy, pump, listing, value, price, yield, investment, profit;
-- "audited" unless an independent audit report exists;
+- "completed independent audit" unless an independent audit report exists;
 - partner/property/active-benefit claims unless `docs/PROJECT_FACTS.md` verifies them;
 - repeated near-identical posts;
 - aggressive following, replies, or direct messages.

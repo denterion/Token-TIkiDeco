@@ -16,7 +16,7 @@ This checklist prepares a release package for review. It does not publish a GitH
 
 ```bash
 npm ci
-npm run release:package -- --commit <40-character-commit-sha>
+npm run release -- --commit <40-character-commit-sha> --release v0.2.0-utility-pilot
 ```
 
 The generator rejects the package if:

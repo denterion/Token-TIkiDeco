@@ -1,0 +1,43 @@
+name: Audit-readiness task
+description: Track external audit preparation work without claiming audit completion.
+title: "[Audit readiness]: "
+labels:
+  - audit-readiness
+body:
+  - type: markdown
+    attributes:
+      value: |
+        TikiDeco / TIDE is a Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no active guest benefits, and has not started an independent audit.
+
+        Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
+  - type: textarea
+    id: task
+    attributes:
+      label: Audit-readiness task
+      description: What package, test, documentation, evidence, or triage item should be improved?
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - V2 candidate contracts
+        - Deployment scripts
+        - Tests and coverage
+        - Slither or static analysis
+        - Release package
+        - Known issues
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Boundary confirmation
+      options:
+        - label: This task does not describe the project as independently audited or production-ready.
+          required: true
+        - label: This task keeps V2 candidate-only and does not promote it to canonical.
+          required: true
