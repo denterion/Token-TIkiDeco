@@ -5,10 +5,13 @@ import { AuditReadiness } from "./sections/AuditReadiness";
 import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
 import { PilotEligibilityCard } from "./components/PilotEligibilityCard";
+import { CampaignLifecycle } from "./components/CampaignLifecycle";
+import { PreviewFeedbackPanel } from "./components/PreviewFeedbackPanel";
 import { ProjectStatus } from "./sections/ProjectStatus";
 import { Transparency } from "./sections/Transparency";
 import { copy, defaultLocale, locales, type Locale } from "./data/i18n";
 import "./styles/site.css";
+import { previewMetrics } from "./lib/previewMetrics";
 
 const HeroScene = lazy(() => import("./scenes/HeroScene"));
 
@@ -35,10 +38,15 @@ function App() {
   const shouldRender3D = useShouldRender3D();
   const [locale, setLocale] = useState<Locale>(defaultLocale);
   const t = copy[locale];
+  const pilotRoute = window.location.pathname.startsWith("/pilot");
 
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  useEffect(() => {
+    previewMetrics.recordPageSession();
+  }, []);
 
   return (
     <React.StrictMode>
@@ -53,7 +61,7 @@ function App() {
           </a>
           <div className="nav-cluster">
             <nav aria-label={t.sectionsAria}>
-              <a href="#main">{t.nav.overview}</a>
+              <a href="/trust/">{t.nav.trust}</a>
               <a href="#status">{t.nav.status}</a>
               <a href="/pilot/">{t.nav.pilot}</a>
               <a href="#audit">{t.nav.audit}</a>
@@ -69,7 +77,10 @@ function App() {
                   aria-label={item.aria}
                   aria-pressed={locale === item.code}
                   className={locale === item.code ? "active" : ""}
-                  onClick={() => setLocale(item.code)}
+                  onClick={() => {
+                    setLocale(item.code);
+                    previewMetrics.recordLanguage(item.code);
+                  }}
                 >
                   {item.label}
                 </button>
@@ -77,8 +88,8 @@ function App() {
             </div>
           </div>
         </header>
-        <main id="main">
-          <section className="hero-wrap" aria-label="TikiDeco overview">
+        <main id="main" className={pilotRoute ? "pilot-route" : undefined}>
+          {!pilotRoute ? <section className="hero-wrap" aria-label="TikiDeco overview">
             <div className="scene-layer" aria-hidden="true">
               {shouldRender3D ? (
                 <Suspense fallback={<div className="scene-fallback" />}>
@@ -89,12 +100,14 @@ function App() {
               )}
             </div>
             <Hero copy={t.hero} />
-          </section>
+          </section> : null}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            <ProjectStatus copy={t.status} rows={t.statusRows} />
+            {!pilotRoute ? <ProjectStatus copy={t.status} rows={t.statusRows} /> : null}
             <PilotEligibilityCard />
-            <Transparency copy={t.transparency} />
-            <AuditReadiness copy={t.audit} />
+            <CampaignLifecycle />
+            <PreviewFeedbackPanel />
+            {!pilotRoute ? <Transparency copy={t.transparency} /> : null}
+            {!pilotRoute ? <AuditReadiness copy={t.audit} /> : null}
           </motion.div>
         </main>
         <Footer copy={t.footer} />

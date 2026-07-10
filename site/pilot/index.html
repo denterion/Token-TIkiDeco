@@ -1,172 +1,65 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' https://ethereum-sepolia-rpc.publicnode.com https://rpc.sepolia.org; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
-    <meta name="description" content="Planned TIDE Loyalty Pilot page covering eligibility, snapshots, non-cash perk examples, wallet verification, privacy, and reports.">
-    <meta name="theme-color" content="#0b1020">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="TikiDeco | TIDE Loyalty Pilot">
-    <meta property="og:description" content="Planned TIDE Loyalty Pilot page covering eligibility, snapshots, non-cash perk examples, wallet verification, privacy, and reports.">
-    <meta property="og:image" content="https://tikideco.xyz/assets/tide-logo.png">
-    <meta property="og:url" content="https://tikideco.xyz/pilot/">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="TikiDeco | TIDE Loyalty Pilot">
-    <meta name="twitter:description" content="Planned TIDE Loyalty Pilot page covering eligibility, snapshots, non-cash perk examples, wallet verification, privacy, and reports.">
-    <meta name="twitter:image" content="https://tikideco.xyz/assets/tide-logo.png">
-    <link rel="canonical" href="https://tikideco.xyz/pilot/">
-    <link rel="icon" href="/assets/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/styles.css">
-    <script defer src="/app.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Planned TIDE Loyalty Pilot page covering eligibility, snapshots, non-cash perk examples, wallet verification, privacy, and reports." />
+    <meta name="theme-color" content="#050914" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TikiDeco | Sepolia Prototype" />
+    <meta
+      property="og:description"
+      content="A read-only Sepolia prototype for transparent hospitality-linked token infrastructure. No sale, no stated monetary value, no mainnet deployment."
+    />
+    <meta property="og:image" content="https://tikideco.xyz/assets/tide-logo.png" />
+    <meta property="og:url" content="https://tikideco.xyz/pilot/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TikiDeco | Sepolia Prototype" />
+    <meta
+      name="twitter:description"
+      content="A read-only Sepolia prototype for transparent hospitality-linked token infrastructure. No sale, no stated monetary value, no mainnet deployment."
+    />
+    <meta name="twitter:image" content="https://tikideco.xyz/assets/tide-logo.png" />
+    <link rel="canonical" href="https://tikideco.xyz/pilot/" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "TikiDeco TIDE Loyalty Pilot",
-        "url": "https://tikideco.xyz/pilot/",
-        "isPartOf": {
-          "@type": "WebSite",
-          "name": "TikiDeco",
-          "url": "https://tikideco.xyz/"
-        }
+        "@type": "SoftwareSourceCode",
+        "name": "TikiDeco",
+        "codeRepository": "https://github.com/denterion/Token-TIkiDeco",
+        "programmingLanguage": ["Solidity", "TypeScript"],
+        "runtimePlatform": "Ethereum Sepolia",
+        "description": "Open-source Ethereum Sepolia prototype for transparent hospitality-linked token infrastructure. TIDE is not offered for sale."
       }
     </script>
     <title>TikiDeco | TIDE Loyalty Pilot</title>
+    <script type="module" crossorigin src="/assets/v2/index-C96uaMCa.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/v2/react-CwaAIojl.js">
+    <link rel="stylesheet" crossorigin href="/assets/v2/index-DgubtFfJ.css">
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <a class="status-badge" href="/legal/no-offer/" aria-label="Sepolia testnet status and no-offer notice">SEPOLIA TESTNET &middot; NO MONETARY VALUE</a>
-    <header class="topbar" aria-label="Primary">
-      <a class="brand" href="/" aria-label="TikiDeco home">
-        <picture>
-          <source srcset="/assets/favicon.webp" type="image/webp">
-          <img class="brand-mark" src="/assets/favicon.png" width="34" height="34" alt="" aria-hidden="true">
-        </picture>
-        <span>TikiDeco</span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span class="menu-toggle-lines" aria-hidden="true"></span>
-        <span class="menu-toggle-label">Menu</span>
-      </button>
-
-      <nav id="site-nav" class="nav" aria-label="Sections">
-        <a href="/">Overview</a>
-        <a href="/status/">Status</a>
-        <a href="/pilot/">Pilot</a>
-        <a href="/audit/">Audit</a>
-        <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
-      </nav>
-    </header>
-    <main id="main" class="page-main">
-      <section class="page-hero" aria-labelledby="page-title">
-        <p class="eyebrow">Planned pilot</p>
-        <h1 id="page-title">TIDE Loyalty Pilot</h1>
-        <p class="hero-copy">The pilot is a planned Sepolia-only eligibility and reporting test. It is not live and does not create active hospitality benefits.</p>
-        <p class="audit-disclaimer">No-offer disclaimer: TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started. No hotel ownership, no revenue rights, and no guaranteed benefits.</p>
-      </section>
-      <div class="content-grid">
-
-        <section class="content-card" aria-labelledby="pilot-status">
-          <h2 id="pilot-status">Pilot Status</h2>
-          <dl class="record-list">
-            <div><dt>Status</dt><dd>Planned / not live</dd></div>
-            <div><dt>Network</dt><dd>Ethereum Sepolia, chain ID 11155111</dd></div>
-            <div><dt>Canonical version</dt><dd>v1-legacy</dd></div>
-            <div><dt>Audit</dt><dd>Independent audit not started</dd></div>
-          </dl>
-        </section>
-
-        <section class="content-card" aria-labelledby="how-eligibility-works">
-          <h2 id="how-eligibility-works">How Eligibility Works</h2>
-          <dl class="record-list">
-            <div><dt>Wallet control</dt><dd>A participant may optionally prepare an off-chain message proof for manual review.</dd></div>
-            <div><dt>Balance check</dt><dd>Eligibility can reference a read-only Sepolia TIDE balance from the canonical token contract.</dd></div>
-            <div><dt>Manual review</dt><dd>Staff review and override remain part of the planned process.</dd></div>
-          </dl>
-        </section>
-
-        <section class="content-card" aria-labelledby="snapshot-block-concept">
-          <h2 id="snapshot-block-concept">Snapshot Block Concept</h2>
-          <dl class="record-list">
-            <div><dt>Purpose</dt><dd>A snapshot block fixes the point in time used for eligibility review.</dd></div>
-            <div><dt>Publication</dt><dd>Campaign rules should publish the token address, threshold, snapshot block, and review window before review starts.</dd></div>
-            <div><dt>Fallback</dt><dd>RPC failure should pause review or use documented fallback verification.</dd></div>
-          </dl>
-        </section>
-
-        <section class="content-card" aria-labelledby="non-cash-perk-examples">
-          <h2 id="non-cash-perk-examples">Non-Cash Perk Examples</h2>
-          <dl class="record-list">
-            <div><dt>Early RSVP</dt><dd>A limited early RSVP window may be tested for selected community previews.</dd></div>
-            <div><dt>Priority review</dt><dd>Selected event RSVP requests may receive priority review.</dd></div>
-            <div><dt>Welcome eligibility</dt><dd>Small non-cash welcome eligibility may be reviewed where legally allowed.</dd></div>
-          </dl>
-        </section>
-
-        <section class="content-card" aria-labelledby="wallet-verification-concept">
-          <h2 id="wallet-verification-concept">Wallet Verification Concept</h2>
-          <dl class="record-list">
-            <div><dt>Message signing</dt><dd>Optional verification uses a nonce-based message signature only.</dd></div>
-            <div><dt>No transaction signing</dt><dd>The pilot must not ask users to sign transactions, approve tokens, transfer tokens, or pay fees.</dd></div>
-            <div><dt>No private keys</dt><dd>The project must never request seed phrases, private keys, or recovery phrases.</dd></div>
-          </dl>
-        </section>
-
-        <section class="content-card" aria-labelledby="privacy-note">
-          <h2 id="privacy-note">Privacy Note</h2>
-          <dl class="record-list">
-            <div><dt>Data minimization</dt><dd>Collect only the minimum data needed for a pilot review.</dd></div>
-            <div><dt>Public reports</dt><dd>Use aggregate counts and report hashes rather than private participant details.</dd></div>
-            <div><dt>Review gate</dt><dd>Collecting emails, names, guest records, or wallet-to-person mappings requires privacy and counsel review first.</dd></div>
-          </dl>
-        </section>
-
-        <section class="content-card" aria-labelledby="pilot-reports">
-          <h2 id="pilot-reports">Pilot Reports</h2>
-          <dl class="record-list">
-            <div><dt>Before campaign</dt><dd>Publish campaign rules, inventory, snapshot block, and dispute window.</dd></div>
-            <div><dt>After campaign</dt><dd>Publish privacy-safe outcomes, cancellation notes, and correction records if needed.</dd></div>
-            <div><dt>Current status</dt><dd>Pilot reports are planned; no live pilot report exists yet.</dd></div>
-            <div><dt>Allocation policy</dt><dd>A Sepolia-only allocation policy and report template are prepared for future campaign review.</dd></div>
-          </dl>
-        </section>
-        <section class="content-card" aria-labelledby="page-links">
-          <h2 id="page-links">Reference links</h2>
-          <div class="reference-links">
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/README.md" target="_blank" rel="noopener noreferrer">Pilot README</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/ELIGIBILITY_RULES.md" target="_blank" rel="noopener noreferrer">Eligibility rules</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/WALLET_VERIFICATION.md" target="_blank" rel="noopener noreferrer">Wallet verification</a>
-          <a href="/legal/no-offer/">No offer notice</a>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <footer class="footer legal-footer" data-legal-footer>
-      <picture>
-        <source srcset="/assets/favicon.webp" type="image/webp">
-        <img class="footer-mark" src="/assets/favicon.png" width="512" height="512" alt="TikiDeco TIDE emblem">
-      </picture>
-      <div>
-        <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit has not started.</p>
-        <p class="footer-links">
-          <a href="/utility/">Utility</a>
-          <a href="/proof/">Proof Pack</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence Report</a>
-          <a href="/pilot/">Pilot</a>
-          <a href="/business/">Business</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md" target="_blank" rel="noopener noreferrer">Release Control</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md" target="_blank" rel="noopener noreferrer">Roadmap</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
-          <a href="/legal/no-offer/">No offer</a>
-          <a href="/legal/terms/">Terms</a>
-          <a href="/legal/privacy/">Privacy</a>
-          <a href="/legal/risk-disclosure/">Risk disclosure</a>
-          <a href="/legal/project-status/">Project status</a>
+    <div id="root">
+      <a class="skip-link" href="#main">Skip to content</a>
+      <main id="main" class="pilot-static-fallback">
+      <section aria-labelledby="pilot-title">
+        <p>SEPOLIA TESTNET - NO MONETARY VALUE</p>
+        <h1 id="pilot-title">TIDE Loyalty Pilot</h1>
+        <p>The public preview provides a read-only Sepolia balance check, a blocked campaign lifecycle, and public feedback paths. The campaign is draft-not-live.</p>
+        <p>No sale, no mainnet deployment, no active hotel benefit, V2 remains candidate code only, and independent audit not started.</p>
+        <p>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PUBLIC_PREVIEW_PRODUCT_SPEC.md" target="_blank" rel="noopener noreferrer">Product specification</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md" target="_blank" rel="noopener noreferrer">Privacy threat model</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/issues/new?template=utility_pilot_feedback.yml" target="_blank" rel="noopener noreferrer">Public feedback</a>
         </p>
-      </div>
-    </footer>
+      </section>
+    </main>
+      <footer data-legal-footer>
+        <p>
+          TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice.
+        </p>
+        <p>HTTP Content-Security-Policy frame-ancestors header should be provided by a compatible hosting layer.</p>
+      </footer>
+    </div>
   </body>
 </html>

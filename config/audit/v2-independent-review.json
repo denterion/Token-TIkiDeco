@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "candidate-frozen-for-independent-review",
+  "v2FreezeCommit": "9099fdb87a6be715b1d7fd4fafa6fade0b12b61c",
+  "canonicalStatus": "non-canonical-candidate",
+  "independentAuditStatus": "not-started",
+  "contracts": [
+    "contracts/TikiDecoTokenV2.sol",
+    "contracts/TikiDecoVestingVaultV2.sol"
+  ],
+  "deploymentScripts": [
+    "scripts/deploy-v2.cjs"
+  ],
+  "compiler": {
+    "solidity": "0.8.28",
+    "evmVersion": "paris",
+    "optimizerEnabled": true,
+    "optimizerRuns": 200
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "5.6.1",
+    "hardhat": "3.9.0",
+    "@nomicfoundation/hardhat-ethers": "4.0.13",
+    "@nomicfoundation/hardhat-ethers-chai-matchers": "3.0.10",
+    "@nomicfoundation/hardhat-mocha": "3.0.21",
+    "chai": "6.2.2",
+    "typescript": "6.0.3"
+  },
+  "deploymentAssumptions": [
+    "V2 is not deployed by the canonical manifest.",
+    "Every public-network privileged address must be explicit.",
+    "The deployer must retain no unintended privileged role.",
+    "The vesting vault is prefunded before schedules reserve liabilities.",
+    "No transaction is part of independent-review package generation."
+  ],
+  "roleManifest": "config/audit/v2-role-manifest.json",
+  "knownIssues": "KNOWN_ISSUES.md",
+  "auditorQuestions": "docs/AUDITOR_QUESTIONS.md",
+  "outOfScope": [
+    "Canonical V1 deployed bytecode and source semantics",
+    "Mainnet deployment or readiness",
+    "Sepolia deployment or transaction broadcast",
+    "Private keys, RPC secrets, and signer identities",
+    "Legal, tax, regulatory, property, or hospitality operator conclusions",
+    "Website, analytics, and operator sandbox except where they affect public claims"
+  ]
+}

@@ -71,6 +71,19 @@ It is intentionally marked `draft-not-live`: no request window is open, no activ
 
 See [`CAMPAIGN_RULES_SCHEMA.md`](CAMPAIGN_RULES_SCHEMA.md).
 
+## Measurable Public Preview
+
+The blocked public-preview workflow is specified in [`PUBLIC_PREVIEW_PRODUCT_SPEC.md`](PUBLIC_PREVIEW_PRODUCT_SPEC.md). Its campaign lifecycle is machine-readable, its metrics are in-memory aggregate counters only, and its privacy threats are documented in [`PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md`](PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md).
+
+The first future benefit example is documented, but inactive, in [`FUTURE_BENEFIT_SPEC.md`](FUTURE_BENEFIT_SPEC.md). The current inventory is `0`, no operator is established, and legal review remains `not-approved`.
+
+Generate and verify the zero-sample proof baseline:
+
+```bash
+npm run preview
+npm run privacy:preview
+```
+
 Run:
 
 ```bash

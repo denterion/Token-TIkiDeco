@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Public Trust Center
+    url: https://tikideco.xyz/trust/
+    about: Verify releases, evidence, canonical contracts, operator status, limitations, and participation paths.
   - name: Responsible security disclosure
     url: https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md
     about: Do not post vulnerability details publicly. Follow SECURITY.md instead.

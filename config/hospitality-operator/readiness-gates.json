@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "blocked",
+  "useCase": "Sepolia TIDE eligibility to a future early RSVP window",
+  "operatorStatus": "not-established",
+  "propertyStatus": "not-established",
+  "inventory": 0,
+  "gates": {
+    "legalEntityVerified": { "status": "not-approved", "owner": "legal-reviewer", "evidence": null },
+    "operatorVerified": { "status": "not-approved", "owner": "operations-reviewer", "evidence": null },
+    "benefitInventoryApproved": { "status": "not-approved", "owner": "operator", "evidence": null },
+    "userTermsApproved": { "status": "not-approved", "owner": "legal-reviewer", "evidence": null },
+    "privacyApproved": { "status": "not-approved", "owner": "privacy-reviewer", "evidence": null },
+    "supportOwnerAssigned": { "status": "not-approved", "owner": "operator", "evidence": null },
+    "independentAuditCompletedWhereRequired": { "status": "not-approved", "owner": "security-reviewer", "evidence": null },
+    "incidentProcedureTested": { "status": "not-approved", "owner": "governance-reviewer", "evidence": null }
+  },
+  "hardBoundaries": {
+    "noLiveCampaign": true,
+    "noPersonalData": true,
+    "noBookingDataOnChain": true,
+    "noTransactionBroadcast": true,
+    "noGuaranteedBenefit": true
+  }
+}

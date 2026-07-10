@@ -55,7 +55,7 @@ export const copy = {
     sectionsAria: "Page sections",
     homeAria: "TikiDeco home",
     nav: {
-      overview: "Overview",
+      trust: "Trust",
       status: "Status",
       pilot: "Pilot",
       audit: "Audit",
@@ -117,6 +117,7 @@ export const copy = {
       disclaimer:
         "TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice.",
       links: {
+        trust: "Trust Center",
         repository: "Repository",
         officialPreview: "Official Preview",
         pilotProofPack: "Pilot Proof Pack",
@@ -142,7 +143,7 @@ export const copy = {
     sectionsAria: "Secciones de la pagina",
     homeAria: "Inicio de TikiDeco",
     nav: {
-      overview: "Resumen",
+      trust: "Confianza",
       status: "Estado",
       pilot: "Piloto",
       audit: "Auditoria",
@@ -209,6 +210,7 @@ export const copy = {
       disclaimer:
         "TIDE es un prototipo en Sepolia testnet. No se ofrece a la venta, no tiene valor monetario declarado, no esta desplegado en mainnet y no ha completado una auditoria independiente. Nada en este sitio es asesoramiento financiero, de inversion, legal o fiscal.",
       links: {
+        trust: "Centro de confianza",
         repository: "Repositorio",
         officialPreview: "Preview oficial",
         pilotProofPack: "Pilot Proof Pack",
@@ -234,7 +236,7 @@ export const copy = {
     sectionsAria: "Разделы страницы",
     homeAria: "Главная TikiDeco",
     nav: {
-      overview: "Overview",
+      trust: "Trust",
       status: "Статус",
       pilot: "Pilot",
       audit: "Audit",
@@ -301,6 +303,7 @@ export const copy = {
       disclaimer:
         "TIDE - прототип в Sepolia testnet. Он не предлагается к продаже, не имеет заявленной денежной стоимости, не развернут в mainnet; independent audit not started. Ничто на сайте не является финансовой, инвестиционной, юридической или налоговой консультацией.",
       links: {
+        trust: "Trust Center",
         repository: "Repository",
         officialPreview: "Official Preview",
         pilotProofPack: "Pilot Proof Pack",

@@ -12,11 +12,11 @@ The audit package is intended to support external review of the V2 candidate con
 
 | Item | Commit |
 | --- | --- |
-| V2 freeze commit | `58806906a273a95c58944d892eb368fc1b758620` |
-| Current evidence commit | `e74c85612e745f14aa92260bf8b3633f9fd9fa4a` |
+| V2 freeze commit | `9099fdb87a6be715b1d7fd4fafa6fade0b12b61c` |
+| Current evidence commit | Generated as `evidenceCommit` in `audit-package-manifest.json`. |
 | Published Sepolia release commit | `e07471936375ffbe13c68da2708b4436931392a2` |
 
-The freeze commit is the V2 candidate contract baseline. The evidence commit is the reproducibility anchor for documentation, CI evidence, package scripts, and generated review artifacts unless a later package manifest explicitly replaces it.
+The freeze commit is the immutable V2 candidate contract baseline. Each package manifest records its own evidence commit for documentation, CI evidence, package scripts and generated review artifacts. An older package remains historical and must not be presented as evidence for a later commit.
 
 ## Contracts In Scope
 
@@ -31,6 +31,7 @@ The freeze commit is the V2 candidate contract baseline. The evidence commit is 
 - `scripts/check-coverage-thresholds.cjs`
 - `scripts/export-contract-artifacts.cjs`
 - `scripts/generate-v2-audit-package.cjs`
+- `scripts/check-external-review.cjs`
 
 ## Docs In Scope
 
@@ -52,6 +53,10 @@ The freeze commit is the V2 candidate contract baseline. The evidence commit is 
 - `docs/EXTERNAL_AUDIT_READINESS.md`
 - `docs/AUDITOR_QUESTIONS.md`
 - `docs/AUDIT_RESPONSE_PROCESS.md`
+- `docs/AUDIT_TERMINOLOGY.md`
+- `docs/INDEPENDENT_REVIEWER_GUIDE.md`
+- `docs/AUDIT_PROCUREMENT_BRIEF.md`
+- `docs/POST_AUDIT_WORKFLOW.md`
 
 ## Tests In Scope
 
@@ -93,6 +98,8 @@ Run:
 ```bash
 npm run audit
 npm run audit:handoff
+npm run external-review:package
+npm run external-review:check
 npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 

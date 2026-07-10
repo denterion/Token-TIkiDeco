@@ -14,6 +14,17 @@ The utility pilot campaign manifest is the source of truth for planned Sepolia-o
 
 Any status other than `draft-not-live` must have explicit legal, privacy, security, operations, and governance approval before publication.
 
+The explicit lifecycle is defined by `config/utility-pilot/campaign-lifecycle.schema.json`:
+
+- `draft`;
+- `evidence-review`;
+- `approved-testnet-preview`;
+- `paused`;
+- `closed`;
+- `archived`.
+
+`approved-testnet-preview` is a limited technical preview state, not active hospitality utility. The preview checker rejects that transition unless every gate in `config/utility-pilot/live-readiness-gates.json` is approved and includes an evidence file, reviewer, and timestamp.
+
 ## Required Fields
 
 - `campaignId`: stable lowercase identifier.

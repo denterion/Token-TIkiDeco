@@ -17,9 +17,14 @@ Status: operations draft for a future Sepolia-only pilot. This playbook does not
 
 | Status | Meaning | Allowed actions |
 | --- | --- | --- |
-| `draft-not-live` | Rules are being prepared. | Public documentation, read-only checks, issue feedback, aggregate planning. |
-| `published-testnet` | A Sepolia-only campaign has been approved for testnet review. | Manual review under published rules, no transaction signing, no private data unless approved. |
-| `closed` | Request window is closed. | Privacy-safe summary report, issue follow-up, correction notes if needed. |
+| `draft` | Rules and technical instrumentation are being prepared. | Public documentation, read-only checks, issue feedback, aggregate planning. |
+| `evidence-review` | Reviewers assess the configured evidence files. | Review comments and corrections only; no request window or inventory. |
+| `approved-testnet-preview` | Every configured reviewer gate has approved evidence. | Limited Sepolia technical preview under published rules; no commercial hospitality service. |
+| `paused` | An approved preview is temporarily stopped. | Investigation, correction, aggregate reporting, or closure. |
+| `closed` | Request and feedback window is closed. | Privacy-safe summary report and correction notes. |
+| `archived` | Historical record only. | Read-only reference; no new requests. |
+
+Manifest status mapping: lifecycle `draft` and `evidence-review` remain `draft-not-live`; `approved-testnet-preview` requires a separately reviewed `published-testnet` manifest. No later lifecycle stage can be reached without evidence that the approved stage was valid.
 
 ## Draft-Not-Live Rules
 

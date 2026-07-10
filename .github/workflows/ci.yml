@@ -54,6 +54,8 @@ jobs:
       - name: Checkout
         # Action version: actions/checkout@v4
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         # Action version: actions/setup-node@v6.4.0
@@ -102,6 +104,12 @@ jobs:
 
       - name: Site content checks
         run: npm run site
+
+      - name: Public preview product gate
+        run: npm run preview:check
+
+      - name: Public preview privacy gate
+        run: npm run privacy:preview:check
 
       - name: Install Playwright Chromium
         run: npm run site:browser:install -- --with-deps

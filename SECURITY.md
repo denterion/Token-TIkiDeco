@@ -34,7 +34,9 @@ Security review should focus on:
 
 ## Reporting
 
-Do not disclose suspected vulnerabilities publicly before the project owner has had a chance to investigate. Report issues privately to the project maintainer.
+Do not disclose suspected vulnerabilities publicly before the project owner has had a chance to investigate. Use [GitHub private vulnerability reporting](https://github.com/denterion/Token-TIkiDeco/security/advisories/new) to report issues privately to the project maintainer.
+
+Do not include private keys, seed phrases, passwords, RPC credentials, private guest data, or unrelated sensitive personal data. Public GitHub Issues are for non-sensitive questions and feedback only.
 
 ## Mainnet Requirement
 

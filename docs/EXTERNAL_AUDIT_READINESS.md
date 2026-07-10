@@ -4,6 +4,8 @@ Status: preparation plan only. TikiDeco V2 is candidate code, not independently 
 
 Purpose: define the concrete work needed before sending V2 contracts and supporting materials to an external Solidity auditor.
 
+Reviewer entry points: [`INDEPENDENT_REVIEWER_GUIDE.md`](INDEPENDENT_REVIEWER_GUIDE.md), [`AUDIT_PROCUREMENT_BRIEF.md`](AUDIT_PROCUREMENT_BRIEF.md), [`AUDIT_TERMINOLOGY.md`](AUDIT_TERMINOLOGY.md), and [`POST_AUDIT_WORKFLOW.md`](POST_AUDIT_WORKFLOW.md).
+
 ## Audit Target Boundary
 
 | Item | Status |
@@ -30,20 +32,23 @@ Primary supporting files:
 - `KNOWN_ISSUES.md`
 - `docs/V2_AUDIT_TARGET_FREEZE.md`
 - `security/slither-baseline-v2.json`
+- `config/audit/v2-independent-review.json`
+- `config/audit/v2-role-manifest.json`
+- `docs/INDEPENDENT_REVIEWER_GUIDE.md`
 
 ## Readiness Gates
 
 | Gate | Required result | Current state |
 | --- | --- | --- |
 | Source freeze | Exact V2 source baseline recorded. | Freeze baseline recorded in `docs/V2_AUDIT_TARGET_FREEZE.md`. |
-| Evidence commit | Exact package/evidence commit recorded after final merge. | Must be updated after each merged preparation PR. |
+| Evidence commit | Exact package/evidence commit recorded after final merge. | Generated in `audit-package-manifest.json`; it does not replace the freeze commit. |
 | Hardhat tests | All tests pass. | Current documented result: `69 passing`; rerun before final package. |
 | Foundry tests | V2 fuzz/invariant tests pass with deterministic seed. | Configured through `npm run foundry:test`. |
 | Foundry coverage | V2 thresholds pass. | Configured through `npm run foundry:coverage`; known anchor warnings are tooling noise if exit code is zero. |
 | Slither | New untriaged V2 findings equal zero. | Enforced by `npm run slither:baseline`. |
 | Claims check | No unsupported public claims in public surfaces. | Enforced by `npm run claims`. |
 | Site check | Read-only site, required disclaimers, no banned claims. | Enforced by `npm run site`. |
-| V2 audit package | V2 candidate package includes contracts, ABI, bytecode, tests, Foundry artifacts if present, Slither baseline, coverage if present, audit scope, known issues, freeze doc, and checksums. | Enforced by `npm run audit`. |
+| V2 review package | V2 candidate package includes frozen source archive, contracts, ABI, bytecode, tests, Foundry artifacts, Slither baseline, coverage, scope, known issues and checksums. | Enforced by `npm run external-review:package`. |
 | Handoff discipline | Package must be generated from the current commit, include checksums, include known issues and Slither baseline, and keep V2 non-canonical. | Enforced by `npm run audit:handoff`. |
 | Owner decisions | Every V2 known issue has an owner decision, planned remediation, accepted risk, or explicit auditor question. | Enforced by `npm run audit:handoff`. |
 | Role-manifest review | Default admin, pauser, reporter, vesting admin, treasury, deployer role removal, Safe threshold, emergency pause owner, role-transfer evidence, and fail-closed public config are checklist items. | Enforced by `npm run audit:handoff`. |
@@ -68,6 +73,8 @@ Run only from a clean tree after the target commit is final:
 ```bash
 npm run audit
 npm run audit:handoff
+npm run external-review:package
+npm run external-review:check
 npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
@@ -84,6 +91,8 @@ The package command must not deploy contracts, broadcast transactions, create a 
 - [ ] Run `npm run lint`.
 - [ ] Run `npm run audit`.
 - [ ] Run `npm run audit:handoff`.
+- [ ] Run `npm run external-review:package`.
+- [ ] Run `npm run external-review:check`.
 - [ ] Run `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot`.
 - [ ] Verify `SHA256SUMS.txt` inside the generated V2 audit package.
 - [ ] Send the package to auditor with `docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md`, `docs/AUDITOR_QUESTIONS.md`, `KNOWN_ISSUES.md`, and `docs/AUDIT_RESPONSE_PROCESS.md`.
@@ -116,7 +125,7 @@ Do not send the package for external audit if:
 
 ## Post-Audit Handling
 
-When an external audit exists, do not summarize it as “secure” or “audited” without the exact report link, scope, date, version, and unresolved findings. Update:
+If a final external report is later received, do not use broad assurance wording. Always include the exact report link, scope, date, reviewed version and unresolved findings. Update:
 
 - `deployments/canonical.json` only if a canonical deployment status changes;
 - `docs/PROJECT_FACTS.md`;

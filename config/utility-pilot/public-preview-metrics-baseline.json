@@ -1,0 +1,25 @@
+{
+  "campaignId": "tide-community-preview-001",
+  "status": "baseline-no-public-responses",
+  "generatedAt": "2026-07-10T00:00:00.000Z",
+  "metrics": {
+    "pageSessions": 0,
+    "balanceCheckAttempts": 0,
+    "successfulChecks": 0,
+    "rpcFailures": 0,
+    "eligibleResults": 0,
+    "ineligibleResults": 0,
+    "languageSelected": { "en": 0, "es": 0, "ru": 0 },
+    "feedbackLinkClicks": 0
+  },
+  "comprehension": {
+    "responses": 0,
+    "sepoliaOnly": 0,
+    "noSale": 0,
+    "noMainnet": 0,
+    "noActiveHotelBenefit": 0,
+    "independentAuditNotStarted": 0,
+    "v2CandidateOnly": 0
+  },
+  "feedbackThemes": []
+}

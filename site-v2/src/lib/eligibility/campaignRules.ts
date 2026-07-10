@@ -21,6 +21,13 @@ export type PilotCampaignRules = {
   campaignStatus: PilotCampaignStatus;
 };
 
+function parseCampaignStatus(status: string): PilotCampaignStatus {
+  if (status === "draft-not-live" || status === "planned" || status === "published-testnet" || status === "closed") {
+    return status;
+  }
+  throw new Error(`Unsupported pilot campaign status: ${status}`);
+}
+
 export const pilotCampaignRules: PilotCampaignRules = {
   id: campaignManifest.campaignId,
   name: campaignManifest.campaignName,
@@ -35,7 +42,7 @@ export const pilotCampaignRules: PilotCampaignRules = {
   transferPolicy: "no-transfer-of-guest-rights",
   resalePolicy: "no-resale",
   cashPolicy: "no-cash-value",
-  campaignStatus: campaignManifest.status
+  campaignStatus: parseCampaignStatus(campaignManifest.status)
 };
 
 export const testPilotCampaignFixture: PilotCampaignRules = {
