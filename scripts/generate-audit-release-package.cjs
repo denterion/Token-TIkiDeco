@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const { spawnSync } = require("child_process");
+const { restoreGeneratedSite } = require("./lib/restore-generated-site.cjs");
 
 const root = path.join(__dirname, "..");
 const defaultReleaseName = "v0.1.0-sepolia";
@@ -39,25 +40,6 @@ const commandEnv = {
     : process.env.PATH
 };
 if (pythonPath) commandEnv.PYTHONPATH = pythonPath;
-
-const generatedSitePaths = [
-  "site/artifacts/v1/TikiDecoToken/abi.json",
-  "site/artifacts/v1/TikiDecoToken/deployed-bytecode.txt",
-  "site/artifacts/v1/TikiDecoVestingVault/abi.json",
-  "site/artifacts/v1/TikiDecoVestingVault/deployed-bytecode.txt",
-  "site/assets/v2/HeroScene-CoMAbIVM.js",
-  "site/assets/v2/index-Ce_mv-g1.css",
-  "site/assets/v2/index-G_hcayIH.js",
-  "site/assets/v2/react-CwaAIojl.js",
-  "site/audit/index.html",
-  "site/legal/no-offer/index.html",
-  "site/legal/privacy/index.html",
-  "site/legal/project-status/index.html",
-  "site/legal/risk-disclosure/index.html",
-  "site/legal/terms/index.html",
-  "site/status/index.html",
-  "site/verify/index.html"
-];
 
 const contracts = [
   {
@@ -204,12 +186,7 @@ function assertCleanTree() {
 }
 
 function restoreGeneratedSiteOutput() {
-  const modifiedGeneratedPaths = generatedSitePaths.filter((sitePath) => {
-    const status = run("git", ["status", "--porcelain", "--", sitePath]).output.trim();
-    return status.length > 0;
-  });
-  if (modifiedGeneratedPaths.length === 0) return;
-  run("git", ["restore", "--", ...modifiedGeneratedPaths]);
+  restoreGeneratedSite(root);
   const remaining = run("git", ["status", "--porcelain"]).output.trim();
   assert(
     remaining.length === 0,
