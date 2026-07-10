@@ -1,4 +1,5 @@
 import canonical from "../../../deployments/canonical.json";
+import releaseEvidence from "../../../config/release-evidence.json";
 
 export const projectFacts = {
   network: "Ethereum Sepolia",
@@ -14,6 +15,7 @@ export const projectFacts = {
   saleStatus: "Not offered",
   monetaryValue: "No stated value",
   mainnetStatus: "Not deployed",
+  releaseEvidence,
   verification: {
     token: canonical.contracts.token.verification,
     vault: canonical.contracts.vestingVault.verification
@@ -23,6 +25,8 @@ export const projectFacts = {
     repository: "https://github.com/denterion/Token-TIkiDeco",
     issues: "https://github.com/denterion/Token-TIkiDeco/issues",
     officialPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OFFICIAL_PUBLIC_PREVIEW.md",
+    finalEvidenceReport: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md",
+    releaseCandidate: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/releases/v0.2.0-utility-pilot-rc.1.md",
     publicEntrypoints: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_ENTRYPOINTS.md",
     pilotProofPack: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md",
     projectFacts: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
@@ -52,6 +56,11 @@ export const requiredDisclaimers = [
 ] as const;
 
 export const transparencyCards = [
+  {
+    title: "Final evidence report",
+    body: `v0.2 release evidence is pinned to commit ${releaseEvidence.sourceCommit.slice(0, 7)} with public bundle hashes.`,
+    href: projectFacts.links.finalEvidenceReport
+  },
   {
     title: "Pilot proof pack",
     body: "One short path shows pilot status, blocked gates, dry-run evidence, and verification commands.",

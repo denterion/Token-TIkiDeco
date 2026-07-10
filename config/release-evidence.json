@@ -1,0 +1,22 @@
+{
+  "release": "v0.2.0-utility-pilot",
+  "candidate": "v0.2.0-utility-pilot-rc.1",
+  "status": "pre-release evidence baseline",
+  "evidenceDate": "2026-07-10",
+  "sourceCommit": "10cbd5a7555de7f8696955e9877db1687da5b285",
+  "reviewBundlePath": "release-artifacts/v0.2.0-utility-pilot/10cbd5a7555de7f8696955e9877db1687da5b285",
+  "sourceArchiveSha256": "4083e0bdcbc61627c57a98de8724483214c6b0caeb29017bc18b24e771873f2a",
+  "releaseManifestSha256": "9110d49250636515e2aae4969200fc3d54a2d2bad57e047e769ddd96cef76e0c",
+  "checksumsSha256": "8333863053288b74cd3013ba373298a71532adbabb06d9a8d03b50fafef2985b",
+  "transparencyReport": "docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md",
+  "transparencyReportSha256": "5442652c772a88ed6430da2679b3669d1ae9b070b4e95c245b3e7a9094cbc88c",
+  "proofCommand": "npm run release -- --commit 10cbd5a7555de7f8696955e9877db1687da5b285 --release v0.2.0-utility-pilot",
+  "boundaries": {
+    "campaignStatus": "draft-not-live",
+    "mainnet": "not approved",
+    "sale": "not offered",
+    "monetaryValue": "no stated value",
+    "independentAudit": "not started",
+    "v2": "candidate only; not canonical"
+  }
+}

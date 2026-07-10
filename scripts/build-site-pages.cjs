@@ -4,13 +4,14 @@ const path = require("path");
 const root = path.join(__dirname, "..");
 const siteDir = path.join(root, "site");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
+const releaseEvidence = JSON.parse(fs.readFileSync(path.join(root, "config", "release-evidence.json"), "utf8"));
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
 const v01ReleaseCommit = "e07471936375ffbe13c68da2708b4436931392a2";
 const v02ReleaseCommit = "5ed20415b569779f8b00245af8b98b9599f77044";
 const v2FreezeBaseline = "58806906a273a95c58944d892eb368fc1b758620";
-const currentEvidenceCommit = v02ReleaseCommit;
-const siteLastUpdated = "2026-06-26";
+const currentEvidenceCommit = releaseEvidence.sourceCommit;
+const siteLastUpdated = releaseEvidence.evidenceDate;
 
 const baseUrl = "https://tikideco.xyz";
 const pages = [
@@ -28,6 +29,9 @@ const pages = [
         ["Current evidence date", siteLastUpdated],
         ["v0.1.0-sepolia release status", `Public pre-release at ${v01ReleaseCommit}`],
         ["v0.2.0-utility-pilot release status", `Public pre-release at ${v02ReleaseCommit}; pilot campaign remains draft-not-live`],
+        ["v0.2 evidence commit", currentEvidenceCommit],
+        ["v0.2 evidence report", releaseEvidence.transparencyReport],
+        ["Release manifest hash", releaseEvidence.releaseManifestSha256],
         ["V2 freeze baseline", v2FreezeBaseline],
         ["Current evidence/source commit", currentEvidenceCommit],
         ["Canonical V1 source commit", headCommit],
@@ -63,6 +67,7 @@ const pages = [
       ["Token bytecode", "/artifacts/v1/TikiDecoToken/deployed-bytecode.txt"],
       ["Vault bytecode", "/artifacts/v1/TikiDecoVestingVault/deployed-bytecode.txt"],
       ["Deployment manifest", "/deployment-manifest.json"],
+      ["Final evidence report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md"],
       ["Reports", "/#reports"],
       ["Known issues", "https://github.com/denterion/Token-TIkiDeco/blob/main/KNOWN_ISSUES.md"]
     ],
@@ -116,6 +121,8 @@ const pages = [
     sections: [
       ["Current", [
         ["Current evidence date", siteLastUpdated],
+        ["Current evidence commit", currentEvidenceCommit],
+        ["Evidence report", releaseEvidence.transparencyReport],
         ["Network", "Ethereum Sepolia"],
         ["Canonical version", manifest.contractVersion],
         ["v0.1.0-sepolia", "Public pre-release; historical Sepolia V1 canonical deployment"],
@@ -156,6 +163,8 @@ const pages = [
         ["Canonical version", manifest.contractVersion],
         ["Campaign status", "draft-not-live"],
         ["Read-only balance check", "Implemented for v0.2 pre-release review"],
+        ["Release evidence commit", currentEvidenceCommit],
+        ["Release evidence report", releaseEvidence.transparencyReport],
         ["Dry-run report", "Aggregate-only; fake/test addresses; no Safe broadcast"],
         ["V2 status", "Candidate only; not canonical"],
         ["Independent audit", "Not started"]
@@ -183,6 +192,13 @@ const pages = [
         ["Blocked live gate", "npm run pilot:live:blocked"],
         ["Mainnet blocked gate", "node scripts/check-mainnet-readiness.cjs --expect-blocked"]
       ]],
+      ["Release Evidence", [
+        ["Proof command", releaseEvidence.proofCommand],
+        ["Source archive hash", releaseEvidence.sourceArchiveSha256],
+        ["Release manifest hash", releaseEvidence.releaseManifestSha256],
+        ["Checksums file hash", releaseEvidence.checksumsSha256],
+        ["Transparency report hash", releaseEvidence.transparencyReportSha256]
+      ]],
       ["Dry-Run Evidence", [
         ["Total input rows", "3"],
         ["Valid test wallets", "3"],
@@ -195,6 +211,8 @@ const pages = [
     ],
     links: [
       ["Pilot Proof Pack", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"],
+      ["Final evidence report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md"],
+      ["v0.2 RC draft", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/releases/v0.2.0-utility-pilot-rc.1.md"],
       ["Dry-run report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_09_PILOT_PROOF_DRY_RUN.md"],
       ["Live blocker register", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md"],
       ["Project facts", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"],
@@ -476,6 +494,7 @@ function legalFooter() {
         <p class="footer-links">
           <a href="/utility/">Utility</a>
           <a href="/proof/">Proof Pack</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence Report</a>
           <a href="/pilot/">Pilot</a>
           <a href="/business/">Business</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>

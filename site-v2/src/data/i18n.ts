@@ -12,7 +12,8 @@ export const defaultLocale: Locale = "en";
 
 const englishStatusRows = [
   { key: "network", value: projectFacts.network },
-  { key: "v02", value: "Public pre-release; RC evidence pending current main package" },
+  { key: "v02", value: `Public pre-release; evidence pinned to ${projectFacts.releaseEvidence.sourceCommit.slice(0, 7)}` },
+  { key: "evidence", value: projectFacts.releaseEvidence.evidenceDate },
   { key: "campaign", value: "Draft-not-live" },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: projectFacts.mainnetStatus },
@@ -23,7 +24,8 @@ const englishStatusRows = [
 
 const spanishStatusRows = [
   { key: "network", value: projectFacts.network },
-  { key: "v02", value: "Pre-release publica; evidencia RC pendiente del paquete main actual" },
+  { key: "v02", value: `Pre-release publica; evidencia fijada en ${projectFacts.releaseEvidence.sourceCommit.slice(0, 7)}` },
+  { key: "evidence", value: projectFacts.releaseEvidence.evidenceDate },
   { key: "campaign", value: "Borrador, no live" },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: "No desplegado" },
@@ -34,7 +36,8 @@ const spanishStatusRows = [
 
 const russianStatusRows = [
   { key: "network", value: projectFacts.network },
-  { key: "v02", value: "Public pre-release; RC evidence pending current main package" },
+  { key: "v02", value: `Public pre-release; evidence pinned to ${projectFacts.releaseEvidence.sourceCommit.slice(0, 7)}` },
+  { key: "evidence", value: projectFacts.releaseEvidence.evidenceDate },
   { key: "campaign", value: "Draft-not-live" },
   { key: "tokenSupply", value: projectFacts.supply },
   { key: "mainnet", value: "Не развернут" },
@@ -82,6 +85,7 @@ export const copy = {
         chainId: "Chain ID",
         canonicalVersion: "Canonical version",
         v02: "v0.2 status",
+        evidence: "Evidence date",
         campaign: "Pilot campaign",
         tokenSupply: "Supply",
         mainnet: "Mainnet",
@@ -116,6 +120,7 @@ export const copy = {
         repository: "Repository",
         officialPreview: "Official Preview",
         pilotProofPack: "Pilot Proof Pack",
+        finalEvidenceReport: "Evidence Report",
         projectFacts: "Project Facts",
         releaseControl: "Release Control",
         roadmap: "Roadmap",
@@ -167,6 +172,7 @@ export const copy = {
         chainId: "Chain ID",
         canonicalVersion: "Version canonica",
         v02: "Estado v0.2",
+        evidence: "Fecha de evidencia",
         campaign: "Campana piloto",
         tokenSupply: "Suministro",
         mainnet: "Mainnet",
@@ -206,6 +212,7 @@ export const copy = {
         repository: "Repositorio",
         officialPreview: "Preview oficial",
         pilotProofPack: "Pilot Proof Pack",
+        finalEvidenceReport: "Reporte de evidencia",
         projectFacts: "Hechos del proyecto",
         releaseControl: "Release Control",
         roadmap: "Roadmap",
@@ -257,6 +264,7 @@ export const copy = {
         chainId: "Chain ID",
         canonicalVersion: "Каноническая версия",
         v02: "v0.2 status",
+        evidence: "Evidence date",
         campaign: "Pilot campaign",
         tokenSupply: "Supply",
         mainnet: "Mainnet",

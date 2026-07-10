@@ -4,6 +4,7 @@ const path = require("path");
 const root = path.join(__dirname, "..");
 const siteDir = path.join(root, "site");
 const manifestPath = path.join(siteDir, "deployment-manifest.json");
+const releaseEvidencePath = path.join(root, "config", "release-evidence.json");
 const cnamePath = path.join(siteDir, "CNAME");
 const robotsPath = path.join(siteDir, "robots.txt");
 const sitemapPath = path.join(siteDir, "sitemap.xml");
@@ -181,6 +182,7 @@ function assertInternalLinkExists(link, fromFile) {
 function main() {
   assert(fs.existsSync(manifestPath), "site/deployment-manifest.json must be generated before site checks");
   const manifest = JSON.parse(read(manifestPath));
+  const releaseEvidence = JSON.parse(read(releaseEvidencePath));
   const css = read(path.join(siteDir, "styles.css"));
   const js = read(path.join(siteDir, "app.js"));
   const robots = read(robotsPath);
@@ -216,6 +218,7 @@ function main() {
   assert(sitemapLocs.has("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"), "Site must link to Pilot Proof Pack");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md"), "Site must link to final evidence report");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"), "Site must link to Project Facts");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md"), "Site must link to Release Control Center");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md"), "Site must link to Roadmap");
@@ -239,6 +242,9 @@ function main() {
 
   assert(allHtml.includes(manifest.contracts.token.address), "Token address missing from public HTML");
   assert(allHtml.includes(manifest.contracts.vestingVault.address), "Vesting address missing from public HTML");
+  assert(allHtml.includes(releaseEvidence.sourceCommit), "Release evidence commit missing from public HTML");
+  assert(allHtml.includes(releaseEvidence.releaseManifestSha256), "Release manifest hash missing from public HTML");
+  assert(allHtml.includes(releaseEvidence.transparencyReport), "Release evidence report path missing from public HTML");
   assert(!/<meta[^>]+Content-Security-Policy[^>]+frame-ancestors/i.test(allHtml), "Do not claim meta-based frame-ancestors protection");
   assert(js.includes("Promise.allSettled"), "Dashboard must use Promise.allSettled");
   assert(js.includes("RPC_ALLOWLIST"), "Dashboard RPC allowlist missing");
