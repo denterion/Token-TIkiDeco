@@ -6,6 +6,8 @@ This document is a release-engineering control, not legal advice, not legal appr
 
 TikiDeco / TIDE remains an Ethereum Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit.
 
+For the current blocker summary and recommended path, see [`MAINNET_READINESS_GAP_ANALYSIS.md`](MAINNET_READINESS_GAP_ANALYSIS.md).
+
 ## Gate Rule
 
 Mainnet discussion remains blocked unless every required artifact below exists, is current, and is explicitly marked `approved` by the responsible reviewer.

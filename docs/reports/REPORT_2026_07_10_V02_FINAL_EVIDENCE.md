@@ -6,24 +6,24 @@ Status: final release-evidence refresh for the current `main` merge commit. This
 
 ## Summary
 
-The v0.2 utility-pilot release-candidate documentation was refreshed after the Pilot Proof Pack merge.
+The v0.2 utility-pilot release-candidate documentation was refreshed after the Public Evidence Dashboard merge.
 
 Current evidence commit:
 
 ```text
-10cbd5a7555de7f8696955e9877db1687da5b285
+e7c52e65f6a56c4a728ca81e3cb3080a25c344e7
 ```
 
 Current review bundle:
 
 ```text
-release-artifacts/v0.2.0-utility-pilot/10cbd5a7555de7f8696955e9877db1687da5b285
+release-artifacts/v0.2.0-utility-pilot/e7c52e65f6a56c4a728ca81e3cb3080a25c344e7
 ```
 
 The review bundle was generated locally with:
 
 ```bash
-npm run release -- --commit 10cbd5a7555de7f8696955e9877db1687da5b285 --release v0.2.0-utility-pilot
+npm run release -- --commit e7c52e65f6a56c4a728ca81e3cb3080a25c344e7 --release v0.2.0-utility-pilot
 ```
 
 No tag was created. No deployment was performed. No transaction was broadcast.
@@ -32,9 +32,9 @@ No tag was created. No deployment was performed. No transaction was broadcast.
 
 | Item | SHA-256 |
 | --- | --- |
-| Source archive | `4083e0bdcbc61627c57a98de8724483214c6b0caeb29017bc18b24e771873f2a` |
-| Release manifest | `9110d49250636515e2aae4969200fc3d54a2d2bad57e047e769ddd96cef76e0c` |
-| `SHA256SUMS.txt` | `8333863053288b74cd3013ba373298a71532adbabb06d9a8d03b50fafef2985b` |
+| Source archive | `58f20d6f171a4a171cabd419d26b8f6d8325a187729b5d709a4c73e5f8aa8437` |
+| Release manifest | `a7c38b66bbad489cc1e00a8edd97efe0f3719159e94a9b4d02b9a52b2b930934` |
+| `SHA256SUMS.txt` | `5758685b0a9587cbe708819f97ee4d5eeafba570c1e28c29857f30bbbb902742` |
 
 ## Evidence Captured
 
@@ -76,7 +76,7 @@ The proof command ran:
 - `npm run value`;
 - `npm run audit`;
 - `npm run audit:handoff`;
-- `npm run release:package -- --commit 10cbd5a7555de7f8696955e9877db1687da5b285 --release v0.2.0-utility-pilot`.
+- `npm run release:package -- --commit e7c52e65f6a56c4a728ca81e3cb3080a25c344e7 --release v0.2.0-utility-pilot`.
 
 The project still preserves these boundaries:
 

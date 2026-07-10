@@ -4,7 +4,7 @@ Document: `REPORT_2026_07_10_V02_FINAL_EVIDENCE.md`
 
 Algorithm: SHA-256
 
-Hash: `5442652c772a88ed6430da2679b3669d1ae9b070b4e95c245b3e7a9094cbc88c`
+Hash: `e2970b4677e476785eabaf2aa8a37d29dcc505452ec9a7dd3992cc4027e30605`
 
 Publication status: repository transparency report; not published on-chain.
 

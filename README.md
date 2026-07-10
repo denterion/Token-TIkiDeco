@@ -20,6 +20,7 @@
 [Competitive Landscape](docs/COMPETITIVE_LANDSCAPE.md) |
 [Pilot Proof Pack](docs/PILOT_PROOF_PACK.md) |
 [Public Evidence](docs/PUBLIC_EVIDENCE_DASHBOARD.md) |
+[Mainnet Readiness](docs/MAINNET_READINESS_GAP_ANALYSIS.md) |
 [Claims Matrix](docs/CLAIMS_MATRIX.md) |
 [Security Policy](SECURITY.md)
 
@@ -43,6 +44,7 @@ For a first-time reader, use the four public entry points:
 - Market position: [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md)
 - Pilot proof pack: [`docs/PILOT_PROOF_PACK.md`](docs/PILOT_PROOF_PACK.md)
 - Public evidence dashboard: [`docs/PUBLIC_EVIDENCE_DASHBOARD.md`](docs/PUBLIC_EVIDENCE_DASHBOARD.md)
+- Mainnet readiness gap analysis: [`docs/MAINNET_READINESS_GAP_ANALYSIS.md`](docs/MAINNET_READINESS_GAP_ANALYSIS.md)
 - Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
 
 ## 30-Second Project Status
