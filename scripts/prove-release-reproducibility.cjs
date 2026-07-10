@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 const { spawnSync } = require("child_process");
+const { restoreGeneratedSite } = require("./lib/restore-generated-site.cjs");
 
 const root = path.join(__dirname, "..");
 const npmBin = process.platform === "win32" ? "npm.cmd" : "npm";
@@ -188,6 +189,7 @@ function main() {
     console.log(`\n> ${printable}`);
     if (command === "npm") runNpm(commandArgs);
     else run(command, commandArgs);
+    if (commandArgs[0] === "run" && commandArgs[1] === "site") restoreGeneratedSite(root);
   }
 
   assertChecksum(args.commit, args.release, args.expectedChecksum);
