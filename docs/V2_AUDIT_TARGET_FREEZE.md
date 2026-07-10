@@ -2,11 +2,11 @@
 
 Status: proposed internal freeze baseline for external audit preparation.
 
-Freeze baseline commit: `58806906a273a95c58944d892eb368fc1b758620`
+Freeze baseline commit: `9099fdb87a6be715b1d7fd4fafa6fade0b12b61c`
 
-Freeze date: 2026-06-24
+Freeze date: 2026-07-10
 
-Current evidence/package commit: `e74c85612e745f14aa92260bf8b3633f9fd9fa4a`
+Current evidence/package commit: recorded at generation time in `audit-package-manifest.json`. It may be later than the immutable V2 freeze commit.
 
 This document does not promote V2 to canonical deployment status. V2 remains candidate code, not independently audited, not deployed by the canonical manifest, and not approved for mainnet use.
 
@@ -48,6 +48,11 @@ Documentation:
 - `docs/V2_MIGRATION_NOTES.md`
 - `docs/V2_ROLE_MANIFEST_SCHEMA.md`
 - `docs/EXTERNAL_AUDIT_READINESS.md`
+- `docs/INDEPENDENT_REVIEWER_GUIDE.md`
+- `docs/AUDIT_PROCUREMENT_BRIEF.md`
+- `docs/POST_AUDIT_WORKFLOW.md`
+- `config/audit/v2-independent-review.json`
+- `config/audit/v2-role-manifest.json`
 
 ## Explicit Exclusions
 
@@ -138,7 +143,9 @@ npm run compile
 npm test
 npm run coverage
 npm run lint
-npm run audit
+npm run deps:audit
+npm run external-review:package
+npm run external-review:check
 npm run manifest
 npm run bytecode
 npm run gas
@@ -155,7 +162,7 @@ Optional package generation for auditor review:
 npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot
 ```
 
-The package commit is the reproducibility anchor for current documentation, dependency versions, CI evidence, and generated review artifacts. The freeze baseline remains the V2 candidate contract baseline unless V2 source, deployment semantics, role schema, or security assumptions change. The proof command must not deploy contracts, broadcast transactions, create a tag, or publish a GitHub Release.
+The package `evidenceCommit` is the reproducibility anchor for current documentation, dependency versions, CI evidence and generated review artifacts. The freeze baseline remains the V2 candidate contract baseline unless V2 source, deployment semantics, role schema or security assumptions change. The proof command must not deploy contracts, broadcast transactions, create a tag or publish a GitHub Release.
 
 ## Freeze Reset Conditions
 

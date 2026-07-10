@@ -2,6 +2,8 @@
 
 This runbook records how TikiDeco / TIDE Sepolia owner powers were moved from a single wallet to a Safe multisig.
 
+Current threshold tradeoffs and recovery blockers are recorded in [`governance/SAFE_RESILIENCE_DECISION.md`](governance/SAFE_RESILIENCE_DECISION.md). The accompanying incident exercise uses test-only data and does not change the Safe.
+
 It is an operational security document, not legal advice and not a production governance charter.
 
 ## Current Sepolia Target

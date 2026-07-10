@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "review-template-not-deployed",
+  "network": null,
+  "chainId": null,
+  "tokenAddress": null,
+  "vaultAddress": null,
+  "roles": {
+    "defaultAdmin": { "address": null, "required": true, "separatePrincipalExpected": true },
+    "pauser": { "address": null, "required": true, "separatePrincipalExpected": true },
+    "reporter": { "address": null, "required": true, "separatePrincipalExpected": true },
+    "vestingAdmin": { "address": null, "required": true, "separatePrincipalExpected": true },
+    "treasury": { "address": null, "required": true, "separatePrincipalExpected": true }
+  },
+  "defaultAdminTransferDelaySeconds": 86400,
+  "deployerMayRetainUnexpectedRoles": false,
+  "publicNetworkFailClosed": true,
+  "onChainAssertionsCompleted": false,
+  "note": "Review template only. No V2 deployment, role assignment or signer identity is represented."
+}

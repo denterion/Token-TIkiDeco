@@ -8,11 +8,12 @@ const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "cano
 const releaseEvidence = JSON.parse(fs.readFileSync(path.join(root, "config", "release-evidence.json"), "utf8"));
 const publicVersions = JSON.parse(fs.readFileSync(path.join(root, "config", "public-versions.json"), "utf8"));
 const pilotCampaign = JSON.parse(fs.readFileSync(path.join(root, "config", "utility-pilot", "tide-community-preview-001.json"), "utf8"));
+const v2Review = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "v2-independent-review.json"), "utf8"));
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
 const v01ReleaseCommit = publicVersions.publishedReleases.find((release) => release.tag === "v0.1.0-sepolia").sourceCommit;
 const v02ReleaseCommit = publicVersions.publishedReleases.find((release) => release.tag === "v0.2.0-utility-pilot").sourceCommit;
-const v2FreezeBaseline = "58806906a273a95c58944d892eb368fc1b758620";
+const v2FreezeBaseline = v2Review.v2FreezeCommit;
 const currentEvidenceCommit = releaseEvidence.sourceCommit;
 const siteLastUpdated = releaseEvidence.evidenceDate;
 

@@ -10,6 +10,8 @@ const nodeBin = process.execPath;
 const npmExecPath = process.env.npm_execpath;
 
 const requiredFiles = [
+  "config/audit/v2-independent-review.json",
+  "config/audit/v2-role-manifest.json",
   "contracts/TikiDecoTokenV2.sol",
   "contracts/TikiDecoVestingVaultV2.sol",
   "scripts/deploy-v2.cjs",
@@ -39,6 +41,10 @@ const requiredFiles = [
   "docs/V2_MIGRATION_NOTES.md",
   "docs/V2_ROLE_MANIFEST_SCHEMA.md",
   "docs/EXTERNAL_AUDIT_READINESS.md",
+  "docs/AUDIT_TERMINOLOGY.md",
+  "docs/INDEPENDENT_REVIEWER_GUIDE.md",
+  "docs/AUDIT_PROCUREMENT_BRIEF.md",
+  "docs/POST_AUDIT_WORKFLOW.md",
   "security/slither-baseline-v2.json",
   "deployments/canonical.json",
   "package.json",
@@ -126,6 +132,7 @@ function assert(condition, message) {
 }
 
 function assertGuards() {
+  const review = readJson("config/audit/v2-independent-review.json");
   const canonical = readJson("deployments/canonical.json");
   assert(canonical.contractVersion === "v1-legacy", "V2 appears promoted by canonical contractVersion.");
   assert(canonical.status === "legacy-canonical-testnet-prototype", "Canonical deployment status changed from legacy Sepolia prototype.");
@@ -154,6 +161,16 @@ function assertGuards() {
   assert(readText("docs/V2_AUDIT_TARGET_FREEZE.md").match(/[0-9a-f]{40}/), "V2 freeze commit is missing.");
   assert(fs.existsSync(path.join(root, "security", "slither-baseline-v2.json")), "Slither baseline is missing.");
   assert(fs.existsSync(path.join(root, "KNOWN_ISSUES.md")), "KNOWN_ISSUES.md is missing.");
+  assert(/^[0-9a-f]{40}$/.test(review.v2FreezeCommit), "Independent-review manifest has an invalid freeze commit.");
+  assert(review.canonicalStatus === "non-canonical-candidate", "V2 review manifest must remain non-canonical.");
+  assert(review.independentAuditStatus === "not-started", "V2 review manifest must keep independent audit status not-started.");
+
+  const changedScope = run("git", [
+    "diff", "--name-only", review.v2FreezeCommit, "HEAD", "--",
+    ...review.contracts,
+    ...review.deploymentScripts
+  ]).output.trim();
+  assert(!changedScope, `Frozen V2 source differs from ${review.v2FreezeCommit}:\n${changedScope}`);
 }
 
 function main() {
@@ -163,6 +180,7 @@ function main() {
   runNpm(["run", "artifacts:contracts"]);
 
   const head = run("git", ["rev-parse", "HEAD"]).output.trim();
+  const review = readJson("config/audit/v2-independent-review.json");
   const packageDir = path.join(outputRoot, head);
   fs.rmSync(packageDir, { recursive: true, force: true });
   fs.mkdirSync(packageDir, { recursive: true });
@@ -189,6 +207,36 @@ function main() {
     assert(copyPath(relPath, packageDir), `Missing V2 ABI/bytecode artifact: ${relPath}`);
   }
 
+  const frozenArchive = path.join(packageDir, "v2-frozen-source.zip");
+  run("git", [
+    "archive", "--format=zip", `--output=${frozenArchive}`,
+    review.v2FreezeCommit, "--",
+    ...review.contracts,
+    ...review.deploymentScripts,
+    "hardhat.config.js",
+    "foundry.toml",
+    "package.json",
+    "package-lock.json"
+  ]);
+
+  const manifest = {
+    schema: "tikideco.v2-independent-review-package/2",
+    generatedAt: new Date().toISOString(),
+    headCommit: head,
+    v2FreezeCommit: review.v2FreezeCommit,
+    evidenceCommit: head,
+    nonCanonical: true,
+    independentAuditStatus: "not-started",
+    compiler: review.compiler,
+    dependencies: review.dependencies,
+    frozenSourceArchive: "v2-frozen-source.zip",
+    requiredFiles,
+    optionalIncluded,
+    optionalMissing,
+    checksums: "SHA256SUMS.txt"
+  };
+  writeJson(path.join(packageDir, "audit-package-manifest.json"), manifest);
+
   const files = walkFiles(packageDir);
   const checksums = files
     .filter((filePath) => !filePath.endsWith("SHA256SUMS.txt"))
@@ -196,21 +244,6 @@ function main() {
     .sort()
     .join("\n");
   fs.writeFileSync(path.join(packageDir, "SHA256SUMS.txt"), `${checksums}\n`);
-
-  const manifest = {
-    schema: "tikideco.v2-audit-package/1",
-    generatedAt: new Date().toISOString(),
-    headCommit: head,
-    v2FreezeCommit: "58806906a273a95c58944d892eb368fc1b758620",
-    evidenceCommit: head,
-    nonCanonical: true,
-    independentAuditStatus: "not-started",
-    requiredFiles,
-    optionalIncluded,
-    optionalMissing,
-    checksums: "SHA256SUMS.txt"
-  };
-  writeJson(path.join(packageDir, "audit-package-manifest.json"), manifest);
 
   console.log(`V2 audit package generated: ${rel(packageDir)}`);
   if (optionalMissing.length > 0) {

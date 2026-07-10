@@ -1,11 +1,16 @@
 const fs = require("fs");
 const path = require("path");
 const childProcess = require("child_process");
+const crypto = require("crypto");
 
 const root = path.join(__dirname, "..");
 const packageRoot = path.join(root, "release-artifacts", "v2-audit-package");
 
 const requiredDocs = [
+  "docs/AUDIT_TERMINOLOGY.md",
+  "docs/INDEPENDENT_REVIEWER_GUIDE.md",
+  "docs/AUDIT_PROCUREMENT_BRIEF.md",
+  "docs/POST_AUDIT_WORKFLOW.md",
   "docs/EXTERNAL_AUDIT_READINESS.md",
   "docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md",
   "docs/AUDITOR_QUESTIONS.md",
@@ -110,6 +115,7 @@ function assertNoUnsupportedClaims(relativePath, text) {
 for (const doc of requiredDocs) assertNoUnsupportedClaims(doc, read(doc));
 
 const freezeDoc = read("docs/V2_AUDIT_TARGET_FREEZE.md");
+const reviewConfig = JSON.parse(read("config/audit/v2-independent-review.json"));
 const indexDoc = read("docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md");
 const readinessDoc = read("docs/EXTERNAL_AUDIT_READINESS.md");
 const ownerDecisionsDoc = read("docs/V2_AUDIT_OWNER_DECISIONS.md");
@@ -118,7 +124,7 @@ const freshProofDoc = read("docs/FRESH_CHECKOUT_RELEASE_PROOF.md");
 const knownIssuesDoc = read("KNOWN_ISSUES.md");
 if (!/[a-f0-9]{40}/i.test(freezeDoc)) fail("V2 freeze commit missing from docs/V2_AUDIT_TARGET_FREEZE.md");
 if (!/V2 freeze commit\s*\|\s*`?[a-f0-9]{40}`?/i.test(indexDoc)) fail("V2 freeze commit missing from EXTERNAL_AUDIT_PACKAGE_INDEX.md");
-if (!/Current evidence commit\s*\|\s*`?[a-f0-9]{40}`?/i.test(indexDoc)) fail("Current evidence commit missing from EXTERNAL_AUDIT_PACKAGE_INDEX.md");
+if (!indexDoc.includes("audit-package-manifest.json")) fail("EXTERNAL_AUDIT_PACKAGE_INDEX.md must identify the package manifest as the evidence-commit source.");
 if (!readinessDoc.includes("npm run foundry:test") || !readinessDoc.includes("npm run foundry:coverage")) {
   fail("EXTERNAL_AUDIT_READINESS.md must reference Foundry tests and coverage");
 }
@@ -150,6 +156,7 @@ if (auditPackageManifest.headCommit !== currentCommit()) {
 }
 if (auditPackageManifest.nonCanonical !== true) fail("Audit package manifest must mark V2 as non-canonical");
 if (auditPackageManifest.independentAuditStatus !== "not-started") fail("Audit package manifest must keep independent audit status not-started");
+if (auditPackageManifest.v2FreezeCommit !== reviewConfig.v2FreezeCommit) fail("Audit package freeze commit disagrees with review config");
 
 const requiredPackageFiles = [
   "contracts/TikiDecoTokenV2.sol",
@@ -162,10 +169,27 @@ const requiredPackageFiles = [
   "security/slither-baseline-v2.json",
   "lcov.info",
   "security-artifacts/slither/slither.json",
+  "v2-frozen-source.zip",
+  "config/audit/v2-independent-review.json",
+  "config/audit/v2-role-manifest.json",
   "SHA256SUMS.txt"
 ];
 for (const rel of requiredPackageFiles) {
   if (!fs.existsSync(path.join(packageDir, rel))) fail(`Audit package missing required artifact: ${rel}`);
+}
+
+const checksumLines = fs.readFileSync(path.join(packageDir, "SHA256SUMS.txt"), "utf8")
+  .trim()
+  .split(/\r?\n/)
+  .filter(Boolean);
+if (checksumLines.length === 0) fail("Audit package checksum file is empty");
+for (const line of checksumLines) {
+  const match = line.match(/^([0-9a-f]{64})\s{2}(.+)$/i);
+  if (!match) fail(`Malformed checksum line: ${line}`);
+  const filePath = path.join(packageDir, ...match[2].split("/"));
+  if (!fs.existsSync(filePath)) fail(`Checksum references missing file: ${match[2]}`);
+  const actual = crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+  if (actual !== match[1].toLowerCase()) fail(`Checksum mismatch: ${match[2]}`);
 }
 
 console.log(`Audit handoff checks passed for package ${path.relative(root, packageDir).replaceAll(path.sep, "/")}.`);

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "network": "Ethereum Sepolia",
+  "safeAddress": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+  "currentThreshold": 3,
+  "currentOwnerCount": 3,
+  "decision": "retain-current-threshold-pending-governance-review",
+  "thresholdChanged": false,
+  "signerIdentitiesPubliclyVerified": false,
+  "hardwareWalletEvidenceRecorded": false,
+  "deviceAndLocationSeparationEvidenceRecorded": false,
+  "recoveryProcedureTested": false,
+  "incidentDrillStatus": "tabletop-test-only",
+  "futureOptions": {
+    "threeOfThree": "strong unanimity; weak availability if any signer is lost or unavailable",
+    "twoOfThree": "better availability; requires independent signers, hardware controls and documented escalation",
+    "threeOfFive": "preferred for higher-impact future operations only if five qualified independent signers exist"
+  },
+  "noAutomaticThresholdChange": true
+}
