@@ -6,7 +6,7 @@ Current package/source commit: recorded as `evidenceCommit` in each generated `a
 
 Branch reviewed: `main`
 
-Review status: internal review preparation. TikiDeco V2 remains a candidate and is not independently audited.
+Review status: internal security review preparation. TikiDeco V2 remains a non-deployed candidate. Independent technical review and formal independent smart-contract audit are both `not-started`.
 
 Published Sepolia prototype release: `v0.1.0-sepolia` at `e07471936375ffbe13c68da2708b4436931392a2`.
 

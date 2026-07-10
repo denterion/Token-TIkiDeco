@@ -1,5 +1,23 @@
 # TikiDeco Security Review
 
+## Current V2 Candidate Refresh
+
+Refresh date: 2026-07-10
+
+Status: internal security review evidence for a frozen, non-canonical and non-deployed V2 candidate. This document is not an independent technical review or a formal independent smart-contract audit.
+
+- **V1:** observations below are historical. V1 remains the canonical Ethereum Sepolia legacy deployment and its deployed semantics are unchanged.
+- **V2 freeze:** the exact freeze commit is defined by `config/audit/v2-independent-review.json`.
+- **Current evidence commit:** assigned by the immutable candidate definition in `config/audit/v2-review-candidate.json`; handoff is blocked until that file records an exact commit and matching package checksum.
+- **Role model:** `config/audit/v2-role-manifest.json` is a non-deployed template. Addresses are not assigned and on-chain role assertions are incomplete. Review covers the role model and deployment guardrails, not deployment readiness.
+- **Internal checks:** Hardhat tests, Foundry tests/coverage, Slither baseline, bytecode, dependency advisory scan, claims checks and release reproducibility are maintainer-generated evidence.
+- **Independent reproduction:** none has been received from an independent reviewer as of this refresh.
+- **Formal independent smart-contract audit:** not started.
+
+No current check changes V2 to canonical status or approves deployment, mainnet, sale, liquidity, listing, value claims or active hospitality benefits.
+
+## Historical Internal Review Record
+
 Review date: 2026-06-17
 
 Review track: `security-hardening`

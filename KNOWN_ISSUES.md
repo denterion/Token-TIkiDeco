@@ -78,19 +78,19 @@ Recommended change: continue treating dashboard as read-only informational UI; a
 
 Test that should prove the mitigation: mock RPC failure in a site test and assert every on-chain dashboard field shows unavailable state rather than zero values.
 
-## Finding KI-06: Slither Is Advisory In CI
+## Finding KI-06: Accepted Slither Findings Still Require Reviewer Validation
 
 Severity: Informational
 
-Affected file and line: `.github/workflows/security.yml:66-68`
+Affected file and line: `security/slither-baseline-v2.json`, `scripts/check-slither-baseline.cjs`
 
-Attack or failure scenario: Slither can report findings while CI remains green due to `continue-on-error: true`, causing reviewers to miss static-analysis output.
+Attack or failure scenario: an accepted static-analysis finding can be treated as permanently waived even if its context or impact was incorrectly classified.
 
-Current mitigation: Slither job still runs and prints output for review.
+Current mitigation: the V2 baseline is versioned, new untriaged findings fail the gate, and accepted findings remain visible in the independent-review package.
 
-Recommended change: before V2 audit target freeze, triage Slither output into accepted/false-positive/action-needed categories and decide whether to make the job blocking.
+Recommended change: require an independent reviewer to validate accepted classifications and record any reclassification as a finding or remediation.
 
-Test that should prove the mitigation: CI policy check or PR checklist requiring Slither triage file update when Slither output changes.
+Test that should prove the mitigation: `npm run slither` reports zero new untriaged V2 findings and the handoff package contains the exact baseline.
 
 Freeze decision: `npm run slither:baseline` is the blocking V2 gate. Accepted V2 findings are versioned in `security/slither-baseline-v2.json`, and every new untriaged V2 finding must fail the gate.
 
@@ -132,6 +132,8 @@ Attack or failure scenario: a maintainer can have the pinned Foundry runtime ava
 
 Current mitigation: the package generator and npm Foundry scripts now prepend the repository-pinned `.tools/foundry` directories to their child-process `PATH` when present. The package generator also restores the generated tracked site output after `site:check`.
 
-Recommended change: keep CI installing the pinned Foundry version explicitly, and keep generated static site output deterministic. If the generated asset filenames change intentionally, update the package generator's tracked site output list in the same PR.
+Recommended change: keep CI installing the pinned Foundry version explicitly and retain the dynamic, path-confined generated-site cleanup plus postflight clean-tree assertion.
 
-Test that should prove the mitigation: run `npm run release:package -- --commit <current-head-sha>` from a clean tree without manually exporting `forge` into `PATH`, then confirm the package is produced and `git status --short` remains clean after the command.
+Test that should prove the mitigation: run `npm run release -- --commit <current-head-sha> --release v0.2.0-utility-pilot` from a clean tree without manually exporting `forge`, then confirm the package is produced and `git status --short` remains clean.
+
+Resolution: resolved for the current review candidate by PR #113 and reproduced on merge commit `9c74d225ad3b5cdb8e2ae59ea9a53e36f5d5f075`.

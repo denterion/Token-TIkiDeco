@@ -1,6 +1,6 @@
 # Audit Response Process
 
-Status: audit-response procedure for V2 candidate review. This is not audit completion and not approval for mainnet.
+Status: response procedure for a future independent technical review or formal independent smart-contract audit of V2 candidate code. No such review is complete and mainnet is not approved.
 
 ## Severity Labels
 
