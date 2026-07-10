@@ -8,7 +8,7 @@ Status: internal security review evidence for a frozen, non-canonical and non-de
 
 - **V1:** observations below are historical. V1 remains the canonical Ethereum Sepolia legacy deployment and its deployed semantics are unchanged.
 - **V2 freeze:** the exact freeze commit is defined by `config/audit/v2-independent-review.json`.
-- **Current evidence commit:** assigned by the immutable candidate definition in `config/audit/v2-review-candidate.json`; handoff is blocked until that file records an exact commit and matching package checksum.
+- **Current evidence commit:** `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`, recorded with package checksum in `config/audit/v2-review-candidate.json`.
 - **Role model:** `config/audit/v2-role-manifest.json` is a non-deployed template. Addresses are not assigned and on-chain role assertions are incomplete. Review covers the role model and deployment guardrails, not deployment readiness.
 - **Internal checks:** Hardhat tests, Foundry tests/coverage, Slither baseline, bytecode, dependency advisory scan, claims checks and release reproducibility are maintainer-generated evidence.
 - **Independent reproduction:** none has been received from an independent reviewer as of this refresh.

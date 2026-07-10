@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "immutable-review-candidate",
+  "v2FreezeCommit": "9099fdb87a6be715b1d7fd4fafa6fade0b12b61c",
+  "evidenceCommit": "cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+  "packageGenerationDate": "2026-07-10T22:57:00+03:00",
+  "compiler": {
+    "solidity": "0.8.28",
+    "evmVersion": "paris",
+    "optimizerEnabled": true,
+    "optimizerRuns": 200
+  },
+  "dependencyLockSha256": "d657f3abf336d7b59df9517fbc345c895dd34c3522b0e504e98f276d1a534787",
+  "contracts": [
+    "contracts/TikiDecoTokenV2.sol",
+    "contracts/TikiDecoVestingVaultV2.sol"
+  ],
+  "deploymentScripts": [
+    "scripts/deploy-v2.cjs"
+  ],
+  "reviewTooling": [
+    "scripts/build-v2-review-candidate.cjs",
+    "scripts/check-v2-review-candidate.cjs",
+    "scripts/check-review-handoff.cjs"
+  ],
+  "tests": [
+    "test/TikiDecoTokenV2.js",
+    "test/TikiDecoVestingVaultV2.js",
+    "test/TikiDecoInvariants.js",
+    "test/V2DeploymentConfig.js",
+    "foundry/TikiDecoTokenV2Invariant.t.sol",
+    "foundry/TikiDecoVestingVaultV2Invariant.t.sol",
+    "foundry/FoundryTestBase.sol"
+  ],
+  "knownIssues": {
+    "source": "KNOWN_ISSUES.md",
+    "ids": ["KI-01", "KI-02", "KI-03", "KI-04", "KI-05", "KI-06", "KI-07", "KI-08", "KI-09"]
+  },
+  "auditorQuestions": "docs/AUDITOR_QUESTIONS.md",
+  "roleManifest": {
+    "source": "config/audit/v2-role-manifest.json",
+    "status": "review-template-not-deployed",
+    "addressesAssigned": false,
+    "onChainAssertionsCompleted": false,
+    "reviewBoundary": "role model and deployment guardrails only; deployment readiness is out of scope"
+  },
+  "explicitExclusions": [
+    "Canonical V1 deployed bytecode and source semantics",
+    "Mainnet deployment or readiness",
+    "Sepolia deployment or transaction broadcast",
+    "Private keys, RPC secrets and signer identities",
+    "Legal, tax, regulatory, property or hospitality operator conclusions",
+    "Token sale, liquidity, listing, value statements and active hospitality benefits"
+  ],
+  "packagePath": "release-artifacts/v2-review-candidate/cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+  "packageSha256": "980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2",
+  "independentTechnicalReviewStatus": "not-started",
+  "independentAuditStatus": "not-started"
+}

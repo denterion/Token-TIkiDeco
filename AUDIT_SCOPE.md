@@ -2,7 +2,7 @@
 
 V2 code freeze baseline: `9099fdb87a6be715b1d7fd4fafa6fade0b12b61c`
 
-Current package/source commit: recorded as `evidenceCommit` in each generated `audit-package-manifest.json`.
+Current immutable review-candidate source commit: `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`, recorded in `config/audit/v2-review-candidate.json`.
 
 Branch reviewed: `main`
 
