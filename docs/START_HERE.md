@@ -24,6 +24,7 @@ Start with:
 - [`PUBLIC_EVIDENCE_DASHBOARD.md`](PUBLIC_EVIDENCE_DASHBOARD.md)
 - [`FEEDBACK_GUIDE.md`](FEEDBACK_GUIDE.md)
 - [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md)
+- [`MAINNET_READINESS_GAP_ANALYSIS.md`](MAINNET_READINESS_GAP_ANALYSIS.md)
 
 Goal: understand what is current, give feedback through GitHub issues, and avoid unsupported claims.
 
@@ -35,6 +36,7 @@ Start with:
 - [`NEXT_RELEASE_GATES.md`](NEXT_RELEASE_GATES.md)
 - [`PILOT_PROOF_PACK.md`](PILOT_PROOF_PACK.md)
 - [`PUBLIC_EVIDENCE_DASHBOARD.md`](PUBLIC_EVIDENCE_DASHBOARD.md)
+- [`MAINNET_READINESS_GAP_ANALYSIS.md`](MAINNET_READINESS_GAP_ANALYSIS.md)
 - [`PROJECT_FACTS.md`](PROJECT_FACTS.md)
 
 Goal: keep release evidence reproducible, verify stale package blockers, and keep the pilot blocked until approvals exist.

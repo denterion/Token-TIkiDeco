@@ -13,7 +13,7 @@ Current evidence baseline:
 | Release track | `v0.2.0-utility-pilot` |
 | Candidate document | `v0.2.0-utility-pilot-rc.1` |
 | Evidence date | 2026-07-10 |
-| Evidence commit | `10cbd5a7555de7f8696955e9877db1687da5b285` |
+| Evidence commit | `e7c52e65f6a56c4a728ca81e3cb3080a25c344e7` |
 | Evidence report | `docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md` |
 | Pilot campaign | `draft-not-live` |
 | Mainnet | not approved |
@@ -40,17 +40,17 @@ npm run site
 The release bundle itself was reproduced with:
 
 ```bash
-npm run release -- --commit 10cbd5a7555de7f8696955e9877db1687da5b285 --release v0.2.0-utility-pilot
+npm run release -- --commit e7c52e65f6a56c4a728ca81e3cb3080a25c344e7 --release v0.2.0-utility-pilot
 ```
 
 ## Bundle Hashes
 
 | Item | SHA-256 |
 | --- | --- |
-| Source archive | `4083e0bdcbc61627c57a98de8724483214c6b0caeb29017bc18b24e771873f2a` |
-| Release manifest | `9110d49250636515e2aae4969200fc3d54a2d2bad57e047e769ddd96cef76e0c` |
-| `SHA256SUMS.txt` | `8333863053288b74cd3013ba373298a71532adbabb06d9a8d03b50fafef2985b` |
-| Evidence report | `5442652c772a88ed6430da2679b3669d1ae9b070b4e95c245b3e7a9094cbc88c` |
+| Source archive | `58f20d6f171a4a171cabd419d26b8f6d8325a187729b5d709a4c73e5f8aa8437` |
+| Release manifest | `a7c38b66bbad489cc1e00a8edd97efe0f3719159e94a9b4d02b9a52b2b930934` |
+| `SHA256SUMS.txt` | `5758685b0a9587cbe708819f97ee4d5eeafba570c1e28c29857f30bbbb902742` |
+| Evidence report | `e2970b4677e476785eabaf2aa8a37d29dcc505452ec9a7dd3992cc4027e30605` |
 
 ## What This Does Not Mean
 
