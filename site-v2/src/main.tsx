@@ -53,7 +53,7 @@ function App() {
           </a>
           <div className="nav-cluster">
             <nav aria-label={t.sectionsAria}>
-              <a href="#main">{t.nav.overview}</a>
+              <a href="/trust/">{t.nav.trust}</a>
               <a href="#status">{t.nav.status}</a>
               <a href="/pilot/">{t.nav.pilot}</a>
               <a href="#audit">{t.nav.audit}</a>

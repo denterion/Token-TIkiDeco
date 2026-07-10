@@ -140,6 +140,7 @@ for (const link of requiredLinks) {
 }
 
 assert(source.includes("../../../deployments/canonical.json"), "V2 project facts must import canonical deployment manifest");
+assert(source.includes('trust: "/trust/"'), "V2 site must link to the Trust Center");
 assert(searchable.includes(manifest.contracts.token.address), "V2 site must expose canonical token address");
 assert(searchable.includes(manifest.contracts.vestingVault.address), "V2 site must expose canonical vault address");
 assert(source.includes("React Three Fiber") || source.includes("@react-three/fiber"), "V2 README/source must document React Three Fiber usage");

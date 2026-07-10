@@ -2,6 +2,8 @@
 
 The Release Control Center is the maintainer entry point for checking what TikiDeco can safely do next.
 
+Public readers should use the [Trust Center](https://tikideco.xyz/trust/). This Control Center remains the operator view for stale evidence, pilot gates, and release actions.
+
 It is not a token sale, value statement, mainnet approval, live utility approval, V2 promotion, legal opinion, or independent audit claim.
 
 ## Why This Exists

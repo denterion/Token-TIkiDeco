@@ -911,6 +911,18 @@ code {
   font-weight: 760;
 }
 
+.record-list dd a {
+  color: #086a70;
+  text-decoration-color: rgba(8, 106, 112, 0.45);
+  text-underline-offset: 3px;
+}
+
+.record-list dd a:hover,
+.record-list dd a:focus-visible {
+  color: #064f54;
+  text-decoration-color: currentColor;
+}
+
 .reference-links {
   display: grid;
   gap: 10px;

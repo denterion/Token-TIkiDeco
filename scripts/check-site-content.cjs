@@ -53,6 +53,7 @@ const allowedClaimContextMarkers = [
 const oldGitHubPagesPath = ["denterion.github.io", "Token-TIkiDeco"].join("/");
 const requiredPages = [
   "index.html",
+  "trust/index.html",
   "audit/index.html",
   "verify/index.html",
   "status/index.html",
@@ -211,12 +212,14 @@ function main() {
   assert(read(cnamePath).trim() === "tikideco.xyz", "site/CNAME must contain tikideco.xyz");
   assert(robotsLines.has("Sitemap: https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
   assert(sitemapLocs.has("https://tikideco.xyz/audit/"), "sitemap missing audit page");
+  assert(sitemapLocs.has("https://tikideco.xyz/trust/"), "sitemap missing Trust Center");
   assert(sitemapLocs.has("https://tikideco.xyz/proof/"), "sitemap missing proof page");
   assert(sitemapLocs.has("https://tikideco.xyz/utility/"), "sitemap missing utility page");
   assert(sitemapLocs.has("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
   assert(sitemapLocs.has("https://tikideco.xyz/business/"), "sitemap missing business page");
   assert(sitemapLocs.has("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
+  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TRUST_CENTER_SOURCE_MAP.md"), "Site must link to the Trust Center source map");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"), "Site must link to Pilot Proof Pack");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md"), "Site must link to final evidence report");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"), "Site must link to Project Facts");

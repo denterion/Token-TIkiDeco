@@ -14,6 +14,7 @@
 ![Status](https://img.shields.io/badge/Status-Testnet%20prototype-b7791f)
 
 [Website](https://tikideco.xyz/) |
+[Trust Center](https://tikideco.xyz/trust/) |
 [Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
 [Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
 [Project Facts](docs/PROJECT_FACTS.md) |
@@ -34,12 +35,15 @@ For a first-time reader, use the four public entry points:
 
 | Entry point | Use it for |
 | --- | --- |
-| [Overview](docs/PUBLIC_ENTRYPOINTS.md#overview) | What TikiDeco is and what is safe to say publicly. |
+| [Overview / Trust](https://tikideco.xyz/trust/) | What exists, which source proves it, and what remains blocked. |
 | [Status](docs/PUBLIC_ENTRYPOINTS.md#status) | Current Sepolia deployment, releases, and blockers. |
 | [Pilot](docs/PUBLIC_ENTRYPOINTS.md#pilot) | Planned read-only utility-pilot flow and why it is not live. |
 | [Audit](docs/PUBLIC_ENTRYPOINTS.md#audit) | V1 legacy scope, V2 candidate scope, and audit-readiness evidence. |
 
 - Short paths: [`docs/START_HERE.md`](docs/START_HERE.md)
+- Trust Center source map: [`docs/TRUST_CENTER_SOURCE_MAP.md`](docs/TRUST_CENTER_SOURCE_MAP.md)
+- Operator and entity status: [`docs/OPERATOR_AND_ENTITY_STATUS.md`](docs/OPERATOR_AND_ENTITY_STATUS.md)
+- Public participation: [`docs/PUBLIC_PARTICIPATION.md`](docs/PUBLIC_PARTICIPATION.md)
 - Public entrypoint rules: [`docs/PUBLIC_ENTRYPOINTS.md`](docs/PUBLIC_ENTRYPOINTS.md)
 - Market position: [`docs/COMPETITIVE_LANDSCAPE.md`](docs/COMPETITIVE_LANDSCAPE.md)
 - Pilot proof pack: [`docs/PILOT_PROOF_PACK.md`](docs/PILOT_PROOF_PACK.md)
@@ -55,7 +59,7 @@ For a first-time reader, use the four public entry points:
 | What exists now? | Canonical V1 legacy token and vesting vault on Sepolia, verified source links, Safe ownership, public docs, read-only website, v0.1 and v0.2 pre-releases. |
 | What does not exist? | No token sale, no stated monetary value, no mainnet deployment, no active guest benefits, no V2 canonical promotion, no completed independent audit. |
 | What is the next release candidate? | `v0.2.0-utility-pilot-rc.1`: read-only utility-pilot evidence, with the campaign still `draft-not-live`. |
-| How do I verify it? | Start with [`deployments/canonical.json`](deployments/canonical.json), Sepolia Etherscan links below, [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md), [`docs/PUBLIC_EVIDENCE_DASHBOARD.md`](docs/PUBLIC_EVIDENCE_DASHBOARD.md), [`docs/PILOT_PROOF_PACK.md`](docs/PILOT_PROOF_PACK.md), and `npm run project:control`. |
+| How do I verify it? | Start with the [Trust Center](https://tikideco.xyz/trust/), then use [`deployments/canonical.json`](deployments/canonical.json), [`docs/PROJECT_FACTS.md`](docs/PROJECT_FACTS.md), and `npm run trust:check`. |
 | How do I give feedback? | Use [GitHub Issues](https://github.com/denterion/Token-TIkiDeco/issues) and [`docs/FEEDBACK_GUIDE.md`](docs/FEEDBACK_GUIDE.md). |
 
 Maintainer status command:
@@ -219,7 +223,7 @@ npm run compile
 npm run lint
 npm run coverage
 npm run gas:snapshot
-npm run audit
+npm run deps:audit
 npm run site:browser:install
 npm run site:browser
 npm run site:check
@@ -233,6 +237,8 @@ npm run slither
 ```
 
 `npm run slither` runs the local Slither JSON scan and then applies the V2 baseline gate. Known accepted findings remain visible in generated artifacts; any new untriaged V2 finding fails. Use `npm run slither:raw` when you need Slither's unfiltered analyzer exit code and console output.
+
+`npm run deps:audit` is an npm advisory scan for JavaScript dependencies. It is not an independent smart-contract audit. The legacy `npm run audit` command remains an aggregate compatibility command that runs the dependency advisory scan and builds the V2 candidate review package.
 
 Slither requires local Slither and solc `0.8.28` setup. Slither output is review material, not an audit certificate.
 

@@ -1,0 +1,26 @@
+{
+  "publishedReleases": [
+    {
+      "version": "v0.1.0-sepolia",
+      "tag": "v0.1.0-sepolia",
+      "status": "published-pre-release",
+      "sourceCommit": "e07471936375ffbe13c68da2708b4436931392a2",
+      "releaseUrl": "https://github.com/denterion/Token-TIkiDeco/releases/tag/v0.1.0-sepolia",
+      "releaseDocument": "docs/releases/v0.1.0-sepolia.md"
+    },
+    {
+      "version": "v0.2.0-utility-pilot",
+      "tag": "v0.2.0-utility-pilot",
+      "status": "published-pre-release",
+      "sourceCommit": "5ed20415b569779f8b00245af8b98b9599f77044",
+      "releaseUrl": "https://github.com/denterion/Token-TIkiDeco/releases/tag/v0.2.0-utility-pilot",
+      "releaseDocument": "docs/releases/v0.2.0-utility-pilot.md"
+    }
+  ],
+  "nextReleaseCandidate": {
+    "version": "v0.2.1-public-trust-rc.1",
+    "status": "planned-not-published",
+    "sourceCommit": null,
+    "sourceRule": "Assign the exact final main commit only when the candidate is frozen."
+  }
+}

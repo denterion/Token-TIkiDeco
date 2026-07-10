@@ -4,6 +4,8 @@ TikiDeco / TIDE is an open-source Ethereum Sepolia prototype for transparent hos
 
 TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no live guest benefits, and has not completed an independent audit.
 
+The shortest public path is the [Trust Center](https://tikideco.xyz/trust/). It separates current `main`, immutable release tags, the current evidence bundle, canonical V1, candidate V2, operator/entity status, and participation paths.
+
 ## Current State In 30 Seconds
 
 - Canonical deployment: V1 legacy contracts on Ethereum Sepolia.
@@ -19,6 +21,7 @@ TIDE is not offered for sale, has no stated monetary value, is not deployed on m
 Start with:
 
 - [`PUBLIC_ENTRYPOINTS.md`](PUBLIC_ENTRYPOINTS.md)
+- [`TRUST_CENTER_SOURCE_MAP.md`](TRUST_CENTER_SOURCE_MAP.md)
 - [`OFFICIAL_PUBLIC_PREVIEW.md`](OFFICIAL_PUBLIC_PREVIEW.md)
 - [`PILOT_PROOF_PACK.md`](PILOT_PROOF_PACK.md)
 - [`PUBLIC_EVIDENCE_DASHBOARD.md`](PUBLIC_EVIDENCE_DASHBOARD.md)
@@ -75,6 +78,7 @@ Goal: review public boundaries, governance decisions, value/sale restrictions, p
 
 ```bash
 npm run project:control
+npm run trust:check
 npm run claims
 npm run value
 npm run site

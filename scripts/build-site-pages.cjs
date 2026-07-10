@@ -1,20 +1,106 @@
 const fs = require("fs");
 const path = require("path");
+const { execFileSync } = require("child_process");
 
 const root = path.join(__dirname, "..");
 const siteDir = path.join(root, "site");
 const manifest = JSON.parse(fs.readFileSync(path.join(root, "deployments", "canonical.json"), "utf8"));
 const releaseEvidence = JSON.parse(fs.readFileSync(path.join(root, "config", "release-evidence.json"), "utf8"));
+const publicVersions = JSON.parse(fs.readFileSync(path.join(root, "config", "public-versions.json"), "utf8"));
+const pilotCampaign = JSON.parse(fs.readFileSync(path.join(root, "config", "utility-pilot", "tide-community-preview-001.json"), "utf8"));
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
-const v01ReleaseCommit = "e07471936375ffbe13c68da2708b4436931392a2";
-const v02ReleaseCommit = "5ed20415b569779f8b00245af8b98b9599f77044";
+const v01ReleaseCommit = publicVersions.publishedReleases.find((release) => release.tag === "v0.1.0-sepolia").sourceCommit;
+const v02ReleaseCommit = publicVersions.publishedReleases.find((release) => release.tag === "v0.2.0-utility-pilot").sourceCommit;
 const v2FreezeBaseline = "58806906a273a95c58944d892eb368fc1b758620";
 const currentEvidenceCommit = releaseEvidence.sourceCommit;
 const siteLastUpdated = releaseEvidence.evidenceDate;
 
+function gitCommit(ref) {
+  try {
+    return execFileSync("git", ["rev-parse", ref], { cwd: root, encoding: "utf8" }).trim();
+  } catch {
+    return null;
+  }
+}
+
+const currentMainCommit = process.env.GITHUB_REF === "refs/heads/main" && /^[0-9a-f]{40}$/i.test(process.env.GITHUB_SHA || "")
+  ? process.env.GITHUB_SHA
+  : gitCommit("origin/main") || gitCommit("HEAD") || "unavailable";
+const evidenceFreshness = currentEvidenceCommit === currentMainCommit
+  ? "Current evidence commit matches main"
+  : "Stale relative to current main; regenerate before the next immutable release";
+const repoBlob = "https://github.com/denterion/Token-TIkiDeco/blob/main";
+
 const baseUrl = "https://tikideco.xyz";
 const pages = [
+  {
+    path: "trust/index.html",
+    title: "Trust Center",
+    description: "A source-linked status and verification center for the TikiDeco Ethereum Sepolia prototype.",
+    eyebrow: "Public verification",
+    heading: "Trust Center",
+    intro: "One cautious-reader view of what exists, what is blocked, which commits back each release, and where every critical fact comes from.",
+    sections: [
+      ["Project Status", [
+        ["Current network", "Ethereum Sepolia", `${repoBlob}/deployments/canonical.json`],
+        ["Canonical deployment", `${manifest.contractVersion} legacy`, `${repoBlob}/deployments/canonical.json`],
+        ["Current main commit", currentMainCommit, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
+        ["Current evidence commit", currentEvidenceCommit, `${repoBlob}/config/release-evidence.json`],
+        ["Evidence freshness", evidenceFreshness, `${repoBlob}/docs/PUBLIC_EVIDENCE_DASHBOARD.md`],
+        ["Pilot status", pilotCampaign.status, `${repoBlob}/config/utility-pilot/tide-community-preview-001.json`],
+        ["Mainnet", "Not deployed; not approved", `${repoBlob}/docs/MAINNET_GO_NO_GO.md`],
+        ["Independent smart-contract audit", "Not started", `${repoBlob}/deployments/canonical.json`]
+      ]],
+      ["Release Version Matrix", [
+        ...publicVersions.publishedReleases.map((release) => [
+          release.version,
+          `${release.status}; tag ${release.tag}; source ${release.sourceCommit}`,
+          release.releaseUrl
+        ]),
+        ["Current main", `${currentMainCommit}; mutable development line`, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
+        ["Current review bundle", `${releaseEvidence.status}; source ${currentEvidenceCommit}; ${evidenceFreshness}`, `${repoBlob}/config/release-evidence.json`],
+        ["Next release candidate", `${publicVersions.nextReleaseCandidate.version}; ${publicVersions.nextReleaseCandidate.status}; source commit not assigned until freeze`, `${repoBlob}/config/public-versions.json`]
+      ]],
+      ["Canonical V1", [
+        ["Token", manifest.contracts.token.address, manifest.contracts.token.verification],
+        ["Vesting vault", manifest.contracts.vestingVault.address, manifest.contracts.vestingVault.verification],
+        ["Owner Safe", manifest.ownership.ownerSafe, `${repoBlob}/deployments/canonical.json`],
+        ["Safe threshold", manifest.ownership.safeThreshold, `${repoBlob}/deployments/canonical.json`],
+        ["Treasury", manifest.treasury.address, `${repoBlob}/deployments/canonical.json`]
+      ]],
+      ["Candidate And Business Boundaries", [
+        ["V2", "Candidate code only; not canonical", `${repoBlob}/docs/V2_AUDIT_TARGET_FREEZE.md`],
+        ["Operator", "Publicly maintained through an individual GitHub account; legal identity not verified", `${repoBlob}/docs/OPERATOR_AND_ENTITY_STATUS.md`],
+        ["Legal entity", "Not publicly verified", `${repoBlob}/docs/OPERATOR_AND_ENTITY_STATUS.md`],
+        ["Hospitality business", "No commercial hospitality service operating", `${repoBlob}/docs/OPERATOR_AND_ENTITY_STATUS.md`],
+        ["Hospitality partner", "Not publicly verified", `${repoBlob}/docs/OPERATOR_AND_ENTITY_STATUS.md`],
+        ["Active guest benefit", "Not live", `${repoBlob}/docs/PROJECT_FACTS.md`]
+      ]],
+      ["Reports And Limitations", [
+        ["Latest repository evidence report", releaseEvidence.transparencyReport, `${repoBlob}/${releaseEvidence.transparencyReport}`],
+        ["Evidence report SHA-256", releaseEvidence.transparencyReportSha256, `${repoBlob}/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE_HASH.md`],
+        ["Latest on-chain report", manifest.publishedReports[0].uri, `https://sepolia.etherscan.io/tx/${manifest.publishedReports[0].transaction}`],
+        ["Known limitations", "Published; legal, audit, operator, pilot, and mainnet gates remain open", `${repoBlob}/KNOWN_ISSUES.md`],
+        ["Dependency audit", "npm advisory scan only; not an independent smart-contract audit", `${repoBlob}/package.json`]
+      ]],
+      ["Public Paths", [
+        ["Security reporting", "GitHub private vulnerability reporting and SECURITY.md", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"],
+        ["Public feedback", "GitHub issue forms for non-sensitive feedback", "https://github.com/denterion/Token-TIkiDeco/issues/new/choose"],
+        ["Participation status", "Issues enabled; Discussions disabled", `${repoBlob}/docs/PUBLIC_PARTICIPATION.md`],
+        ["Fact-source map", "Every Trust Center field has a verification rule and stale-data behavior", `${repoBlob}/docs/TRUST_CENTER_SOURCE_MAP.md`]
+      ]]
+    ],
+    links: [
+      ["Project Facts", `${repoBlob}/docs/PROJECT_FACTS.md`],
+      ["Release Control Center", `${repoBlob}/docs/RELEASE_CONTROL_CENTER.md`],
+      ["Trust Center Source Map", `${repoBlob}/docs/TRUST_CENTER_SOURCE_MAP.md`],
+      ["Operator And Entity Status", `${repoBlob}/docs/OPERATOR_AND_ENTITY_STATUS.md`],
+      ["Public Participation", `${repoBlob}/docs/PUBLIC_PARTICIPATION.md`],
+      ["Known Issues", `${repoBlob}/KNOWN_ISSUES.md`]
+    ],
+    disclaimer: "TIDE is a Sepolia testnet prototype: no sale, no stated monetary value, no mainnet deployment, no active guest benefit, and independent audit not started."
+  },
   {
     path: "audit/index.html",
     title: "Audit Status",
@@ -474,7 +560,7 @@ function escapeHtml(value) {
 function nav() {
   return `
       <nav id="site-nav" class="nav" aria-label="Sections">
-        <a href="/">Overview</a>
+        <a href="/trust/">Trust</a>
         <a href="/status/">Status</a>
         <a href="/pilot/">Pilot</a>
         <a href="/audit/">Audit</a>
@@ -493,6 +579,7 @@ function legalFooter() {
         <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit has not started.</p>
         <p class="footer-links">
           <a href="/utility/">Utility</a>
+          <a href="/trust/">Trust Center</a>
           <a href="/proof/">Proof Pack</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence Report</a>
           <a href="/pilot/">Pilot</a>
@@ -522,7 +609,7 @@ function renderPage(page) {
         <section class="content-card" aria-labelledby="${title.toLowerCase().replaceAll(" ", "-")}">
           <h2 id="${title.toLowerCase().replaceAll(" ", "-")}">${escapeHtml(title)}</h2>
           <dl class="record-list">
-            ${rows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("\n            ")}
+            ${rows.map(([label, value, source]) => `<div${source ? ' data-source-linked-fact' : ''}><dt>${escapeHtml(label)}</dt><dd>${source ? `<a href="${escapeHtml(source)}"${linkAttrs(source)}>${escapeHtml(value)}</a>` : escapeHtml(value)}</dd></div>`).join("\n            ")}
           </dl>
         </section>`).join("\n");
   const links = page.links.map(([label, href]) => `<a href="${escapeHtml(href)}"${linkAttrs(href)}>${escapeHtml(label)}</a>`).join("\n          ");

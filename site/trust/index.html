@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self' https://ethereum-sepolia-rpc.publicnode.com https://rpc.sepolia.org; base-uri 'self'; form-action 'none'; upgrade-insecure-requests">
+    <meta name="description" content="A source-linked status and verification center for the TikiDeco Ethereum Sepolia prototype.">
+    <meta name="theme-color" content="#0b1020">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="TikiDeco | Trust Center">
+    <meta property="og:description" content="A source-linked status and verification center for the TikiDeco Ethereum Sepolia prototype.">
+    <meta property="og:image" content="https://tikideco.xyz/assets/tide-logo.png">
+    <meta property="og:url" content="https://tikideco.xyz/trust/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="TikiDeco | Trust Center">
+    <meta name="twitter:description" content="A source-linked status and verification center for the TikiDeco Ethereum Sepolia prototype.">
+    <meta name="twitter:image" content="https://tikideco.xyz/assets/tide-logo.png">
+    <link rel="canonical" href="https://tikideco.xyz/trust/">
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles.css">
+    <script defer src="/app.js"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "TikiDeco Trust Center",
+        "url": "https://tikideco.xyz/trust/",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "TikiDeco",
+          "url": "https://tikideco.xyz/"
+        }
+      }
+    </script>
+    <title>TikiDeco | Trust Center</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="status-badge" href="/legal/no-offer/" aria-label="Sepolia testnet status and no-offer notice">SEPOLIA TESTNET &middot; NO MONETARY VALUE</a>
+    <header class="topbar" aria-label="Primary">
+      <a class="brand" href="/" aria-label="TikiDeco home">
+        <picture>
+          <source srcset="/assets/favicon.webp" type="image/webp">
+          <img class="brand-mark" src="/assets/favicon.png" width="34" height="34" alt="" aria-hidden="true">
+        </picture>
+        <span>TikiDeco</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-lines" aria-hidden="true"></span>
+        <span class="menu-toggle-label">Menu</span>
+      </button>
+
+      <nav id="site-nav" class="nav" aria-label="Sections">
+        <a href="/trust/">Trust</a>
+        <a href="/status/">Status</a>
+        <a href="/pilot/">Pilot</a>
+        <a href="/audit/">Audit</a>
+        <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
+      </nav>
+    </header>
+    <main id="main" class="page-main">
+      <section class="page-hero" aria-labelledby="page-title">
+        <p class="eyebrow">Public verification</p>
+        <h1 id="page-title">Trust Center</h1>
+        <p class="hero-copy">One cautious-reader view of what exists, what is blocked, which commits back each release, and where every critical fact comes from.</p>
+        <p class="audit-disclaimer">TIDE is a Sepolia testnet prototype: no sale, no stated monetary value, no mainnet deployment, no active guest benefit, and independent audit not started.</p>
+      </section>
+      <div class="content-grid">
+
+        <section class="content-card" aria-labelledby="project-status">
+          <h2 id="project-status">Project Status</h2>
+          <dl class="record-list">
+            <div data-source-linked-fact><dt>Current network</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/deployments/canonical.json" target="_blank" rel="noopener noreferrer">Ethereum Sepolia</a></dd></div>
+            <div data-source-linked-fact><dt>Canonical deployment</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/deployments/canonical.json" target="_blank" rel="noopener noreferrer">v1-legacy legacy</a></dd></div>
+            <div data-source-linked-fact><dt>Current main commit</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/commit/8ae1b8c7345607ef4553459eb79a2a76d010dbca" target="_blank" rel="noopener noreferrer">8ae1b8c7345607ef4553459eb79a2a76d010dbca</a></dd></div>
+            <div data-source-linked-fact><dt>Current evidence commit</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/config/release-evidence.json" target="_blank" rel="noopener noreferrer">e7c52e65f6a56c4a728ca81e3cb3080a25c344e7</a></dd></div>
+            <div data-source-linked-fact><dt>Evidence freshness</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_EVIDENCE_DASHBOARD.md" target="_blank" rel="noopener noreferrer">Stale relative to current main; regenerate before the next immutable release</a></dd></div>
+            <div data-source-linked-fact><dt>Pilot status</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/config/utility-pilot/tide-community-preview-001.json" target="_blank" rel="noopener noreferrer">draft-not-live</a></dd></div>
+            <div data-source-linked-fact><dt>Mainnet</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/MAINNET_GO_NO_GO.md" target="_blank" rel="noopener noreferrer">Not deployed; not approved</a></dd></div>
+            <div data-source-linked-fact><dt>Independent smart-contract audit</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/deployments/canonical.json" target="_blank" rel="noopener noreferrer">Not started</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="release-version-matrix">
+          <h2 id="release-version-matrix">Release Version Matrix</h2>
+          <dl class="record-list">
+            <div data-source-linked-fact><dt>v0.1.0-sepolia</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/releases/tag/v0.1.0-sepolia" target="_blank" rel="noopener noreferrer">published-pre-release; tag v0.1.0-sepolia; source e07471936375ffbe13c68da2708b4436931392a2</a></dd></div>
+            <div data-source-linked-fact><dt>v0.2.0-utility-pilot</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/releases/tag/v0.2.0-utility-pilot" target="_blank" rel="noopener noreferrer">published-pre-release; tag v0.2.0-utility-pilot; source 5ed20415b569779f8b00245af8b98b9599f77044</a></dd></div>
+            <div data-source-linked-fact><dt>Current main</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/commit/8ae1b8c7345607ef4553459eb79a2a76d010dbca" target="_blank" rel="noopener noreferrer">8ae1b8c7345607ef4553459eb79a2a76d010dbca; mutable development line</a></dd></div>
+            <div data-source-linked-fact><dt>Current review bundle</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/config/release-evidence.json" target="_blank" rel="noopener noreferrer">pre-release evidence baseline; source e7c52e65f6a56c4a728ca81e3cb3080a25c344e7; Stale relative to current main; regenerate before the next immutable release</a></dd></div>
+            <div data-source-linked-fact><dt>Next release candidate</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/config/public-versions.json" target="_blank" rel="noopener noreferrer">v0.2.1-public-trust-rc.1; planned-not-published; source commit not assigned until freeze</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="canonical-v1">
+          <h2 id="canonical-v1">Canonical V1</h2>
+          <dl class="record-list">
+            <div data-source-linked-fact><dt>Token</dt><dd><a href="https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code" target="_blank" rel="noopener noreferrer">0xE4c1DE533440b411Be5C17883FF662e95a462097</a></dd></div>
+            <div data-source-linked-fact><dt>Vesting vault</dt><dd><a href="https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code" target="_blank" rel="noopener noreferrer">0xc480565482af6B08A3b65D0C9aba985d6240702E</a></dd></div>
+            <div data-source-linked-fact><dt>Owner Safe</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/deployments/canonical.json" target="_blank" rel="noopener noreferrer">0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3</a></dd></div>
+            <div data-source-linked-fact><dt>Safe threshold</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/deployments/canonical.json" target="_blank" rel="noopener noreferrer">3-of-3</a></dd></div>
+            <div data-source-linked-fact><dt>Treasury</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/deployments/canonical.json" target="_blank" rel="noopener noreferrer">0xf1DAd608ddD5B71F039FEE82026164bc6a245081</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="candidate-and-business-boundaries">
+          <h2 id="candidate-and-business-boundaries">Candidate And Business Boundaries</h2>
+          <dl class="record-list">
+            <div data-source-linked-fact><dt>V2</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/V2_AUDIT_TARGET_FREEZE.md" target="_blank" rel="noopener noreferrer">Candidate code only; not canonical</a></dd></div>
+            <div data-source-linked-fact><dt>Operator</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPERATOR_AND_ENTITY_STATUS.md" target="_blank" rel="noopener noreferrer">Publicly maintained through an individual GitHub account; legal identity not verified</a></dd></div>
+            <div data-source-linked-fact><dt>Legal entity</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPERATOR_AND_ENTITY_STATUS.md" target="_blank" rel="noopener noreferrer">Not publicly verified</a></dd></div>
+            <div data-source-linked-fact><dt>Hospitality business</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPERATOR_AND_ENTITY_STATUS.md" target="_blank" rel="noopener noreferrer">No commercial hospitality service operating</a></dd></div>
+            <div data-source-linked-fact><dt>Hospitality partner</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPERATOR_AND_ENTITY_STATUS.md" target="_blank" rel="noopener noreferrer">Not publicly verified</a></dd></div>
+            <div data-source-linked-fact><dt>Active guest benefit</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Not live</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="reports-and-limitations">
+          <h2 id="reports-and-limitations">Reports And Limitations</h2>
+          <dl class="record-list">
+            <div data-source-linked-fact><dt>Latest repository evidence report</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md" target="_blank" rel="noopener noreferrer">docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md</a></dd></div>
+            <div data-source-linked-fact><dt>Evidence report SHA-256</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE_HASH.md" target="_blank" rel="noopener noreferrer">e2970b4677e476785eabaf2aa8a37d29dcc505452ec9a7dd3992cc4027e30605</a></dd></div>
+            <div data-source-linked-fact><dt>Latest on-chain report</dt><dd><a href="https://sepolia.etherscan.io/tx/0x5886945fc62fb8a48e64559eebecaaf80ee20115a02c82808a737063874041f9" target="_blank" rel="noopener noreferrer">https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_06_17_SAFE_AND_V2.md</a></dd></div>
+            <div data-source-linked-fact><dt>Known limitations</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/KNOWN_ISSUES.md" target="_blank" rel="noopener noreferrer">Published; legal, audit, operator, pilot, and mainnet gates remain open</a></dd></div>
+            <div data-source-linked-fact><dt>Dependency audit</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/package.json" target="_blank" rel="noopener noreferrer">npm advisory scan only; not an independent smart-contract audit</a></dd></div>
+          </dl>
+        </section>
+
+        <section class="content-card" aria-labelledby="public-paths">
+          <h2 id="public-paths">Public Paths</h2>
+          <dl class="record-list">
+            <div data-source-linked-fact><dt>Security reporting</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/security/advisories/new" target="_blank" rel="noopener noreferrer">GitHub private vulnerability reporting and SECURITY.md</a></dd></div>
+            <div data-source-linked-fact><dt>Public feedback</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/issues/new/choose" target="_blank" rel="noopener noreferrer">GitHub issue forms for non-sensitive feedback</a></dd></div>
+            <div data-source-linked-fact><dt>Participation status</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_PARTICIPATION.md" target="_blank" rel="noopener noreferrer">Issues enabled; Discussions disabled</a></dd></div>
+            <div data-source-linked-fact><dt>Fact-source map</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TRUST_CENTER_SOURCE_MAP.md" target="_blank" rel="noopener noreferrer">Every Trust Center field has a verification rule and stale-data behavior</a></dd></div>
+          </dl>
+        </section>
+        <section class="content-card" aria-labelledby="page-links">
+          <h2 id="page-links">Reference links</h2>
+          <div class="reference-links">
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md" target="_blank" rel="noopener noreferrer">Release Control Center</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TRUST_CENTER_SOURCE_MAP.md" target="_blank" rel="noopener noreferrer">Trust Center Source Map</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPERATOR_AND_ENTITY_STATUS.md" target="_blank" rel="noopener noreferrer">Operator And Entity Status</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_PARTICIPATION.md" target="_blank" rel="noopener noreferrer">Public Participation</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/KNOWN_ISSUES.md" target="_blank" rel="noopener noreferrer">Known Issues</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer legal-footer" data-legal-footer>
+      <picture>
+        <source srcset="/assets/favicon.webp" type="image/webp">
+        <img class="footer-mark" src="/assets/favicon.png" width="512" height="512" alt="TikiDeco TIDE emblem">
+      </picture>
+      <div>
+        <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit has not started.</p>
+        <p class="footer-links">
+          <a href="/utility/">Utility</a>
+          <a href="/trust/">Trust Center</a>
+          <a href="/proof/">Proof Pack</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence Report</a>
+          <a href="/pilot/">Pilot</a>
+          <a href="/business/">Business</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md" target="_blank" rel="noopener noreferrer">Release Control</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md" target="_blank" rel="noopener noreferrer">Roadmap</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
+          <a href="/legal/no-offer/">No offer</a>
+          <a href="/legal/terms/">Terms</a>
+          <a href="/legal/privacy/">Privacy</a>
+          <a href="/legal/risk-disclosure/">Risk disclosure</a>
+          <a href="/legal/project-status/">Project status</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
