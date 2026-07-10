@@ -64,8 +64,8 @@ Exit criteria:
 - [ ] `KNOWN_ISSUES.md` classifies open questions as accepted risk, needs audit, or blocked.
 - [ ] `docs/V2_AUDIT_OWNER_DECISIONS.md` is current.
 - [ ] `docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md` is used for any V2 candidate deployment review.
-- [x] Current baseline review bundle generated for `1ec905aba369f4908936f942508de35ba92a49ae`.
-- [x] `npm run release -- --commit 1ec905aba369f4908936f942508de35ba92a49ae --release v0.2.0-utility-pilot` succeeds from a clean tree.
+- [x] Current baseline review bundle generated for `10cbd5a7555de7f8696955e9877db1687da5b285`.
+- [x] `npm run release -- --commit 10cbd5a7555de7f8696955e9877db1687da5b285 --release v0.2.0-utility-pilot` succeeds from a clean tree.
 - [ ] Regenerate `npm run release -- --commit <final-main-sha> --release v0.2.0-utility-pilot` after any later release-documentation, site, audit, or gate PR merges.
 - [ ] `npm run v02:rc` passes after `npm run site`.
 - [ ] `npm run pilot:live:blocked` passes, confirming the live campaign is still intentionally blocked.
