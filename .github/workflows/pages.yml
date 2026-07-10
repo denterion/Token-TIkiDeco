@@ -8,6 +8,7 @@ on:
       - "site-v2/**"
       - "config/public-versions.json"
       - "config/release-evidence.json"
+      - "config/utility-pilot/**"
       - "deployments/canonical.json"
       - "package.json"
       - "package-lock.json"

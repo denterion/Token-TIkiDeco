@@ -11,6 +11,7 @@ import {
   SEPOLIA_CHAIN_ID,
   type TideBalanceResult
 } from "../lib/eligibility";
+import { previewMetrics } from "../lib/previewMetrics";
 
 export function PilotEligibilityCard() {
   const [walletAddress, setWalletAddress] = useState("");
@@ -45,13 +46,21 @@ export function PilotEligibilityCard() {
   });
 
   async function checkBalance() {
+    previewMetrics.record("balanceCheckAttempts");
     if (!isValidEthereumAddress(walletAddress)) {
       setBalanceResult({ status: "unavailable", blockTag: "latest", error: "Enter a valid Ethereum address first." });
       return;
     }
     setIsChecking(true);
     try {
-      setBalanceResult(await readTideBalance(walletAddress));
+      const nextBalance = await readTideBalance(walletAddress);
+      setBalanceResult(nextBalance);
+      if (["live", "cached", "stale"].includes(nextBalance.status) && nextBalance.balanceTide !== undefined) {
+        previewMetrics.record("successfulChecks");
+        previewMetrics.record(nextBalance.balanceTide >= pilotCampaignRules.minimumTideBalance ? "eligibleResults" : "ineligibleResults");
+      } else {
+        previewMetrics.record("rpcFailures");
+      }
     } finally {
       setIsChecking(false);
     }
@@ -150,6 +159,8 @@ export function PilotEligibilityCard() {
             <li>No cash value, resale, or transfer of guest rights.</li>
           </ul>
         </div>
+
+        <p className="privacy-note">Metrics are aggregate counters held only in this tab's memory. The wallet address is never added to analytics.</p>
 
         <p className="privacy-note">{privacyNotice()}</p>
         <p className="privacy-note">{campaignDisclaimers(pilotCampaignRules).join(" ")}</p>

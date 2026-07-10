@@ -3,6 +3,18 @@
   "campaignId": "tide-community-preview-001",
   "campaignName": "TIDE Loyalty Pilot - Community Preview",
   "status": "draft-not-live",
+  "lifecycle": {
+    "currentStage": "draft",
+    "allowedTransitions": {
+      "draft": ["evidence-review"],
+      "evidence-review": ["draft", "approved-testnet-preview"],
+      "approved-testnet-preview": ["paused", "closed"],
+      "paused": ["approved-testnet-preview", "closed"],
+      "closed": ["archived"],
+      "archived": []
+    },
+    "approvalEvidenceSource": "config/utility-pilot/live-readiness-gates.json"
+  },
   "network": "sepolia",
   "chainId": 11155111,
   "canonicalVersion": "v1-legacy",
@@ -64,7 +76,8 @@
   },
   "reports": {
     "allocationReportTemplate": "docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md",
-    "publishedAllocationReport": null
+    "publishedAllocationReport": null,
+    "publicPreviewProofReport": "docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md"
   },
-  "lastUpdated": "2026-06-25"
+  "lastUpdated": "2026-07-10"
 }

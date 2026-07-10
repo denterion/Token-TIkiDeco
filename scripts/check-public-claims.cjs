@@ -49,6 +49,7 @@ function targetFiles() {
       rel === "docs/TRUST_CENTER_SOURCE_MAP.md" ||
       rel === "docs/OPERATOR_AND_ENTITY_STATUS.md" ||
       rel === "docs/PUBLIC_PARTICIPATION.md" ||
+      rel === "docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md" ||
       rel === "docs/VALUE_AND_UTILITY_BOUNDARY.md" ||
       rel === "docs/BUSINESS_MODEL.md" ||
       rel === "docs/MAINNET_GO_NO_GO.md" ||

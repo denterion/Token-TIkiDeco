@@ -14,6 +14,7 @@ The repository now has several good but separate safety systems:
 - value-claim checks;
 - v0.2 release-candidate checks;
 - utility-pilot live blockers;
+- public-preview lifecycle, aggregate metrics, report, and privacy checks;
 - mainnet/value readiness gates;
 - roadmap and release-gate documents;
 - V1 canonical deployment facts;

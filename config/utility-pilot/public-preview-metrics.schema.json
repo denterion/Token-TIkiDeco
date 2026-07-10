@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tikideco.xyz/schemas/public-preview-metrics.schema.json",
+  "title": "Privacy-safe public preview aggregate metrics",
+  "type": "object",
+  "required": ["campaignId", "status", "generatedAt", "metrics", "comprehension", "feedbackThemes"],
+  "properties": {
+    "campaignId": { "type": "string" },
+    "status": { "enum": ["baseline-no-public-responses", "aggregate-draft", "reviewed-aggregate"] },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "metrics": {
+      "type": "object",
+      "required": ["pageSessions", "balanceCheckAttempts", "successfulChecks", "rpcFailures", "eligibleResults", "ineligibleResults", "languageSelected", "feedbackLinkClicks"],
+      "properties": {
+        "pageSessions": { "type": "integer", "minimum": 0 },
+        "balanceCheckAttempts": { "type": "integer", "minimum": 0 },
+        "successfulChecks": { "type": "integer", "minimum": 0 },
+        "rpcFailures": { "type": "integer", "minimum": 0 },
+        "eligibleResults": { "type": "integer", "minimum": 0 },
+        "ineligibleResults": { "type": "integer", "minimum": 0 },
+        "languageSelected": {
+          "type": "object",
+          "properties": { "en": { "type": "integer", "minimum": 0 }, "es": { "type": "integer", "minimum": 0 }, "ru": { "type": "integer", "minimum": 0 } },
+          "additionalProperties": false
+        },
+        "feedbackLinkClicks": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "comprehension": {
+      "type": "object",
+      "required": ["responses", "sepoliaOnly", "noSale", "noMainnet", "noActiveHotelBenefit", "independentAuditNotStarted", "v2CandidateOnly"],
+      "properties": {
+        "responses": { "type": "integer", "minimum": 0 },
+        "sepoliaOnly": { "type": "integer", "minimum": 0 },
+        "noSale": { "type": "integer", "minimum": 0 },
+        "noMainnet": { "type": "integer", "minimum": 0 },
+        "noActiveHotelBenefit": { "type": "integer", "minimum": 0 },
+        "independentAuditNotStarted": { "type": "integer", "minimum": 0 },
+        "v2CandidateOnly": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "feedbackThemes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

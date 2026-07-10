@@ -10,7 +10,7 @@ body:
       value: |
         TikiDeco / TIDE is a Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, has no active guest benefits, and has not started an independent audit.
 
-        The pilot campaign is draft-not-live. Do not submit private keys, seed phrases, passwords, private guest data, sensitive personal data, or non-public vulnerability details.
+        The pilot campaign is draft-not-live. Do not submit wallet addresses, private keys, seed phrases, passwords, names, emails, booking data, private guest data, sensitive personal data, screenshots containing those items, or non-public vulnerability details.
   - type: textarea
     id: feedback
     attributes:
@@ -21,16 +21,55 @@ body:
   - type: dropdown
     id: area
     attributes:
-      label: Pilot area
+      label: Feedback category
       options:
-        - Read-only balance check
-        - Campaign rules
-        - Snapshot concept
-        - Allocation report
-        - Privacy boundary
-        - Manual review
-        - Public wording
+        - Bug report
+        - UX feedback
+        - Translation feedback
+        - Utility feedback
         - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: understands_sepolia
+    attributes:
+      label: Do you understand that this preview is Ethereum Sepolia only?
+      options: ["Yes", "No", "Unclear"]
+    validations:
+      required: true
+  - type: dropdown
+    id: understands_no_sale
+    attributes:
+      label: Do you understand that no token sale exists?
+      options: ["Yes", "No", "Unclear"]
+    validations:
+      required: true
+  - type: dropdown
+    id: understands_no_mainnet
+    attributes:
+      label: Do you understand that no mainnet deployment exists?
+      options: ["Yes", "No", "Unclear"]
+    validations:
+      required: true
+  - type: dropdown
+    id: understands_no_benefit
+    attributes:
+      label: Do you understand that no active hotel benefit exists?
+      options: ["Yes", "No", "Unclear"]
+    validations:
+      required: true
+  - type: dropdown
+    id: understands_audit
+    attributes:
+      label: Do you understand that independent audit has not started?
+      options: ["Yes", "No", "Unclear"]
+    validations:
+      required: true
+  - type: dropdown
+    id: understands_v2
+    attributes:
+      label: Do you understand that V2 remains candidate code only?
+      options: ["Yes", "No", "Unclear"]
     validations:
       required: true
   - type: checkboxes

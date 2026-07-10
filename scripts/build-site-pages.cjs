@@ -79,6 +79,7 @@ const pages = [
       ]],
       ["Reports And Limitations", [
         ["Latest repository evidence report", releaseEvidence.transparencyReport, `${repoBlob}/${releaseEvidence.transparencyReport}`],
+        ["Public preview proof baseline", "Zero public sample; campaign remains draft-not-live", `${repoBlob}/docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md`],
         ["Evidence report SHA-256", releaseEvidence.transparencyReportSha256, `${repoBlob}/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE_HASH.md`],
         ["Latest on-chain report", manifest.publishedReports[0].uri, `https://sepolia.etherscan.io/tx/${manifest.publishedReports[0].transaction}`],
         ["Known limitations", "Published; legal, audit, operator, pilot, and mainnet gates remain open", `${repoBlob}/KNOWN_ISSUES.md`],
@@ -365,6 +366,7 @@ const pages = [
   },
   {
     path: "pilot/index.html",
+    interactive: true,
     title: "TIDE Loyalty Pilot",
     description: "Planned TIDE Loyalty Pilot page covering eligibility, snapshots, non-cash perk examples, wallet verification, privacy, and reports.",
     eyebrow: "Planned pilot",
@@ -413,6 +415,9 @@ const pages = [
       ["Pilot README", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/README.md"],
       ["Eligibility rules", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/ELIGIBILITY_RULES.md"],
       ["Wallet verification", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/WALLET_VERIFICATION.md"],
+      ["Public preview specification", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PUBLIC_PREVIEW_PRODUCT_SPEC.md"],
+      ["Privacy threat model", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md"],
+      ["Preview proof report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md"],
       ["No offer notice", "/legal/no-offer/"]
     ],
     disclaimer: "No-offer disclaimer: TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started. No hotel ownership, no revenue rights, and no guaranteed benefits."
@@ -690,10 +695,37 @@ ${legalFooter()}
 `;
 }
 
+function renderInteractivePilot(page, homeShell) {
+  const url = `${baseUrl}/pilot/`;
+  const fallback = `<main id="main" class="pilot-static-fallback">
+      <section aria-labelledby="pilot-title">
+        <p>SEPOLIA TESTNET - NO MONETARY VALUE</p>
+        <h1 id="pilot-title">TIDE Loyalty Pilot</h1>
+        <p>The public preview provides a read-only Sepolia balance check, a blocked campaign lifecycle, and public feedback paths. The campaign is draft-not-live.</p>
+        <p>No sale, no mainnet deployment, no active hotel benefit, V2 remains candidate code only, and independent audit not started.</p>
+        <p>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PUBLIC_PREVIEW_PRODUCT_SPEC.md" target="_blank" rel="noopener noreferrer">Product specification</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md" target="_blank" rel="noopener noreferrer">Privacy threat model</a>
+          <a href="https://github.com/denterion/Token-TIkiDeco/issues/new?template=utility_pilot_feedback.yml" target="_blank" rel="noopener noreferrer">Public feedback</a>
+        </p>
+      </section>
+    </main>`;
+
+  return homeShell
+    .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeHtml(page.description)}" />`)
+    .replace(/<meta property="og:url" content="[^"]*"\s*\/>/, `<meta property="og:url" content="${url}" />`)
+    .replace(/<link rel="canonical" href="[^"]*"\s*\/>/, `<link rel="canonical" href="${url}" />`)
+    .replace(/<title>[^<]*<\/title>/, `<title>TikiDeco | ${escapeHtml(page.title)}</title>`)
+    .replace(/<main id="main">[\s\S]*?<\/main>/, fallback)
+    .replace('"url": "https://tikideco.xyz/"', `"url": "${url}"`);
+}
+
+const homeShell = fs.readFileSync(path.join(siteDir, "index.html"), "utf8");
 for (const page of pages) {
   const target = path.join(siteDir, page.path);
   fs.mkdirSync(path.dirname(target), { recursive: true });
-  fs.writeFileSync(target, renderPage(page).replace(/\r\n?/g, "\n"), "utf8");
+  const html = page.interactive ? renderInteractivePilot(page, homeShell) : renderPage(page);
+  fs.writeFileSync(target, html.replace(/\r\n?/g, "\n"), "utf8");
 }
 
 console.log(`Wrote ${pages.length} static pages.`);

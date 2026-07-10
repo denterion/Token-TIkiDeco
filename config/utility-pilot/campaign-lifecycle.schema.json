@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tikideco.xyz/schemas/campaign-lifecycle.schema.json",
+  "title": "TikiDeco Sepolia public preview lifecycle",
+  "type": "object",
+  "required": ["currentStage", "allowedTransitions", "approvalEvidenceSource"],
+  "properties": {
+    "currentStage": {
+      "type": "string",
+      "enum": ["draft", "evidence-review", "approved-testnet-preview", "paused", "closed", "archived"]
+    },
+    "allowedTransitions": {
+      "type": "object",
+      "const": {
+        "draft": ["evidence-review"],
+        "evidence-review": ["draft", "approved-testnet-preview"],
+        "approved-testnet-preview": ["paused", "closed"],
+        "paused": ["approved-testnet-preview", "closed"],
+        "closed": ["archived"],
+        "archived": []
+      }
+    },
+    "approvalEvidenceSource": {
+      "const": "config/utility-pilot/live-readiness-gates.json"
+    }
+  },
+  "additionalProperties": false
+}

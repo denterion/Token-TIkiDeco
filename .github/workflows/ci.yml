@@ -103,6 +103,12 @@ jobs:
       - name: Site content checks
         run: npm run site
 
+      - name: Public preview product gate
+        run: npm run preview:check
+
+      - name: Public preview privacy gate
+        run: npm run privacy:preview:check
+
       - name: Install Playwright Chromium
         run: npm run site:browser:install -- --with-deps
 

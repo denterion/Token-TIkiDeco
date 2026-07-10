@@ -98,11 +98,14 @@ Source-of-truth files:
 - [`utility-pilot/README.md`](utility-pilot/README.md)
 - [`utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md`](utility-pilot/LIMITED_LIVE_PREVIEW_PATH.md)
 - [`utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md`](utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md)
+- [`utility-pilot/PUBLIC_PREVIEW_PRODUCT_SPEC.md`](utility-pilot/PUBLIC_PREVIEW_PRODUCT_SPEC.md)
+- [`utility-pilot/PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md`](utility-pilot/PUBLIC_PREVIEW_PRIVACY_THREAT_MODEL.md)
 - [`../config/utility-pilot/tide-community-preview-001.json`](../config/utility-pilot/tide-community-preview-001.json)
 
 Allowed claims:
 
 - read-only Sepolia `balanceOf(wallet)` check is prepared;
+- short-lived aggregate instrumentation is implemented without persistent identifiers or raw wallet analytics;
 - eligibility flow is planned and not live;
 - pilot gates require legal, privacy, security, operations, and governance approval;
 - reports should be privacy-safe and aggregate-only.

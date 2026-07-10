@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "draft-not-broadcast",
+  "chainId": 11155111,
+  "target": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+  "value": "0",
+  "functionSignature": "publishReport(bytes32,string,string)",
+  "arguments": {
+    "documentHash": "0xae7dfe57b0f7900e4a5407868ed3f2d46861a42578b896b35f54096a6a91a603",
+    "category": "public-preview-proof",
+    "uri": "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md"
+  },
+  "calldata": null,
+  "broadcast": false,
+  "note": "Encode and simulate only after report review. Manual Safe approval is required; this draft does not submit a transaction."
+}

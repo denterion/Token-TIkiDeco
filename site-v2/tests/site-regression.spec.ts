@@ -75,6 +75,22 @@ test("mobile layout has no horizontal overflow", async ({ page, isMobile }) => {
   await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
   await expect(page.locator("header.top-nav")).toBeVisible();
   await assertNoHorizontalOverflow(page);
+
+  await page.goto("/pilot/");
+  await expect(page.getByRole("heading", { name: /TIDE Loyalty Pilot eligibility flow/i })).toBeVisible();
+  await assertNoHorizontalOverflow(page);
+});
+
+test("pilot route exposes the blocked lifecycle and privacy-safe feedback loop", async ({ page }) => {
+  await page.goto("/pilot/");
+
+  await expect(page.getByRole("heading", { name: /TIDE Loyalty Pilot eligibility flow/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Evidence before preview/i })).toBeVisible();
+  await expect(page.getByText("Approved testnet preview", { exact: true })).toBeVisible();
+  await expect(page.getByText("Blocked", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Did the boundaries make sense/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Review pilot utility/i })).toBeVisible();
+  await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer|transaction/i })).toHaveCount(0);
 });
 
 test("Trust Center separates releases, main, and evidence with source links", async ({ page }) => {
