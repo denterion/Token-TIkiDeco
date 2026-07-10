@@ -73,6 +73,7 @@ export class OperatorSandbox {
   createCampaign(rule: CampaignRule): void {
     if (this.rule) throw new Error("A sandbox campaign already exists.");
     if (rule.status !== "draft" || rule.chainId !== 11155111) throw new Error("Sandbox campaigns must be draft and Sepolia-only.");
+    if (rule.minimumBalanceBaseUnits < 0n) throw new Error("Minimum balance cannot be negative.");
     if (Date.parse(rule.endsAt) <= Date.parse(rule.startsAt)) throw new Error("Campaign window is invalid.");
     this.rule = { ...rule };
     this.record("campaign-created", "draft");
@@ -88,6 +89,11 @@ export class OperatorSandbox {
   reviewEligibility(request: EligibilityRequest): boolean {
     this.requireOpenCampaign();
     if (request.campaignId !== this.rule!.campaignId || request.chainId !== 11155111) throw new Error("Request does not match the campaign.");
+    if (!/^0x[0-9a-fA-F]{40}$/.test(request.walletAddress)) throw new Error("Wallet address is invalid.");
+    const requestedAt = Date.parse(request.requestedAt);
+    if (!Number.isFinite(requestedAt) || requestedAt < Date.parse(this.rule!.startsAt) || requestedAt > Date.parse(this.rule!.endsAt)) {
+      throw new Error("Request is outside the campaign window.");
+    }
     if (this.requests.has(request.requestId)) throw new Error("Duplicate request ID.");
     const eligible = request.balanceBaseUnits >= this.rule!.minimumBalanceBaseUnits;
     this.requests.set(request.requestId, { request: { ...request }, eligible });
@@ -100,6 +106,9 @@ export class OperatorSandbox {
     const reviewed = this.requests.get(requestId);
     if (!reviewed || reviewed.decision) throw new Error("Request is missing or already decided.");
     if (!reasonCode.trim()) throw new Error("A reason code is required.");
+    if (reservationReferenceHash && !/^0x[0-9a-fA-F]{64}$/.test(reservationReferenceHash)) {
+      throw new Error("Reservation reference hash is invalid.");
+    }
     if (decision === "approve") {
       if (!reviewed.eligible) throw new Error("An ineligible request cannot be approved.");
       if (!this.inventory || this.inventory.approved >= this.inventory.capacity) throw new Error("No sandbox inventory remains.");

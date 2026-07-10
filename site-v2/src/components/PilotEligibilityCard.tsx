@@ -25,7 +25,8 @@ export function PilotEligibilityCard() {
   }, [hasOffchainMessage, walletAddress]);
 
   const snapshotBalance =
-    walletAddress && balanceResult.balanceTide !== undefined && ["live", "cached", "stale"].includes(balanceResult.status)
+    walletAddress && balanceResult.balanceTide !== undefined &&
+      (balanceResult.status === "live" || balanceResult.status === "cached" || balanceResult.status === "stale")
       ? createSnapshotBalance(
           walletAddress,
           pilotCampaignRules,
