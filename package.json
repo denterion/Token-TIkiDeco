@@ -44,6 +44,8 @@
     "project:weekly": "node scripts/project-weekly-report.cjs",
     "project:control": "node scripts/project-control-center.cjs",
     "project:control:verify": "node scripts/project-control-center.cjs --verify",
+    "transparency:monthly:build": "node scripts/generate-monthly-transparency-report.cjs && npm run trust:build",
+    "transparency:monthly:check": "node scripts/check-monthly-transparency-report.cjs",
     "eligibility:test": "node scripts/test-eligibility-engine.cjs",
     "eligibility": "npm run eligibility:test",
     "allocation:prepare": "node scripts/prepare-testnet-allocation.cjs",
