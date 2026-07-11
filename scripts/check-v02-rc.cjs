@@ -51,7 +51,9 @@ const allowedContextMarkers = [
   "unknown",
   "not publicly claimable",
   "no confirming",
-  "do not use as a public claim"
+  "do not use as a public claim",
+  "excluded",
+  "out of scope"
 ];
 
 const requiredDisclaimers = [

@@ -29,6 +29,7 @@ Current evidence baseline:
 4. Pilot proof pack: `docs/PILOT_PROOF_PACK.md`
 5. Release Control Center: `docs/RELEASE_CONTROL_CENTER.md`
 6. V2 Community Review: `https://tikideco.xyz/community-review/`
+7. Latest monthly transparency report: [`reports/MONTHLY_REPORT_LATEST.md`](reports/MONTHLY_REPORT_LATEST.md)
 
 ## Community Review Evidence
 

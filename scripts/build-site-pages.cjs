@@ -47,6 +47,15 @@ const reviewerAcknowledgements = communityReview.reviewersAcknowledged.length > 
   ? communityReview.reviewersAcknowledged.join(", ")
   : "No reviewers have been acknowledged yet";
 
+function readLatestMonthlyReport() {
+  const reportsDir = path.join(root, "docs", "reports");
+  const file = fs.readdirSync(reportsDir).filter((name) => /^MONTHLY_REPORT_\d{4}_\d{2}\.json$/.test(name)).sort().at(-1);
+  return file ? JSON.parse(fs.readFileSync(path.join(reportsDir, file), "utf8")) : null;
+}
+
+const monthlyReport = readLatestMonthlyReport();
+const monthlyReportUrl = monthlyReport ? `${repoBlob}/${monthlyReport.reportPath}` : null;
+
 const baseUrl = "https://tikideco.xyz";
 const pages = [
   {
@@ -63,6 +72,7 @@ const pages = [
         ["Current main commit", currentMainCommit, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
         ["Current evidence commit", currentEvidenceCommit, `${repoBlob}/config/release-evidence.json`],
         ["Evidence freshness", evidenceFreshness, `${repoBlob}/docs/PUBLIC_EVIDENCE_DASHBOARD.md`],
+        ...(monthlyReport ? [["Latest monthly transparency report", `${monthlyReport.month}; body SHA-256 ${monthlyReport.reportSha256}`, monthlyReportUrl]] : []),
         ["Pilot status", pilotCampaign.status, `${repoBlob}/config/utility-pilot/tide-community-preview-001.json`],
         ["Mainnet", "Not deployed; not approved", `${repoBlob}/docs/MAINNET_GO_NO_GO.md`],
         ["Independent smart-contract audit", "Not started", `${repoBlob}/deployments/canonical.json`]
@@ -94,6 +104,7 @@ const pages = [
       ]],
       ["Reports And Limitations", [
         ["Latest repository evidence report", releaseEvidence.transparencyReport, `${repoBlob}/${releaseEvidence.transparencyReport}`],
+        ...(monthlyReport ? [["Latest monthly transparency report", `${monthlyReport.month}; source ${monthlyReport.sourceCommit}`, monthlyReportUrl]] : []),
         ["Public preview proof baseline", "Zero public sample; campaign remains draft-not-live", `${repoBlob}/docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md`],
         ["Evidence report SHA-256", releaseEvidence.transparencyReportSha256, evidenceHashReportUrl],
         ["Latest on-chain report", manifest.publishedReports[0].uri, `https://sepolia.etherscan.io/tx/${manifest.publishedReports[0].transaction}`],
@@ -115,7 +126,8 @@ const pages = [
       ["Trust Center Source Map", `${repoBlob}/docs/TRUST_CENTER_SOURCE_MAP.md`],
       ["Operator And Entity Status", `${repoBlob}/docs/OPERATOR_AND_ENTITY_STATUS.md`],
       ["Public Participation", `${repoBlob}/docs/PUBLIC_PARTICIPATION.md`],
-      ["Known Issues", `${repoBlob}/KNOWN_ISSUES.md`]
+      ["Known Issues", `${repoBlob}/KNOWN_ISSUES.md`],
+      ...(monthlyReport ? [["Latest Monthly Report", monthlyReportUrl]] : [])
     ],
     disclaimer: "TIDE is a Sepolia testnet prototype: no sale, no stated monetary value, no mainnet deployment, no active guest benefit, and independent audit not started."
   },
@@ -325,6 +337,7 @@ const pages = [
         ["Current evidence date", siteLastUpdated],
         ["Current evidence commit", currentEvidenceCommit],
         ["Evidence report", releaseEvidence.transparencyReport],
+        ...(monthlyReport ? [["Latest monthly report", `${monthlyReport.month}; source-linked snapshot`, monthlyReportUrl]] : []),
         ["Network", "Ethereum Sepolia"],
         ["Canonical version", manifest.contractVersion],
         ["v0.1.0-sepolia", "Public pre-release; historical Sepolia V1 canonical deployment"],
@@ -349,7 +362,7 @@ const pages = [
         ["Mainnet", "No mainnet deployment is approved"]
       ]]
     ],
-    links: [["Risk disclosure", "/legal/risk-disclosure/"], ["Project status legal note", "/legal/project-status/"]],
+    links: [["Risk disclosure", "/legal/risk-disclosure/"], ["Project status legal note", "/legal/project-status/"], ...(monthlyReport ? [["Latest monthly report", monthlyReportUrl]] : [])],
     disclaimer: "Audit-status disclaimer: status information is project-maintained and not an independent audit report."
   },
   {

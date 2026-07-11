@@ -1,0 +1,165 @@
+{
+  "schemaVersion": "1.0.0",
+  "month": "2026-07",
+  "generatedAt": "2026-07-11T00:00:00.000Z",
+  "sourceCommit": "2efd62299cb18d7565c7ceb4e48619190062b3b3",
+  "reportPath": "docs/reports/MONTHLY_REPORT_2026_07.md",
+  "reportSha256": "955f1af7a91b951d702e8f4c97ccabd00e7d7e3e65ea40ea69a9f5059a90a3de",
+  "canonical": {
+    "network": "sepolia",
+    "chainId": 11155111,
+    "version": "v1-legacy",
+    "token": "0xE4c1DE533440b411Be5C17883FF662e95a462097",
+    "vault": "0xc480565482af6B08A3b65D0C9aba985d6240702E",
+    "ownerSafe": "0xB8Aa322bCF931aE9dD0BD3fE57B03AB71B8A88c3",
+    "safeThreshold": "3-of-3"
+  },
+  "releases": [
+    {
+      "version": "v0.1.0-sepolia",
+      "tag": "v0.1.0-sepolia",
+      "status": "published-pre-release",
+      "sourceCommit": "e07471936375ffbe13c68da2708b4436931392a2"
+    },
+    {
+      "version": "v0.2.0-utility-pilot",
+      "tag": "v0.2.0-utility-pilot",
+      "status": "published-pre-release",
+      "sourceCommit": "5ed20415b569779f8b00245af8b98b9599f77044"
+    }
+  ],
+  "v2Candidate": {
+    "status": "immutable-review-candidate",
+    "freezeCommit": "9099fdb87a6be715b1d7fd4fafa6fade0b12b61c",
+    "evidenceCommit": "cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+    "packageSha256": "980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2",
+    "independentAuditStatus": "not-started"
+  },
+  "communityReview": {
+    "status": "open-for-community-peer-review",
+    "candidateCommit": "cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+    "reviewersAcknowledged": 0
+  },
+  "findings": {
+    "total": 0,
+    "bySeverity": {},
+    "byStatus": {}
+  },
+  "openIssues": {
+    "total": 15,
+    "byMilestone": {
+      "External Validation": 2,
+      "Operator Sandbox": 1,
+      "Public Preview Hardening": 7,
+      "Community Review Intake": 4,
+      "Future Production Decision": 1
+    },
+    "byPriority": {
+      "priority:P0": 2,
+      "priority:P1": 6,
+      "priority:P2": 7
+    },
+    "sourceCommand": "gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt",
+    "issueNumbers": [
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      119,
+      120,
+      121
+    ]
+  },
+  "checks": {
+    "source": "docs/reports/automation/STATUS_2026_07_11.md",
+    "results": [
+      {
+        "name": "Public claims",
+        "status": "PASS",
+        "duration": "0.6s",
+        "command": "npm run claims:check"
+      },
+      {
+        "name": "Release document",
+        "status": "PASS",
+        "duration": "0.4s",
+        "command": "npm run release:check"
+      },
+      {
+        "name": "Utility pilot campaign",
+        "status": "PASS",
+        "duration": "0.5s",
+        "command": "npm run pilot:campaign:check"
+      },
+      {
+        "name": "Public site",
+        "status": "PASS",
+        "duration": "8.6s",
+        "command": "npm run site:check"
+      },
+      {
+        "name": "Contract and repository tests",
+        "status": "PASS",
+        "duration": "2.9s",
+        "command": "npm test"
+      },
+      {
+        "name": "Mainnet/value gate remains blocked",
+        "status": "PASS",
+        "duration": "0.0s",
+        "command": "node scripts/check-mainnet-readiness.cjs --expect-blocked"
+      }
+    ]
+  },
+  "pilot": {
+    "id": "tide-community-preview-001",
+    "status": "draft-not-live",
+    "stage": "draft",
+    "inventory": 0
+  },
+  "safe": {
+    "status": "tabletop-test-only-completed-2026-07-11",
+    "decision": "retain-current-threshold-pending-governance-review",
+    "thresholdChanged": false
+  },
+  "operator": {
+    "status": "blocked",
+    "operatorStatus": "not-established",
+    "propertyStatus": "not-established",
+    "inventory": 0,
+    "sandboxReportSha256": "d2e0e153c6d86c3d995e7e908115aa092889d5bc5a1723a75ec8f54c8d1547a1"
+  },
+  "blockers": {
+    "mainnetUnapprovedStatuses": 29,
+    "operatorGatesNotApproved": 8,
+    "independentReview": "not-started",
+    "legalReview": "requires-review",
+    "releaseEvidenceSourceCommit": "00e0ccbbf26397aadd5416816bba44e7cc2e373b",
+    "releaseEvidenceMatchesMainAtGeneration": false
+  },
+  "sources": {
+    "canonical": "deployments/canonical.json",
+    "versions": "config/public-versions.json",
+    "releaseEvidence": "config/release-evidence.json",
+    "candidate": "config/audit/v2-review-candidate.json",
+    "community": "config/community-review/status.json",
+    "findings": "config/community-review/findings.json",
+    "issues": "gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt",
+    "checks": "docs/reports/automation/STATUS_2026_07_11.md",
+    "pilot": "config/utility-pilot/tide-community-preview-001.json",
+    "safe": "config/governance/safe-resilience.json",
+    "governance": "config/governance/readiness.json",
+    "operator": "config/hospitality-operator/readiness-gates.json",
+    "operatorReport": "operations/hospitality-operator/operator-sandbox-report.json",
+    "blockers": "docs/MAINNET_GO_NO_GO.md",
+    "roadmap": "docs/ONE_YEAR_DEVELOPMENT_PLAN.md"
+  }
+}
