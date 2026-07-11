@@ -1,0 +1,46 @@
+name: Test coverage suggestion
+description: Suggest a focused Hardhat, Foundry, invariant, or deployment-guard test for the frozen V2 candidate.
+title: "[Community review test]: "
+labels:
+  - audit-readiness
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Review candidate: `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`
+
+        This form proposes test evidence only. It does not modify the frozen candidate, promote V2, approve deployment, or represent a formal audit.
+
+        Never submit private keys, seed phrases, passwords, RPC credentials, private user data, private guest data, or sensitive vulnerability details.
+  - type: dropdown
+    id: test_type
+    attributes:
+      label: Test type
+      options:
+        - Hardhat deterministic test
+        - Foundry fuzz test
+        - Foundry invariant
+        - Deployment guard test
+        - Static-analysis regression
+    validations:
+      required: true
+  - type: input
+    id: target
+    attributes:
+      label: Target file or property
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Coverage gap
+      description: Explain the missing property or boundary condition.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Proposed assertion
+      description: State what the test should prove without weakening existing invariants.
+    validations:
+      required: true

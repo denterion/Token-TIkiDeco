@@ -1,0 +1,77 @@
+name: Community security finding
+description: Report a public-safe Medium, Low, or Informational observation against the exact V2 candidate.
+title: "[Community review finding]: "
+labels:
+  - audit-readiness
+  - security-question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Review candidate: `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`
+
+        Community peer review is not a formal audit. V2 remains frozen, non-canonical, and non-deployed.
+
+        **Do not publish exploitable unresolved Critical or High issues.** Use SECURITY.md and GitHub private vulnerability reporting instead:
+        https://github.com/denterion/Token-TIkiDeco/security/advisories/new
+
+        Never submit private keys, seed phrases, passwords, RPC credentials, signer recovery material, private user data, private guest data, or sensitive personal data.
+  - type: input
+    id: candidate_commit
+    attributes:
+      label: Candidate commit
+      description: Must be the exact candidate commit shown above.
+      placeholder: cdc9e7e27e66f204c50d59e45ccf970ad20290d6
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Initial public-safe severity
+      description: Use private reporting if the issue may be Critical, High, or immediately exploitable.
+      options:
+        - Medium
+        - Low
+        - Informational
+        - Unassigned, but not believed to be Critical or High
+    validations:
+      required: true
+  - type: textarea
+    id: affected_files
+    attributes:
+      label: Affected files and lines
+      description: Use paths from the exact candidate commit.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Finding description
+      description: Explain the public-safe failure scenario and assumptions.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Describe technical impact without exposing unsafe exploit details.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Safe reproduction or test
+      description: Provide a minimal test when safe. Move sensitive details to private reporting.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I reviewed the exact candidate commit and did not use a mutable branch as the source.
+          required: true
+        - label: This issue contains no exploitable unresolved Critical/High details or sensitive data.
+          required: true
+        - label: I understand that community review is not a formal audit.
+          required: true

@@ -73,6 +73,7 @@ function App() {
             <a href="/#status">{t.nav.status}</a>
             <a href="/pilot/">{t.nav.pilot}</a>
             <a href="/#audit">{t.nav.audit}</a>
+            <a href="/community-review/">{t.nav.review}</a>
             <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">
               {t.nav.feedback}
             </a>

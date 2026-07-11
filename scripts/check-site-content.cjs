@@ -212,6 +212,7 @@ function main() {
   assert(read(cnamePath).trim() === "tikideco.xyz", "site/CNAME must contain tikideco.xyz");
   assert(robotsLines.has("Sitemap: https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
   assert(sitemapLocs.has("https://tikideco.xyz/audit/"), "sitemap missing audit page");
+  assert(sitemapLocs.has("https://tikideco.xyz/community-review/"), "sitemap missing Community Review page");
   assert(sitemapLocs.has("https://tikideco.xyz/trust/"), "sitemap missing Trust Center");
   assert(sitemapLocs.has("https://tikideco.xyz/proof/"), "sitemap missing proof page");
   assert(sitemapLocs.has("https://tikideco.xyz/utility/"), "sitemap missing utility page");

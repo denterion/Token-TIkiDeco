@@ -15,6 +15,7 @@
 
 [Website](https://tikideco.xyz/) |
 [Trust Center](https://tikideco.xyz/trust/) |
+[Community Review](https://tikideco.xyz/community-review/) |
 [Token](https://sepolia.etherscan.io/address/0xE4c1DE533440b411Be5C17883FF662e95a462097#code) |
 [Vault](https://sepolia.etherscan.io/address/0xc480565482af6B08A3b65D0C9aba985d6240702E#code) |
 [Project Facts](docs/PROJECT_FACTS.md) |
@@ -50,6 +51,22 @@ For a first-time reader, use the four public entry points:
 - Public evidence dashboard: [`docs/PUBLIC_EVIDENCE_DASHBOARD.md`](docs/PUBLIC_EVIDENCE_DASHBOARD.md)
 - Mainnet readiness gap analysis: [`docs/MAINNET_READINESS_GAP_ANALYSIS.md`](docs/MAINNET_READINESS_GAP_ANALYSIS.md)
 - Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
+
+## V2 Community Review
+
+The frozen, non-canonical V2 candidate is open for community peer review. Community review is not a formal independent smart-contract audit and does not approve deployment.
+
+- Public review page: [tikideco.xyz/community-review](https://tikideco.xyz/community-review/)
+- Exact candidate source: [`cdc9e7e27e66f204c50d59e45ccf970ad20290d6`](https://github.com/denterion/Token-TIkiDeco/tree/cdc9e7e27e66f204c50d59e45ccf970ad20290d6)
+- Frozen V2 code: [`9099fdb87a6be715b1d7fd4fafa6fade0b12b61c`](https://github.com/denterion/Token-TIkiDeco/commit/9099fdb87a6be715b1d7fd4fafa6fade0b12b61c)
+- Package SHA-256: `980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2`
+- Review guide: [`docs/community-review/COMMUNITY_REVIEW_GUIDE.md`](docs/community-review/COMMUNITY_REVIEW_GUIDE.md)
+- Sensitive reports: follow [`SECURITY.md`](SECURITY.md); do not publish exploitable unresolved Critical or High details.
+
+```bash
+npm run community-review:status
+npm run community-review:check
+```
 
 ## 30-Second Project Status
 

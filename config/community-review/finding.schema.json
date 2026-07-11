@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tikideco.xyz/schemas/community-review-finding.schema.json",
+  "title": "TikiDeco Community Review Finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "findingId",
+    "reviewer",
+    "candidateCommit",
+    "title",
+    "affectedFiles",
+    "severity",
+    "status",
+    "description",
+    "impact",
+    "reproduction",
+    "remediation",
+    "regressionTest",
+    "retestStatus",
+    "disclosureStatus"
+  ],
+  "properties": {
+    "findingId": { "type": "string", "pattern": "^CR-[0-9]{4}$" },
+    "reviewer": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "candidateCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "affectedFiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 240 }
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["Critical", "High", "Medium", "Low", "Informational", "Unassigned"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["submitted", "acknowledged", "validated", "rejected", "remediation-planned", "fix-in-review", "retest", "resolved"]
+    },
+    "description": { "type": "string", "minLength": 1 },
+    "impact": { "type": "string", "minLength": 1 },
+    "reproduction": { "type": "string", "minLength": 1 },
+    "remediation": { "type": "string" },
+    "regressionTest": { "type": "string" },
+    "retestStatus": {
+      "type": "string",
+      "enum": ["not-requested", "pending", "passed", "failed", "not-applicable"]
+    },
+    "disclosureStatus": {
+      "type": "string",
+      "enum": ["private", "coordinated", "public", "not-applicable"]
+    }
+  }
+}

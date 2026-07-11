@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateCommit": "cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+  "definitionCommit": "f4db5508c59672648fd09cad62c0d8abe0f02417",
+  "freezeCommit": "9099fdb87a6be715b1d7fd4fafa6fade0b12b61c",
+  "packageSha256": "980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2",
+  "status": "open-for-community-peer-review",
+  "openedAt": "2026-07-11T00:00:00.000Z",
+  "publicFindingsCount": 0,
+  "privateFindingsCountPubliclyDisclosedAsAggregate": 0,
+  "reviewersAcknowledged": [],
+  "lastEvidenceRefresh": "2026-07-10T22:57:00+03:00",
+  "formalAuditStatus": "not-started"
+}
