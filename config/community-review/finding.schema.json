@@ -8,7 +8,9 @@
     "findingId",
     "reviewer",
     "candidateCommit",
+    "reference",
     "title",
+    "publicSummary",
     "affectedFiles",
     "severity",
     "status",
@@ -18,13 +20,26 @@
     "remediation",
     "regressionTest",
     "retestStatus",
+    "retestEvidence",
+    "codeChanged",
+    "acceptedForDeployment",
     "disclosureStatus"
   ],
   "properties": {
     "findingId": { "type": "string", "pattern": "^CR-[0-9]{4}$" },
     "reviewer": { "type": "string", "minLength": 1, "maxLength": 120 },
     "candidateCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["public-issue", "private-reference"] },
+        "value": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    },
     "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "publicSummary": { "type": "string", "minLength": 1, "maxLength": 280 },
     "affectedFiles": {
       "type": "array",
       "minItems": 1,
@@ -37,7 +52,7 @@
     },
     "status": {
       "type": "string",
-      "enum": ["submitted", "acknowledged", "validated", "rejected", "remediation-planned", "fix-in-review", "retest", "resolved"]
+      "enum": ["submitted", "acknowledged", "validated", "rejected", "duplicate", "invalid", "accepted-risk", "remediation-planned", "fix-in-review", "retest", "resolved"]
     },
     "description": { "type": "string", "minLength": 1 },
     "impact": { "type": "string", "minLength": 1 },
@@ -47,6 +62,20 @@
     "retestStatus": {
       "type": "string",
       "enum": ["not-requested", "pending", "passed", "failed", "not-applicable"]
+    },
+    "retestEvidence": { "type": "string" },
+    "codeChanged": { "type": "boolean" },
+    "acceptedForDeployment": { "type": "boolean" },
+    "dispositionRationale": { "type": "string" },
+    "riskAcceptance": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["approver", "reviewedAt", "rationale"],
+      "properties": {
+        "approver": { "type": "string", "minLength": 1 },
+        "reviewedAt": { "type": "string", "format": "date-time" },
+        "rationale": { "type": "string", "minLength": 1 }
+      }
     },
     "disclosureStatus": {
       "type": "string",

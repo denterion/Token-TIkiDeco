@@ -54,6 +54,9 @@ jobs:
       - name: Tests
         run: npm test 2>&1 | tee security-artifacts/test/hardhat-test.txt
 
+      - name: Community finding integrity
+        run: npm run findings:test && npm run findings:check
+
       - name: Setup Foundry
         # Action version: foundry-rs/foundry-toolchain@v1
         uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d

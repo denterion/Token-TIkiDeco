@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
+const { summarize: summarizeCommunityFindings } = require("./lib/community-findings.cjs");
 
 const root = path.join(__dirname, "..");
 const siteDir = path.join(root, "site");
@@ -11,6 +12,8 @@ const pilotCampaign = JSON.parse(fs.readFileSync(path.join(root, "config", "util
 const v2Review = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "v2-independent-review.json"), "utf8"));
 const v2ReviewCandidate = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "v2-review-candidate.json"), "utf8"));
 const communityReview = JSON.parse(fs.readFileSync(path.join(root, "config", "community-review", "status.json"), "utf8"));
+const communityFindings = JSON.parse(fs.readFileSync(path.join(root, "config", "community-review", "findings.json"), "utf8"));
+const communityFindingsSummary = summarizeCommunityFindings(communityFindings);
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
 const v01ReleaseCommit = publicVersions.publishedReleases.find((release) => release.tag === "v0.1.0-sepolia").sourceCommit;
@@ -99,6 +102,7 @@ const pages = [
       ]],
       ["Public Paths", [
         ["V2 community review", "Exact candidate, checksum, reproduction, findings, and reporting paths", "/community-review/"],
+        ["Aggregate community findings", "Public-safe counts and candidate impact without sensitive exploit details", "/community-review/findings/"],
         ["Security reporting", "GitHub private vulnerability reporting and SECURITY.md", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"],
         ["Public feedback", "GitHub issue forms for non-sensitive feedback", "https://github.com/denterion/Token-TIkiDeco/issues/new/choose"],
         ["Participation status", "Issues enabled; Discussions disabled", `${repoBlob}/docs/PUBLIC_PARTICIPATION.md`],
@@ -167,12 +171,51 @@ const pages = [
     links: [
       ["Community Review Guide", `${repoBlob}/docs/community-review/COMMUNITY_REVIEW_GUIDE.md`],
       ["Finding Lifecycle", `${repoBlob}/docs/community-review/FINDING_LIFECYCLE.md`],
+      ["Aggregate Findings", "/community-review/findings/"],
       ["Exact candidate source", candidateTree],
       ["Immutable candidate definition", `${definitionBlob}/config/audit/v2-review-candidate.json`],
       ["Security policy", `${repoBlob}/SECURITY.md`],
       ["Private vulnerability reporting", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"]
     ],
     disclaimer: "Community peer review is not a formal independent smart-contract audit. V2 remains non-canonical and non-deployed. No mainnet, sale, liquidity, listing, stated monetary value, or active hospitality benefit is approved."
+  },
+  {
+    path: "community-review/findings/index.html",
+    title: "Community Review Findings",
+    description: "Public-safe aggregate state for findings submitted against the exact frozen TikiDeco V2 review candidate.",
+    eyebrow: "Aggregate review state",
+    heading: "Community findings, without sensitive details",
+    intro: "This page reports counts and release impact only. Unresolved sensitive reproduction steps remain in private vulnerability reporting.",
+    sections: [
+      ["Candidate", [
+        ["Candidate version", communityFindings.candidateVersion, `${repoBlob}/config/community-review/findings.json`],
+        ["Candidate commit", communityFindings.candidateCommit, candidateTree],
+        ["Package SHA-256", communityFindings.packageSha256, `${definitionBlob}/config/audit/v2-review-candidate.json`],
+        ["Candidate status", communityFindingsSummary.nextCandidateRequired ? "New candidate required" : "Current candidate source unchanged", `${repoBlob}/config/community-review/findings.json`]
+      ]],
+      ["Aggregate Findings", [
+        ["Total submitted", String(communityFindingsSummary.totalSubmitted), `${repoBlob}/config/community-review/findings.json`],
+        ["Validated", String(communityFindingsSummary.validated), `${repoBlob}/config/community-review/findings.json`],
+        ["Rejected, duplicate, or invalid", String(communityFindingsSummary.rejected), `${repoBlob}/config/community-review/findings.json`],
+        ["Remediated", String(communityFindingsSummary.remediated), `${repoBlob}/config/community-review/findings.json`],
+        ["Retested", String(communityFindingsSummary.retested), `${repoBlob}/config/community-review/findings.json`]
+      ]],
+      ["Open By Severity", Object.entries(communityFindingsSummary.openBySeverity).map(([severity, count]) => [severity, String(count), `${repoBlob}/config/community-review/findings.json`])],
+      ["Disclosure Boundary", [
+        ["Public findings", String(communityReview.publicFindingsCount), `${repoBlob}/config/community-review/status.json`],
+        ["Private findings disclosed as aggregate", String(communityReview.privateFindingsCountPubliclyDisclosedAsAggregate), `${repoBlob}/config/community-review/status.json`],
+        ["Sensitive details", "Not displayed on this page", `${repoBlob}/SECURITY.md`],
+        ["Deployment", "Blocked; this aggregate does not approve deployment", `${repoBlob}/docs/MAINNET_GO_NO_GO.md`]
+      ]]
+    ],
+    links: [
+      ["Community Review", "/community-review/"],
+      ["Triage Playbook", `${repoBlob}/docs/community-review/FINDING_TRIAGE_PLAYBOOK.md`],
+      ["Finding Lifecycle", `${repoBlob}/docs/community-review/FINDING_LIFECYCLE.md`],
+      ["Public-safe finding form", "https://github.com/denterion/Token-TIkiDeco/issues/new?template=community_security_finding.yml"],
+      ["Private vulnerability reporting", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"]
+    ],
+    disclaimer: "Community peer review is not a formal independent smart-contract audit. V2 remains non-canonical and non-deployed. No mainnet, sale, stated monetary value, or active hospitality benefit is approved."
   },
   {
     path: "audit/index.html",

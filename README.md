@@ -61,6 +61,8 @@ The frozen, non-canonical V2 candidate is open for community peer review. Commun
 - Frozen V2 code: [`9099fdb87a6be715b1d7fd4fafa6fade0b12b61c`](https://github.com/denterion/Token-TIkiDeco/commit/9099fdb87a6be715b1d7fd4fafa6fade0b12b61c)
 - Package SHA-256: `980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2`
 - Review guide: [`docs/community-review/COMMUNITY_REVIEW_GUIDE.md`](docs/community-review/COMMUNITY_REVIEW_GUIDE.md)
+- Aggregate findings: [tikideco.xyz/community-review/findings](https://tikideco.xyz/community-review/findings/)
+- Triage playbook: [`docs/community-review/FINDING_TRIAGE_PLAYBOOK.md`](docs/community-review/FINDING_TRIAGE_PLAYBOOK.md)
 - Sensitive reports: follow [`SECURITY.md`](SECURITY.md); do not publish exploitable unresolved Critical or High details.
 
 ```bash

@@ -1,5 +1,7 @@
 # Community Review Finding Lifecycle
 
+Operational triage, severity, accepted-risk, retest, and disclosure rules are defined in [`FINDING_TRIAGE_PLAYBOOK.md`](FINDING_TRIAGE_PLAYBOOK.md).
+
 This process applies to findings against candidate commit `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`. It is a community peer-review workflow, not a formal independent smart-contract audit.
 
 ```text

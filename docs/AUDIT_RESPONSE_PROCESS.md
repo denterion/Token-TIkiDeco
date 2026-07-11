@@ -65,6 +65,15 @@ npm run audit:handoff
 
 The new package must include the updated source commit, checksums, test outputs, Slither baseline result, Foundry artifacts, known issues, and response notes.
 
+Before remediation is treated as release evidence, also run:
+
+```bash
+npm run findings:check
+npm run findings:release-impact
+```
+
+Any scoped V2 contract or deployment-script change invalidates the frozen candidate and requires a new candidate version, source commit, package checksum, and reviewer handoff. The old immutable candidate remains historical evidence.
+
 ## Handoff Discipline
 
 - Generate the package.
