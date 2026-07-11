@@ -4,6 +4,8 @@ Status: reviewer navigation for non-canonical V2 candidate code. V1 remains the 
 
 The source of truth for the frozen scope is [`config/audit/v2-independent-review.json`](../config/audit/v2-independent-review.json). Package checksums and the package manifest identify the later evidence commit used to assemble reports and artifacts.
 
+`config/audit/v2-role-manifest.json` is a non-deployed template: all addresses are unassigned and on-chain assertions are incomplete. Review the role model and public-network deployment guardrails; deployment readiness is out of scope.
+
 ## 30-Minute Path
 
 1. Read `AUDIT_SCOPE.md`, `docs/AUDIT_TERMINOLOGY.md` and `KNOWN_ISSUES.md`.
@@ -23,7 +25,10 @@ npm test
 npm run foundry:test
 npm run slither
 npm run bytecode
+npm run deps
 npm run external-review:check
+npm run review:candidate:check
+npm run review:handoff:check
 ```
 
 Review role separation, prefunded vesting liabilities, revoke accounting, token-pause effects on release, metadata/report bounds and public-network deployment guards.

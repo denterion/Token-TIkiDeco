@@ -11,6 +11,30 @@
   "deploymentScripts": [
     "scripts/deploy-v2.cjs"
   ],
+  "tests": [
+    "test/TikiDecoTokenV2.js",
+    "test/TikiDecoVestingVaultV2.js",
+    "test/TikiDecoInvariants.js",
+    "test/V2DeploymentConfig.js",
+    "foundry/TikiDecoTokenV2Invariant.t.sol",
+    "foundry/TikiDecoVestingVaultV2Invariant.t.sol",
+    "foundry/FoundryTestBase.sol"
+  ],
+  "reviewDocuments": [
+    "AUDIT_SCOPE.md",
+    "KNOWN_ISSUES.md",
+    "SECURITY_REVIEW.md",
+    "docs/V2_AUDIT_OWNER_DECISIONS.md",
+    "docs/INDEPENDENT_REVIEWER_GUIDE.md",
+    "docs/AUDITOR_QUESTIONS.md",
+    "docs/AUDIT_RESPONSE_PROCESS.md",
+    "docs/AUDIT_TERMINOLOGY.md",
+    "docs/V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md",
+    "docs/PUBLIC_REVIEW_PROCUREMENT_BRIEF.md",
+    "docs/REVIEWER_SELECTION_CHECKLIST.md",
+    "docs/REVIEWER_CONFLICT_POLICY.md",
+    "docs/REVIEWER_HANDOFF_CHECKLIST.md"
+  ],
   "compiler": {
     "solidity": "0.8.28",
     "evmVersion": "paris",

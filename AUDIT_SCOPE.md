@@ -2,11 +2,11 @@
 
 V2 code freeze baseline: `9099fdb87a6be715b1d7fd4fafa6fade0b12b61c`
 
-Current package/source commit: recorded as `evidenceCommit` in each generated `audit-package-manifest.json`.
+Current immutable review-candidate source commit: `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`, recorded in `config/audit/v2-review-candidate.json`.
 
 Branch reviewed: `main`
 
-Review status: internal review preparation. TikiDeco V2 remains a candidate and is not independently audited.
+Review status: internal security review preparation. TikiDeco V2 remains a non-deployed candidate. Independent technical review and formal independent smart-contract audit are both `not-started`.
 
 Published Sepolia prototype release: `v0.1.0-sepolia` at `e07471936375ffbe13c68da2708b4436931392a2`.
 

@@ -4,6 +4,8 @@ Status: questions for external V2 candidate review. This is not an audit report 
 
 Please treat V2 as candidate code only. Do not treat V2 as canonical deployment, mainnet-ready, value-bearing, or independently audited.
 
+The supplied role manifest is a non-deployed template: addresses are not assigned and on-chain assertions are incomplete. Evaluate the role model and fail-closed deployment guardrails; deployment readiness is out of scope.
+
 ## Focus Areas
 
 1. Is `AccessControlDefaultAdminRules` used correctly for the intended Safe/governance model, including admin delay and role transfer assumptions?
