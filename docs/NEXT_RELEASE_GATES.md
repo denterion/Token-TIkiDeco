@@ -8,13 +8,13 @@ Status: operational roadmap for the next public-preparation cycle. This document
 | --- | --- | --- |
 | Public Sepolia release | `v0.1.0-sepolia` exists as a prototype pre-release. | Keep release package evidence current after each merge. |
 | Utility pilot release | `v0.2.0-utility-pilot` exists as a public pre-release for read-only pilot preparation; `v0.2.0-utility-pilot-rc.1` is prepared as a release-candidate draft. | Campaign remains `draft-not-live`; approvals, snapshot/window, inventory, and report path are not complete. |
-| Public site | Read-only EN/ES/RU site exists. | Continue simplifying, but keep all disclaimers and verification links. |
+| Public site | Read-only English site exists. | Continue simplifying, but keep all disclaimers and verification links; add translations only after a separate copy review. |
 | V1 | Historical canonical Sepolia deployment. | Do not present as upgraded. |
 | V2 | Candidate code with freeze baseline. | External audit not started. |
 | Legal/governance | Draft policies and counsel brief exist. | Entity/SPV and counsel review are not complete. |
 | Community preview | Materials, issue templates, and the Official Public Preview packet exist. | Continue structured feedback collection and publish privacy-safe summaries. |
 | Operator/auditor/community entry path | Full documentation exists. | Short start paths are required so important facts are not buried. |
-| Browser-level site QA | Static and Playwright browser checks exist. | Keep desktop/mobile, RPC unavailable, mocked balance, and localized overflow checks green. |
+| Browser-level site QA | Static and Playwright browser checks exist. | Keep desktop/mobile, RPC unavailable, mocked balance, mobile-menu, and long-copy overflow checks green. |
 | Release control | `npm run project:control` summarizes current branch, release evidence, canonical deployment, pilot gates, and next actions. | Keep it green after release-doc, site, audit, or gate changes. |
 
 ## Gate 1: Public Preview Stabilization

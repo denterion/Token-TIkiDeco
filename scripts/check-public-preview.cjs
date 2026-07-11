@@ -84,7 +84,7 @@ for (const phrase of [
 ]) assert(report.toLowerCase().includes(phrase.toLowerCase()), `Preview report missing: ${phrase}`);
 
 const browserTests = read("site-v2/tests/site-regression.spec.ts");
-for (const phrase of ["mobile layout", "RPC unavailable", "one RPC endpoint fails", "stale cached", "localized long strings", "no transaction"]) {
+for (const phrase of ["mobile layout", "RPC unavailable", "one RPC endpoint fails", "stale cached", "English-only", "no transaction"]) {
   const combinedTests = `${browserTests}\n${read("scripts/test-eligibility-engine.cjs")}`;
   assert(combinedTests.toLowerCase().includes(phrase.toLowerCase()), `Preview regression coverage missing: ${phrase}`);
 }

@@ -35,7 +35,7 @@ High-value feedback areas:
 - Can a technical reader verify the token, vault, Safe, reports, and manifest?
 - Are the utility scenarios clearly conceptual or planned, not active benefits?
 - Are any words confusing, too promotional, or legally risky?
-- Does the EN/ES/RU copy preserve the same meaning?
+- Is the current English copy clear enough to serve as the reviewed source for any future translation?
 - Are the docs easy to navigate from GitHub and the public site?
 
 ## What Feedback Is Out Of Scope

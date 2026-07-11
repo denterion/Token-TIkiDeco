@@ -11,7 +11,7 @@ The preview should help answer:
 - Can a public reader understand what TikiDeco / TIDE is within a few minutes?
 - Are current, planned, conceptual, and not-claimable items clearly separated?
 - Can technical reviewers verify contracts, manifests, reports, Safe control, and release gates?
-- Do the EN/ES/RU texts preserve the same cautious meaning?
+- Is the current English source text clear, cautious, and ready for any separately reviewed future translation?
 - Are the read-only pilot boundaries clear?
 
 ## Useful Feedback
@@ -19,7 +19,7 @@ The preview should help answer:
 - Website clarity, mobile layout, accessibility, and broken read-only links.
 - Documentation structure and stale facts.
 - Claims that sound too promotional or unsupported.
-- Translation issues in EN/ES/RU copy.
+- English source-copy issues and requests for separately reviewed future translations.
 - Read-only Sepolia balance-check UX.
 - Campaign rules, report templates, blocker gates, and issue triage.
 - V2 audit-package readiness questions that do not reveal sensitive details.
