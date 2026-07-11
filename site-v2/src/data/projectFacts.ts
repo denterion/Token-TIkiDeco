@@ -25,7 +25,7 @@ export const projectFacts = {
     repository: "https://github.com/denterion/Token-TIkiDeco",
     issues: "https://github.com/denterion/Token-TIkiDeco/issues",
     officialPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OFFICIAL_PUBLIC_PREVIEW.md",
-    finalEvidenceReport: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md",
+    finalEvidenceReport: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_11_V02_FINAL_EVIDENCE.md",
     releaseCandidate: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/releases/v0.2.0-utility-pilot-rc.1.md",
     publicEntrypoints: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PUBLIC_ENTRYPOINTS.md",
     pilotProofPack: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md",

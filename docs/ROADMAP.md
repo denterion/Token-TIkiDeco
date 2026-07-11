@@ -4,6 +4,8 @@ This roadmap describes the path from public testnet prototype to a credible prod
 
 For the current operational focus, see [`THREE_PHASE_ROADMAP.md`](THREE_PHASE_ROADMAP.md). For a short reader-specific entry point, see [`START_HERE.md`](START_HERE.md).
 
+For the July 2026-June 2027 execution sequence, quarterly gates, operating cadence, and stop conditions, see [`ONE_YEAR_DEVELOPMENT_PLAN.md`](ONE_YEAR_DEVELOPMENT_PLAN.md).
+
 For competitive positioning and near-term product opportunities, see [`COMPETITIVE_LANDSCAPE.md`](COMPETITIVE_LANDSCAPE.md).
 
 For the short proof path for the planned Sepolia utility pilot, see [`PILOT_PROOF_PACK.md`](PILOT_PROOF_PACK.md).
@@ -28,7 +30,7 @@ Status: substantially complete; continuing polish
 - Verify source code on Sepolia Etherscan.
 - Publish `v0.1.0-sepolia` as a GitHub pre-release.
 - Publish `v0.2.0-utility-pilot` as a GitHub pre-release for read-only utility-pilot preparation.
-- Add EN/ES/RU public-site localization.
+- Historical milestone: EN/ES/RU localization was published; the current public interface is English-only pending separate translation review.
 - Keep the public site read-only with no wallet connection, sale flow, price chart, or transaction signing.
 
 ## Phase 3: Legal and Governance Structure

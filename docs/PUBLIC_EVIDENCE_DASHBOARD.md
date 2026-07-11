@@ -12,9 +12,9 @@ Current evidence baseline:
 | --- | --- |
 | Release track | `v0.2.0-utility-pilot` |
 | Candidate document | `v0.2.0-utility-pilot-rc.1` |
-| Evidence date | 2026-07-10 |
-| Evidence commit | `e7c52e65f6a56c4a728ca81e3cb3080a25c344e7` |
-| Evidence report | `docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md` |
+| Evidence date | 2026-07-11 |
+| Evidence commit | `00e0ccbbf26397aadd5416816bba44e7cc2e373b` |
+| Evidence report | `docs/reports/REPORT_2026_07_11_V02_FINAL_EVIDENCE.md` |
 | Pilot campaign | `draft-not-live` |
 | Mainnet | not approved |
 | Sale | not offered |
@@ -25,7 +25,7 @@ Current evidence baseline:
 
 1. Project facts: `docs/PROJECT_FACTS.md`
 2. v0.2 release candidate: `docs/releases/v0.2.0-utility-pilot-rc.1.md`
-3. Final evidence report: `docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md`
+3. Final evidence report: `docs/reports/REPORT_2026_07_11_V02_FINAL_EVIDENCE.md`
 4. Pilot proof pack: `docs/PILOT_PROOF_PACK.md`
 5. Release Control Center: `docs/RELEASE_CONTROL_CENTER.md`
 
@@ -40,17 +40,17 @@ npm run site
 The release bundle itself was reproduced with:
 
 ```bash
-npm run release -- --commit e7c52e65f6a56c4a728ca81e3cb3080a25c344e7 --release v0.2.0-utility-pilot
+npm run release -- --commit 00e0ccbbf26397aadd5416816bba44e7cc2e373b --release v0.2.0-utility-pilot
 ```
 
 ## Bundle Hashes
 
 | Item | SHA-256 |
 | --- | --- |
-| Source archive | `58f20d6f171a4a171cabd419d26b8f6d8325a187729b5d709a4c73e5f8aa8437` |
-| Release manifest | `a7c38b66bbad489cc1e00a8edd97efe0f3719159e94a9b4d02b9a52b2b930934` |
-| `SHA256SUMS.txt` | `5758685b0a9587cbe708819f97ee4d5eeafba570c1e28c29857f30bbbb902742` |
-| Evidence report | `e2970b4677e476785eabaf2aa8a37d29dcc505452ec9a7dd3992cc4027e30605` |
+| Source archive | `1e40af6a91f6fd00528db599bc4b24cb235817d3fdb1e56485330ba4417e64b2` |
+| Release manifest | `a9cd502f5a6ecf2322576964fbcf71405e8f0b96d924f9ad071cc2de763ae288` |
+| `SHA256SUMS.txt` | `69b2c1d3c5ee226e8fc2505a6921a8553a692e4d37a469f92aba9b0961a49dfa` |
+| Evidence report | `2cad58b3ba6ca343acacf326e6efa1c588ee87882c2d9285c1218c13e5a642d6` |
 
 ## What This Does Not Mean
 

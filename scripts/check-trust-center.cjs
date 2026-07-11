@@ -15,6 +15,15 @@ function git(...args) {
   return execFileSync("git", args, { cwd: root, encoding: "utf8" }).trim();
 }
 
+function gitIsAncestor(ancestor, descendant) {
+  try {
+    execFileSync("git", ["merge-base", "--is-ancestor", ancestor, descendant], { cwd: root, stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function currentMainCommit() {
   if (process.env.GITHUB_REF === "refs/heads/main" && /^[0-9a-f]{40}$/i.test(process.env.GITHUB_SHA || "")) {
     return process.env.GITHUB_SHA;
@@ -65,6 +74,7 @@ assert(fs.existsSync(path.join(root, evidence.transparencyReport)), "Evidence re
 assert(sha256(evidence.transparencyReport) === evidence.transparencyReportSha256, "Evidence report SHA-256 does not match config/release-evidence.json");
 assert(trustHtml.includes(evidence.sourceCommit), "Evidence commit is missing from /trust/");
 assert(trustHtml.includes(evidence.transparencyReportSha256), "Evidence report hash is missing from /trust/");
+assert(gitIsAncestor(evidence.sourceCommit, mainCommit), "Evidence source commit must remain in current main history");
 
 assert(packageJson.scripts["deps:audit"] === "npm audit --audit-level=moderate", "deps:audit must be the explicit npm advisory scan");
 assert(packageJson.scripts["audit:deps"] === "npm run deps:audit", "audit:deps compatibility alias is missing");
@@ -136,4 +146,4 @@ for (const pattern of unsupportedPositiveClaims) {
 
 console.log("Trust Center checks passed.");
 console.log(`Current main: ${mainCommit}`);
-console.log(`Evidence commit: ${evidence.sourceCommit} (${evidence.sourceCommit === mainCommit ? "current" : "stale"})`);
+console.log(`Evidence commit: ${evidence.sourceCommit} (${evidence.sourceCommit === mainCommit ? "current" : "recorded ancestor"})`);

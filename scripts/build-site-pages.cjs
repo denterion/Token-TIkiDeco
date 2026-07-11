@@ -30,8 +30,10 @@ const currentMainCommit = process.env.GITHUB_REF === "refs/heads/main" && /^[0-9
   : gitCommit("origin/main") || gitCommit("HEAD") || "unavailable";
 const evidenceFreshness = currentEvidenceCommit === currentMainCommit
   ? "Current evidence commit matches main"
-  : "Stale relative to current main; regenerate before the next immutable release";
+  : "Recorded source baseline; later commits are not included in its source archive";
 const repoBlob = "https://github.com/denterion/Token-TIkiDeco/blob/main";
+const evidenceReportUrl = `${repoBlob}/${releaseEvidence.transparencyReport}`;
+const evidenceHashReportUrl = `${repoBlob}/${releaseEvidence.transparencyReport.replace(/\.md$/, "_HASH.md")}`;
 
 const baseUrl = "https://tikideco.xyz";
 const pages = [
@@ -81,7 +83,7 @@ const pages = [
       ["Reports And Limitations", [
         ["Latest repository evidence report", releaseEvidence.transparencyReport, `${repoBlob}/${releaseEvidence.transparencyReport}`],
         ["Public preview proof baseline", "Zero public sample; campaign remains draft-not-live", `${repoBlob}/docs/reports/REPORT_2026_07_10_PUBLIC_PREVIEW_PROOF.md`],
-        ["Evidence report SHA-256", releaseEvidence.transparencyReportSha256, `${repoBlob}/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE_HASH.md`],
+        ["Evidence report SHA-256", releaseEvidence.transparencyReportSha256, evidenceHashReportUrl],
         ["Latest on-chain report", manifest.publishedReports[0].uri, `https://sepolia.etherscan.io/tx/${manifest.publishedReports[0].transaction}`],
         ["Known limitations", "Published; legal, audit, operator, pilot, and mainnet gates remain open", `${repoBlob}/KNOWN_ISSUES.md`],
         ["Dependency audit", "npm advisory scan only; not an independent smart-contract audit", `${repoBlob}/package.json`]
@@ -155,7 +157,7 @@ const pages = [
       ["Token bytecode", "/artifacts/v1/TikiDecoToken/deployed-bytecode.txt"],
       ["Vault bytecode", "/artifacts/v1/TikiDecoVestingVault/deployed-bytecode.txt"],
       ["Deployment manifest", "/deployment-manifest.json"],
-      ["Final evidence report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md"],
+      ["Final evidence report", evidenceReportUrl],
       ["Reports", "/#reports"],
       ["Known issues", "https://github.com/denterion/Token-TIkiDeco/blob/main/KNOWN_ISSUES.md"]
     ],
@@ -299,7 +301,7 @@ const pages = [
     ],
     links: [
       ["Pilot Proof Pack", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"],
-      ["Final evidence report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md"],
+      ["Final evidence report", evidenceReportUrl],
       ["v0.2 RC draft", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/releases/v0.2.0-utility-pilot-rc.1.md"],
       ["Dry-run report", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_09_PILOT_PROOF_DRY_RUN.md"],
       ["Live blocker register", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/utility-pilot/PILOT_LIVE_BLOCKER_REGISTER.md"],
@@ -587,7 +589,7 @@ function legalFooter() {
           <a href="/utility/">Utility</a>
           <a href="/trust/">Trust Center</a>
           <a href="/proof/">Proof Pack</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE.md" target="_blank" rel="noopener noreferrer">Evidence Report</a>
+          <a href="${evidenceReportUrl}" target="_blank" rel="noopener noreferrer">Evidence Report</a>
           <a href="/pilot/">Pilot</a>
           <a href="/business/">Business</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
