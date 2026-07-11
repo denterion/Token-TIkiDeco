@@ -12,7 +12,8 @@ Status: governance review record for the canonical Sepolia V1 Safe. No threshold
 | Signer identities | Not publicly verified |
 | Hardware-wallet evidence | Not recorded publicly |
 | Device/geographic separation | Not recorded publicly |
-| Recovery drill | Not completed |
+| Local tabletop drill | Completed with fake data on 2026-07-11; no Safe access or transaction |
+| Signer recovery drill | Not completed |
 
 ## Decision
 
@@ -53,3 +54,5 @@ Before changing the threshold or signers:
 7. publish only non-sensitive configuration facts after execution.
 
 This document does not prepare or broadcast a Safe transaction.
+
+Detailed evidence: [`SAFE_RESILIENCE_DRILL_2026.md`](SAFE_RESILIENCE_DRILL_2026.md). The tabletop result does not satisfy the signer recovery gate.

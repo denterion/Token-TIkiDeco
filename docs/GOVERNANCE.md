@@ -44,6 +44,8 @@ Completed ownership transfer:
 
 Before mainnet, review whether `3-of-3` is too rigid operationally. A serious production setup commonly uses `3-of-5` or another threshold that balances security with signer availability.
 
+The current comparison is documented in [`governance/SAFE_RESILIENCE_DRILL_2026.md`](governance/SAFE_RESILIENCE_DRILL_2026.md). It recommends no automatic change: signer roles, independence, hardware policy, recovery review, and incident ownership remain blocked governance gates.
+
 ## Owner Operations Checklist
 
 Before any owner transaction:

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "blocked",
+  "lastReviewed": "2026-07-11",
+  "gates": [
+    {
+      "id": "signer-roles",
+      "label": "Real signer roles assigned",
+      "status": "not-assigned",
+      "evidence": null
+    },
+    {
+      "id": "signer-independence",
+      "label": "Signer independence confirmed",
+      "status": "not-confirmed",
+      "evidence": null
+    },
+    {
+      "id": "hardware-policy",
+      "label": "Hardware policy approved",
+      "status": "not-approved",
+      "evidence": "docs/governance/SIGNER_POLICY_TEMPLATE.md"
+    },
+    {
+      "id": "recovery-review",
+      "label": "Recovery process reviewed",
+      "status": "requires-review",
+      "evidence": "docs/governance/SAFE_RESILIENCE_DRILL_2026.md"
+    },
+    {
+      "id": "incident-owners",
+      "label": "Incident owners named",
+      "status": "not-assigned",
+      "evidence": null
+    }
+  ]
+}

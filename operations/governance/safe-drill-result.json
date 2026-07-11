@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "drillId": "safe-resilience-2026-tabletop",
+  "executedAt": "2026-07-11T00:00:00.000Z",
+  "mode": "local-test-only",
+  "passed": true,
+  "transactionReview": {
+    "target": "0x1111111111111111111111111111111111111111",
+    "chainId": 11155111,
+    "methodSelector": "0x12345678",
+    "amountWei": "0",
+    "nonce": 7,
+    "operation": "CALL",
+    "summary": "Test-only Sepolia Safe review: CALL fixtureReportHash(bytes32) on fake target 0x1111111111111111111111111111111111111111 with value 0 wei and nonce 7.",
+    "secondPersonConfirmation": true
+  },
+  "checks": [
+    {
+      "name": "fixture is test-only",
+      "passed": true
+    },
+    {
+      "name": "target address is valid and expected",
+      "passed": true
+    },
+    {
+      "name": "chain ID is Sepolia",
+      "passed": true
+    },
+    {
+      "name": "method selector matches expected selector",
+      "passed": true
+    },
+    {
+      "name": "amount is zero",
+      "passed": true
+    },
+    {
+      "name": "nonce is a non-negative safe integer",
+      "passed": true
+    },
+    {
+      "name": "operation is the expected CALL",
+      "passed": true
+    },
+    {
+      "name": "summary names the network, target, method, value, and nonce",
+      "passed": true
+    },
+    {
+      "name": "second-person review is explicit",
+      "passed": true
+    },
+    {
+      "name": "no proposal or broadcast is possible",
+      "passed": true
+    },
+    {
+      "name": "no keys or live RPC are used",
+      "passed": true
+    }
+  ],
+  "proposalCreated": false,
+  "broadcast": false
+}

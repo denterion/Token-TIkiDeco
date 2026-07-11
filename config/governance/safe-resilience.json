@@ -10,7 +10,7 @@
   "hardwareWalletEvidenceRecorded": false,
   "deviceAndLocationSeparationEvidenceRecorded": false,
   "recoveryProcedureTested": false,
-  "incidentDrillStatus": "tabletop-test-only",
+  "incidentDrillStatus": "tabletop-test-only-completed-2026-07-11",
   "futureOptions": {
     "threeOfThree": "strong unanimity; weak availability if any signer is lost or unavailable",
     "twoOfThree": "better availability; requires independent signers, hardware controls and documented escalation",

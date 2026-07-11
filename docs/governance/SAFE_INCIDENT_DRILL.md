@@ -21,3 +21,5 @@ Status: tabletop exercise using test-only data. No wallet, participant, booking 
 5. Update the resilience decision only after reviewer sign-off.
 
 Current result: tabletop structure exists; a witnessed recovery drill is still required before any limited operator pilot approval.
+
+The expanded 2026 test-only exercise is recorded in [`SAFE_RESILIENCE_DRILL_2026.md`](SAFE_RESILIENCE_DRILL_2026.md). It does not replace a witnessed signer recovery drill.

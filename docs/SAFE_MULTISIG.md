@@ -4,6 +4,8 @@ This runbook records how TikiDeco / TIDE Sepolia owner powers were moved from a 
 
 Current threshold tradeoffs and recovery blockers are recorded in [`governance/SAFE_RESILIENCE_DECISION.md`](governance/SAFE_RESILIENCE_DECISION.md). The accompanying incident exercise uses test-only data and does not change the Safe.
 
+The 2026 local tabletop evidence and unapproved signer-policy template are available in [`governance/SAFE_RESILIENCE_DRILL_2026.md`](governance/SAFE_RESILIENCE_DRILL_2026.md) and [`governance/SIGNER_POLICY_TEMPLATE.md`](governance/SIGNER_POLICY_TEMPLATE.md).
+
 It is an operational security document, not legal advice and not a production governance charter.
 
 ## Current Sepolia Target
