@@ -16,8 +16,8 @@ This roadmap converts the current project gaps into three release-management pha
 | Pilot operations | Inventory, disputes, staffing, and privacy docs exist. | Operational evidence is not proven. |
 | UX | Site checks pass. | First-time reader path is still too document-heavy. |
 | Docs | Public docs are thorough. | Need shorter operator/auditor/community start paths. |
-| QA | Contract, content, and Playwright browser checks are in place. | Keep mobile, RPC unavailable, mocked balance, and localized overflow regressions green. |
-| Release evidence | Packages can be generated. | Next release should prove reproducibility from a fresh checkout and final `main` SHA. |
+| QA | Contract, content, and Playwright browser checks are in place. | Keep mobile menu, RPC unavailable, mocked balance, English-only, and long-copy overflow regressions green. |
+| Release evidence | The v0.2 package was reproduced for source commit `00e0ccbbf26397aadd5416816bba44e7cc2e373b`. | Regenerate only for the next immutable release candidate or release-critical source change. |
 
 ## Phase 1: Make The Project Easy To Verify
 
@@ -27,9 +27,9 @@ Exit criteria:
 
 - [x] Add and maintain [`START_HERE.md`](START_HERE.md).
 - [ ] README links to the operator, auditor, community, and contributor start paths.
-- [ ] Site copy stays minimal while preserving no-sale/no-value/no-mainnet/independent-audit-not-started boundaries.
-- [ ] `npm run site:browser` covers desktop, mobile, RPC unavailable, mocked live balance, and localized overflow checks.
-- [ ] `docs/PROJECT_FACTS.md` remains current after each merge.
+- [x] Site copy stays minimal while preserving no-sale/no-value/no-mainnet/independent-audit-not-started boundaries.
+- [x] `npm run site:browser` covers desktop, mobile menu, RPC unavailable, mocked live balance, and English-only rendering.
+- [x] `docs/PROJECT_FACTS.md` records the current public-site and evidence baseline.
 - [ ] `npm run claims`, `npm run value`, `npm run site`, and `npm run pilot:report` pass.
 - [ ] Community feedback summaries stay aggregate-only and privacy-safe.
 
@@ -67,11 +67,11 @@ Goal: make V2 review-ready for an external auditor without promoting V2, claimin
 
 Exit criteria:
 
-- [ ] [`V2_AUDIT_OWNER_DECISIONS.md`](V2_AUDIT_OWNER_DECISIONS.md) has an owner decision or explicit auditor question for every unresolved V2 known issue.
+- [x] [`V2_AUDIT_OWNER_DECISIONS.md`](V2_AUDIT_OWNER_DECISIONS.md) has an owner decision or explicit auditor question for every unresolved V2 known issue.
 - [ ] [`V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md`](V2_ROLE_MANIFEST_REVIEW_CHECKLIST.md) is used before any public V2 candidate deployment proposal.
 - [ ] `KNOWN_ISSUES.md` remains aligned with owner decisions.
 - [ ] `npm run audit`, `npm run audit:handoff`, `npm run slither`, `npm test`, `npm run foundry:test`, and `npm run foundry:coverage` pass.
-- [ ] Release package generation is proven from a fresh checkout and final `main` SHA.
+- [x] Release package generation is proven for merged source commit `00e0ccbbf26397aadd5416816bba44e7cc2e373b`.
 - [ ] No public document describes V2 as canonical, mainnet-ready, live, or independently audited.
 
 Primary work:

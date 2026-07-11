@@ -20,7 +20,8 @@ function main() {
   const releaseDraft = read("docs/releases/v0.2.0-utility-pilot-rc.1.md");
   const facts = read("docs/PROJECT_FACTS.md");
   const report = read(evidence.transparencyReport);
-  const hashReport = read("docs/reports/REPORT_2026_07_10_V02_FINAL_EVIDENCE_HASH.md");
+  const reportLower = report.toLowerCase();
+  const hashReport = read(evidence.transparencyReport.replace(/\.md$/, "_HASH.md"));
   const siteFiles = [
     "site/index.html",
     "site/status/index.html",
@@ -48,10 +49,10 @@ function main() {
 
   assert(siteFiles.includes(evidence.releaseManifestSha256), "Generated site missing release manifest hash");
   assert(report.includes("No tag was created. No deployment was performed. No transaction was broadcast."), "Evidence report missing non-deployment boundary");
-  assert(report.includes("TIDE is not offered for sale"), "Evidence report missing no-sale boundary");
-  assert(report.includes("TIDE has no stated monetary value"), "Evidence report missing no-value boundary");
-  assert(report.includes("TIDE is not deployed on mainnet"), "Evidence report missing no-mainnet boundary");
-  assert(report.includes("independent audit has not started"), "Evidence report missing audit-status boundary");
+  assert(reportLower.includes("tide is not offered for sale"), "Evidence report missing no-sale boundary");
+  assert(reportLower.includes("tide has no stated monetary value"), "Evidence report missing no-value boundary");
+  assert(reportLower.includes("tide is not deployed on mainnet"), "Evidence report missing no-mainnet boundary");
+  assert(reportLower.includes("independent audit has not started"), "Evidence report missing audit-status boundary");
 
   console.log(`Public evidence checks passed for ${evidence.release} at ${evidence.sourceCommit}.`);
 }

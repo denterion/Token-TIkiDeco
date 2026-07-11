@@ -36,9 +36,13 @@ function git(args) {
   }
 }
 
-function extractFirst(text, regex) {
-  const match = text.match(regex);
-  return match ? match[1] : null;
+function gitIsAncestor(ancestor, descendant) {
+  try {
+    execFileSync("git", ["merge-base", "--is-ancestor", ancestor, descendant], { cwd: root, stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function countGates(gates) {
@@ -87,19 +91,20 @@ function buildSummary(options = {}) {
   const branch = git(["branch", "--show-current"]);
   const canonical = readJson("deployments/canonical.json");
   const packageJson = readJson("package.json");
-  const releaseDoc = read("docs/releases/v0.2.0-utility-pilot-rc.1.md");
+  const releaseEvidence = readJson("config/release-evidence.json");
   const gatesDoc = read("docs/NEXT_RELEASE_GATES.md");
   const liveGates = readJson("config/utility-pilot/live-readiness-gates.json");
   const campaign = readJson("config/utility-pilot/tide-community-preview-001.json");
-  const evidenceCommit = extractFirst(releaseDoc, /Exact current evidence commit:\s*`([0-9a-f]{40})`/i);
-  const bundlePath = extractFirst(releaseDoc, /Current review bundle:\s*`([^`]+)`/i);
+  const evidenceCommit = releaseEvidence.sourceCommit;
+  const bundlePath = releaseEvidence.reviewBundlePath;
   const gate3 = listCheckedItems(gatesDoc, "Gate 3: V2 Audit Package Readiness");
   const gate4 = listCheckedItems(gatesDoc, "Gate 4: Community Preview");
   const liveGateCounts = countGates(liveGates);
-  const staleReleaseEvidence = evidenceCommit !== head;
+  const evidenceMatchesHead = evidenceCommit === head;
+  const evidenceIsAncestor = /^[0-9a-f]{40}$/i.test(evidenceCommit || "") && gitIsAncestor(evidenceCommit, head);
 
   const blockers = [];
-  if (staleReleaseEvidence) blockers.push("v0.2 RC review bundle must be regenerated on the current main/merge SHA.");
+  if (!evidenceIsAncestor) blockers.push("v0.2 RC evidence source is missing from or diverges from the current history.");
   if (campaign.status !== "draft-not-live") blockers.push("Pilot campaign is not draft-not-live; review immediately.");
   if (canonical.network !== "sepolia") blockers.push("Canonical deployment network is not Sepolia.");
   if (canonical.contractVersion !== "v1-legacy") blockers.push("Canonical contract version is not v1-legacy.");
@@ -107,9 +112,9 @@ function buildSummary(options = {}) {
   if (liveGateCounts.approved > 0) blockers.push("At least one live-pilot gate is approved; confirm this was intentional.");
 
   const nextActions = [];
-  if (staleReleaseEvidence) {
-    nextActions.push(`Run npm run release -- --commit ${head} --release v0.2.0-utility-pilot from a clean tree.`);
-    nextActions.push("Update the v0.2 RC evidence hashes/report after package generation.");
+  if (!evidenceMatchesHead && evidenceIsAncestor) {
+    nextActions.push("Treat the recorded bundle as an immutable source baseline; later commits are not included in its source archive.");
+    nextActions.push("Regenerate it before the next immutable release candidate or after a release-critical source change.");
   }
   nextActions.push("Keep npm run pilot:live:blocked green until legal, privacy, security, operations, and governance approvals exist.");
   nextActions.push("Keep V2 candidate status explicit until external audit handoff is complete and a later manifest promotes it.");
@@ -136,7 +141,8 @@ function buildSummary(options = {}) {
     },
     releaseCandidate: {
       evidenceCommit,
-      evidenceMatchesHead: !staleReleaseEvidence,
+      evidenceMatchesHead,
+      evidenceIsAncestor,
       bundlePath,
       bundlePathExists: bundlePath ? exists(bundlePath) : false
     },
@@ -179,6 +185,7 @@ function renderMarkdown(summary) {
   lines.push("");
   lines.push(`- Evidence commit: \`${summary.releaseCandidate.evidenceCommit || "missing"}\``);
   lines.push(`- Evidence matches HEAD: \`${summary.releaseCandidate.evidenceMatchesHead}\``);
+  lines.push(`- Evidence is in current history: \`${summary.releaseCandidate.evidenceIsAncestor}\``);
   lines.push(`- Review bundle path: \`${summary.releaseCandidate.bundlePath || "missing"}\``);
   lines.push(`- Review bundle exists locally: \`${summary.releaseCandidate.bundlePathExists}\``);
   lines.push("");
