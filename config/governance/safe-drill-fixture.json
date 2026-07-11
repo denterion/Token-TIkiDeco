@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "testOnly": true,
+  "network": "Ethereum Sepolia",
+  "transaction": {
+    "target": "0x1111111111111111111111111111111111111111",
+    "expectedTarget": "0x1111111111111111111111111111111111111111",
+    "chainId": 11155111,
+    "methodSelector": "0x12345678",
+    "expectedMethodSelector": "0x12345678",
+    "methodName": "fixtureReportHash(bytes32)",
+    "valueWei": "0",
+    "nonce": 7,
+    "operation": "CALL",
+    "expectedOperation": "CALL"
+  },
+  "review": {
+    "summary": "Test-only Sepolia Safe review: CALL fixtureReportHash(bytes32) on fake target 0x1111111111111111111111111111111111111111 with value 0 wei and nonce 7.",
+    "firstReviewer": "fixture-reviewer-a",
+    "secondReviewer": "fixture-reviewer-b",
+    "secondPersonConfirmation": true
+  },
+  "safety": {
+    "proposalCreated": false,
+    "broadcast": false,
+    "usesPrivateKeys": false,
+    "usesLiveRpc": false
+  }
+}

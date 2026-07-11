@@ -155,3 +155,5 @@ Stop promotion or preview work when:
 4. Run and document one Safe resilience tabletop drill.
 5. Open or update owner issues for all blocked limited-preview gates.
 6. Publish one aggregate transparency update with no participant data.
+
+Progress note (2026-07-11): item 4 has test-only evidence in [`governance/SAFE_RESILIENCE_DRILL_2026.md`](governance/SAFE_RESILIENCE_DRILL_2026.md). Signer recovery and governance approval remain blocked.
