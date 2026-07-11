@@ -7,6 +7,7 @@ import { Hero } from "./sections/Hero";
 import { PilotEligibilityCard } from "./components/PilotEligibilityCard";
 import { CampaignLifecycle } from "./components/CampaignLifecycle";
 import { PreviewFeedbackPanel } from "./components/PreviewFeedbackPanel";
+import { OperatorSandboxPage, WhyOperatorPage } from "./components/OperatorSandbox";
 import { ProjectStatus } from "./sections/ProjectStatus";
 import { Transparency } from "./sections/Transparency";
 import { OneMinuteBrief } from "./sections/OneMinuteBrief";
@@ -40,6 +41,9 @@ function App() {
   const [navOpen, setNavOpen] = useState(false);
   const t = siteCopy;
   const pilotRoute = window.location.pathname.startsWith("/pilot");
+  const operatorWhyRoute = window.location.pathname.startsWith("/operator-sandbox/why");
+  const operatorRoute = window.location.pathname.startsWith("/operator-sandbox");
+  const focusedRoute = pilotRoute || operatorRoute;
 
   useEffect(() => {
     previewMetrics.recordPageSession();
@@ -79,8 +83,8 @@ function App() {
             </a>
           </nav>
         </header>
-        <main id="main" className={pilotRoute ? "pilot-route" : undefined}>
-          {!pilotRoute ? <section className="hero-wrap" aria-label="TikiDeco overview">
+        <main id="main" className={focusedRoute ? "focused-route" : undefined}>
+          {!focusedRoute ? <section className="hero-wrap" aria-label="TikiDeco overview">
             <div className="scene-layer" aria-hidden="true">
               {shouldRender3D ? (
                 <Suspense fallback={<div className="scene-fallback" />}>
@@ -93,13 +97,15 @@ function App() {
             <Hero copy={t.hero} />
           </section> : null}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
-            {!pilotRoute ? <OneMinuteBrief copy={t.brief} /> : null}
-            {!pilotRoute ? <ProjectStatus copy={t.status} rows={t.statusRows} /> : null}
+            {!focusedRoute ? <OneMinuteBrief copy={t.brief} /> : null}
+            {!focusedRoute ? <ProjectStatus copy={t.status} rows={t.statusRows} /> : null}
             {pilotRoute ? <PilotEligibilityCard /> : null}
             {pilotRoute ? <CampaignLifecycle /> : null}
             {pilotRoute ? <PreviewFeedbackPanel /> : null}
-            {!pilotRoute ? <Transparency copy={t.transparency} /> : null}
-            {!pilotRoute ? <AuditReadiness copy={t.audit} /> : null}
+            {operatorRoute && !operatorWhyRoute ? <OperatorSandboxPage /> : null}
+            {operatorWhyRoute ? <WhyOperatorPage /> : null}
+            {!focusedRoute ? <Transparency copy={t.transparency} /> : null}
+            {!focusedRoute ? <AuditReadiness copy={t.audit} /> : null}
           </motion.div>
         </main>
         <Footer copy={t.footer} />

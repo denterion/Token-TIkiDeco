@@ -221,6 +221,8 @@ function main() {
   assert(sitemapLocs.has("https://tikideco.xyz/utility/"), "sitemap missing utility page");
   assert(sitemapLocs.has("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
   assert(sitemapLocs.has("https://tikideco.xyz/business/"), "sitemap missing business page");
+  assert(sitemapLocs.has("https://tikideco.xyz/operator-sandbox/"), "sitemap missing operator sandbox page");
+  assert(sitemapLocs.has("https://tikideco.xyz/operator-sandbox/why/"), "sitemap missing operator rationale page");
   assert(sitemapLocs.has("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TRUST_CENTER_SOURCE_MAP.md"), "Site must link to the Trust Center source map");

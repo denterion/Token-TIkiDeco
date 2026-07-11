@@ -575,6 +575,30 @@ const pages = [
     disclaimer: "No-offer disclaimer: business utility is design-stage only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started."
   },
   {
+    path: "operator-sandbox/index.html",
+    interactive: true,
+    title: "Operator Sandbox",
+    description: "A local fake-data hospitality loyalty workflow demonstration with controlled mock inventory and aggregate reporting.",
+    eyebrow: "Local demonstration",
+    heading: "Operator Sandbox",
+    intro: "Create, review, operate, and close a fake Sepolia-only loyalty campaign without real guest data or transaction broadcasting.",
+    sections: [],
+    links: [],
+    disclaimer: "Fake data only. No active hospitality service, no real benefit, no payments, no mainnet, and no transaction broadcasting."
+  },
+  {
+    path: "operator-sandbox/why/index.html",
+    interactive: true,
+    title: "Why Operators Test This",
+    description: "A plain-language explanation of controlled loyalty campaign rules, inventory, staff decisions, and privacy-safe reporting.",
+    eyebrow: "Hospitality operations",
+    heading: "Why Operators Test This",
+    intro: "A conceptual workflow for repeatable loyalty operations without exposing guest data on-chain.",
+    sections: [],
+    links: [],
+    disclaimer: "No real operator, property, partnership, active hospitality service, or real benefit is represented."
+  },
+  {
     path: "legal/no-offer/index.html",
     title: "No Offer",
     description: "No-offer notice for TikiDeco TIDE Sepolia prototype.",
@@ -705,6 +729,7 @@ function legalFooter() {
           <a href="/proof/">Proof Pack</a>
           <a href="${evidenceReportUrl}" target="_blank" rel="noopener noreferrer">Evidence Report</a>
           <a href="/pilot/">Pilot</a>
+          <a href="/operator-sandbox/">Operator demo</a>
           <a href="/business/">Business</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md" target="_blank" rel="noopener noreferrer">Release Control</a>
@@ -812,9 +837,10 @@ ${legalFooter()}
 `;
 }
 
-function renderInteractivePilot(page, homeShell) {
-  const url = `${baseUrl}/pilot/`;
-  const fallback = `<main id="main" class="pilot-static-fallback">
+function renderInteractivePage(page, homeShell) {
+  const route = page.path.replace(/index\.html$/, "");
+  const url = `${baseUrl}/${route}`;
+  const pilotFallback = `<main id="main" class="pilot-static-fallback">
       <section aria-labelledby="pilot-title">
         <p>SEPOLIA TESTNET - NO MONETARY VALUE</p>
         <h1 id="pilot-title">TIDE Loyalty Pilot</h1>
@@ -827,6 +853,31 @@ function renderInteractivePilot(page, homeShell) {
         </p>
       </section>
     </main>`;
+  const operatorFallback = `<main id="main" class="pilot-static-fallback">
+      <section aria-labelledby="operator-title">
+        <p>SEPOLIA TESTNET - NO MONETARY VALUE</p>
+        <p>LOCAL DEMONSTRATION - FAKE DATA</p>
+        <h1 id="operator-title">Operator Sandbox</h1>
+        <p>A fake-data-only workflow for campaign rules, limited mock inventory, staff review, campaign closure, and aggregate reporting.</p>
+        <p>No active hospitality service, no real benefit, no real guest or booking data, no payments, no mainnet, and no transaction broadcasting.</p>
+        <p><a href="/operator-sandbox/why/">Why would a hospitality operator test this?</a></p>
+      </section>
+    </main>`;
+  const whyFallback = `<main id="main" class="pilot-static-fallback">
+      <section aria-labelledby="operator-why-title">
+        <p>SEPOLIA TESTNET - NO MONETARY VALUE</p>
+        <p>CONCEPT WORKFLOW - FAKE DATA</p>
+        <h1 id="operator-why-title">Why would a hospitality operator test this?</h1>
+        <p>To review transparent campaign rules, control mock inventory, repeat staff decisions, and generate aggregate reports without exposing guest data on-chain.</p>
+        <p>No real operator, property, active hospitality service, or real benefit is represented.</p>
+        <p><a href="/operator-sandbox/">Open the local demonstration</a></p>
+      </section>
+    </main>`;
+  const fallback = page.path === "operator-sandbox/index.html"
+    ? operatorFallback
+    : page.path === "operator-sandbox/why/index.html"
+      ? whyFallback
+      : pilotFallback;
 
   return homeShell
     .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${escapeHtml(page.description)}" />`)
@@ -841,7 +892,7 @@ const homeShell = fs.readFileSync(path.join(siteDir, "index.html"), "utf8");
 for (const page of pages) {
   const target = path.join(siteDir, page.path);
   fs.mkdirSync(path.dirname(target), { recursive: true });
-  const html = page.interactive ? renderInteractivePilot(page, homeShell) : renderPage(page);
+  const html = page.interactive ? renderInteractivePage(page, homeShell) : renderPage(page);
   fs.writeFileSync(target, html.replace(/\r\n?/g, "\n"), "utf8");
 }
 

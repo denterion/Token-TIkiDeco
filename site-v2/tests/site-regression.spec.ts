@@ -198,3 +198,39 @@ test("keyboard navigation opens the Community Review route", async ({ page, isMo
   await expect(page).toHaveURL(/\/community-review\/$/);
   await expect(page.getByRole("heading", { name: "Review the frozen V2 candidate", level: 1 })).toBeVisible();
 });
+
+test("operator sandbox completes a fake campaign and produces an aggregate report", async ({ page }) => {
+  await page.goto("/operator-sandbox/");
+
+  await expect(page.getByRole("heading", { name: /Run a loyalty campaign without touching real operations/i })).toBeVisible();
+  await expect(page.getByText("Local demonstration", { exact: true })).toBeVisible();
+  await expect(page.getByText("Fake data", { exact: true })).toBeVisible();
+  await expect(page.getByText("No active hospitality service", { exact: true })).toBeVisible();
+  await expect(page.getByText("No real benefit", { exact: true })).toBeVisible();
+  await expect(page.getByText("No transaction broadcasting", { exact: true })).toBeVisible();
+
+  await page.getByRole("button", { name: "Create fake campaign" }).click();
+  await page.getByRole("button", { name: "Submit for simulation review" }).click();
+  await page.getByRole("button", { name: "Approve simulation" }).click();
+  await page.getByRole("button", { name: "Start simulation" }).click();
+  await page.getByRole("button", { name: "Review eligible mock request" }).click();
+  await page.getByRole("button", { name: "Approve mock request" }).click();
+  await page.getByRole("button", { name: "Close campaign" }).click();
+
+  await expect(page.getByRole("heading", { name: "Aggregate transparency report" })).toBeVisible();
+  await expect(page.getByText("1 / 2", { exact: true })).toBeVisible();
+  await expect(page.locator(".operator-hash")).toContainText(/[0-9a-f]{64}/);
+  await expect(page.getByRole("button", { name: /connect wallet|pay|book|send transaction|approve token|transfer token/i })).toHaveCount(0);
+  await assertNoHorizontalOverflow(page);
+});
+
+test("operator rationale is readable on mobile and links back to the local demo", async ({ page }) => {
+  await page.goto("/operator-sandbox/why/");
+
+  await expect(page.getByRole("heading", { name: /Why would a hospitality operator test this/i, level: 1 })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /A controlled process, not blockchain theatre/i })).toBeVisible();
+  await expect(page.getByText(/without exposing guest data on-chain/i).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open local demonstration" })).toHaveAttribute("href", "/operator-sandbox/");
+  await expect(page.getByRole("button", { name: /connect wallet|pay|book|transaction/i })).toHaveCount(0);
+  await assertNoHorizontalOverflow(page);
+});
