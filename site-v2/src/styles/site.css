@@ -471,8 +471,214 @@ h1 {
   background: linear-gradient(180deg, rgba(37, 217, 242, 0.035), rgba(169, 87, 255, 0.035), transparent);
 }
 
-.pilot-route .pilot-eligibility {
+.focused-route .pilot-eligibility {
   padding-top: 8rem;
+}
+
+.operator-route {
+  min-height: 70vh;
+}
+
+.operator-intro {
+  padding-top: 8.5rem;
+  border-bottom: 1px solid var(--line);
+  background:
+    linear-gradient(135deg, rgba(37, 217, 242, 0.08), transparent 42%),
+    linear-gradient(225deg, rgba(169, 87, 255, 0.09), transparent 38%);
+}
+
+.operator-intro h1 {
+  max-width: 980px;
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  line-height: 0.98;
+}
+
+.operator-lead {
+  max-width: 760px;
+  color: #d7e4ea;
+  font-size: clamp(1.08rem, 2vw, 1.4rem);
+  line-height: 1.6;
+}
+
+.operator-boundaries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 1.5rem 0;
+}
+
+.operator-boundaries span {
+  padding: 0.48rem 0.68rem;
+  border: 1px solid rgba(37, 217, 242, 0.28);
+  border-radius: 999px;
+  background: rgba(37, 217, 242, 0.08);
+  color: #d9f9ff;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.operator-workspace {
+  background: #050914;
+}
+
+.operator-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.36fr) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.operator-setup,
+.operator-console,
+.operator-report,
+.operator-reasons article {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.operator-setup,
+.operator-console {
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.operator-rule-list,
+.operator-report dl {
+  display: grid;
+  gap: 1px;
+  margin: 0 0 1rem;
+  padding: 1px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.operator-rule-list div,
+.operator-report dl div {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.42fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #09101f;
+}
+
+.operator-rule-list dt,
+.operator-report dt {
+  color: #91a1ad;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.operator-rule-list dd,
+.operator-report dd {
+  margin: 0;
+  color: var(--cream);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.operator-lifecycle {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0 0 1rem;
+  padding: 1px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--line);
+  list-style: none;
+  overflow: hidden;
+}
+
+.operator-lifecycle li {
+  min-width: 0;
+  min-height: 6.6rem;
+  padding: 0.65rem;
+  background: #09101f;
+}
+
+.operator-lifecycle span,
+.operator-lifecycle strong {
+  display: block;
+}
+
+.operator-lifecycle span {
+  margin-bottom: 1.3rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.operator-lifecycle strong {
+  color: var(--muted);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  text-transform: capitalize;
+  overflow-wrap: anywhere;
+}
+
+.operator-lifecycle .is-current {
+  box-shadow: inset 0 3px 0 var(--cyan);
+  background: rgba(37, 217, 242, 0.12);
+}
+
+.operator-lifecycle .is-current strong,
+.operator-lifecycle .is-complete strong {
+  color: var(--cream);
+}
+
+.operator-lifecycle .is-complete {
+  box-shadow: inset 0 3px 0 rgba(169, 87, 255, 0.55);
+}
+
+.operator-message {
+  min-height: 3rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem 0.9rem;
+  border-left: 3px solid var(--cyan);
+  background: rgba(37, 217, 242, 0.08);
+  color: #d9f9ff;
+  line-height: 1.5;
+}
+
+.operator-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+.operator-report {
+  padding: 1rem;
+}
+
+.operator-report h3,
+.operator-reasons h3 {
+  color: var(--cream);
+}
+
+.operator-report p,
+.operator-reasons p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.operator-hash {
+  overflow-wrap: anywhere;
+  font-family: SFMono-Regular, Consolas, monospace;
+  font-size: 0.8rem;
+}
+
+.operator-reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.operator-reasons article {
+  min-height: 12rem;
+  padding: 1.2rem;
 }
 
 .pilot-card {
@@ -996,6 +1202,15 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .operator-layout,
+  .operator-reasons {
+    grid-template-columns: 1fr;
+  }
+
+  .operator-lifecycle {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .brief-grid li {
     min-height: auto;
   }
@@ -1094,6 +1309,28 @@ h1 {
 
   .site-footer nav {
     justify-content: flex-start;
+  }
+
+  .operator-intro {
+    padding-top: 7rem;
+  }
+
+  .operator-intro h1 {
+    font-size: 2.75rem;
+  }
+
+  .operator-lifecycle {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .operator-rule-list div,
+  .operator-report dl div {
+    grid-template-columns: 1fr;
+  }
+
+  .operator-actions .button,
+  .operator-setup .button {
+    width: 100%;
   }
 }
 

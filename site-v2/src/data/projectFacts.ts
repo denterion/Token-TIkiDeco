@@ -41,6 +41,7 @@ export const projectFacts = {
     trust: "/trust/",
     utility: "/utility/",
     pilot: "/pilot/",
+    operatorSandbox: "/operator-sandbox/",
     business: "/business/",
     audit: "/audit/",
     verify: "/verify/",

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-11T00:00:00.000Z",
+  "mode": "local-fake-data-only",
+  "report": {
+    "campaignId": "fake-rsvp-001",
+    "state": "closed",
+    "requests": 2,
+    "eligible": 1,
+    "approved": 1,
+    "rejected": 1,
+    "inventoryLimit": 2,
+    "inventoryUsed": 1,
+    "errors": 2,
+    "disputes": 1,
+    "stopEvents": 1,
+    "privacyStatement": "Aggregate fake-data simulation only; no raw wallet addresses, guest data, or booking data are included.",
+    "containsPersonalData": false,
+    "containsRawWalletAddresses": false,
+    "containsGuestData": false,
+    "transactionBroadcast": false
+  },
+  "sha256": "d2e0e153c6d86c3d995e7e908115aa092889d5bc5a1723a75ec8f54c8d1547a1"
+}

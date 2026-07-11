@@ -30,6 +30,7 @@ export function Footer({ copy }: { copy: FooterCopy }) {
     [copy.links.repository, projectFacts.links.repository],
     [copy.links.officialPreview, projectFacts.links.officialPreview],
     [copy.links.pilotProofPack, projectFacts.links.pilotProofPack],
+    ["Operator demo", projectFacts.links.operatorSandbox],
     [copy.links.finalEvidenceReport ?? "Evidence Report", projectFacts.links.finalEvidenceReport],
     [copy.links.projectFacts, projectFacts.links.projectFacts],
     [copy.links.releaseControl, projectFacts.links.releaseControl],

@@ -68,3 +68,5 @@ Aggregate output may include total requests, eligible/ineligible decisions, appr
 - incident procedure tested.
 
 All gates are currently `not-approved`. The sandbox does not change their state.
+
+The demonstrable fake-data workflow is documented in [`OPERATOR_SANDBOX_DEMO.md`](OPERATOR_SANDBOX_DEMO.md). It is a local simulation and does not satisfy any readiness gate.

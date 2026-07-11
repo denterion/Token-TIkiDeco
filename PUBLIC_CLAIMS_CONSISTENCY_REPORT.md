@@ -86,6 +86,8 @@ This is a compliance-oriented documentation control, not legal advice.
 - `site/legal/project-status/index.html`
 - `site/legal/risk-disclosure/index.html`
 - `site/legal/terms/index.html`
+- `site/operator-sandbox/index.html`
+- `site/operator-sandbox/why/index.html`
 - `site/pilot/index.html`
 - `site/proof/index.html`
 - `site/status/index.html`
@@ -387,6 +389,8 @@ None.
 | `site/legal/no-offer/index.html` | 78 | `hotel ownership` | <div><dt>No financial rights</dt><dd>The prototype does not represent hotel ownership, revenue rights, or financial upside.</dd></div> |
 | `site/legal/risk-disclosure/index.html` | 66 | `audited` | <p class="hero-copy">TikiDeco is experimental, testnet-only, and not independently audited.</p> |
 | `site/legal/risk-disclosure/index.html` | 66 | `independently audited` | <p class="hero-copy">TikiDeco is experimental, testnet-only, and not independently audited.</p> |
+| `site/operator-sandbox/index.html` | 56 | `investment` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice. |
+| `site/operator-sandbox/why/index.html` | 56 | `investment` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice. |
 | `site/pilot/index.html` | 49 | `active hotel benefit` | <p>No sale, no mainnet deployment, no active hotel benefit, V2 remains candidate code only, and independent audit not started.</p> |
 | `site/pilot/index.html` | 59 | `investment` | TIDE is a Sepolia testnet prototype. It is not offered for sale, has no stated monetary value, is not deployed on mainnet, and has not completed an independent audit. Nothing on this site is financial, investment, legal or tax advice. |
 | `site/trust/index.html` | 114 | `partner` | <div data-source-linked-fact><dt>Hospitality partner</dt><dd><a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/OPERATOR_AND_ENTITY_STATUS.md" target="_blank" rel="noopener noreferrer">Not publicly verified</a></dd></div> |
