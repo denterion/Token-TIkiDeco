@@ -87,6 +87,8 @@
     "community-review:status": "node scripts/community-review-status.cjs",
     "findings:check": "node scripts/check-community-findings.cjs",
     "findings:test": "node scripts/test-community-findings.cjs",
+    "issues:audit": "node scripts/check-issue-status-audit.cjs",
+    "contributor-board:check": "node scripts/check-contributor-board.cjs",
     "findings:summary": "node scripts/community-findings-summary.cjs",
     "findings:release-impact": "node scripts/community-findings-release-impact.cjs",
     "safe-resilience:check": "node scripts/check-safe-resilience.cjs",

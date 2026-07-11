@@ -44,6 +44,9 @@ jobs:
       - name: Community finding integrity
         run: npm run findings:test && npm run findings:check
 
+      - name: Issue and contributor board integrity
+        run: npm run issues:audit && npm run contributor-board:check
+
       - name: Value claim policy check
         run: npm run value:check
 

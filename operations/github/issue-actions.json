@@ -1,0 +1,356 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "denterion/Token-TIkiDeco",
+  "auditedAt": "2026-07-11",
+  "sourceCommit": "5b34682d7fc05ddf163ac814d6e1b266f5a20999",
+  "milestones": [
+    { "title": "Community Review Intake", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
+    { "title": "Public Preview Hardening", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
+    { "title": "External Validation", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
+    { "title": "Operator Sandbox", "roadmapQuarter": "Q2 2026-10 to 2026-12" },
+    { "title": "Future Production Decision", "roadmapQuarter": "Q4 2027-04 to 2027-06" }
+  ],
+  "labels": [
+    "priority:P0",
+    "priority:P1",
+    "priority:P2",
+    "security",
+    "review",
+    "frontend",
+    "accessibility",
+    "documentation",
+    "privacy",
+    "operations",
+    "externally-blocked",
+    "ready-for-contributor",
+    "good-first-issue"
+  ],
+  "issues": [
+    {
+      "number": 55,
+      "title": "Review read-only Sepolia balance checker",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Manual wallet input validates Ethereum addresses.", "verified": true, "evidence": ["scripts/test-eligibility-engine.cjs", "site-v2/src/components/PilotEligibilityCard.tsx"] },
+        { "criterion": "RPC unavailable does not display invented values and all data states are represented.", "verified": true, "evidence": ["site-v2/src/lib/eligibility/readOnlyBalance.ts", "site-v2/tests/site-regression.spec.ts"] },
+        { "criterion": "No wallet connection, transaction, sale, price, fee, or booking UI exists.", "verified": true, "evidence": ["scripts/test-eligibility-engine.cjs", "site-v2/tests/site-regression.spec.ts"] }
+      ],
+      "evidenceFiles": ["site-v2/src/components/PilotEligibilityCard.tsx", "site-v2/src/lib/eligibility/readOnlyBalance.ts", "scripts/test-eligibility-engine.cjs", "site-v2/tests/site-regression.spec.ts"],
+      "verificationCommands": ["npm run eligibility", "npm run site:browser"],
+      "missingWork": "None for the recorded acceptance criteria.",
+      "action": "recommend-close",
+      "reason": "Every acceptance criterion is covered by deterministic unit and browser evidence.",
+      "labels": ["priority:P2", "frontend", "review"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None.",
+      "suggestedComment": "Verified on main 5b34682: eligibility unit tests and Playwright cover address validation, RPC states, read-only behavior, and prohibited CTAs. Recommend closing as completed."
+    },
+    {
+      "number": 56,
+      "title": "Review pilot campaign rules",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Snapshot or live-check window remains unpublished until approvals.", "verified": true, "evidence": ["config/utility-pilot/tide-community-preview-001.json", "scripts/check-pilot-campaign.cjs"] },
+        { "criterion": "Legal, privacy, security, operations, and governance states remain explicit.", "verified": true, "evidence": ["config/utility-pilot/live-readiness-gates.json", "docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md"] },
+        { "criterion": "Request window, inventory, and report path remain blocked until approval.", "verified": true, "evidence": ["docs/utility-pilot/PHASE2_LIVE_GATE_STATUS.md", "scripts/check-pilot-live-readiness.cjs"] }
+      ],
+      "evidenceFiles": ["config/utility-pilot/tide-community-preview-001.json", "config/utility-pilot/live-readiness-gates.json", "docs/utility-pilot/CAMPAIGN_RULES_REVIEW_PACKET.md"],
+      "verificationCommands": ["npm run pilot:campaign", "npm run pilot:live"],
+      "missingWork": "No missing work for confirming the draft-not-live state; future approval is a separate gate.",
+      "action": "recommend-close",
+      "reason": "The requested no-go review is machine-verified and all approvals remain blocked.",
+      "labels": ["priority:P1", "review", "operations", "privacy"],
+      "milestone": "Community Review Intake",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "Future live status remains dependent on external approvals, outside this issue's confirmation scope.",
+      "suggestedComment": "Verified on main: pilot:campaign passes and pilot:live reports 12 blocked, 2 evidence-only, 0 approved gates. Recommend closing this draft-state review as completed."
+    },
+    {
+      "number": 57,
+      "title": "Review Sepolia testnet allocation policy",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Per-wallet and campaign caps are documented.", "verified": true, "evidence": ["docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md", "scripts/prepare-testnet-allocation.cjs"] },
+        { "criterion": "Duplicate and invalid addresses are rejected.", "verified": true, "evidence": ["scripts/prepare-testnet-allocation.cjs", "operations/utility-pilot/dry-runs/limited-preview-allocation-input.json"] },
+        { "criterion": "Manual review and anti-spam rules are explicit and preparation never broadcasts.", "verified": true, "evidence": ["docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md", "docs/utility-pilot/SAFE_ALLOCATION_RUNBOOK.md"] }
+      ],
+      "evidenceFiles": ["docs/utility-pilot/TESTNET_ALLOCATION_POLICY.md", "scripts/prepare-testnet-allocation.cjs", "docs/utility-pilot/SAFE_ALLOCATION_RUNBOOK.md"],
+      "verificationCommands": ["npm run allocation"],
+      "missingWork": "None for policy review; actual allocation remains unapproved and out of scope.",
+      "action": "recommend-close",
+      "reason": "Policy, generator guardrails, dry-run evidence, and aggregate report checks satisfy the issue.",
+      "labels": ["priority:P2", "documentation", "operations", "privacy"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "Any future execution requires separate approvals and Safe review.",
+      "suggestedComment": "Verified allocation caps, invalid/duplicate rejection, anti-spam and manual-review rules, aggregate reporting, and no-broadcast behavior. Recommend closing as completed."
+    },
+    {
+      "number": 58,
+      "title": "Finalize allocation report template",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Template contains campaign ID, totals, status, SHA-256, and no-private-data fields.", "verified": true, "evidence": ["docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md", "scripts/check-allocation-report.cjs"] },
+        { "criterion": "Request totals are separated from allocation outcomes.", "verified": true, "evidence": ["docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md"] },
+        { "criterion": "Post-campaign report hash workflow is documented.", "verified": true, "evidence": ["docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md", "docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md"] }
+      ],
+      "evidenceFiles": ["docs/utility-pilot/ALLOCATION_REPORT_TEMPLATE.md", "docs/utility-pilot/ALLOCATION_REPORT_REVIEW_PACKET.md", "scripts/check-allocation-report.cjs"],
+      "verificationCommands": ["npm run allocation"],
+      "missingWork": "None for the template; no final campaign report exists because no campaign is live.",
+      "action": "recommend-close",
+      "reason": "The template and checker cover every requested field and privacy boundary.",
+      "labels": ["priority:P2", "documentation", "operations", "privacy"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "A real report depends on a separately approved campaign.",
+      "suggestedComment": "Template structure, aggregate separation, privacy statement, and SHA-256 workflow are present and allocation:check passes. Recommend closing as completed."
+    },
+    {
+      "number": 59,
+      "title": "Expand frontend eligibility tests",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Invalid, zero, sufficient, wrong-chain, unavailable, stale, and forbidden-copy cases pass.", "verified": true, "evidence": ["scripts/test-eligibility-engine.cjs"] },
+        { "criterion": "One-RPC-fails and one-succeeds fallback is covered.", "verified": true, "evidence": ["scripts/test-eligibility-engine.cjs", "scripts/fixtures/read-only-rpc-fixture.cjs"] },
+        { "criterion": "No transaction or sale-oriented controls exist.", "verified": true, "evidence": ["scripts/test-eligibility-engine.cjs", "site-v2/tests/site-regression.spec.ts"] }
+      ],
+      "evidenceFiles": ["scripts/test-eligibility-engine.cjs", "scripts/fixtures/read-only-rpc-fixture.cjs", "site-v2/tests/site-regression.spec.ts"],
+      "verificationCommands": ["npm run eligibility", "npm run site:browser"],
+      "missingWork": "None for the listed deterministic cases.",
+      "action": "recommend-close",
+      "reason": "All listed fixtures and browser regressions pass on current main.",
+      "labels": ["priority:P2", "frontend", "review"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None.",
+      "suggestedComment": "Verified all requested deterministic eligibility and RPC fallback cases. Playwright passes with no transaction/sale controls. Recommend closing as completed."
+    },
+    {
+      "number": 60,
+      "title": "Keep mainnet gate blocked until approvals",
+      "status": "blocked externally",
+      "acceptanceCriteria": [
+        { "criterion": "Gate fails for blocked, draft, unknown, missing, and review-required states.", "verified": true, "evidence": ["scripts/check-mainnet-readiness.cjs", "docs/MAINNET_GO_NO_GO.md"] },
+        { "criterion": "Expected blocked behavior is documented and CI-verifiable.", "verified": true, "evidence": [".github/workflows/ci.yml", "docs/MAINNET_READINESS_GAP_ANALYSIS.md"] },
+        { "criterion": "Mainnet remains unapproved until external gates are complete.", "verified": true, "evidence": ["docs/MAINNET_GO_NO_GO.md", "config/utility-pilot/live-readiness-gates.json"] }
+      ],
+      "evidenceFiles": ["scripts/check-mainnet-readiness.cjs", "docs/MAINNET_GO_NO_GO.md", ".github/workflows/ci.yml"],
+      "verificationCommands": ["node scripts/check-mainnet-readiness.cjs --expect-blocked"],
+      "missingWork": "29 legal, audit, operator, governance, value, and production approvals remain unapproved.",
+      "action": "keep-open",
+      "reason": "The implementation is verified, but the issue remains the P0 externally blocked production-decision sentinel.",
+      "labels": ["priority:P0", "operations", "review", "externally-blocked"],
+      "milestone": "Future Production Decision",
+      "roadmapQuarter": "Q4 2027-04 to 2027-06",
+      "dependency": "Independent review, counsel, entity, operator, privacy, governance, tax/accounting, and production evidence.",
+      "suggestedComment": "The fail-closed gate is working and reports 29 unapproved states. Keep this issue open as an externally blocked production-decision sentinel; it is not ready for contributor implementation."
+    },
+    {
+      "number": 61,
+      "title": "Maintain value claim checker coverage",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Policy and prohibition contexts pass while unsupported claims fail with file and line output.", "verified": true, "evidence": ["scripts/check-value-claims.cjs", "scripts/check-public-claims.cjs"] },
+        { "criterion": "Docs, generated site, release drafts, and social copy are scanned.", "verified": true, "evidence": ["scripts/check-value-claims.cjs", "scripts/check-public-claims.cjs"] }
+      ],
+      "evidenceFiles": ["scripts/check-value-claims.cjs", "scripts/check-public-claims.cjs", "PUBLIC_CLAIMS_CONSISTENCY_REPORT.md"],
+      "verificationCommands": ["npm run value", "npm run claims"],
+      "missingWork": "None for current scan coverage; future surfaces must continue using the same gate.",
+      "action": "recommend-close",
+      "reason": "Current scanner coverage and line-level reporting satisfy the issue and are exercised by CI.",
+      "labels": ["priority:P1", "documentation", "review"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None.",
+      "suggestedComment": "value and claims pass; both scanners include docs, site, release and social surfaces with file/line diagnostics. Recommend closing as completed."
+    },
+    {
+      "number": 62,
+      "title": "Harden V2 audit package command",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Package contains V2 source, ABI, bytecode, tests, Slither baseline, known issues, freeze doc, and checksums.", "verified": true, "evidence": ["scripts/generate-v2-audit-package.cjs", "docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md"] },
+        { "criterion": "Package rejects canonical-V2 or completed-audit claims.", "verified": true, "evidence": ["scripts/check-audit-handoff.cjs", "scripts/generate-v2-audit-package.cjs"] },
+        { "criterion": "Missing optional artifacts are documented.", "verified": true, "evidence": ["docs/EXTERNAL_AUDIT_READINESS.md", "scripts/generate-v2-audit-package.cjs"] }
+      ],
+      "evidenceFiles": ["scripts/generate-v2-audit-package.cjs", "docs/EXTERNAL_AUDIT_PACKAGE_INDEX.md", "docs/EXTERNAL_AUDIT_READINESS.md", "security/slither-baseline-v2.json"],
+      "verificationCommands": ["npm run audit:package", "npm run review:candidate:check", "npm run review:handoff:check"],
+      "missingWork": "No command-hardening work remains; initiating an independent review is tracked separately in #121.",
+      "action": "recommend-close",
+      "reason": "A package was reproduced on current main with required files and SHA256SUMS; optional omissions were reported explicitly.",
+      "labels": ["priority:P1", "security", "review"],
+      "milestone": "External Validation",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "Independent reviewer procurement is #121, not part of this implementation issue.",
+      "suggestedComment": "Reproduced audit:package on main 5b34682. Required V2 source, ABI, bytecode, tests, baseline, known issues, freeze docs and checksums are present; optional omissions are listed. Recommend closing."
+    },
+    {
+      "number": 63,
+      "title": "Improve accessibility for utility pilot pages",
+      "status": "partially implemented",
+      "acceptanceCriteria": [
+        { "criterion": "Keyboard navigation covers the balance checker.", "verified": false, "evidence": ["site-v2/tests/site-regression.spec.ts"] },
+        { "criterion": "Visible focus, labels, and semantic headings are correct.", "verified": true, "evidence": ["site-v2/src/styles/site.css", "site-v2/src/components/PilotEligibilityCard.tsx"] },
+        { "criterion": "Mobile layout has no horizontal overflow.", "verified": true, "evidence": ["site-v2/tests/site-regression.spec.ts"] }
+      ],
+      "evidenceFiles": ["site-v2/src/styles/site.css", "site-v2/src/components/PilotEligibilityCard.tsx", "site-v2/tests/site-regression.spec.ts"],
+      "verificationCommands": ["npm run site", "npm run site:browser"],
+      "missingWork": "Add a keyboard-only Playwright path through wallet input, activation, focus state, and accessible result status.",
+      "action": "update",
+      "reason": "Most accessibility criteria are implemented, but the balance-checker keyboard journey is not directly verified.",
+      "labels": ["priority:P1", "frontend", "accessibility", "review", "ready-for-contributor", "good-first-issue"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None; deterministic mocked RPC is already available.",
+      "suggestedComment": "Issue body updated with the exact remaining keyboard-only Playwright gap and local commands. Keep open for a contributor."
+    },
+    {
+      "number": 64,
+      "title": "Review EN/ES/RU utility-pilot translations",
+      "status": "superseded",
+      "acceptanceCriteria": [
+        { "criterion": "Review current EN/ES/RU site translations.", "verified": false, "evidence": ["site-v2/src/data/i18n.ts", "docs/PROJECT_FACTS.md"] },
+        { "criterion": "Translated states preserve cautious claims and plain-language clarity.", "verified": false, "evidence": ["docs/FEEDBACK_GUIDE.md", "docs/NEXT_RELEASE_GATES.md"] }
+      ],
+      "evidenceFiles": ["site-v2/src/data/i18n.ts", "docs/PROJECT_FACTS.md", "docs/ROADMAP.md"],
+      "verificationCommands": ["npm run site:browser", "npm run claims", "npm run value"],
+      "missingWork": "The current public UI is English-only. Maintainer must explicitly rescope this issue to future translation-source review or archive it after a documented product decision.",
+      "action": "update",
+      "reason": "The original multi-language acceptance criteria no longer match current English-only product scope; existence of historical translations is not completion evidence.",
+      "labels": ["priority:P2", "documentation", "review"],
+      "milestone": "Community Review Intake",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "Maintainer translation-scope decision and reviewed English source copy.",
+      "suggestedComment": "Current main is English-only by documented decision, so the original EN/ES/RU acceptance criteria are superseded, not completed. Rescope before any closure recommendation."
+    },
+    {
+      "number": 65,
+      "title": "Prepare transparency update template for v0.2 RC",
+      "status": "completed",
+      "acceptanceCriteria": [
+        { "criterion": "Current, planned, conceptual, and not-claimable sections are separated.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md"] },
+        { "criterion": "Validation commands and expected blocked mainnet gate are recorded.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md"] },
+        { "criterion": "Report hash workflow does not broadcast transactions.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md"] }
+      ],
+      "evidenceFiles": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md"],
+      "verificationCommands": ["npm run claims", "npm run value", "node scripts/check-mainnet-readiness.cjs --expect-blocked"],
+      "missingWork": "None for the template; publishing any future report remains a separate reviewed action.",
+      "action": "recommend-close",
+      "reason": "The report template and review packet satisfy all requested structure and safety criteria.",
+      "labels": ["priority:P2", "documentation", "operations"],
+      "milestone": "Community Review Intake",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None for template completion.",
+      "suggestedComment": "Verified section separation, command recording, expected blocked mainnet gate, and SHA-256/no-broadcast workflow. Recommend closing as completed."
+    },
+    {
+      "number": 66,
+      "title": "Collect community preview feedback summary",
+      "status": "blocked externally",
+      "acceptanceCriteria": [
+        { "criterion": "Received feedback is categorized by site, docs, utility, accessibility, and security.", "verified": false, "evidence": ["docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md"] },
+        { "criterion": "Raised risks and next actions are documented from actual feedback.", "verified": false, "evidence": ["docs/reports/REPORT_2026_06_27_COMMUNITY_PREVIEW_FEEDBACK.md"] },
+        { "criterion": "Summary excludes private guest data and unsupported claims.", "verified": true, "evidence": ["docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md", "docs/reports/REPORT_2026_06_27_COMMUNITY_PREVIEW_FEEDBACK.md"] }
+      ],
+      "evidenceFiles": ["docs/utility-pilot/WEEKLY_FEEDBACK_SUMMARY_WORKFLOW.md", "docs/reports/REPORT_2026_06_27_COMMUNITY_PREVIEW_FEEDBACK.md", "docs/utility-pilot/PHASE2_LIVE_GATE_STATUS.md"],
+      "verificationCommands": ["gh issue list --repo denterion/Token-TIkiDeco --state all --search \"label:community-preview -author:denterion\""],
+      "missingWork": "No external community-preview feedback was found. The existing report counts maintainer-created intake issues, not completed external feedback outcomes.",
+      "action": "keep-open",
+      "reason": "A workflow and zero-input baseline exist, but actual feedback is an external dependency and acceptance is not met.",
+      "labels": ["priority:P1", "documentation", "review", "externally-blocked"],
+      "milestone": "Community Review Intake",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "Public reviewer participation without private or sensitive submissions.",
+      "suggestedComment": "Keep open. The workflow is ready, but current evidence contains no external feedback to categorize; maintainer-created intake issues do not satisfy the acceptance criteria."
+    },
+    {
+      "number": 119,
+      "title": "Enforce generated sitemap and canonical route parity",
+      "status": "not started",
+      "acceptanceCriteria": [
+        { "criterion": "Every generated public HTML route has exactly one sitemap and matching canonical URL.", "verified": false, "evidence": ["scripts/check-site-content.cjs", "site/sitemap.xml"] },
+        { "criterion": "Missing and duplicate routes have deterministic failure fixtures.", "verified": false, "evidence": ["scripts/check-site-content.cjs"] }
+      ],
+      "evidenceFiles": ["scripts/check-site-content.cjs", "site/sitemap.xml"],
+      "verificationCommands": ["npm run site", "npm run site:browser"],
+      "missingWork": "Implement full generated-route parity and focused negative fixtures.",
+      "action": "keep-open",
+      "reason": "New reproducible contributor task for a verified checker gap.",
+      "labels": ["priority:P2", "frontend", "ready-for-contributor", "good-first-issue"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None.",
+      "suggestedComment": "Ready for a contributor; deterministic and network-free acceptance criteria and local commands are in the issue body."
+    },
+    {
+      "number": 120,
+      "title": "Add deterministic operator sandbox lifecycle tests",
+      "status": "partially implemented",
+      "acceptanceCriteria": [
+        { "criterion": "Baseline fake-data campaign, inventory, eligibility, decision, close, and aggregate flow is tested.", "verified": true, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"] },
+        { "criterion": "Duplicate-wallet, inventory-exhaustion, repeated-decision, and post-close transitions are tested.", "verified": false, "evidence": ["scripts/run-operator-sandbox.cjs"] },
+        { "criterion": "Audit-log ordering and aggregate count consistency are asserted after rejected transitions.", "verified": false, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"] },
+        { "criterion": "Aggregate report excludes participant and guest data.", "verified": true, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"] }
+      ],
+      "evidenceFiles": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"],
+      "verificationCommands": ["npm run operator-pilot:sandbox", "npm run operator-pilot:check", "npm run site:typecheck", "npm run claims", "npm run value"],
+      "missingWork": "Add duplicate-wallet, inventory exhaustion, repeated-decision, post-close mutation, audit-log ordering, and rejected-transition count assertions.",
+      "action": "keep-open",
+      "reason": "The baseline exists, but important edge-state invariants remain untested and require no private infrastructure.",
+      "labels": ["priority:P1", "operations", "privacy", "ready-for-contributor"],
+      "milestone": "Operator Sandbox",
+      "roadmapQuarter": "Q2 2026-10 to 2026-12",
+      "dependency": "None; fake local data only.",
+      "suggestedComment": "Ready for an intermediate contributor. The issue now records the existing baseline and only the missing edge-state invariants; no private infrastructure is required."
+    },
+    {
+      "number": 121,
+      "title": "Select independent reviewer and initiate frozen V2 review",
+      "status": "blocked externally",
+      "acceptanceCriteria": [
+        { "criterion": "Qualified independent reviewer is selected with conflict and methodology evidence.", "verified": false, "evidence": ["docs/REVIEWER_SELECTION_CHECKLIST.md", "docs/REVIEWER_CONFLICT_POLICY.md"] },
+        { "criterion": "Exact immutable package is handed off with retest and disclosure terms.", "verified": false, "evidence": ["docs/REVIEWER_HANDOFF_CHECKLIST.md", "config/audit/v2-review-candidate.json"] }
+      ],
+      "evidenceFiles": ["docs/REVIEWER_SELECTION_CHECKLIST.md", "docs/REVIEWER_CONFLICT_POLICY.md", "docs/REVIEWER_HANDOFF_CHECKLIST.md", "config/audit/v2-review-candidate.json"],
+      "verificationCommands": ["npm run review:candidate:check", "npm run review:handoff:check", "npm run findings:check", "npm run claims", "npm run value"],
+      "missingWork": "Select and contract a real qualified independent reviewer, approve budget, and record handoff evidence.",
+      "action": "keep-open",
+      "reason": "External validation cannot be completed by repository code or a contributor PR.",
+      "labels": ["priority:P0", "security", "review", "externally-blocked"],
+      "milestone": "External Validation",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "Qualified reviewer, conflict review, procurement, budget, and disclosure agreement.",
+      "suggestedComment": "Externally blocked. Keep open until a real reviewer is selected and the exact immutable package is formally handed off. Do not label this ready-for-contributor."
+    }
+  ],
+  "contributorTasks": [
+    {
+      "issueNumber": 63,
+      "level": "beginner",
+      "commands": ["npm run site", "npm run site:browser", "npm run claims", "npm run value"],
+      "requiresSecrets": false,
+      "requiresPrivateInfrastructure": false,
+      "requiresMainnet": false,
+      "changesTokenEconomics": false
+    },
+    {
+      "issueNumber": 119,
+      "level": "beginner",
+      "commands": ["npm run site", "npm run site:browser"],
+      "requiresSecrets": false,
+      "requiresPrivateInfrastructure": false,
+      "requiresMainnet": false,
+      "changesTokenEconomics": false
+    },
+    {
+      "issueNumber": 120,
+      "level": "intermediate",
+      "commands": ["npm run operator-pilot:sandbox", "npm run operator-pilot:check", "npm run site:typecheck", "npm run claims", "npm run value"],
+      "requiresSecrets": false,
+      "requiresPrivateInfrastructure": false,
+      "requiresMainnet": false,
+      "changesTokenEconomics": false
+    }
+  ]
+}
