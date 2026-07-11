@@ -1,0 +1,43 @@
+name: Community review question
+description: Ask a public, non-sensitive question about V2 scope, assumptions, known issues, or reviewer evidence.
+title: "[Community review question]: "
+labels:
+  - audit-readiness
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Review candidate: `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`
+
+        V1 remains canonical legacy. V2 remains a non-canonical review candidate. Community peer review is not a formal audit.
+
+        Do not submit private keys, seed phrases, passwords, RPC credentials, private user data, private guest data, exploit details, or sensitive vulnerability information. Use SECURITY.md for private reports.
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Scope or exclusion
+        - Access control
+        - Vesting accounting
+        - Pause behavior
+        - Reports and metadata
+        - Deployment guardrails
+        - Known issue or owner decision
+        - Reproduction evidence
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: Include the exact file, line, or document when applicable.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public_safe
+    attributes:
+      label: Public-safety confirmation
+      options:
+        - label: This question is public-safe and contains no sensitive vulnerability details or private data.
+          required: true

@@ -9,6 +9,8 @@ const releaseEvidence = JSON.parse(fs.readFileSync(path.join(root, "config", "re
 const publicVersions = JSON.parse(fs.readFileSync(path.join(root, "config", "public-versions.json"), "utf8"));
 const pilotCampaign = JSON.parse(fs.readFileSync(path.join(root, "config", "utility-pilot", "tide-community-preview-001.json"), "utf8"));
 const v2Review = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "v2-independent-review.json"), "utf8"));
+const v2ReviewCandidate = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "v2-review-candidate.json"), "utf8"));
+const communityReview = JSON.parse(fs.readFileSync(path.join(root, "config", "community-review", "status.json"), "utf8"));
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
 const v01ReleaseCommit = publicVersions.publishedReleases.find((release) => release.tag === "v0.1.0-sepolia").sourceCommit;
@@ -34,6 +36,13 @@ const evidenceFreshness = currentEvidenceCommit === currentMainCommit
 const repoBlob = "https://github.com/denterion/Token-TIkiDeco/blob/main";
 const evidenceReportUrl = `${repoBlob}/${releaseEvidence.transparencyReport}`;
 const evidenceHashReportUrl = `${repoBlob}/${releaseEvidence.transparencyReport.replace(/\.md$/, "_HASH.md")}`;
+const candidateTree = `https://github.com/denterion/Token-TIkiDeco/tree/${communityReview.candidateCommit}`;
+const candidateBlob = `https://github.com/denterion/Token-TIkiDeco/blob/${communityReview.candidateCommit}`;
+const freezeBlob = `https://github.com/denterion/Token-TIkiDeco/blob/${communityReview.freezeCommit}`;
+const definitionBlob = `https://github.com/denterion/Token-TIkiDeco/blob/${communityReview.definitionCommit}`;
+const reviewerAcknowledgements = communityReview.reviewersAcknowledged.length > 0
+  ? communityReview.reviewersAcknowledged.join(", ")
+  : "No reviewers have been acknowledged yet";
 
 const baseUrl = "https://tikideco.xyz";
 const pages = [
@@ -89,6 +98,7 @@ const pages = [
         ["Dependency audit", "npm advisory scan only; not an independent smart-contract audit", `${repoBlob}/package.json`]
       ]],
       ["Public Paths", [
+        ["V2 community review", "Exact candidate, checksum, reproduction, findings, and reporting paths", "/community-review/"],
         ["Security reporting", "GitHub private vulnerability reporting and SECURITY.md", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"],
         ["Public feedback", "GitHub issue forms for non-sensitive feedback", "https://github.com/denterion/Token-TIkiDeco/issues/new/choose"],
         ["Participation status", "Issues enabled; Discussions disabled", `${repoBlob}/docs/PUBLIC_PARTICIPATION.md`],
@@ -104,6 +114,65 @@ const pages = [
       ["Known Issues", `${repoBlob}/KNOWN_ISSUES.md`]
     ],
     disclaimer: "TIDE is a Sepolia testnet prototype: no sale, no stated monetary value, no mainnet deployment, no active guest benefit, and independent audit not started."
+  },
+  {
+    path: "community-review/index.html",
+    title: "V2 Community Review",
+    description: "Public peer-review path for the exact frozen, non-canonical TikiDeco V2 candidate.",
+    eyebrow: "Open community peer review",
+    heading: "Review the frozen V2 candidate",
+    intro: "Verify one immutable candidate, reproduce its evidence, inspect known questions, and use the appropriate public or private reporting path.",
+    sections: [
+      ["Review Identity", [
+        ["Current review status", communityReview.status, `${repoBlob}/config/community-review/status.json`],
+        ["Review candidate source commit", communityReview.candidateCommit, candidateTree],
+        ["Frozen V2 code commit", communityReview.freezeCommit, `https://github.com/denterion/Token-TIkiDeco/commit/${communityReview.freezeCommit}`],
+        ["Package SHA-256", communityReview.packageSha256, `${definitionBlob}/config/audit/v2-review-candidate.json`],
+        ["Formal independent audit", communityReview.formalAuditStatus, `${repoBlob}/SECURITY.md`],
+        ["Opened", communityReview.openedAt, `${repoBlob}/config/community-review/status.json`]
+      ]],
+      ["Contracts And Scripts In Scope", [
+        ["Token candidate", "contracts/TikiDecoTokenV2.sol", `${freezeBlob}/contracts/TikiDecoTokenV2.sol`],
+        ["Vesting candidate", "contracts/TikiDecoVestingVaultV2.sol", `${freezeBlob}/contracts/TikiDecoVestingVaultV2.sol`],
+        ["Deployment guard", "scripts/deploy-v2.cjs", `${freezeBlob}/scripts/deploy-v2.cjs`],
+        ["Candidate tooling", v2ReviewCandidate.reviewTooling.join(", "), `${definitionBlob}/config/audit/v2-review-candidate.json`]
+      ]],
+      ["Tests And Review Evidence", [
+        ["Hardhat tests", v2ReviewCandidate.tests.filter((file) => file.startsWith("test/")).join(", "), `${candidateBlob}/test`],
+        ["Foundry tests", v2ReviewCandidate.tests.filter((file) => file.startsWith("foundry/")).join(", "), `${candidateBlob}/foundry`],
+        ["Known issues", `${v2ReviewCandidate.knownIssues.ids.join(", ")} remain visible for review`, `${candidateBlob}/KNOWN_ISSUES.md`],
+        ["Reviewer questions", "Access control, pause behavior, vesting liabilities, metadata, roles, and Slither classifications", `${candidateBlob}/docs/AUDITOR_QUESTIONS.md`]
+      ]],
+      ["Reproduce", [
+        ["Checkout", `git checkout ${communityReview.candidateCommit}`],
+        ["Focused checks", "npm ci && npm run compile && npm test && npm run foundry:test && npm run slither"],
+        ["Build package", `npm run review:candidate:build -- --commit ${communityReview.candidateCommit}`],
+        ["Expected package SHA-256", communityReview.packageSha256],
+        ["Process check", "npm run community-review:check"]
+      ]],
+      ["Report Or Ask", [
+        ["Public security finding", "Public-safe Medium, Low, or Informational finding", "https://github.com/denterion/Token-TIkiDeco/issues/new?template=community_security_finding.yml"],
+        ["Reproducibility issue", "Broken command, checksum, scope, or immutable link", "https://github.com/denterion/Token-TIkiDeco/issues/new?template=community_reproducibility_issue.yml"],
+        ["Test suggestion", "Focused Hardhat, Foundry, invariant, or deployment-guard test", "https://github.com/denterion/Token-TIkiDeco/issues/new?template=community_test_coverage_suggestion.yml"],
+        ["Review question", "Public non-sensitive scope or technical question", "https://github.com/denterion/Token-TIkiDeco/issues/new?template=community_review_question.yml"],
+        ["Sensitive vulnerability", "Use private vulnerability reporting; do not publish exploitable unresolved Critical or High details", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"]
+      ]],
+      ["Out Of Scope", v2ReviewCandidate.explicitExclusions.map((item) => ["Excluded", item])],
+      ["Acknowledgements", [
+        ["Reviewers acknowledged", reviewerAcknowledgements, `${repoBlob}/config/community-review/status.json`],
+        ["Public findings", String(communityReview.publicFindingsCount), `${repoBlob}/config/community-review/status.json`],
+        ["Private findings disclosed as aggregate", String(communityReview.privateFindingsCountPubliclyDisclosedAsAggregate), `${repoBlob}/config/community-review/status.json`]
+      ]]
+    ],
+    links: [
+      ["Community Review Guide", `${repoBlob}/docs/community-review/COMMUNITY_REVIEW_GUIDE.md`],
+      ["Finding Lifecycle", `${repoBlob}/docs/community-review/FINDING_LIFECYCLE.md`],
+      ["Exact candidate source", candidateTree],
+      ["Immutable candidate definition", `${definitionBlob}/config/audit/v2-review-candidate.json`],
+      ["Security policy", `${repoBlob}/SECURITY.md`],
+      ["Private vulnerability reporting", "https://github.com/denterion/Token-TIkiDeco/security/advisories/new"]
+    ],
+    disclaimer: "Community peer review is not a formal independent smart-contract audit. V2 remains non-canonical and non-deployed. No mainnet, sale, liquidity, listing, stated monetary value, or active hospitality benefit is approved."
   },
   {
     path: "audit/index.html",
@@ -572,6 +641,7 @@ function nav() {
         <a href="/status/">Status</a>
         <a href="/pilot/">Pilot</a>
         <a href="/audit/">Audit</a>
+        <a href="/community-review/">Review</a>
         <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
       </nav>`;
 }
@@ -588,6 +658,7 @@ function legalFooter() {
         <p class="footer-links">
           <a href="/utility/">Utility</a>
           <a href="/trust/">Trust Center</a>
+          <a href="/community-review/">Community Review</a>
           <a href="/proof/">Proof Pack</a>
           <a href="${evidenceReportUrl}" target="_blank" rel="noopener noreferrer">Evidence Report</a>
           <a href="/pilot/">Pilot</a>

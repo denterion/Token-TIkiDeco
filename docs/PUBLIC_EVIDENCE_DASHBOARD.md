@@ -28,6 +28,19 @@ Current evidence baseline:
 3. Final evidence report: `docs/reports/REPORT_2026_07_11_V02_FINAL_EVIDENCE.md`
 4. Pilot proof pack: `docs/PILOT_PROOF_PACK.md`
 5. Release Control Center: `docs/RELEASE_CONTROL_CENTER.md`
+6. V2 Community Review: `https://tikideco.xyz/community-review/`
+
+## Community Review Evidence
+
+| Field | Value |
+| --- | --- |
+| Candidate source commit | `cdc9e7e27e66f204c50d59e45ccf970ad20290d6` |
+| Frozen V2 commit | `9099fdb87a6be715b1d7fd4fafa6fade0b12b61c` |
+| Package SHA-256 | `980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2` |
+| Community review status | open peer review; not a formal audit |
+| Formal independent audit | not started |
+
+Public-safe findings and questions use the forms linked from the Community Review page. Sensitive vulnerabilities must follow `SECURITY.md` and private vulnerability reporting.
 
 ## Reproduce The Evidence Check
 

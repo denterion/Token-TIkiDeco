@@ -146,3 +146,38 @@ test("homepage is English-only and loads the desktop product scene", async ({ pa
   await expect(page.getByText(/Read the site in English|Leer el sitio|русском/i)).toHaveCount(0);
   await assertNoHorizontalOverflow(page);
 });
+
+test("community review pins the exact candidate and public-safe reporting paths", async ({ page }) => {
+  const candidateCommit = "cdc9e7e27e66f204c50d59e45ccf970ad20290d6";
+  const packageSha256 = "980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2";
+
+  await page.goto("/community-review/");
+
+  await expect(page.getByRole("heading", { name: "Review the frozen V2 candidate", level: 1 })).toBeVisible();
+  await expect(page.locator("main")).toContainText(candidateCommit);
+  await expect(page.locator("main")).toContainText(packageSha256);
+  await expect(page.locator(".audit-disclaimer")).toContainText("Community peer review is not a formal independent smart-contract audit");
+  await expect(page.getByText("No reviewers have been acknowledged yet", { exact: true })).toBeVisible();
+
+  expect(await page.locator(`a[href*="/tree/${candidateCommit}"]`).count()).toBeGreaterThan(0);
+  expect(await page.locator("a[href='https://github.com/denterion/Token-TIkiDeco/security/advisories/new']").count()).toBeGreaterThan(0);
+  await expect(page.getByRole("button", { name: /buy|connect wallet|approve|transfer|transaction/i })).toHaveCount(0);
+
+  const publicText = await page.locator("main").innerText();
+  expect(publicText).not.toMatch(/V2 is canonical|community review is a completed audit|mainnet live|buy TIDE/i);
+  await assertNoHorizontalOverflow(page);
+});
+
+test("keyboard navigation opens the Community Review route", async ({ page, isMobile }) => {
+  await page.goto("/");
+  const topNav = page.locator("header.top-nav");
+
+  if (isMobile) await topNav.getByRole("button", { name: /Open navigation/i }).click();
+
+  const reviewLink = topNav.getByRole("link", { name: "Review", exact: true });
+  await reviewLink.focus();
+  await expect(reviewLink).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/community-review\/$/);
+  await expect(page.getByRole("heading", { name: "Review the frozen V2 candidate", level: 1 })).toBeVisible();
+});

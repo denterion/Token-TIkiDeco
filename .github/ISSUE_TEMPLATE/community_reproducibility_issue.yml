@@ -1,0 +1,55 @@
+name: Documentation or reproducibility issue
+description: Report a broken command, checksum mismatch, unclear scope, or documentation inconsistency.
+title: "[Community review reproducibility]: "
+labels:
+  - audit-readiness
+  - documentation
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Review candidate: `cdc9e7e27e66f204c50d59e45ccf970ad20290d6`
+
+        V2 is non-canonical and non-deployed. Community peer review is not a formal audit.
+
+        Do not submit private keys, seed phrases, passwords, RPC credentials, private user data, private guest data, or sensitive vulnerability details. Follow SECURITY.md for private reports.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Reproduction command
+        - Package checksum
+        - Scope documentation
+        - Dependency or tool version
+        - Broken immutable link
+        - Other documentation
+    validations:
+      required: true
+  - type: input
+    id: candidate_commit
+    attributes:
+      label: Candidate commit tested
+      placeholder: cdc9e7e27e66f204c50d59e45ccf970ad20290d6
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node/npm, Foundry, Slither, and relevant command versions.
+    validations:
+      required: true
+  - type: textarea
+    id: command_and_result
+    attributes:
+      label: Command and observed result
+      description: Remove credentials and private filesystem details before submitting.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true

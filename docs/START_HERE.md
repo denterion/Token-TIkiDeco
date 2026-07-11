@@ -58,11 +58,13 @@ Goal: compare TikiDeco against hospitality loyalty, web3 travel, and loyalty-inf
 
 Start with:
 
+- [Community Review page](https://tikideco.xyz/community-review/)
+- [`community-review/COMMUNITY_REVIEW_GUIDE.md`](community-review/COMMUNITY_REVIEW_GUIDE.md)
 - [`EXTERNAL_AUDIT_READINESS.md`](EXTERNAL_AUDIT_READINESS.md)
 - [`V2_AUDIT_OWNER_DECISIONS.md`](V2_AUDIT_OWNER_DECISIONS.md)
 - [`../KNOWN_ISSUES.md`](../KNOWN_ISSUES.md)
 
-Goal: review V2 candidate scope, known issues, role decisions, Slither baseline, and test evidence without treating V2 as canonical.
+Goal: review the exact V2 candidate, package checksum, known issues, role decisions, Slither baseline, and test evidence without treating V2 as canonical or community review as a formal audit.
 
 ### Legal / Governance Reviewer
 
@@ -79,6 +81,7 @@ Goal: review public boundaries, governance decisions, value/sale restrictions, p
 ```bash
 npm run project:control
 npm run trust:check
+npm run community-review:check
 npm run claims
 npm run value
 npm run site

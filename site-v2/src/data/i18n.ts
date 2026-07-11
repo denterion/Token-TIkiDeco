@@ -22,6 +22,7 @@ export const siteCopy = {
     status: "Status",
     pilot: "Pilot",
     audit: "Audit",
+    review: "Review",
     feedback: "Feedback"
   },
   hero: {

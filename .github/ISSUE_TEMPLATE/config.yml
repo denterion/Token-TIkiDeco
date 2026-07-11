@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+  - name: V2 Community Review
+    url: https://tikideco.xyz/community-review/
+    about: Verify the exact non-canonical candidate, scope, checksum, reproduction commands, and reporting paths.
   - name: Public Trust Center
     url: https://tikideco.xyz/trust/
     about: Verify releases, evidence, canonical contracts, operator status, limitations, and participation paths.
