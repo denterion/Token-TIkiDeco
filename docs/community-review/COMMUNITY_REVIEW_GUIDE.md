@@ -1,5 +1,7 @@
 # TikiDeco V2 Community Review Guide
 
+Current public-safe aggregate finding state: [`/community-review/findings/`](https://tikideco.xyz/community-review/findings/). Triage and remediation rules: [`FINDING_TRIAGE_PLAYBOOK.md`](FINDING_TRIAGE_PLAYBOOK.md).
+
 Status: open community peer review of a frozen, non-canonical and non-deployed V2 candidate. Community review is not a formal independent smart-contract audit and does not approve deployment.
 
 ## Immutable Review Identity

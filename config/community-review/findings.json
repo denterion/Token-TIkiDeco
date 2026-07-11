@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateVersion": "v2-community-review-1",
+  "candidateCommit": "cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+  "packageSha256": "980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2",
+  "candidateHistory": [],
+  "findings": []
+}

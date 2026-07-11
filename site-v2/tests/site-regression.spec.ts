@@ -168,6 +168,23 @@ test("community review pins the exact candidate and public-safe reporting paths"
   await assertNoHorizontalOverflow(page);
 });
 
+test("aggregate findings page is public-safe and mobile readable", async ({ page }) => {
+  const candidateCommit = "cdc9e7e27e66f204c50d59e45ccf970ad20290d6";
+
+  await page.goto("/community-review/findings/");
+
+  await expect(page.getByRole("heading", { name: "Community findings, without sensitive details", level: 1 })).toBeVisible();
+  await expect(page.locator("main")).toContainText(candidateCommit);
+  await expect(page.getByText("Total submitted", { exact: true })).toBeVisible();
+  await expect(page.getByText("Sensitive details", { exact: true })).toBeVisible();
+  await expect(page.getByText("Not displayed on this page", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: /buy|connect wallet|approve|transfer|transaction/i })).toHaveCount(0);
+
+  const publicText = await page.locator("main").innerText();
+  expect(publicText).not.toMatch(/V2 is canonical|community review is a completed audit|mainnet live|buy TIDE/i);
+  await assertNoHorizontalOverflow(page);
+});
+
 test("keyboard navigation opens the Community Review route", async ({ page, isMobile }) => {
   await page.goto("/");
   const topNav = page.locator("header.top-nav");

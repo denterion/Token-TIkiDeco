@@ -42,6 +42,8 @@ Current evidence baseline:
 
 Public-safe findings and questions use the forms linked from the Community Review page. Sensitive vulnerabilities must follow `SECURITY.md` and private vulnerability reporting.
 
+Aggregate finding state is published at [`/community-review/findings/`](https://tikideco.xyz/community-review/findings/) and validated with `npm run findings:check`. Zero means no findings are currently recorded in the registry; it is not a conclusion that vulnerabilities do not exist.
+
 ## Reproduce The Evidence Check
 
 ```bash
