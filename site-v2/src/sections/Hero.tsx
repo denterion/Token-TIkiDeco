@@ -7,14 +7,13 @@ type HeroCopy = {
   eyebrow: string;
   title: string;
   subtitle: string;
+  context: string;
   badges: readonly string[];
   actionsAria: string;
-  contracts: string;
-  facts: string;
+  primaryAction: string;
+  statusAction: string;
   repo: string;
   note: string;
-  guideTitle: string;
-  guideItems: readonly string[];
 };
 
 export function Hero({ copy }: { copy: HeroCopy }) {
@@ -24,19 +23,20 @@ export function Hero({ copy }: { copy: HeroCopy }) {
       <p className="eyebrow">{copy.eyebrow}</p>
       <h1>{copy.title}</h1>
       <p className="hero-subtitle">{copy.subtitle}</p>
+      <p className="hero-context">{copy.context}</p>
       <div className="badge-row" aria-label="Project status badges">
         {copy.badges.map((badge, index) => (
-          <Badge key={badge} tone={index === 0 ? "cyan" : index === 4 ? "violet" : "neutral"}>
+          <Badge key={badge} tone={index === 0 ? "cyan" : index === 3 ? "violet" : "neutral"}>
             {badge}
           </Badge>
         ))}
       </div>
       <div className="hero-actions" aria-label={copy.actionsAria}>
-        <a className="button button-primary" href={projectFacts.verification.token} {...externalLinkProps(projectFacts.verification.token)}>
-          {copy.contracts}
+        <a className="button button-primary" href="#about">
+          {copy.primaryAction}
         </a>
-        <a className="button button-secondary" href={projectFacts.links.projectFacts} {...externalLinkProps(projectFacts.links.projectFacts)}>
-          {copy.facts}
+        <a className="button button-secondary" href="#status">
+          {copy.statusAction}
         </a>
         <a className="button button-ghost" href={projectFacts.links.repository} {...externalLinkProps(projectFacts.links.repository)}>
           {copy.repo}

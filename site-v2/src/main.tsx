@@ -9,7 +9,8 @@ import { CampaignLifecycle } from "./components/CampaignLifecycle";
 import { PreviewFeedbackPanel } from "./components/PreviewFeedbackPanel";
 import { ProjectStatus } from "./sections/ProjectStatus";
 import { Transparency } from "./sections/Transparency";
-import { copy, defaultLocale, locales, type Locale } from "./data/i18n";
+import { OneMinuteBrief } from "./sections/OneMinuteBrief";
+import { siteCopy } from "./data/i18n";
 import "./styles/site.css";
 import { previewMetrics } from "./lib/previewMetrics";
 
@@ -36,13 +37,9 @@ function useShouldRender3D() {
 
 function App() {
   const shouldRender3D = useShouldRender3D();
-  const [locale, setLocale] = useState<Locale>(defaultLocale);
-  const t = copy[locale];
+  const [navOpen, setNavOpen] = useState(false);
+  const t = siteCopy;
   const pilotRoute = window.location.pathname.startsWith("/pilot");
-
-  useEffect(() => {
-    document.documentElement.lang = locale;
-  }, [locale]);
 
   useEffect(() => {
     previewMetrics.recordPageSession();
@@ -59,34 +56,27 @@ function App() {
             <span className="wordmark-dot" aria-hidden="true" />
             <span>TikiDeco</span>
           </a>
-          <div className="nav-cluster">
-            <nav aria-label={t.sectionsAria}>
-              <a href="/trust/">{t.nav.trust}</a>
-              <a href="#status">{t.nav.status}</a>
-              <a href="/pilot/">{t.nav.pilot}</a>
-              <a href="#audit">{t.nav.audit}</a>
-              <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">
-                {t.nav.feedback}
-              </a>
-            </nav>
-            <div className="language-switcher" aria-label={t.language}>
-              {locales.map((item) => (
-                <button
-                  key={item.code}
-                  type="button"
-                  aria-label={item.aria}
-                  aria-pressed={locale === item.code}
-                  className={locale === item.code ? "active" : ""}
-                  onClick={() => {
-                    setLocale(item.code);
-                    previewMetrics.recordLanguage(item.code);
-                  }}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
+          <button
+            className="nav-toggle"
+            type="button"
+            aria-label={navOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={navOpen}
+            aria-controls="primary-nav"
+            onClick={() => setNavOpen((open) => !open)}
+          >
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+            <span aria-hidden="true" />
+          </button>
+          <nav id="primary-nav" aria-label={t.sectionsAria} data-open={navOpen} onClick={() => setNavOpen(false)}>
+            <a href="/trust/">{t.nav.trust}</a>
+            <a href="/#status">{t.nav.status}</a>
+            <a href="/pilot/">{t.nav.pilot}</a>
+            <a href="/#audit">{t.nav.audit}</a>
+            <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">
+              {t.nav.feedback}
+            </a>
+          </nav>
         </header>
         <main id="main" className={pilotRoute ? "pilot-route" : undefined}>
           {!pilotRoute ? <section className="hero-wrap" aria-label="TikiDeco overview">
@@ -102,10 +92,11 @@ function App() {
             <Hero copy={t.hero} />
           </section> : null}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6 }}>
+            {!pilotRoute ? <OneMinuteBrief copy={t.brief} /> : null}
             {!pilotRoute ? <ProjectStatus copy={t.status} rows={t.statusRows} /> : null}
-            <PilotEligibilityCard />
-            <CampaignLifecycle />
-            <PreviewFeedbackPanel />
+            {pilotRoute ? <PilotEligibilityCard /> : null}
+            {pilotRoute ? <CampaignLifecycle /> : null}
+            {pilotRoute ? <PreviewFeedbackPanel /> : null}
             {!pilotRoute ? <Transparency copy={t.transparency} /> : null}
             {!pilotRoute ? <AuditReadiness copy={t.audit} /> : null}
           </motion.div>

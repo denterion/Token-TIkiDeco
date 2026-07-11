@@ -46,21 +46,26 @@ async function checkSepoliaBalanceWithKeyboard(page: Page) {
   await page.keyboard.press("Enter");
 }
 
-test("homepage explains current status and avoids transaction CTAs", async ({ page }) => {
+test("homepage explains current status and avoids transaction CTAs", async ({ page, isMobile }) => {
   await page.goto("/");
 
   await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
-  await expect(page.getByText("SEPOLIA TESTNET - NO MONETARY VALUE")).toBeVisible();
+  await expect(page.getByText("ETHEREUM SEPOLIA - NO MONETARY VALUE")).toBeVisible();
   await expect(page.getByText(/No Sale/i).first()).toBeVisible();
   await expect(page.getByText(/not independently audited/i).first()).toBeVisible();
   const topNav = page.locator("header.top-nav");
+  if (isMobile) {
+    await topNav.getByRole("button", { name: /Open navigation/i }).click();
+    await expect(topNav.getByRole("button", { name: /Close navigation/i })).toBeVisible();
+  }
   await expect(topNav.getByRole("link", { name: /Trust/i })).toBeVisible();
   await expect(topNav.getByRole("link", { name: /Status/i })).toBeVisible();
   await expect(topNav.getByRole("link", { name: /^Pilot$/i })).toBeVisible();
   await expect(topNav.getByRole("link", { name: /Audit/i })).toBeVisible();
   await expect(topNav.getByRole("link", { name: /Feedback/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /A loyalty experiment with public proof/i })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Current status in one panel/i })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /TIDE Loyalty Pilot eligibility flow/i })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /TIDE Loyalty Pilot eligibility flow/i })).toHaveCount(0);
 
   await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer/i })).toHaveCount(0);
   await expect(page.getByText(/not offered for sale/i).first()).toBeVisible();
@@ -107,7 +112,7 @@ test("Trust Center separates releases, main, and evidence with source links", as
 
 test("eligibility card handles RPC unavailable without fake zero data", async ({ page }) => {
   await mockRpcUnavailable(page);
-  await page.goto("/");
+  await page.goto("/pilot/");
 
   await page.getByLabel("Wallet address").fill(validWallet);
   await checkSepoliaBalanceWithKeyboard(page);
@@ -120,7 +125,7 @@ test("eligibility card handles RPC unavailable without fake zero data", async ({
 
 test("eligibility card displays mocked sufficient Sepolia balance as live read-only data", async ({ page }) => {
   await mockRpcBalance(page, 150n * 10n ** 18n);
-  await page.goto("/");
+  await page.goto("/pilot/");
 
   await page.getByLabel("Wallet address").fill(validWallet);
   await checkSepoliaBalanceWithKeyboard(page);
@@ -132,12 +137,12 @@ test("eligibility card displays mocked sufficient Sepolia balance as live read-o
   await expect(page.getByText(/No transaction button/i)).toBeVisible();
 });
 
-test("localized long strings remain readable without horizontal overflow", async ({ page }) => {
+test("homepage is English-only and loads the desktop product scene", async ({ page, isMobile }) => {
+  test.skip(isMobile, "desktop scene regression");
   await page.goto("/");
 
-  for (const locale of [/espanol/i, /русском/i]) {
-    await page.getByRole("button", { name: locale }).click();
-    await expect(page.getByRole("heading", { name: "TikiDeco", level: 1 })).toBeVisible();
-    await assertNoHorizontalOverflow(page);
-  }
+  await expect(page.locator(".language-switcher")).toHaveCount(0);
+  await expect(page.locator(".scene-layer canvas")).toBeVisible();
+  await expect(page.getByText(/Read the site in English|Leer el sitio|русском/i)).toHaveCount(0);
+  await assertNoHorizontalOverflow(page);
 });

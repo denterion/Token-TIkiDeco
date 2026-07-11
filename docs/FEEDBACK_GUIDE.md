@@ -45,7 +45,7 @@ Preferred framing:
 
 ## Translation Review
 
-For EN/ES/RU review, check:
+The current public site is English-only. Before publishing any future translation, check:
 
 - the same project boundary appears in every language;
 - no language implies a sale or current monetary value;

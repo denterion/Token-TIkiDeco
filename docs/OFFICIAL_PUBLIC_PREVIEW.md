@@ -33,7 +33,7 @@ The preview should answer five questions quickly:
 
 - Ethereum Sepolia V1 token and vesting vault are the canonical historical testnet deployment.
 - The owner is the Sepolia Safe recorded in the canonical manifest.
-- The public site is read-only and includes EN/ES/RU user-facing copy.
+- The current public site is read-only and uses English user-facing copy only.
 - A read-only eligibility flow exists for the planned utility-pilot UI.
 - Public claims checks, value checks, site checks, browser regression checks, and Solidity tests are configured.
 - The v0.2 utility-pilot RC is documented, but not published as a live campaign.
