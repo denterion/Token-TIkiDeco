@@ -14,6 +14,7 @@ Current evidence baseline:
 | Candidate document | `docs/releases/v0.2.1-public-review.md` |
 | Evidence date | 2026-07-12 |
 | Current main snapshot | `3d5c207b133e4b86459bdc173b78422315a0c744` |
+| Evidence tooling commit | `d1cb1157a771beff3087e490034ec074203c7c66` |
 | Evidence report | `docs/reports/MONTHLY_REPORT_2026_07.md` |
 | Pilot campaign | `draft-not-live` |
 | Mainnet | not approved |
@@ -56,7 +57,7 @@ npm run site
 The v0.2.1 draft bundle is reproduced with:
 
 ```bash
-npm run release:v021:build -- --commit 3d5c207b133e4b86459bdc173b78422315a0c744
+npm run release:v021:build -- --commit 3d5c207b133e4b86459bdc173b78422315a0c744 --evidence-commit d1cb1157a771beff3087e490034ec074203c7c66
 npm run release:v021:check
 ```
 
@@ -65,8 +66,8 @@ npm run release:v021:check
 | Item | SHA-256 |
 | --- | --- |
 | Source archive | `edd2e3c69982e98db9654c906640fd745e8197d57e0fcd44175a945f766cbad9` |
-| Package manifest | `73a1d2eb60b04321a348e8cf64f28d87ba0569f1869180585977253b49aa893f` |
-| `SHA256SUMS.txt` | `fae97083171cc55e8dc8c8b5075dd0ced9cebf93f2ab6e4196a7e5a00a5df635` |
+| Package manifest | `3c62dfaf24047b0cbbce87257990a9431a8edf1a234c102b4db98735c7019343` |
+| `SHA256SUMS.txt` | `89b2e09260d9ac99fb0c1881b1ce6bf83b0f426905733364aa5dc308314fb034` |
 | Monthly report body | `b5bccd3e7571e657673e415680ac1d6035e6cf870431be0330be134eb539618f` |
 | Monthly report file | `380a806fba2189cefdd6160b6e5f485cf304e46856155af9ae4d3239abd8ca3c` |
 
