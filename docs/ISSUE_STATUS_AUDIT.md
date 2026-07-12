@@ -2,7 +2,7 @@
 
 Audit date: 2026-07-12
 
-Repository snapshot: `13de31d5480a9ae43e1f98e15c0a0e2fb082ab8e`
+Repository snapshot: `99c609e43fc8faa70ae57ac1b79d938b8eaeee28`
 
 Machine-readable actions: [`../operations/github/issue-actions.json`](../operations/github/issue-actions.json)
 
@@ -12,11 +12,11 @@ An issue is marked `completed` only when every acceptance criterion has reposito
 
 | Status | Count |
 | --- | ---: |
-| Completed | 9 |
-| Partially implemented | 1 |
+| Completed | 11 |
+| Partially implemented | 0 |
 | Superseded | 1 |
 | Blocked externally | 3 |
-| Not started | 2 |
+| Not started | 3 |
 | Implemented but not verified | 0 |
 | Duplicate | 0 |
 
@@ -36,25 +36,27 @@ An issue is marked `completed` only when every acceptance criterion has reposito
 | [#64](https://github.com/denterion/Token-TIkiDeco/issues/64) Review EN/ES/RU utility-pilot translations | superseded | Repository facts verify the current site is English-only; historical translation files do not satisfy current UI acceptance criteria. | `npm run site:browser`; `npm run claims`; `npm run value` | Maintainer must rescope future translation review or archive it after a documented decision. | Update scope; do not close as completed. | Community Review Intake / Q1 | Translation product-scope decision. |
 | [#65](https://github.com/denterion/Token-TIkiDeco/issues/65) Prepare transparency update template for v0.2 RC | completed | Current/planned/conceptual/not-claimable separation, validation commands, blocked mainnet state and no-broadcast hash flow are documented. Monthly source-linked report generation and checksum verification now provide stronger executable evidence. | `npm run transparency:monthly:build`; `npm run transparency:monthly:check`; `npm run claims`; `npm run value` | None for template preparation. | Recommend close with evidence; do not close automatically. | Community Review Intake / Q1 | None. |
 | [#66](https://github.com/denterion/Token-TIkiDeco/issues/66) Collect community preview feedback summary | blocked externally | Privacy-safe workflow exists, but the existing report counts maintainer-created intake issues; search found no external community-preview submissions. | `gh issue list --search "label:community-preview -author:denterion"` | Receive and aggregate real public feedback without private data. | Keep open; do not manufacture feedback. | Community Review Intake / Q1 | External reviewer participation. |
-| [#119](https://github.com/denterion/Token-TIkiDeco/issues/119) Enforce generated sitemap and canonical route parity | not started | Current checker verifies selected URLs, not complete generated route parity or duplicate negative fixtures. | `npm run site`; `npm run site:browser` | Implement deterministic route-set parity and fixtures. | Keep open; good first issue. | Public Preview Hardening / Q1 | None. |
-| [#120](https://github.com/denterion/Token-TIkiDeco/issues/120) Add deterministic operator sandbox lifecycle tests | partially implemented | Baseline campaign/inventory/decision/close/privacy flow passes. Duplicate-wallet, inventory-exhaustion, repeated-decision, post-close and audit-log invariants are not tested. | `npm run operator-pilot:sandbox`; `npm run operator-pilot:check`; `npm run site:typecheck` | Add the focused edge-state assertions using fake local data. | Keep open; contributor-ready. | Operator Sandbox / Q2 | None; fake local data only. |
+| [#119](https://github.com/denterion/Token-TIkiDeco/issues/119) Enforce generated sitemap and canonical route parity | completed | Generated route inventory, exact sitemap/canonical parity, exclusions and normalization fixtures merged in PR #129. | `npm run routes:check`; `npm run sitemap:check`; `npm run canonical:check`; `npm run site` | None for recorded criteria. | Closed by merged PR #129; retain evidence. | Public Preview Hardening / Q1 | None. |
+| [#120](https://github.com/denterion/Token-TIkiDeco/issues/120) Add deterministic operator sandbox lifecycle tests | completed | Duplicate-wallet, inventory exhaustion, immutable decisions, paused/closed transitions, audit reconciliation and malformed-state fixtures merged in PR #130. | `npm run operator-pilot:check`; `npm run operator-sandbox:invariants`; `npm run operator-sandbox:fixtures` | None for recorded criteria. | Closed by merged PR #130; retain evidence. | Operator Sandbox / Q2 | None. |
 | [#121](https://github.com/denterion/Token-TIkiDeco/issues/121) Select independent reviewer and initiate frozen V2 review | blocked externally | Selection, conflict and handoff documents exist; no real reviewer, contract, budget approval or handoff evidence exists. | `npm run review:candidate:check`; `npm run review:handoff:check`; `npm run findings:check` | Select a qualified independent reviewer and record real procurement/handoff evidence. | Keep open; maintainer/external task. | External Validation / Q1 | Reviewer, conflict review, budget and agreement. |
 | [#127](https://github.com/denterion/Token-TIkiDeco/issues/127) Add deterministic landmark and heading hierarchy checks | not started | No route-wide landmark/heading-order assertions exist yet. | `npm run site`; `npm run site:browser`; `npm run claims`; `npm run value` | Add deterministic desktop/mobile semantic-structure checks. | Keep open; good first issue. | Public Preview Hardening / Q1 | None. |
+| [#132](https://github.com/denterion/Token-TIkiDeco/issues/132) Add negative fixtures for reviewer outreach gates | not started | Outreach/intake checks exist, but focused negative fixtures do not. | `npm run reviewer-outreach:check`; `npm run reviewer-intake:check`; `npm run claims`; `npm run value` | Add fake-only failure fixtures without changing the empty real tracker. | Keep open; good first issue. | Community Review Intake / Q1 | None. |
+| [#133](https://github.com/denterion/Token-TIkiDeco/issues/133) Add browser regression coverage for the public roadmap | not started | Generated roadmap page exists; dedicated desktop/mobile browser evidence is not yet present. | `npm run roadmap:build`; `npm run site`; `npm run site:browser`; `npm run claims`; `npm run value` | Add local browser, landmark, keyboard and mobile assertions for `/roadmap/`. | Keep open; good first issue. | Public Preview Hardening / Q1 | None. |
 
 ## Proposed Close Set
 
 Recommend closing only after a maintainer reviews the suggested evidence comments in the action file:
 
-`#55`, `#56`, `#57`, `#58`, `#59`, `#61`, `#62`, `#63`, `#65`.
+`#55`, `#56`, `#57`, `#58`, `#59`, `#61`, `#62`, `#65`.
 
-No automatic closure was performed. In particular, #60 is not a completed production decision, #64 is superseded rather than completed, and #66 has no real external feedback outcome.
+Issues #63, #119 and #120 were closed by their merged implementation PRs. No other issue was closed by this audit. In particular, #60 is not a completed production decision, #64 is superseded rather than completed, and #66 has no real external feedback outcome.
 
 ## Milestone Board
 
 | Milestone | Current issues | Purpose |
 | --- | --- | --- |
-| Community Review Intake | #56, #64, #65, #66 | Intake rules, public reporting, translation scope and real feedback. |
-| Public Preview Hardening | #55, #57, #58, #59, #61, #63, #119, #127 | Deterministic read-only UI, claims, accessibility, reporting and route integrity. |
+| Community Review Intake | #56, #64, #65, #66, #132 | Intake rules, public reporting, reviewer fixtures, translation scope and real feedback. |
+| Public Preview Hardening | #55, #57, #58, #59, #61, #63, #119, #127, #133 | Deterministic read-only UI, claims, accessibility, reporting and route integrity. |
 | External Validation | #62, #121 | Reproducible package and real independent-review procurement. |
 | Operator Sandbox | #120 | Fake-data operator lifecycle verification. |
 | Future Production Decision | #60 | Explicit external no-go gate; not a coding queue. |
@@ -70,11 +72,11 @@ These labels and all five milestones were created or normalized on GitHub during
 ## Top Five Next Issues
 
 1. [#121](https://github.com/denterion/Token-TIkiDeco/issues/121): select a real independent reviewer and initiate the immutable V2 handoff. P0, externally blocked.
-2. [#120](https://github.com/denterion/Token-TIkiDeco/issues/120): add operator-sandbox edge-state invariants. P1, intermediate.
-3. [#66](https://github.com/denterion/Token-TIkiDeco/issues/66): collect the first real privacy-safe external feedback set. P1, externally blocked on participation.
-4. [#119](https://github.com/denterion/Token-TIkiDeco/issues/119): enforce deterministic sitemap/canonical parity. P2, good first issue.
-5. [#127](https://github.com/denterion/Token-TIkiDeco/issues/127): add route-wide landmark and heading hierarchy checks. P2, good first issue.
+2. [#66](https://github.com/denterion/Token-TIkiDeco/issues/66): collect the first real privacy-safe external feedback set. P1, externally blocked on participation.
+3. [#127](https://github.com/denterion/Token-TIkiDeco/issues/127): add route-wide landmark and heading hierarchy checks. P2, good first issue.
+4. [#132](https://github.com/denterion/Token-TIkiDeco/issues/132): add deterministic negative reviewer-intake fixtures. P2, good first issue.
+5. [#133](https://github.com/denterion/Token-TIkiDeco/issues/133): add local browser coverage for the generated roadmap page. P2, good first issue.
 
 ## Verification Snapshot
 
-The accessibility run passed `eligibility`, typecheck, site, browser, claims, and value gates. Playwright reported 28 passed and 2 intentionally skipped across desktop and mobile. The broader audit-package and mainnet statuses remain unchanged from their separate evidence records.
+Merged evidence now records accessibility (#63), route parity (#119), and operator sandbox invariants (#120) as completed. Reviewer engagement, counsel engagement, real operator evidence, user outcomes, and production approval remain separate and unverified.

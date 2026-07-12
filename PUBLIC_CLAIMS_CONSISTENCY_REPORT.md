@@ -91,6 +91,7 @@ This is a compliance-oriented documentation control, not legal advice.
 - `site/operator-sandbox/why/index.html`
 - `site/pilot/index.html`
 - `site/proof/index.html`
+- `site/roadmap/index.html`
 - `site/status/index.html`
 - `site/trust/index.html`
 - `site/utility/index.html`

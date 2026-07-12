@@ -1,0 +1,87 @@
+{
+  "schemaVersion": "1.0.0",
+  "period": "2026-07",
+  "baselineCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
+  "generatedCommit": "99c609e43fc8faa70ae57ac1b79d938b8eaeee28",
+  "generatedAt": "2026-07-12T00:00:00Z",
+  "quarterCompliance": {
+    "Q1": {
+      "total": 10,
+      "verified": 6,
+      "percent": 60
+    },
+    "Q2": {
+      "total": 4,
+      "verified": 1,
+      "percent": 25
+    },
+    "Q3": {
+      "total": 2,
+      "verified": 0,
+      "percent": 0
+    },
+    "Q4": {
+      "total": 2,
+      "verified": 0,
+      "percent": 0
+    }
+  },
+  "evidenceCompliance": {
+    "internal-engineering": {
+      "total": 9,
+      "verified": 7,
+      "percent": 77.8
+    },
+    "external-reviewer": {
+      "total": 2,
+      "verified": 0,
+      "percent": 0
+    },
+    "legal": {
+      "total": 2,
+      "verified": 0,
+      "percent": 0
+    },
+    "operator": {
+      "total": 1,
+      "verified": 0,
+      "percent": 0
+    },
+    "user": {
+      "total": 2,
+      "verified": 0,
+      "percent": 0
+    },
+    "production-approval": {
+      "total": 2,
+      "verified": 0,
+      "percent": 0
+    }
+  },
+  "changedItems": [
+    {
+      "id": "Q1-ENG-ACCESSIBILITY",
+      "previousStatus": "not-started",
+      "currentStatus": "internally-complete",
+      "sourceCommit": "13de31d5480a9ae43e1f98e15c0a0e2fb082ab8e"
+    },
+    {
+      "id": "Q1-ENG-ROUTE-PARITY",
+      "previousStatus": "not-started",
+      "currentStatus": "internally-complete",
+      "sourceCommit": "0fd3e550568ef099e7c5b05495fdecfc3cd076d6"
+    },
+    {
+      "id": "Q1-ENG-REVIEWER-OUTREACH",
+      "previousStatus": "not-started",
+      "currentStatus": "internally-complete",
+      "sourceCommit": "99c609e43fc8faa70ae57ac1b79d938b8eaeee28"
+    },
+    {
+      "id": "Q2-ENG-OPERATOR-INVARIANTS",
+      "previousStatus": "not-started",
+      "currentStatus": "internally-complete",
+      "sourceCommit": "2c17574736a87ee03edb385f78df06d3cf59c7fc"
+    }
+  ]
+}

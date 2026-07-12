@@ -7,13 +7,12 @@ Source: [`../operations/github/issue-actions.json`](../operations/github/issue-a
 | Issue | Outcome | Local checks |
 | --- | --- | --- |
 | [#127](https://github.com/denterion/Token-TIkiDeco/issues/127) | Add deterministic landmark and heading hierarchy checks across public routes. | `npm run site`; `npm run site:browser`; `npm run claims`; `npm run value` |
-| [#119](https://github.com/denterion/Token-TIkiDeco/issues/119) | Enforce complete generated route, sitemap and canonical URL parity with negative fixtures. | `npm run site`; `npm run site:browser` |
+| [#132](https://github.com/denterion/Token-TIkiDeco/issues/132) | Add fake-only negative fixtures for reviewer outreach and acknowledgement gates. | `npm run reviewer-outreach:check`; `npm run reviewer-intake:check`; `npm run claims`; `npm run value` |
+| [#133](https://github.com/denterion/Token-TIkiDeco/issues/133) | Add deterministic browser and accessibility coverage for the generated roadmap page. | `npm run roadmap:build`; `npm run site`; `npm run site:browser`; `npm run claims`; `npm run value` |
 
 ## Intermediate Tasks
 
-| Issue | Outcome | Local checks |
-| --- | --- | --- |
-| [#120](https://github.com/denterion/Token-TIkiDeco/issues/120) | Extend the existing fake-data baseline with duplicate-wallet, inventory-exhaustion, repeated-decision, post-close and audit-log invariant tests. | `npm run operator-pilot:sandbox`; `npm run operator-pilot:check`; `npm run site:typecheck`; `npm run claims`; `npm run value` |
+No open intermediate task currently meets the public, no-secrets contributor boundary. Add one only when acceptance criteria and local checks are reproducible.
 
 ## Security-Review Tasks
 
@@ -35,7 +34,7 @@ These are not coding tasks and must not carry `ready-for-contributor`.
 ## Maintainer-Only Tasks
 
 - Use the [`Reviewer Outreach Kit`](community-review/REVIEWER_OUTREACH_KIT.md) and consent-backed tracking before inviting or crediting external reviewers.
-- Review the evidence comments before manually closing #55, #56, #57, #58, #59, #61, #62, #63 and #65.
+- Review the evidence comments before manually closing #55, #56, #57, #58, #59, #61, #62 and #65. Issues #63, #119 and #120 are already closed by merged PR evidence.
 - Decide whether #64 should be respecified for future translations or archived as superseded. Do not call it completed under its original EN/ES/RU criteria.
 - Maintain milestone ownership, priority labels, private disclosure routing and external-review procurement.
 - Keep mainnet, sale, value and active-utility decisions outside the contributor queue.

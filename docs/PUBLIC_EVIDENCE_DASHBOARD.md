@@ -13,9 +13,9 @@ Current evidence baseline:
 | Release track | `v0.2.1-public-review` draft; not published |
 | Candidate document | `docs/releases/v0.2.1-public-review.md` |
 | Evidence date | 2026-07-12 |
-| Current main snapshot | `3d5c207b133e4b86459bdc173b78422315a0c744` |
+| Immutable evidence source snapshot | `3d5c207b133e4b86459bdc173b78422315a0c744` |
 | Evidence tooling commit | `d1cb1157a771beff3087e490034ec074203c7c66` |
-| Evidence report | `docs/reports/MONTHLY_REPORT_2026_07.md` |
+| Immutable evidence report snapshot | `docs/reports/immutable/v0.2.1-public-review/MONTHLY_REPORT_2026_07.md` |
 | Pilot campaign | `draft-not-live` |
 | Mainnet | not approved |
 | Sale | not offered |
@@ -26,7 +26,7 @@ Current evidence baseline:
 
 1. Project facts: `docs/PROJECT_FACTS.md`
 2. v0.2.1 draft pre-release: `docs/releases/v0.2.1-public-review.md`
-3. Current monthly evidence report: `docs/reports/MONTHLY_REPORT_2026_07.md`
+3. Current monthly status report: `docs/reports/MONTHLY_REPORT_2026_07.md`
 4. Pilot proof pack: `docs/PILOT_PROOF_PACK.md`
 5. Release Control Center: `docs/RELEASE_CONTROL_CENTER.md`
 6. V2 Community Review: `https://tikideco.xyz/community-review/`

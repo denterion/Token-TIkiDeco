@@ -86,6 +86,7 @@ const safe = json("config/governance/safe-resilience.json");
 const governance = json("config/governance/readiness.json");
 const operator = json("config/hospitality-operator/readiness-gates.json");
 const operatorReport = json("operations/hospitality-operator/operator-sandbox-report.json");
+const roadmap = json("config/roadmap/roadmap.json");
 const sourceCommit = command("git", ["rev-parse", "origin/main"]);
 const releaseEvidenceFreshness = releaseEvidence.sourceCommit === sourceCommit
   ? "matches current main at generation"
@@ -116,8 +117,25 @@ const sources = {
   operator: "config/hospitality-operator/readiness-gates.json",
   operatorReport: "operations/hospitality-operator/operator-sandbox-report.json",
   blockers: "docs/MAINNET_GO_NO_GO.md",
-  roadmap: "docs/ONE_YEAR_DEVELOPMENT_PLAN.md"
+  roadmap: "config/roadmap/roadmap.json",
+  roadmapDelta: "docs/reports/ROADMAP_DELTA_2026_07.md"
 };
+
+const roadmapQuarters = ["Q1", "Q2", "Q3", "Q4"];
+const roadmapCompleted = new Set(["internally-complete", "externally-verified"]);
+const roadmapStats = Object.fromEntries(roadmapQuarters.map((quarter) => {
+  const items = roadmap.items.filter((item) => item.quarter === quarter && item.status !== "superseded");
+  const verified = items.filter((item) => roadmapCompleted.has(item.status)).length;
+  return [quarter, { verified, total: items.length, percent: items.length ? Math.round((verified / items.length) * 1000) / 10 : 0 }];
+}));
+const roadmapActions = roadmap.items
+  .filter((item) => !roadmapCompleted.has(item.status) && item.status !== "superseded")
+  .sort((a, b) => roadmapQuarters.indexOf(a.quarter) - roadmapQuarters.indexOf(b.quarter) || a.id.localeCompare(b.id))
+  .slice(0, 4);
+const roadmapActionRows = roadmapActions.map((item) => {
+  const label = item.status === "in-progress" ? "In progress" : ["externally-blocked", "no-go"].includes(item.status) ? "Blocked" : "Planned";
+  return `| ${label} | ${item.nextAction} | ${rootLink(sources.roadmap)} / ${rootLink(item.evidenceFiles[0])} |`;
+}).join("\n");
 
 const releaseRows = versions.publishedReleases.map((release) =>
   `| ${release.version} | ${release.status} | \`${release.sourceCommit}\` | [Release](${release.releaseUrl}) / ${rootLink(sources.versions)} |`
@@ -245,14 +263,19 @@ These are repository checks recorded by the latest internal status run; they are
 | Mainnet readiness | Blocked; ${mainnetBlockers} unapproved statuses | ${rootLink(sources.blockers)} / \`node scripts/check-mainnet-readiness.cjs --expect-blocked\` |
 | Canonical network | Sepolia; no mainnet deployment recorded | ${rootLink(sources.canonical)} |
 
+## Roadmap Progress
+
+| Fact | Verified | Tracked | Compliance | Evidence |
+| --- | ---: | ---: | ---: | --- |
+${roadmapQuarters.map((quarter) => `| ${quarter} | ${roadmapStats[quarter].verified} | ${roadmapStats[quarter].total} | ${roadmapStats[quarter].percent}% | ${rootLink(sources.roadmap)} |`).join("\n")}
+
+Internal engineering completion does not satisfy reviewer, legal, operator, user, or production evidence. Monthly status changes: ${rootLink(sources.roadmapDelta)}.
+
 ## Next-Month Goals
 
 | Status | Goal | Evidence |
 | --- | --- | --- |
-| Planned | Invite qualified independent reviewers to assess the frozen V2 package and record real procurement evidence. | ${rootLink(sources.roadmap)} / [Issue #121](https://github.com/denterion/Token-TIkiDeco/issues/121) |
-| Planned | Run operator interviews against the fake-data sandbox without collecting guest or booking data. | ${rootLink("docs/hospitality-operator/OPERATOR_INTERVIEW_GUIDE.md")} / ${rootLink(sources.roadmap)} |
-| In progress | Keep community peer review open and summarize only real, privacy-safe feedback. | ${rootLink(sources.community)} / [Issue #66](https://github.com/denterion/Token-TIkiDeco/issues/66) |
-| Blocked | Keep the pilot and mainnet gates closed until accountable external evidence exists. | ${rootLink(sources.pilot)} / ${rootLink(sources.blockers)} |
+${roadmapActionRows}
 
 ## Public Boundaries
 
@@ -301,6 +324,7 @@ const summary = {
   pilot: { id: pilot.campaignId, status: pilot.status, stage: pilot.lifecycle.currentStage, inventory: pilot.inventory.publishedCapacity },
   safe: { status: safe.incidentDrillStatus, decision: safe.decision, thresholdChanged: safe.thresholdChanged },
   operator: { status: operator.status, operatorStatus: operator.operatorStatus, propertyStatus: operator.propertyStatus, inventory: operator.inventory, sandboxReportSha256: operatorReport.sha256 },
+  roadmap: { source: sources.roadmap, quarterCompliance: roadmapStats, currentActions: roadmapActions.map(({ id, status, evidenceType, nextAction }) => ({ id, status, evidenceType, nextAction })) },
   blockers: {
     mainnetUnapprovedStatuses: mainnetBlockers,
     operatorGatesNotApproved: Object.keys(operator.gates).length,

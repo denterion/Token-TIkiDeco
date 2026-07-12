@@ -99,7 +99,7 @@ assert(summary.blockers.mainnetUnapprovedStatuses === mainnetCount, "Mainnet blo
 for (const heading of [
   "Current Main Commit", "Canonical Deployment", "Current Releases", "V2 Candidate Status", "Community Review Status",
   "Findings Summary", "Open Issue Summary", "Test And Security Checks", "Pilot Status", "Safe Drill Status",
-  "Operator Sandbox Status", "Legal And External-Review Blockers", "Mainnet Status", "Next-Month Goals"
+  "Operator Sandbox Status", "Legal And External-Review Blockers", "Mainnet Status", "Roadmap Progress", "Next-Month Goals"
 ]) assert(report.includes(`## ${heading}`), `Monthly report missing section: ${heading}`);
 
 for (const line of body.split(/\r?\n/).filter((value) => value.startsWith("|"))) {

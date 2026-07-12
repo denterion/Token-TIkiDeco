@@ -2,9 +2,9 @@
   "schemaVersion": "1.0.0",
   "month": "2026-07",
   "generatedAt": "2026-07-12T00:00:00.000Z",
-  "sourceCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
+  "sourceCommit": "99c609e43fc8faa70ae57ac1b79d938b8eaeee28",
   "reportPath": "docs/reports/MONTHLY_REPORT_2026_07.md",
-  "reportSha256": "b5bccd3e7571e657673e415680ac1d6035e6cf870431be0330be134eb539618f",
+  "reportSha256": "2c8f52f5c568d3c9657e0fb27c854e1376afe77c9144edb330eaf826f1d530ff",
   "canonical": {
     "network": "sepolia",
     "chainId": 11155111,
@@ -48,16 +48,15 @@
   "openIssues": {
     "total": 15,
     "byMilestone": {
-      "External Validation": 2,
-      "Operator Sandbox": 1,
       "Public Preview Hardening": 7,
-      "Community Review Intake": 4,
+      "Community Review Intake": 5,
+      "External Validation": 2,
       "Future Production Decision": 1
     },
     "byPriority": {
+      "priority:P2": 9,
       "priority:P0": 2,
-      "priority:P1": 6,
-      "priority:P2": 7
+      "priority:P1": 4
     },
     "sourceCommand": "gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt",
     "issueNumbers": [
@@ -69,13 +68,13 @@
       60,
       61,
       62,
-      63,
       64,
       65,
       66,
-      119,
-      120,
-      121
+      121,
+      127,
+      132,
+      133
     ]
   },
   "checks": {
@@ -137,13 +136,64 @@
     "inventory": 0,
     "sandboxReportSha256": "d2e0e153c6d86c3d995e7e908115aa092889d5bc5a1723a75ec8f54c8d1547a1"
   },
+  "roadmap": {
+    "source": "config/roadmap/roadmap.json",
+    "quarterCompliance": {
+      "Q1": {
+        "verified": 6,
+        "total": 10,
+        "percent": 60
+      },
+      "Q2": {
+        "verified": 1,
+        "total": 4,
+        "percent": 25
+      },
+      "Q3": {
+        "verified": 0,
+        "total": 2,
+        "percent": 0
+      },
+      "Q4": {
+        "verified": 0,
+        "total": 2,
+        "percent": 0
+      }
+    },
+    "currentActions": [
+      {
+        "id": "Q1-ENG-RELEASE-EVIDENCE-FRESHNESS",
+        "status": "in-progress",
+        "evidenceType": "internal-engineering",
+        "nextAction": "Choose whether to preserve the draft snapshot or build a new immutable pre-release snapshot from a later exact commit."
+      },
+      {
+        "id": "Q1-ENG-SEMANTIC-STRUCTURE",
+        "status": "not-started",
+        "evidenceType": "internal-engineering",
+        "nextAction": "Complete GitHub issue #127 with deterministic desktop and mobile checks."
+      },
+      {
+        "id": "Q1-EXT-REVIEWER-ENGAGEMENT",
+        "status": "not-started",
+        "evidenceType": "external-reviewer",
+        "nextAction": "Contact qualified candidates and record only real privacy-safe evidence."
+      },
+      {
+        "id": "Q1-LEGAL-COUNSEL-ENGAGEMENT",
+        "status": "not-started",
+        "evidenceType": "legal",
+        "nextAction": "Select qualified counsel and obtain written scope and engagement evidence."
+      }
+    ]
+  },
   "blockers": {
     "mainnetUnapprovedStatuses": 29,
     "operatorGatesNotApproved": 8,
     "independentReview": "not-started",
     "legalReview": "requires-review",
     "releaseEvidenceSourceCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
-    "releaseEvidenceMatchesMainAtGeneration": true
+    "releaseEvidenceMatchesMainAtGeneration": false
   },
   "sources": {
     "canonical": "deployments/canonical.json",
@@ -160,6 +210,7 @@
     "operator": "config/hospitality-operator/readiness-gates.json",
     "operatorReport": "operations/hospitality-operator/operator-sandbox-report.json",
     "blockers": "docs/MAINNET_GO_NO_GO.md",
-    "roadmap": "docs/ONE_YEAR_DEVELOPMENT_PLAN.md"
+    "roadmap": "config/roadmap/roadmap.json",
+    "roadmapDelta": "docs/reports/ROADMAP_DELTA_2026_07.md"
   }
 }
