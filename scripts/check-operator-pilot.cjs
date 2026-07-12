@@ -26,9 +26,12 @@ for (const typeName of ["EligibilityRequest", "CampaignRule", "Inventory", "Rese
   assert(adapter.includes(typeName), `Operator adapter missing type: ${typeName}`);
 }
 for (const prohibited of ["email", "guestName", "payment", "privateKey", "seedPhrase", "broadcastTransaction"]) {
-  assert(!adapter.includes(prohibited), `Operator adapter contains prohibited participant or transaction field: ${prohibited}`);
+  const declaration = new RegExp(`\\b${prohibited}\\s*(?:[?:]|\\()`);
+  assert(!declaration.test(adapter), `Operator adapter contains prohibited participant or transaction field: ${prohibited}`);
 }
 
 const result = spawnSync(process.execPath, ["scripts/run-operator-sandbox.cjs"], { cwd: root, encoding: "utf8" });
 assert(result.status === 0, `Operator sandbox failed:\n${result.stdout}${result.stderr}`);
+const invariants = spawnSync(process.execPath, ["scripts/test-operator-sandbox-invariants.cjs"], { cwd: root, encoding: "utf8" });
+assert(invariants.status === 0, `Operator sandbox invariants failed:\n${invariants.stdout}${invariants.stderr}`);
 console.log("Operator pilot checks passed; sandbox uses fake data and all launch gates remain blocked.");

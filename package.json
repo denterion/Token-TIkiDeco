@@ -106,6 +106,8 @@
     "operator-pilot:sandbox": "node scripts/run-operator-sandbox.cjs",
     "operator-pilot:check": "node scripts/check-operator-pilot.cjs",
     "operator-sandbox:test": "node scripts/run-operator-sandbox.cjs --test",
+    "operator-sandbox:invariants": "node scripts/test-operator-sandbox-invariants.cjs --invariants",
+    "operator-sandbox:fixtures": "node scripts/test-operator-sandbox-invariants.cjs --fixtures",
     "operator-sandbox:report": "node scripts/run-operator-sandbox.cjs --report",
     "operator-sandbox:demo:check": "npm run operator-sandbox:report && npm run site:build && node scripts/check-operator-sandbox-demo.cjs",
     "claims:check": "node scripts/check-public-claims.cjs",

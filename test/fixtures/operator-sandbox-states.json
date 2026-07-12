@@ -1,0 +1,43 @@
+{
+  "baseReport": {
+    "campaignId": "fake-fixture-001",
+    "state": "closed",
+    "requests": 1,
+    "eligible": 1,
+    "approved": 1,
+    "rejected": 0,
+    "inventoryLimit": 1,
+    "inventoryUsed": 1,
+    "errors": 0,
+    "disputes": 0,
+    "stopEvents": 1,
+    "privacyStatement": "Aggregate fake-data simulation only.",
+    "containsPersonalData": false,
+    "containsRawWalletAddresses": false,
+    "containsGuestData": false,
+    "transactionBroadcast": false
+  },
+  "baseAuditLog": [
+    { "sequence": 1, "campaignId": "fake-fixture-001", "action": "campaign-created", "result": "draft", "at": "1970-01-01T00:00:00.000Z" },
+    { "sequence": 2, "campaignId": "fake-fixture-001", "requestId": "fake-request-001", "action": "eligibility-reviewed", "result": "eligible", "at": "1970-01-01T00:00:00.000Z" },
+    { "sequence": 3, "campaignId": "fake-fixture-001", "requestId": "fake-request-001", "action": "request-decided", "result": "approve", "reasonCode": "fake-eligible", "at": "1970-01-01T00:00:00.000Z" },
+    { "sequence": 4, "campaignId": "fake-fixture-001", "action": "campaign-closed", "result": "closed", "at": "1970-01-01T00:00:00.000Z" }
+  ],
+  "invalidCases": [
+    { "name": "missing campaign ID", "reportPatch": { "campaignId": "" }, "expected": "campaign ID is missing" },
+    { "name": "negative inventory", "reportPatch": { "inventoryLimit": -1 }, "expected": "inventoryLimit must be a non-negative safe integer" },
+    { "name": "unsupported lifecycle state", "reportPatch": { "state": "live-production" }, "expected": "lifecycle state is unsupported" },
+    { "name": "duplicate audit sequence", "auditSequences": [1, 2, 2, 4], "expected": "audit-log sequence is not strictly monotonic" },
+    { "name": "inconsistent request counter", "reportPatch": { "requests": 2 }, "expected": "request total disagrees with the audit log" },
+    { "name": "inconsistent approval counter", "reportPatch": { "approved": 0 }, "expected": "inventory usage and approved decisions disagree" },
+    { "name": "inconsistent error counter", "reportPatch": { "errors": 1 }, "expected": "error total disagrees with the audit log" },
+    { "name": "privacy boundary flag", "reportPatch": { "containsPersonalData": true }, "expected": "privacy boundary flag is not false" },
+    { "name": "raw wallet in report", "reportPatch": { "privacyStatement": "0x0000000000000000000000000000000000000001" }, "expected": "privacy statement contains a raw wallet address" },
+    { "name": "email in report", "reportPatch": { "privacyStatement": "fake@example.test" }, "expected": "privacy statement contains an email address" },
+    { "name": "guest name field", "reportPatch": { "guestName": "Fake Guest" }, "expected": "prohibited field guestName is present" },
+    { "name": "booking details field", "reportPatch": { "bookingDetails": "fake-booking" }, "expected": "prohibited field bookingDetails is present" },
+    { "name": "private key field", "reportPatch": { "privateKey": "not-a-key" }, "expected": "prohibited field privateKey is present" },
+    { "name": "seed phrase field", "reportPatch": { "seedPhrase": "not-a-phrase" }, "expected": "prohibited field seedPhrase is present" },
+    { "name": "unsupported decision reason", "decisionReasonCode": "external-approval", "expected": "decision reason code is missing or unsupported" }
+  ]
+}
