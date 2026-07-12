@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "repository": "denterion/Token-TIkiDeco",
   "auditedAt": "2026-07-12",
-  "sourceCommit": "67fef1c4408bb25a20da46218acc94d179b82cf7",
+  "sourceCommit": "13de31d5480a9ae43e1f98e15c0a0e2fb082ab8e",
   "milestones": [
     { "title": "Community Review Intake", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
     { "title": "Public Preview Hardening", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
