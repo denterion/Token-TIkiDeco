@@ -8,6 +8,8 @@ export type CampaignLifecycleState =
   | "archived";
 export type PerkStatus = "pending" | "approved" | "rejected" | "cancelled";
 export type OperatorDecision = "approve" | "reject";
+export const operatorDecisionReasonCodes = ["fake-eligible", "fake-threshold-not-met", "fake-not-selected"] as const;
+export type OperatorDecisionReasonCode = (typeof operatorDecisionReasonCodes)[number];
 
 export interface EligibilityRequest {
   requestId: string;
@@ -57,7 +59,7 @@ export interface OperatorDecisionRecord {
   requestId: string;
   decision: OperatorDecision;
   perkStatus: PerkStatus;
-  reasonCode: string;
+  reasonCode: OperatorDecisionReasonCode;
   reservationReferenceHash?: ReservationReferenceHash;
   decidedAt: string;
 }
@@ -76,9 +78,11 @@ export interface AuditLogEntry {
     | "request-decided"
     | "dispute-recorded"
     | "simulation-paused"
+    | "operation-rejected"
     | "campaign-closed"
     | "campaign-archived";
   result: string;
+  reasonCode?: OperatorDecisionReasonCode;
   at: string;
 }
 
@@ -106,6 +110,55 @@ export interface OperatorSandboxSnapshot {
   inventory?: Inventory;
   report?: AggregateOperatorReport;
   auditEvents: number;
+}
+
+const lifecycleStates: readonly CampaignLifecycleState[] = [
+  "draft", "review", "approved-for-simulation", "active-simulation", "paused", "closed", "archived"
+];
+const reasonCodeSet = new Set<string>(operatorDecisionReasonCodes);
+const decisionReasonCodeSet: Record<OperatorDecision, ReadonlySet<OperatorDecisionReasonCode>> = {
+  approve: new Set(["fake-eligible"]),
+  reject: new Set(["fake-threshold-not-met", "fake-not-selected"])
+};
+
+function evidenceAssert(condition: boolean, message: string): asserts condition {
+  if (!condition) throw new Error(`Invalid sandbox evidence: ${message}`);
+}
+
+export function validateOperatorSandboxEvidence(report: AggregateOperatorReport, auditLog: readonly AuditLogEntry[]): void {
+  evidenceAssert(typeof report.campaignId === "string" && report.campaignId.trim().length > 0, "campaign ID is missing.");
+  evidenceAssert(lifecycleStates.includes(report.state), "lifecycle state is unsupported.");
+  for (const field of ["requests", "eligible", "approved", "rejected", "inventoryLimit", "inventoryUsed", "errors", "disputes", "stopEvents"] as const) {
+    evidenceAssert(Number.isSafeInteger(report[field]) && report[field] >= 0, `${field} must be a non-negative safe integer.`);
+  }
+  evidenceAssert(report.eligible <= report.requests, "eligible count exceeds requests.");
+  evidenceAssert(report.approved + report.rejected <= report.requests, "decision counts exceed requests.");
+  evidenceAssert(report.inventoryUsed <= report.inventoryLimit, "inventory usage exceeds its limit.");
+  evidenceAssert(report.inventoryUsed === report.approved, "inventory usage and approved decisions disagree.");
+  evidenceAssert(report.containsPersonalData === false && report.containsRawWalletAddresses === false && report.containsGuestData === false, "privacy boundary flag is not false.");
+  evidenceAssert(report.transactionBroadcast === false, "transaction broadcast flag is not false.");
+  const reportRecord = report as AggregateOperatorReport & Record<string, unknown>;
+  for (const key of ["guestName", "email", "bookingDetails", "privateKey", "seedPhrase", "walletAddresses"]) {
+    evidenceAssert(!(key in reportRecord), `prohibited field ${key} is present.`);
+  }
+  evidenceAssert(!/0x[0-9a-fA-F]{40}/.test(report.privacyStatement), "privacy statement contains a raw wallet address.");
+  evidenceAssert(!/[\w.+-]+@[\w.-]+\.[a-z]{2,}/i.test(report.privacyStatement), "privacy statement contains an email address.");
+
+  auditLog.forEach((entry, index) => {
+    evidenceAssert(entry.sequence === index + 1, "audit-log sequence is not strictly monotonic.");
+    evidenceAssert(entry.campaignId === report.campaignId, "audit-log campaign ID disagrees with the report.");
+  });
+  const eligibility = auditLog.filter((entry) => entry.action === "eligibility-reviewed");
+  const decisions = auditLog.filter((entry) => entry.action === "request-decided");
+  evidenceAssert(eligibility.length === report.requests, "request total disagrees with the audit log.");
+  evidenceAssert(eligibility.filter((entry) => entry.result === "eligible").length === report.eligible, "eligible total disagrees with the audit log.");
+  evidenceAssert(decisions.filter((entry) => entry.result === "approve").length === report.approved, "approved total disagrees with the audit log.");
+  evidenceAssert(decisions.filter((entry) => entry.result === "reject").length === report.rejected, "rejected total disagrees with the audit log.");
+  evidenceAssert(decisions.every((entry) => entry.reasonCode && reasonCodeSet.has(entry.reasonCode)), "decision reason code is missing or unsupported.");
+  evidenceAssert(decisions.every((entry) => (entry.result === "approve" || entry.result === "reject") && decisionReasonCodeSet[entry.result].has(entry.reasonCode!)), "decision reason code does not match its decision.");
+  evidenceAssert(auditLog.filter((entry) => entry.action === "dispute-recorded").length === report.disputes, "dispute total disagrees with the audit log.");
+  evidenceAssert(auditLog.filter((entry) => entry.action === "simulation-paused" || entry.action === "campaign-closed").length === report.stopEvents, "stop-event total disagrees with the audit log.");
+  evidenceAssert(auditLog.filter((entry) => entry.action === "operation-rejected").length === report.errors, "error total disagrees with the audit log.");
 }
 
 type ReviewedRequest = {
@@ -173,6 +226,7 @@ export class OperatorSandbox {
 
   createCampaign(rule: CampaignRule): void {
     if (this.rule) this.fail("A sandbox campaign already exists.");
+    if (!rule.campaignId.trim()) this.fail("Campaign ID is required.");
     if (rule.state !== "draft" || rule.chainId !== 11155111) this.fail("Sandbox campaigns must be draft and Sepolia-only.");
     if (rule.operatorStatus !== "fake-operator-for-simulation") this.fail("Only a clearly fake simulation operator is allowed.");
     if (rule.minimumBalanceBaseUnits < 0n) this.fail("Minimum balance cannot be negative.");
@@ -232,11 +286,13 @@ export class OperatorSandbox {
     return eligible;
   }
 
-  decide(requestId: string, decision: OperatorDecision, reasonCode: string, reservationReferenceHash?: ReservationReferenceHash): OperatorDecisionRecord {
+  decide(requestId: string, decision: OperatorDecision, reasonCode: OperatorDecisionReasonCode, reservationReferenceHash?: ReservationReferenceHash): OperatorDecisionRecord {
     this.requireState("active-simulation");
     const reviewed = this.requests.get(requestId);
     if (!reviewed || reviewed.decision) this.fail("Request is missing or already decided.");
-    if (!reasonCode.trim()) this.fail("A reason code is required.");
+    if (decision !== "approve" && decision !== "reject") this.fail("Operator decision is unsupported.");
+    if (!reasonCodeSet.has(reasonCode)) this.fail("Decision reason code is unsupported.");
+    if (!decisionReasonCodeSet[decision].has(reasonCode)) this.fail("Decision reason code does not match the decision.");
     if (reservationReferenceHash && !/^0x[0-9a-fA-F]{64}$/.test(reservationReferenceHash)) this.fail("Reservation reference hash is invalid.");
     if (decision === "approve") {
       if (!reviewed.eligible) this.fail("An ineligible request cannot be approved.");
@@ -252,11 +308,12 @@ export class OperatorSandbox {
       decidedAt: new Date(0).toISOString()
     };
     reviewed.decision = record;
-    this.record("request-decided", decision, requestId);
+    this.record("request-decided", decision, requestId, reasonCode);
     return record;
   }
 
   recordDispute(reasonCode: string): void {
+    if (!this.rule || !["active-simulation", "paused", "closed"].includes(this.rule.state)) this.fail("Disputes require an active, paused, or closed simulation.");
     if (!reasonCode.trim()) this.fail("A dispute reason is required.");
     this.disputes += 1;
     this.record("dispute-recorded", reasonCode);
@@ -283,7 +340,7 @@ export class OperatorSandbox {
   aggregateReport(): AggregateOperatorReport {
     if (!this.rule) this.fail("Campaign is missing.");
     const reviewed = [...this.requests.values()];
-    return {
+    const report: AggregateOperatorReport = {
       campaignId: this.rule!.campaignId,
       state: this.rule!.state,
       requests: reviewed.length,
@@ -301,6 +358,8 @@ export class OperatorSandbox {
       containsGuestData: false,
       transactionBroadcast: false
     };
+    validateOperatorSandboxEvidence(report, this.auditLog);
+    return report;
   }
 
   snapshot(): OperatorSandboxSnapshot {
@@ -327,16 +386,18 @@ export class OperatorSandbox {
 
   private fail(message: string): never {
     this.errors += 1;
+    if (this.rule) this.record("operation-rejected", message);
     throw new Error(message);
   }
 
-  private record(action: AuditLogEntry["action"], result: string, requestId?: string): void {
+  private record(action: AuditLogEntry["action"], result: string, requestId?: string, reasonCode?: OperatorDecisionReasonCode): void {
     this.auditLog.push({
       sequence: this.auditLog.length + 1,
       campaignId: this.rule!.campaignId,
       requestId,
       action,
       result,
+      reasonCode,
       at: new Date(0).toISOString()
     });
   }
