@@ -18,6 +18,7 @@ export function PilotEligibilityCard() {
   const [hasOffchainMessage, setHasOffchainMessage] = useState(false);
   const [balanceResult, setBalanceResult] = useState<TideBalanceResult>({ status: "idle", blockTag: "latest" });
   const [isChecking, setIsChecking] = useState(false);
+  const walletError = balanceResult.error === "Enter a valid Ethereum address first." ? balanceResult.error : undefined;
 
   const signatureSession = useMemo(() => {
     if (!walletAddress || !hasOffchainMessage) return undefined;
@@ -47,6 +48,7 @@ export function PilotEligibilityCard() {
   });
 
   async function checkBalance() {
+    if (isChecking) return;
     previewMetrics.record("balanceCheckAttempts");
     if (!isValidEthereumAddress(walletAddress)) {
       setBalanceResult({ status: "unavailable", blockTag: "latest", error: "Enter a valid Ethereum address first." });
@@ -67,6 +69,20 @@ export function PilotEligibilityCard() {
     }
   }
 
+  const statusMessage = isChecking
+    ? "Checking the Sepolia network for the entered wallet address."
+    : walletError
+      ? `Error: ${walletError}`
+      : balanceResult.status === "live"
+        ? `Balance check complete. Live Sepolia balance: ${balanceResult.balanceTide?.toLocaleString("en-US")} TIDE.`
+        : balanceResult.status === "cached" || balanceResult.status === "stale"
+          ? `Balance check complete using ${balanceResult.status} data: ${balanceResult.balanceTide?.toLocaleString("en-US")} TIDE.`
+          : balanceResult.status === "wrong-chain"
+            ? `Balance check failed. ${balanceResult.error}`
+            : balanceResult.status === "unavailable"
+              ? `Balance check failed. ${balanceResult.error || "Data temporarily unavailable"}`
+              : "Enter a wallet address to run a read-only Sepolia balance check.";
+
   return (
     <section className="section pilot-eligibility" aria-labelledby="pilot-eligibility-title">
       <div className="section-heading">
@@ -78,7 +94,7 @@ export function PilotEligibilityCard() {
         </p>
       </div>
 
-      <div className="pilot-card" aria-live="polite">
+      <div className="pilot-card" aria-busy={isChecking}>
         <div className="pilot-card-header">
           <span className="site-badge">NOT LIVE</span>
           <span className="site-badge">{pilotCampaignRules.campaignStatus.toUpperCase()}</span>
@@ -88,6 +104,9 @@ export function PilotEligibilityCard() {
         <label className="field-label" htmlFor="pilot-wallet">
           Wallet address
         </label>
+        <p className="field-help" id="pilot-wallet-help">
+          Enter a public Ethereum address. No wallet connection or transaction is requested.
+        </p>
         <input
           id="pilot-wallet"
           className="text-field"
@@ -95,6 +114,9 @@ export function PilotEligibilityCard() {
           inputMode="text"
           autoComplete="off"
           spellCheck={false}
+          aria-describedby="pilot-wallet-help"
+          aria-invalid={walletError ? true : undefined}
+          aria-errormessage={walletError ? "pilot-wallet-error" : undefined}
           value={walletAddress}
           onChange={(event) => {
             setWalletAddress(event.target.value);
@@ -103,9 +125,19 @@ export function PilotEligibilityCard() {
           placeholder="0x..."
         />
 
-        <button className="button button-primary pilot-check-button" type="button" onClick={checkBalance} disabled={isChecking}>
+        <button
+          className="button button-primary pilot-check-button"
+          type="button"
+          onClick={checkBalance}
+          aria-controls="pilot-balance-status"
+          aria-disabled={isChecking}
+        >
           {isChecking ? "Checking Sepolia" : "Check Sepolia balance"}
         </button>
+
+        <div id="pilot-balance-status" className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+          {statusMessage}
+        </div>
 
         <label className="check-row">
           <input
@@ -140,7 +172,7 @@ export function PilotEligibilityCard() {
             Data: {balanceResult.status.toUpperCase()}
             {balanceResult.checkedAt ? ` - ${new Date(balanceResult.checkedAt).toLocaleString("en-US")}` : ""}
           </small>
-          {balanceResult.error ? <small>{balanceResult.error}</small> : null}
+          {balanceResult.error ? <small id={walletError ? "pilot-wallet-error" : undefined}>{balanceResult.error}</small> : null}
         </div>
 
         <div className="pilot-result pilot-result-hold">

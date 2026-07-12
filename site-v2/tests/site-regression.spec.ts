@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const validWallet = "0x087f0c360060ab380B2271FdcC32091d91bBec8F";
 const rpcPattern = /https:\/\/(ethereum-sepolia-rpc\.publicnode\.com|rpc\.sepolia\.org)\/?/;
@@ -17,8 +17,9 @@ async function mockRpcUnavailable(page: Page) {
   await page.route(rpcPattern, (route) => route.abort("failed"));
 }
 
-async function mockRpcBalance(page: Page, tideBalance: bigint, chainId = 11155111) {
+async function mockRpcBalance(page: Page, tideBalance: bigint, chainId = 11155111, delayMs = 0) {
   await page.route(rpcPattern, async (route) => {
+    if (delayMs) await new Promise((resolve) => setTimeout(resolve, delayMs));
     const body = route.request().postDataJSON() as { method?: string; params?: Array<{ data?: string }> };
     const data = body.params?.[0]?.data?.toLowerCase() || "";
     let result = "0x0";
@@ -39,11 +40,31 @@ async function mockRpcBalance(page: Page, tideBalance: bigint, chainId = 1115511
   });
 }
 
-async function checkSepoliaBalanceWithKeyboard(page: Page) {
+async function tabTo(page: Page, target: Locator, maxTabs = 20) {
+  for (let index = 0; index < maxTabs; index += 1) {
+    await page.keyboard.press("Tab");
+    if (await target.evaluate((element) => element === document.activeElement)) return;
+  }
+  throw new Error(`Could not reach ${await target.getAttribute("id") || "target"} with Tab.`);
+}
+
+async function enterWalletWithKeyboard(page: Page, walletAddress: string) {
+  const input = page.getByLabel("Wallet address");
+  await tabTo(page, input);
+  await expect(input).toBeFocused();
+  const focusStyle = await input.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { style: style.outlineStyle, width: Number.parseFloat(style.outlineWidth), color: style.outlineColor };
+  });
+  expect(focusStyle.style).not.toBe("none");
+  expect(focusStyle.width).toBeGreaterThanOrEqual(2);
+  expect(focusStyle.color).not.toBe("rgba(0, 0, 0, 0)");
+  await page.keyboard.type(walletAddress);
+
+  await page.keyboard.press("Tab");
   const button = page.getByRole("button", { name: /Check Sepolia balance/i });
-  await button.focus();
   await expect(button).toBeFocused();
-  await page.keyboard.press("Enter");
+  return { input, button, status: page.getByRole("status") };
 }
 
 test("homepage explains current status and avoids transaction CTAs", async ({ page, isMobile }) => {
@@ -110,31 +131,76 @@ test("Trust Center separates releases, main, and evidence with source links", as
   await expect(page.locator("[data-source-linked-fact] a").first()).toBeVisible();
 });
 
-test("eligibility card handles RPC unavailable without fake zero data", async ({ page }) => {
+test("keyboard-only user reaches the checker, sees focus, and hears an eligible result", async ({ page }) => {
+  await mockRpcBalance(page, 150n * 10n ** 18n, 11155111, 150);
+  await page.goto("/pilot/");
+
+  const { button, status } = await enterWalletWithKeyboard(page, validWallet);
+  await page.keyboard.press("Enter");
+  await expect(status).toContainText(/Checking the Sepolia network/i);
+  await expect(status).toContainText(/Live Sepolia balance: 150 TIDE/i);
+  await expect(button).toBeFocused();
+  await expect(page.getByText("150 TIDE", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Data: LIVE/i)).toBeVisible();
+
+  await page.keyboard.press("Tab");
+  const checkbox = page.getByRole("checkbox", { name: /optional off-chain message proof/i });
+  await expect(checkbox).toBeFocused();
+  await page.keyboard.press("Shift+Tab");
+  await expect(button).toBeFocused();
+  await assertNoHorizontalOverflow(page);
+});
+
+test("keyboard activation links an invalid-address error to the wallet field", async ({ page }) => {
   await mockRpcUnavailable(page);
   await page.goto("/pilot/");
 
-  await page.getByLabel("Wallet address").fill(validWallet);
-  await checkSepoliaBalanceWithKeyboard(page);
+  const { input, button, status } = await enterWalletWithKeyboard(page, "0x123");
+  await page.keyboard.press("Enter");
 
-  await expect(page.getByText(/Data: UNAVAILABLE/i)).toBeVisible();
-  await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
-  await expect(page.locator("p").filter({ hasText: /manual review/i }).last()).toBeVisible();
-  await expect(page.getByRole("button", { name: /buy|purchase|invest|stake|approve|transfer/i })).toHaveCount(0);
+  await expect(status).toContainText(/Error: Enter a valid Ethereum address first/i);
+  await expect(input).toHaveAttribute("aria-invalid", "true");
+  await expect(input).toHaveAttribute("aria-errormessage", "pilot-wallet-error");
+  await expect(page.locator("#pilot-wallet-error")).toHaveText("Enter a valid Ethereum address first.");
+  await expect(button).toBeFocused();
 });
 
-test("eligibility card displays mocked sufficient Sepolia balance as live read-only data", async ({ page }) => {
-  await mockRpcBalance(page, 150n * 10n ** 18n);
+test("Space activation announces a zero Sepolia balance", async ({ page }) => {
+  await mockRpcBalance(page, 0n);
   await page.goto("/pilot/");
 
-  await page.getByLabel("Wallet address").fill(validWallet);
-  await checkSepoliaBalanceWithKeyboard(page);
+  const { button, status } = await enterWalletWithKeyboard(page, validWallet);
+  await page.keyboard.press("Space");
 
-  await expect(page.getByText(/150 TIDE/i)).toBeVisible();
+  await expect(status).toContainText(/Live Sepolia balance: 0 TIDE/i);
   await expect(page.getByText(/Data: LIVE/i)).toBeVisible();
+  await expect(button).toBeFocused();
+});
+
+test("keyboard-only checker announces unavailable RPC without inventing zero data", async ({ page }) => {
+  await mockRpcUnavailable(page);
+  await page.goto("/pilot/");
+
+  const { button, status } = await enterWalletWithKeyboard(page, validWallet);
+  await page.keyboard.press("Enter");
+
+  await expect(status).toContainText(/Balance check failed/i);
+  await expect(page.getByText(/Data: UNAVAILABLE/i)).toBeVisible();
+  await expect(page.getByText(/^0 TIDE$/i)).toHaveCount(0);
   await expect(page.getByText("NOT LIVE", { exact: true })).toBeVisible();
-  await expect(page.locator("p").filter({ hasText: /manual review/i }).last()).toBeVisible();
-  await expect(page.getByText(/No transaction button/i)).toBeVisible();
+  await expect(button).toBeFocused();
+});
+
+test("keyboard-only checker announces a wrong-chain RPC response", async ({ page }) => {
+  await mockRpcBalance(page, 150n * 10n ** 18n, 1);
+  await page.goto("/pilot/");
+
+  const { button, status } = await enterWalletWithKeyboard(page, validWallet);
+  await page.keyboard.press("Space");
+
+  await expect(status).toContainText(/Expected Sepolia chain 11155111, received 1/i);
+  await expect(page.getByText(/Data: WRONG-CHAIN/i)).toBeVisible();
+  await expect(button).toBeFocused();
 });
 
 test("homepage is English-only and loads the desktop product scene", async ({ page, isMobile }) => {
