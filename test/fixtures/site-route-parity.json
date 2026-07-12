@@ -1,0 +1,16 @@
+{
+  "validRoutes": ["/", "/trust/"],
+  "cases": [
+    { "name": "missing sitemap route", "sitemap": ["/"], "expected": "missing from sitemap" },
+    { "name": "extra sitemap route", "sitemap": ["/", "/trust/", "/ghost/"], "expected": "was not generated" },
+    { "name": "duplicate sitemap route", "sitemap": ["/", "/trust/", "/trust/"], "expected": "duplicate route" },
+    { "name": "missing canonical", "sitemap": ["/", "/trust/"], "canonical": { "/trust/": null }, "expected": "no canonical URL" },
+    { "name": "canonical mismatch", "sitemap": ["/", "/trust/"], "canonical": { "/trust/": "/status/" }, "expected": "disagrees with route" },
+    { "name": "missing trailing slash", "sitemapUrls": ["https://tikideco.xyz/", "https://tikideco.xyz/trust"], "expected": "trailing slash" },
+    { "name": "uppercase path", "sitemapUrls": ["https://tikideco.xyz/", "https://tikideco.xyz/Trust/"], "expected": "lowercase" },
+    { "name": "duplicate separators", "sitemapUrls": ["https://tikideco.xyz/", "https://tikideco.xyz//trust/"], "expected": "duplicate separators" },
+    { "name": "canonical missing trailing slash", "sitemap": ["/", "/trust/"], "canonical": { "/trust/": "/trust" }, "expected": "trailing slash" },
+    { "name": "canonical uppercase path", "sitemap": ["/", "/trust/"], "canonical": { "/trust/": "/Trust/" }, "expected": "lowercase" },
+    { "name": "canonical duplicate separators", "sitemap": ["/", "/trust/"], "canonical": { "/trust/": "//trust/" }, "expected": "duplicate separators" }
+  ]
+}
