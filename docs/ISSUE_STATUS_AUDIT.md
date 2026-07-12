@@ -2,7 +2,7 @@
 
 Audit date: 2026-07-12
 
-Repository snapshot: `67fef1c4408bb25a20da46218acc94d179b82cf7`
+Repository snapshot: `13de31d5480a9ae43e1f98e15c0a0e2fb082ab8e`
 
 Machine-readable actions: [`../operations/github/issue-actions.json`](../operations/github/issue-actions.json)
 

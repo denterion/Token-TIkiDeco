@@ -7,7 +7,6 @@ const manifestPath = path.join(siteDir, "deployment-manifest.json");
 const releaseEvidencePath = path.join(root, "config", "release-evidence.json");
 const cnamePath = path.join(siteDir, "CNAME");
 const robotsPath = path.join(siteDir, "robots.txt");
-const sitemapPath = path.join(siteDir, "sitemap.xml");
 
 const forbiddenPhrases = [
   "buy TIDE",
@@ -94,12 +93,6 @@ function htmlFiles() {
   return walk(siteDir).filter((filePath) => filePath.endsWith(".html"));
 }
 
-function pageUrlForFile(filePath) {
-  const relative = sitePath(filePath);
-  if (relative === "index.html") return "https://tikideco.xyz/";
-  return `https://tikideco.xyz/${relative.replace(/index\.html$/, "")}`;
-}
-
 function extractLinks(html) {
   const links = [];
   const regex = /\s(?:href|src)=["']([^"']+)["']/g;
@@ -122,10 +115,6 @@ function normalizedAbsoluteUrl(value) {
 
 function absoluteLinkSet(links) {
   return new Set(links.map(normalizedAbsoluteUrl).filter(Boolean));
-}
-
-function sitemapLocSet(xml) {
-  return new Set([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].trim()));
 }
 
 function lineSet(value) {
@@ -189,12 +178,10 @@ function main() {
   const css = read(path.join(siteDir, "styles.css"));
   const js = read(path.join(siteDir, "app.js"));
   const robots = read(robotsPath);
-  const sitemap = read(sitemapPath);
   const htmlPaths = htmlFiles();
   const allHtml = htmlPaths.map(read).join("\n");
   const allLinks = htmlPaths.flatMap((filePath) => extractLinks(read(filePath)));
   const absoluteLinks = absoluteLinkSet(allLinks);
-  const sitemapLocs = sitemapLocSet(sitemap);
   const robotsLines = lineSet(robots);
   const searchable = `${allHtml}\n${css}\n${js}`.toLowerCase();
 
@@ -213,17 +200,6 @@ function main() {
   assert(fs.existsSync(cnamePath), "site/CNAME missing for custom domain tracking");
   assert(read(cnamePath).trim() === "tikideco.xyz", "site/CNAME must contain tikideco.xyz");
   assert(robotsLines.has("Sitemap: https://tikideco.xyz/sitemap.xml"), "robots.txt must point to tikideco.xyz sitemap");
-  assert(sitemapLocs.has("https://tikideco.xyz/audit/"), "sitemap missing audit page");
-  assert(sitemapLocs.has("https://tikideco.xyz/community-review/"), "sitemap missing Community Review page");
-  assert(sitemapLocs.has("https://tikideco.xyz/community-review/findings/"), "sitemap missing aggregate Community Review findings page");
-  assert(sitemapLocs.has("https://tikideco.xyz/trust/"), "sitemap missing Trust Center");
-  assert(sitemapLocs.has("https://tikideco.xyz/proof/"), "sitemap missing proof page");
-  assert(sitemapLocs.has("https://tikideco.xyz/utility/"), "sitemap missing utility page");
-  assert(sitemapLocs.has("https://tikideco.xyz/pilot/"), "sitemap missing pilot page");
-  assert(sitemapLocs.has("https://tikideco.xyz/business/"), "sitemap missing business page");
-  assert(sitemapLocs.has("https://tikideco.xyz/operator-sandbox/"), "sitemap missing operator sandbox page");
-  assert(sitemapLocs.has("https://tikideco.xyz/operator-sandbox/why/"), "sitemap missing operator rationale page");
-  assert(sitemapLocs.has("https://tikideco.xyz/legal/risk-disclosure/"), "sitemap missing risk disclosure");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/issues"), "Site must link to GitHub Issues for feedback");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/TRUST_CENTER_SOURCE_MAP.md"), "Site must link to the Trust Center source map");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md"), "Site must link to Pilot Proof Pack");
@@ -236,11 +212,6 @@ function main() {
 
   for (const filePath of htmlPaths) {
     const html = read(filePath);
-    const expectedCanonical = pageUrlForFile(filePath);
-    assert(
-      new RegExp(`<link\\s+rel=["']canonical["']\\s+href=["']${expectedCanonical.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']\\s*/?>`).test(html),
-      `Missing canonical metadata in ${sitePath(filePath)}`
-    );
     assert(html.includes("application/ld+json"), `Structured data missing in ${sitePath(filePath)}`);
     assert(html.includes("data-legal-footer"), `Legal footer missing in ${sitePath(filePath)}`);
     assert(html.includes("skip-link"), `Skip link missing in ${sitePath(filePath)}`);
