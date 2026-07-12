@@ -85,7 +85,7 @@ const pages = [
         ]),
         ["Current main", `${currentMainCommit}; mutable development line`, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
         ["Current review bundle", `${releaseEvidence.status}; source ${currentEvidenceCommit}; ${evidenceFreshness}`, `${repoBlob}/config/release-evidence.json`],
-        ["Next release candidate", `${publicVersions.nextReleaseCandidate.version}; ${publicVersions.nextReleaseCandidate.status}; source commit not assigned until freeze`, `${repoBlob}/config/public-versions.json`]
+        ["Next release candidate", `${publicVersions.nextReleaseCandidate.version}; ${publicVersions.nextReleaseCandidate.status}; source ${publicVersions.nextReleaseCandidate.sourceCommit || "not assigned"}`, `${repoBlob}/config/public-versions.json`]
       ]],
       ["Canonical V1", [
         ["Token", manifest.contracts.token.address, manifest.contracts.token.verification],
