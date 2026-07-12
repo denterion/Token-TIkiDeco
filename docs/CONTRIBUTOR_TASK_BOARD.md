@@ -34,6 +34,7 @@ These are not coding tasks and must not carry `ready-for-contributor`.
 
 ## Maintainer-Only Tasks
 
+- Use the [`Reviewer Outreach Kit`](community-review/REVIEWER_OUTREACH_KIT.md) and consent-backed tracking before inviting or crediting external reviewers.
 - Review the evidence comments before manually closing #55, #56, #57, #58, #59, #61, #62, #63 and #65.
 - Decide whether #64 should be respecified for future translations or archived as superseded. Do not call it completed under its original EN/ES/RU criteria.
 - Maintain milestone ownership, priority labels, private disclosure routing and external-review procurement.
