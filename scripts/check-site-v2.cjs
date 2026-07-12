@@ -13,7 +13,7 @@ const requiredLinks = [
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md",
-  "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md",
+  "/roadmap/",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md",
   "https://github.com/denterion/Token-TIkiDeco/blob/main/SECURITY.md",
   "https://github.com/denterion/Token-TIkiDeco/issues"

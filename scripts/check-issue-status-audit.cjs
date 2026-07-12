@@ -74,4 +74,4 @@ for (const issue of data.issues) {
   }
 }
 
-console.log(`Issue status audit passed for ${data.issues.length} open issues at ${data.sourceCommit}.`);
+console.log(`Issue status audit passed for ${data.issues.length} tracked issues at ${data.sourceCommit}.`);

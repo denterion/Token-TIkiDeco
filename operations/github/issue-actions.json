@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "repository": "denterion/Token-TIkiDeco",
   "auditedAt": "2026-07-12",
-  "sourceCommit": "13de31d5480a9ae43e1f98e15c0a0e2fb082ab8e",
+  "sourceCommit": "99c609e43fc8faa70ae57ac1b79d938b8eaeee28",
   "milestones": [
     { "title": "Community Review Intake", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
     { "title": "Public Preview Hardening", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
@@ -268,42 +268,42 @@
     {
       "number": 119,
       "title": "Enforce generated sitemap and canonical route parity",
-      "status": "not started",
+      "status": "completed",
       "acceptanceCriteria": [
-        { "criterion": "Every generated public HTML route has exactly one sitemap and matching canonical URL.", "verified": false, "evidence": ["scripts/check-site-content.cjs", "site/sitemap.xml"] },
-        { "criterion": "Missing and duplicate routes have deterministic failure fixtures.", "verified": false, "evidence": ["scripts/check-site-content.cjs"] }
+        { "criterion": "Every generated public HTML route has exactly one sitemap and matching canonical URL.", "verified": true, "evidence": ["scripts/check-site-route-parity.cjs", "scripts/lib/site-route-parity.cjs", "site/sitemap.xml"] },
+        { "criterion": "Missing and duplicate routes have deterministic failure fixtures.", "verified": true, "evidence": ["scripts/test-site-route-parity.cjs", "test/fixtures/site-route-parity.json"] }
       ],
-      "evidenceFiles": ["scripts/check-site-content.cjs", "site/sitemap.xml"],
-      "verificationCommands": ["npm run site", "npm run site:browser"],
-      "missingWork": "Implement full generated-route parity and focused negative fixtures.",
-      "action": "keep-open",
-      "reason": "New reproducible contributor task for a verified checker gap.",
-      "labels": ["priority:P2", "frontend", "ready-for-contributor", "good-first-issue"],
+      "evidenceFiles": ["scripts/check-site-route-parity.cjs", "scripts/lib/site-route-parity.cjs", "scripts/test-site-route-parity.cjs", "test/fixtures/site-route-parity.json", "site/sitemap.xml"],
+      "verificationCommands": ["npm run routes:check", "npm run sitemap:check", "npm run canonical:check", "npm run site"],
+      "missingWork": "None for recorded criteria.",
+      "action": "record-closed",
+      "reason": "Merged PR #129 completed the deterministic route, sitemap and canonical parity criteria.",
+      "labels": ["priority:P2", "frontend"],
       "milestone": "Public Preview Hardening",
       "roadmapQuarter": "Q1 2026-07 to 2026-09",
       "dependency": "None.",
-      "suggestedComment": "Ready for a contributor; deterministic and network-free acceptance criteria and local commands are in the issue body."
+      "suggestedComment": "Closed by merged PR #129. Retain the route inventory and negative fixtures in npm run site."
     },
     {
       "number": 120,
       "title": "Add deterministic operator sandbox lifecycle tests",
-      "status": "partially implemented",
+      "status": "completed",
       "acceptanceCriteria": [
         { "criterion": "Baseline fake-data campaign, inventory, eligibility, decision, close, and aggregate flow is tested.", "verified": true, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"] },
-        { "criterion": "Duplicate-wallet, inventory-exhaustion, repeated-decision, and post-close transitions are tested.", "verified": false, "evidence": ["scripts/run-operator-sandbox.cjs"] },
-        { "criterion": "Audit-log ordering and aggregate count consistency are asserted after rejected transitions.", "verified": false, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"] },
+        { "criterion": "Duplicate-wallet, inventory-exhaustion, repeated-decision, and post-close transitions are tested.", "verified": true, "evidence": ["scripts/test-operator-sandbox-invariants.cjs", "test/fixtures/operator-sandbox-states.json"] },
+        { "criterion": "Audit-log ordering and aggregate count consistency are asserted after rejected transitions.", "verified": true, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/test-operator-sandbox-invariants.cjs"] },
         { "criterion": "Aggregate report excludes participant and guest data.", "verified": true, "evidence": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"] }
       ],
-      "evidenceFiles": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs"],
-      "verificationCommands": ["npm run operator-pilot:sandbox", "npm run operator-pilot:check", "npm run site:typecheck", "npm run claims", "npm run value"],
-      "missingWork": "Add duplicate-wallet, inventory exhaustion, repeated-decision, post-close mutation, audit-log ordering, and rejected-transition count assertions.",
-      "action": "keep-open",
-      "reason": "The baseline exists, but important edge-state invariants remain untested and require no private infrastructure.",
-      "labels": ["priority:P1", "operations", "privacy", "ready-for-contributor"],
+      "evidenceFiles": ["site-v2/src/lib/operator/operatorSandbox.ts", "scripts/run-operator-sandbox.cjs", "scripts/test-operator-sandbox-invariants.cjs", "test/fixtures/operator-sandbox-states.json", "docs/hospitality-operator/OPERATOR_SANDBOX_STATE_MATRIX.md"],
+      "verificationCommands": ["npm run operator-pilot:check", "npm run operator-sandbox:invariants", "npm run operator-sandbox:fixtures", "npm run site:typecheck", "npm run claims", "npm run value"],
+      "missingWork": "None for recorded criteria.",
+      "action": "record-closed",
+      "reason": "Merged PR #130 completed the edge-state, audit reconciliation and malformed-state criteria.",
+      "labels": ["priority:P1", "operations", "privacy"],
       "milestone": "Operator Sandbox",
       "roadmapQuarter": "Q2 2026-10 to 2026-12",
       "dependency": "None; fake local data only.",
-      "suggestedComment": "Ready for an intermediate contributor. The issue now records the existing baseline and only the missing edge-state invariants; no private infrastructure is required."
+      "suggestedComment": "Closed by merged PR #130. Keep invariant and malformed-state commands in the operator gate."
     },
     {
       "number": 121,
@@ -342,6 +342,44 @@
       "roadmapQuarter": "Q1 2026-07 to 2026-09",
       "dependency": "None; local generated pages and Playwright are sufficient.",
       "suggestedComment": "Ready for a contributor. Use deterministic local pages only and keep current claims/value boundaries unchanged."
+    },
+    {
+      "number": 132,
+      "title": "Add negative fixtures for reviewer outreach gates",
+      "status": "not started",
+      "acceptanceCriteria": [
+        { "criterion": "Placeholder, missing-evidence, consent, candidate, checksum, wording, and disclosure failures have deterministic fixtures.", "verified": false, "evidence": ["scripts/check-reviewer-outreach.cjs", "operations/community-review/outreach.json"] },
+        { "criterion": "The real outreach tracker remains empty and contains no invented reviewer.", "verified": true, "evidence": ["operations/community-review/outreach.json"] }
+      ],
+      "evidenceFiles": ["scripts/check-reviewer-outreach.cjs", "operations/community-review/outreach.json"],
+      "verificationCommands": ["npm run reviewer-outreach:check", "npm run reviewer-intake:check", "npm run claims", "npm run value"],
+      "missingWork": "Add fake-only negative fixtures without changing the real tracker.",
+      "action": "keep-open",
+      "reason": "The gate exists, but focused failure fixtures are a reproducible contributor task.",
+      "labels": ["priority:P2", "review", "security", "ready-for-contributor", "good-first-issue"],
+      "milestone": "Community Review Intake",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None; fake local fixtures only.",
+      "suggestedComment": "Ready for a contributor. Keep the real outreach tracker empty and use fake local fixtures only."
+    },
+    {
+      "number": 133,
+      "title": "Add browser regression coverage for the public roadmap",
+      "status": "not started",
+      "acceptanceCriteria": [
+        { "criterion": "The roadmap page quarter summaries and evidence boundaries are covered in local browser tests.", "verified": false, "evidence": ["scripts/build-site-pages.cjs", "site-v2/tests/site-regression.spec.ts"] },
+        { "criterion": "Keyboard, landmark, heading and mobile overflow behavior is deterministic.", "verified": false, "evidence": ["site-v2/tests/site-regression.spec.ts"] }
+      ],
+      "evidenceFiles": ["scripts/build-site-pages.cjs", "site-v2/tests/site-regression.spec.ts", "config/roadmap/roadmap.json"],
+      "verificationCommands": ["npm run roadmap:build", "npm run site", "npm run site:browser", "npm run claims", "npm run value"],
+      "missingWork": "Add local desktop/mobile roadmap page regression assertions.",
+      "action": "keep-open",
+      "reason": "The generated page needs focused browser evidence and requires no private infrastructure.",
+      "labels": ["priority:P2", "frontend", "accessibility", "ready-for-contributor", "good-first-issue"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None; local generated site only.",
+      "suggestedComment": "Ready for a contributor. Use the local generated roadmap page and do not add external claims."
     }
   ],
   "contributorTasks": [
@@ -355,18 +393,18 @@
       "changesTokenEconomics": false
     },
     {
-      "issueNumber": 119,
+      "issueNumber": 132,
       "level": "beginner",
-      "commands": ["npm run site", "npm run site:browser"],
+      "commands": ["npm run reviewer-outreach:check", "npm run reviewer-intake:check", "npm run claims", "npm run value"],
       "requiresSecrets": false,
       "requiresPrivateInfrastructure": false,
       "requiresMainnet": false,
       "changesTokenEconomics": false
     },
     {
-      "issueNumber": 120,
-      "level": "intermediate",
-      "commands": ["npm run operator-pilot:sandbox", "npm run operator-pilot:check", "npm run site:typecheck", "npm run claims", "npm run value"],
+      "issueNumber": 133,
+      "level": "beginner",
+      "commands": ["npm run roadmap:build", "npm run site", "npm run site:browser", "npm run claims", "npm run value"],
       "requiresSecrets": false,
       "requiresPrivateInfrastructure": false,
       "requiresMainnet": false,

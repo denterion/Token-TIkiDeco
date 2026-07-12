@@ -13,6 +13,7 @@ const v2Review = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "
 const v2ReviewCandidate = JSON.parse(fs.readFileSync(path.join(root, "config", "audit", "v2-review-candidate.json"), "utf8"));
 const communityReview = JSON.parse(fs.readFileSync(path.join(root, "config", "community-review", "status.json"), "utf8"));
 const communityFindings = JSON.parse(fs.readFileSync(path.join(root, "config", "community-review", "findings.json"), "utf8"));
+const roadmap = JSON.parse(fs.readFileSync(path.join(root, "config", "roadmap", "roadmap.json"), "utf8"));
 const communityFindingsSummary = summarizeCommunityFindings(communityFindings);
 const headCommit = manifest.sourceCommit;
 const lastUpdated = manifest.publishedReports?.[0]?.publishedAt || manifest.ownership.ownershipTransferredAt;
@@ -588,6 +589,38 @@ const pages = [
     disclaimer: "No-offer disclaimer: business utility is design-stage only. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit not started."
   },
   {
+    path: "roadmap/index.html",
+    title: "Evidence Roadmap",
+    description: "Evidence-linked TikiDeco roadmap separating internal engineering progress from external validation and production decisions.",
+    eyebrow: "Evidence-linked roadmap",
+    heading: "Progress means evidence, not activity.",
+    intro: "Internal engineering, external review, legal, operator, user, and production evidence are tracked separately.",
+    sections: [
+      ["Quarter Status", ["Q1", "Q2", "Q3", "Q4"].map((quarter) => {
+        const items = roadmap.items.filter((item) => item.quarter === quarter && item.status !== "superseded");
+        const verified = items.filter((item) => ["internally-complete", "externally-verified"].includes(item.status)).length;
+        return [quarter, `${verified}/${items.length} evidence-linked items verified`];
+      })],
+      ["Internal And External Boundaries", [
+        ["Internal engineering", "Repository checks can establish implementation evidence only."],
+        ["External reviewer", "No reviewer engagement or independent validation is recorded."],
+        ["Legal and operator", "No external counsel approval or verified hospitality operator is recorded."],
+        ["User and production", "The limited preview remains blocked and production approval remains no-go."]
+      ]],
+      ["Current Actions", roadmap.items
+        .filter((item) => !["internally-complete", "externally-verified", "superseded"].includes(item.status))
+        .slice(0, 6)
+        .map((item) => [item.id, `${item.status}: ${item.nextAction}`])]
+    ],
+    links: [
+      ["Generated public roadmap", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/ROADMAP_CURRENT.md"],
+      ["Machine-readable roadmap", "https://github.com/denterion/Token-TIkiDeco/blob/main/config/roadmap/roadmap.json"],
+      ["Maintainer actions", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/MAINTAINER_ACTIONS.md"],
+      ["Monthly progress delta", "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/reports/ROADMAP_DELTA_2026_07.md"]
+    ],
+    disclaimer: "Roadmap status is evidence-based planning, not a deployment authorization, external approval, partnership statement, or operational promise."
+  },
+  {
     path: "operator-sandbox/index.html",
     interactive: true,
     title: "Operator Sandbox",
@@ -746,7 +779,7 @@ function legalFooter() {
           <a href="/business/">Business</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md" target="_blank" rel="noopener noreferrer">Project Facts</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md" target="_blank" rel="noopener noreferrer">Release Control</a>
-          <a href="https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md" target="_blank" rel="noopener noreferrer">Roadmap</a>
+          <a href="/roadmap/">Roadmap</a>
           <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
           <a href="/legal/no-offer/">No offer</a>
           <a href="/legal/terms/">Terms</a>

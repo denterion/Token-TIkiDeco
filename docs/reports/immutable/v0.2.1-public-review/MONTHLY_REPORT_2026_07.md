@@ -6,7 +6,7 @@ Report period: 2026-07. Generated from repository and GitHub evidence on 2026-07
 
 | Fact | Status | Evidence |
 | --- | --- | --- |
-| Current main at generation | `99c609e43fc8faa70ae57ac1b79d938b8eaeee28` | [Commit](https://github.com/denterion/Token-TIkiDeco/commit/99c609e43fc8faa70ae57ac1b79d938b8eaeee28) / `git rev-parse origin/main` |
+| Current main at generation | `3d5c207b133e4b86459bdc173b78422315a0c744` | [Commit](https://github.com/denterion/Token-TIkiDeco/commit/3d5c207b133e4b86459bdc173b78422315a0c744) / `git rev-parse origin/main` |
 
 ## Canonical Deployment
 
@@ -56,9 +56,10 @@ Zero recorded findings is not evidence that vulnerabilities do not exist. Eviden
 
 | Milestone | Open issues | Evidence |
 | --- | ---: | --- |
-| Community Review Intake | 5 | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
+| Community Review Intake | 4 | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
 | External Validation | 2 | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
 | Future Production Decision | 1 | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
+| Operator Sandbox | 1 | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
 | Public Preview Hardening | 7 | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
 | **Total** | **15** | [Open issues](https://github.com/denterion/Token-TIkiDeco/issues?q=is%3Aissue+is%3Aopen) / `gh issue list --state open --limit 200 --json number,labels,milestone,updatedAt` |
 
@@ -108,7 +109,7 @@ These are repository checks recorded by the latest internal status run; they are
 | Independent reviewer engagement | Not started; selection and handoff remain externally blocked | [docs/PUBLIC_REVIEW_PROCUREMENT_BRIEF.md](../../docs/PUBLIC_REVIEW_PROCUREMENT_BRIEF.md) / [Issue #121](https://github.com/denterion/Token-TIkiDeco/issues/121) |
 | Legal/entity review | Requires external counsel review; no approval is recorded | [docs/LEGAL_READINESS.md](../../docs/LEGAL_READINESS.md) / [docs/MAINNET_GO_NO_GO.md](../../docs/MAINNET_GO_NO_GO.md) |
 | Operator readiness | blocked; all 8 operator gates remain not approved | [config/hospitality-operator/readiness-gates.json](../../config/hospitality-operator/readiness-gates.json) |
-| Release evidence refresh | Recorded baseline `3d5c207b133e4b86459bdc173b78422315a0c744` does not match current main at generation | [config/release-evidence.json](../../config/release-evidence.json) / [docs/RELEASE_CONTROL_CENTER.md](../../docs/RELEASE_CONTROL_CENTER.md) |
+| Release evidence refresh | Recorded baseline `3d5c207b133e4b86459bdc173b78422315a0c744` matches current main at generation | [config/release-evidence.json](../../config/release-evidence.json) / [docs/RELEASE_CONTROL_CENTER.md](../../docs/RELEASE_CONTROL_CENTER.md) |
 
 ## Mainnet Status
 
@@ -117,25 +118,14 @@ These are repository checks recorded by the latest internal status run; they are
 | Mainnet readiness | Blocked; 29 unapproved statuses | [docs/MAINNET_GO_NO_GO.md](../../docs/MAINNET_GO_NO_GO.md) / `node scripts/check-mainnet-readiness.cjs --expect-blocked` |
 | Canonical network | Sepolia; no mainnet deployment recorded | [deployments/canonical.json](../../deployments/canonical.json) |
 
-## Roadmap Progress
-
-| Fact | Verified | Tracked | Compliance | Evidence |
-| --- | ---: | ---: | ---: | --- |
-| Q1 | 6 | 10 | 60% | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) |
-| Q2 | 1 | 4 | 25% | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) |
-| Q3 | 0 | 2 | 0% | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) |
-| Q4 | 0 | 2 | 0% | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) |
-
-Internal engineering completion does not satisfy reviewer, legal, operator, user, or production evidence. Monthly status changes: [docs/reports/ROADMAP_DELTA_2026_07.md](../../docs/reports/ROADMAP_DELTA_2026_07.md).
-
 ## Next-Month Goals
 
 | Status | Goal | Evidence |
 | --- | --- | --- |
-| In progress | Choose whether to preserve the draft snapshot or build a new immutable pre-release snapshot from a later exact commit. | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) / [config/release-evidence.json](../../config/release-evidence.json) |
-| Planned | Complete GitHub issue #127 with deterministic desktop and mobile checks. | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) / [site-v2/tests/site-regression.spec.ts](../../site-v2/tests/site-regression.spec.ts) |
-| Planned | Contact qualified candidates and record only real privacy-safe evidence. | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) / [operations/community-review/outreach.json](../../operations/community-review/outreach.json) |
-| Planned | Select qualified counsel and obtain written scope and engagement evidence. | [config/roadmap/roadmap.json](../../config/roadmap/roadmap.json) / [docs/COUNSEL_INTAKE_PACKAGE.md](../../docs/COUNSEL_INTAKE_PACKAGE.md) |
+| Planned | Invite qualified independent reviewers to assess the frozen V2 package and record real procurement evidence. | [docs/ONE_YEAR_DEVELOPMENT_PLAN.md](../../docs/ONE_YEAR_DEVELOPMENT_PLAN.md) / [Issue #121](https://github.com/denterion/Token-TIkiDeco/issues/121) |
+| Planned | Run operator interviews against the fake-data sandbox without collecting guest or booking data. | [docs/hospitality-operator/OPERATOR_INTERVIEW_GUIDE.md](../../docs/hospitality-operator/OPERATOR_INTERVIEW_GUIDE.md) / [docs/ONE_YEAR_DEVELOPMENT_PLAN.md](../../docs/ONE_YEAR_DEVELOPMENT_PLAN.md) |
+| In progress | Keep community peer review open and summarize only real, privacy-safe feedback. | [config/community-review/status.json](../../config/community-review/status.json) / [Issue #66](https://github.com/denterion/Token-TIkiDeco/issues/66) |
+| Blocked | Keep the pilot and mainnet gates closed until accountable external evidence exists. | [config/utility-pilot/tide-community-preview-001.json](../../config/utility-pilot/tide-community-preview-001.json) / [docs/MAINNET_GO_NO_GO.md](../../docs/MAINNET_GO_NO_GO.md) |
 
 ## Public Boundaries
 
@@ -145,5 +135,5 @@ TIDE remains a Sepolia testnet prototype: no sale, no stated monetary value, no 
 
 | Fact | Value | Evidence |
 | --- | --- | --- |
-| Report body SHA-256 | `2c8f52f5c568d3c9657e0fb27c854e1376afe77c9144edb330eaf826f1d530ff` | Recompute with `npm run transparency:monthly:check` |
+| Report body SHA-256 | `b5bccd3e7571e657673e415680ac1d6035e6cf870431be0330be134eb539618f` | Recompute with `npm run transparency:monthly:check` |
 | Machine summary | `docs/reports/MONTHLY_REPORT_2026_07.json` | [docs/reports/MONTHLY_REPORT_2026_07.json](../../docs/reports/MONTHLY_REPORT_2026_07.json) |

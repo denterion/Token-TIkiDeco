@@ -206,7 +206,7 @@ function main() {
   assert(absoluteLinks.has(`https://github.com/denterion/Token-TIkiDeco/blob/main/${releaseEvidence.transparencyReport}`), "Site must link to final evidence report");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md"), "Site must link to Project Facts");
   assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md"), "Site must link to Release Control Center");
-  assert(absoluteLinks.has("https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md"), "Site must link to Roadmap");
+  assert(allLinks.includes("/roadmap/"), "Site must link to the generated Roadmap");
   assert(fs.existsSync(path.join(siteDir, ".well-known", "security.txt")), "security.txt missing");
   assert(!allHtml.includes(oldGitHubPagesPath), "old GitHub Pages URL found in HTML");
 

@@ -31,7 +31,7 @@ export const projectFacts = {
     pilotProofPack: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PILOT_PROOF_PACK.md",
     projectFacts: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/PROJECT_FACTS.md",
     releaseControl: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/RELEASE_CONTROL_CENTER.md",
-    roadmap: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/THREE_PHASE_ROADMAP.md",
+    roadmap: "/roadmap/",
     claimsMatrix: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/CLAIMS_MATRIX.md",
     feedbackGuide: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/FEEDBACK_GUIDE.md",
     communityPreview: "https://github.com/denterion/Token-TIkiDeco/blob/main/docs/COMMUNITY_PREVIEW.md",

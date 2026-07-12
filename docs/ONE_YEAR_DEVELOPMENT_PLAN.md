@@ -147,13 +147,12 @@ Stop promotion or preview work when:
 - legal, privacy, security, operations, or governance approval is withdrawn;
 - the project cannot support disputes, corrections, or incident communication.
 
-## Next 30 Days
+## Current Actions
 
-1. Merge the refreshed release-evidence record and confirm public evidence pages show source commit `00e0ccbbf26397aadd5416816bba44e7cc2e373b`.
-2. Send the non-canonical V2 candidate brief to qualified independent reviewers for scope and budget proposals.
-3. Send the counsel intake package for entity, classification, privacy, and hospitality-utility review.
-4. Run and document one Safe resilience tabletop drill.
-5. Open or update owner issues for all blocked limited-preview gates.
-6. Publish one aggregate transparency update with no participant data.
+The former hand-maintained "Next 30 Days" list was removed because it drifted after merged work. Current actions are generated from [`config/roadmap/roadmap.json`](../config/roadmap/roadmap.json):
 
-Progress note (2026-07-11): item 4 has test-only evidence in [`governance/SAFE_RESILIENCE_DRILL_2026.md`](governance/SAFE_RESILIENCE_DRILL_2026.md). Signer recovery and governance approval remain blocked.
+- public roadmap: [`ROADMAP_CURRENT.md`](ROADMAP_CURRENT.md);
+- maintainer actions: [`MAINTAINER_ACTIONS.md`](MAINTAINER_ACTIONS.md);
+- monthly delta: [`reports/ROADMAP_DELTA_2026_07.md`](reports/ROADMAP_DELTA_2026_07.md).
+
+Run `npm run roadmap:build` and `npm run roadmap:check` after changing roadmap evidence. Do not edit generated action lists by hand.
