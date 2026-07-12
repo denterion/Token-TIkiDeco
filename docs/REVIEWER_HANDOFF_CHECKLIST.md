@@ -2,6 +2,7 @@
 
 ## Before Sending
 
+- [ ] Outreach followed [`community-review/REVIEWER_OUTREACH_KIT.md`](community-review/REVIEWER_OUTREACH_KIT.md) without representing interest as an engagement.
 - [ ] `config/audit/v2-review-candidate.json` identifies the exact evidence commit and package SHA-256.
 - [ ] `npm run review:candidate:check` passes.
 - [ ] `npm run review:handoff:check` passes from a clean tree.

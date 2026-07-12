@@ -92,6 +92,8 @@
     "review:handoff": "npm run review:handoff:check",
     "community-review:check": "node scripts/check-community-review.cjs && npm run findings:check",
     "community-review:status": "node scripts/community-review-status.cjs",
+    "reviewer-outreach:check": "node scripts/check-reviewer-outreach.cjs --outreach",
+    "reviewer-intake:check": "node scripts/check-reviewer-outreach.cjs --intake",
     "findings:check": "node scripts/check-community-findings.cjs",
     "findings:test": "node scripts/test-community-findings.cjs",
     "issues:audit": "node scripts/check-issue-status-audit.cjs",

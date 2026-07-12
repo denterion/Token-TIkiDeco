@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateCommit": "cdc9e7e27e66f204c50d59e45ccf970ad20290d6",
+  "packageSha256": "980555973d47cb5b21b900f3d463890d4faeeff1c45d351332906f5149bae1a2",
+  "allowedStatuses": [
+    "not-contacted",
+    "contacted",
+    "replied",
+    "interested",
+    "declined",
+    "reviewing",
+    "submitted-finding",
+    "completed"
+  ],
+  "records": [],
+  "acknowledgements": []
+}
