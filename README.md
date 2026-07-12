@@ -23,6 +23,7 @@
 [Pilot Proof Pack](docs/PILOT_PROOF_PACK.md) |
 [Public Evidence](docs/PUBLIC_EVIDENCE_DASHBOARD.md) |
 [Latest Monthly Report](docs/reports/MONTHLY_REPORT_LATEST.md) |
+[v0.2.1 Draft](docs/releases/v0.2.1-public-review.md) |
 [Mainnet Readiness](docs/MAINNET_READINESS_GAP_ANALYSIS.md) |
 [Claims Matrix](docs/CLAIMS_MATRIX.md) |
 [Security Policy](SECURITY.md)
@@ -53,6 +54,8 @@ For a first-time reader, use the four public entry points:
 - Latest source-linked monthly report: [`docs/reports/MONTHLY_REPORT_LATEST.md`](docs/reports/MONTHLY_REPORT_LATEST.md)
 - Mainnet readiness gap analysis: [`docs/MAINNET_READINESS_GAP_ANALYSIS.md`](docs/MAINNET_READINESS_GAP_ANALYSIS.md)
 - Release control: [`docs/RELEASE_CONTROL_CENTER.md`](docs/RELEASE_CONTROL_CENTER.md)
+
+Current public-review draft: `v0.2.1-public-review`, sourced from exact main snapshot [`3d5c207b133e4b86459bdc173b78422315a0c744`](https://github.com/denterion/Token-TIkiDeco/commit/3d5c207b133e4b86459bdc173b78422315a0c744). It is not published; the earlier `v0.1.0-sepolia` and `v0.2.0-utility-pilot` tags remain immutable pre-releases at their original source commits.
 
 ## V2 Community Review
 

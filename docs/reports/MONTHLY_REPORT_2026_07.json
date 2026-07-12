@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
   "month": "2026-07",
-  "generatedAt": "2026-07-11T00:00:00.000Z",
-  "sourceCommit": "2efd62299cb18d7565c7ceb4e48619190062b3b3",
+  "generatedAt": "2026-07-12T00:00:00.000Z",
+  "sourceCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
   "reportPath": "docs/reports/MONTHLY_REPORT_2026_07.md",
-  "reportSha256": "955f1af7a91b951d702e8f4c97ccabd00e7d7e3e65ea40ea69a9f5059a90a3de",
+  "reportSha256": "b5bccd3e7571e657673e415680ac1d6035e6cf870431be0330be134eb539618f",
   "canonical": {
     "network": "sepolia",
     "chainId": 11155111,
@@ -142,8 +142,8 @@
     "operatorGatesNotApproved": 8,
     "independentReview": "not-started",
     "legalReview": "requires-review",
-    "releaseEvidenceSourceCommit": "00e0ccbbf26397aadd5416816bba44e7cc2e373b",
-    "releaseEvidenceMatchesMainAtGeneration": false
+    "releaseEvidenceSourceCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
+    "releaseEvidenceMatchesMainAtGeneration": true
   },
   "sources": {
     "canonical": "deployments/canonical.json",

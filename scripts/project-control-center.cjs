@@ -104,7 +104,7 @@ function buildSummary(options = {}) {
   const evidenceIsAncestor = /^[0-9a-f]{40}$/i.test(evidenceCommit || "") && gitIsAncestor(evidenceCommit, head);
 
   const blockers = [];
-  if (!evidenceIsAncestor) blockers.push("v0.2 RC evidence source is missing from or diverges from the current history.");
+  if (!evidenceIsAncestor) blockers.push("Recorded release evidence source is missing from or diverges from the current history.");
   if (campaign.status !== "draft-not-live") blockers.push("Pilot campaign is not draft-not-live; review immediately.");
   if (canonical.network !== "sepolia") blockers.push("Canonical deployment network is not Sepolia.");
   if (canonical.contractVersion !== "v1-legacy") blockers.push("Canonical contract version is not v1-legacy.");

@@ -4,17 +4,17 @@ Status: public-review navigation document. This is not a token sale, value state
 
 ## What This Page Is
 
-This page gives reviewers one short path to the current evidence baseline for TikiDeco v0.2 utility-pilot preparation.
+This page gives reviewers one short path to the current `v0.2.1-public-review` draft evidence snapshot. Published v0.1 and v0.2 tags remain immutable historical pre-releases.
 
 Current evidence baseline:
 
 | Field | Value |
 | --- | --- |
-| Release track | `v0.2.0-utility-pilot` |
-| Candidate document | `v0.2.0-utility-pilot-rc.1` |
-| Evidence date | 2026-07-11 |
-| Evidence commit | `00e0ccbbf26397aadd5416816bba44e7cc2e373b` |
-| Evidence report | `docs/reports/REPORT_2026_07_11_V02_FINAL_EVIDENCE.md` |
+| Release track | `v0.2.1-public-review` draft; not published |
+| Candidate document | `docs/releases/v0.2.1-public-review.md` |
+| Evidence date | 2026-07-12 |
+| Current main snapshot | `3d5c207b133e4b86459bdc173b78422315a0c744` |
+| Evidence report | `docs/reports/MONTHLY_REPORT_2026_07.md` |
 | Pilot campaign | `draft-not-live` |
 | Mainnet | not approved |
 | Sale | not offered |
@@ -24,8 +24,8 @@ Current evidence baseline:
 ## What To Check First
 
 1. Project facts: `docs/PROJECT_FACTS.md`
-2. v0.2 release candidate: `docs/releases/v0.2.0-utility-pilot-rc.1.md`
-3. Final evidence report: `docs/reports/REPORT_2026_07_11_V02_FINAL_EVIDENCE.md`
+2. v0.2.1 draft pre-release: `docs/releases/v0.2.1-public-review.md`
+3. Current monthly evidence report: `docs/reports/MONTHLY_REPORT_2026_07.md`
 4. Pilot proof pack: `docs/PILOT_PROOF_PACK.md`
 5. Release Control Center: `docs/RELEASE_CONTROL_CENTER.md`
 6. V2 Community Review: `https://tikideco.xyz/community-review/`
@@ -53,20 +53,22 @@ npm run project:control:verify
 npm run site
 ```
 
-The release bundle itself was reproduced with:
+The v0.2.1 draft bundle is reproduced with:
 
 ```bash
-npm run release -- --commit 00e0ccbbf26397aadd5416816bba44e7cc2e373b --release v0.2.0-utility-pilot
+npm run release:v021:build -- --commit 3d5c207b133e4b86459bdc173b78422315a0c744
+npm run release:v021:check
 ```
 
 ## Bundle Hashes
 
 | Item | SHA-256 |
 | --- | --- |
-| Source archive | `1e40af6a91f6fd00528db599bc4b24cb235817d3fdb1e56485330ba4417e64b2` |
-| Release manifest | `a9cd502f5a6ecf2322576964fbcf71405e8f0b96d924f9ad071cc2de763ae288` |
-| `SHA256SUMS.txt` | `69b2c1d3c5ee226e8fc2505a6921a8553a692e4d37a469f92aba9b0961a49dfa` |
-| Evidence report | `2cad58b3ba6ca343acacf326e6efa1c588ee87882c2d9285c1218c13e5a642d6` |
+| Source archive | `edd2e3c69982e98db9654c906640fd745e8197d57e0fcd44175a945f766cbad9` |
+| Package manifest | `73a1d2eb60b04321a348e8cf64f28d87ba0569f1869180585977253b49aa893f` |
+| `SHA256SUMS.txt` | `fae97083171cc55e8dc8c8b5075dd0ced9cebf93f2ab6e4196a7e5a00a5df635` |
+| Monthly report body | `b5bccd3e7571e657673e415680ac1d6035e6cf870431be0330be134eb539618f` |
+| Monthly report file | `380a806fba2189cefdd6160b6e5f485cf304e46856155af9ae4d3239abd8ca3c` |
 
 ## What This Does Not Mean
 
@@ -83,7 +85,7 @@ npm run release -- --commit 00e0ccbbf26397aadd5416816bba44e7cc2e373b --release v
 After any later release-documentation, site, audit, or gate PR merges, regenerate the release evidence on the final merge commit and update:
 
 - `config/release-evidence.json`;
-- `docs/releases/v0.2.0-utility-pilot-rc.1.md`;
+- `docs/releases/v0.2.1-public-review.md`;
 - `docs/PROJECT_FACTS.md`;
 - `docs/NEXT_RELEASE_GATES.md`;
 - the dated report under `docs/reports/`.

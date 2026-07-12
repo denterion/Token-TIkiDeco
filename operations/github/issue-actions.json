@@ -1,8 +1,8 @@
 {
   "schemaVersion": "1.0.0",
   "repository": "denterion/Token-TIkiDeco",
-  "auditedAt": "2026-07-11",
-  "sourceCommit": "5b34682d7fc05ddf163ac814d6e1b266f5a20999",
+  "auditedAt": "2026-07-12",
+  "sourceCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
   "milestones": [
     { "title": "Community Review Intake", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
     { "title": "Public Preview Hardening", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
@@ -231,18 +231,18 @@
       "acceptanceCriteria": [
         { "criterion": "Current, planned, conceptual, and not-claimable sections are separated.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md"] },
         { "criterion": "Validation commands and expected blocked mainnet gate are recorded.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md"] },
-        { "criterion": "Report hash workflow does not broadcast transactions.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md"] }
+        { "criterion": "Report hash workflow does not broadcast transactions.", "verified": true, "evidence": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md", "scripts/generate-monthly-transparency-report.cjs", "scripts/check-monthly-transparency-report.cjs"] }
       ],
-      "evidenceFiles": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md"],
-      "verificationCommands": ["npm run claims", "npm run value", "node scripts/check-mainnet-readiness.cjs --expect-blocked"],
+      "evidenceFiles": ["docs/utility-pilot/TRANSPARENCY_UPDATE_REVIEW_PACKET.md", "docs/reports/PUBLIC_REPORT_TEMPLATE.md", "docs/reports/MONTHLY_REPORT_2026_07.md", "scripts/generate-monthly-transparency-report.cjs", "scripts/check-monthly-transparency-report.cjs"],
+      "verificationCommands": ["npm run transparency:monthly:build", "npm run transparency:monthly:check", "npm run claims", "npm run value", "node scripts/check-mainnet-readiness.cjs --expect-blocked"],
       "missingWork": "None for the template; publishing any future report remains a separate reviewed action.",
       "action": "recommend-close",
-      "reason": "The report template and review packet satisfy all requested structure and safety criteria.",
+      "reason": "The report template, review packet, source-linked monthly generator, and checksum checker satisfy all requested structure and safety criteria.",
       "labels": ["priority:P2", "documentation", "operations"],
       "milestone": "Community Review Intake",
       "roadmapQuarter": "Q1 2026-07 to 2026-09",
       "dependency": "None for template completion.",
-      "suggestedComment": "Verified section separation, command recording, expected blocked mainnet gate, and SHA-256/no-broadcast workflow. Recommend closing as completed."
+      "suggestedComment": "Verified section separation, command recording, expected blocked mainnet gate, source-linked monthly generation, and SHA-256/no-broadcast workflow. Recommend closing as completed; no automated closure was performed."
     },
     {
       "number": 66,

@@ -12,7 +12,7 @@ The repository now has several good but separate safety systems:
 
 - public claims checks;
 - value-claim checks;
-- v0.2 release-candidate checks;
+- v0.2.1 public-review draft checks;
 - utility-pilot live blockers;
 - public-preview lifecycle, aggregate metrics, report, and privacy checks;
 - mainnet/value readiness gates;
@@ -53,7 +53,7 @@ node scripts/project-control-center.cjs --fail-on-blockers
 The script reads:
 
 - `deployments/canonical.json`;
-- `docs/releases/v0.2.0-utility-pilot-rc.1.md`;
+- `docs/releases/v0.2.1-public-review.md`;
 - `docs/NEXT_RELEASE_GATES.md`;
 - `config/utility-pilot/live-readiness-gates.json`;
 - `config/utility-pilot/tide-community-preview-001.json`;
@@ -65,7 +65,7 @@ It reports:
 - current commit and branch;
 - canonical network and contract version;
 - independent audit and mainnet approval status;
-- whether the v0.2 RC evidence commit matches current `HEAD`;
+- whether the v0.2.1 source snapshot matches the recorded main commit;
 - whether the local review-bundle path exists;
 - live-pilot gate counts;
 - linked tracking issues;
@@ -85,7 +85,7 @@ For the current public-preview cycle, the healthy state is conservative:
 - `npm run pilot:live:blocked` passes;
 - `node scripts/check-mainnet-readiness.cjs --expect-blocked` passes.
 
-If the Control Center says the v0.2 RC evidence is stale, the release manager should regenerate the review package on the current final `main` commit before attaching or announcing a release candidate.
+The current draft records main snapshot `3d5c207b133e4b86459bdc173b78422315a0c744`. A later main commit is outside that immutable source snapshot and requires a new package if it should be included.
 
 ## Current Follow-Up Pattern
 
@@ -95,7 +95,8 @@ After each merge that affects release docs, site, tests, gates, audit package, o
 2. If the evidence commit is stale, run:
 
    ```bash
-   npm run release -- --commit <current-main-sha> --release v0.2.0-utility-pilot
+   npm run release:v021:build -- --commit <current-main-sha>
+   npm run release:v021:check
    ```
 
 3. Update the RC evidence hashes and transparency report if a new release package is intended.

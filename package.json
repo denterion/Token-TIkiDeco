@@ -73,6 +73,8 @@
     "site:check": "npm run eligibility:test && npm run site:typecheck && npm run site:build && node scripts/check-site-content.cjs && node scripts/check-site-v2.cjs && npm run evidence:check && npm run trust:check && npm run community-review:check",
     "site": "npm run site:check",
     "release:check": "node scripts/check-release-draft.cjs",
+    "release:v021:build": "node scripts/build-v021-public-review.cjs",
+    "release:v021:check": "node scripts/check-v021-public-review.cjs",
     "release:package": "node scripts/generate-audit-release-package.cjs",
     "release": "node scripts/prove-release-reproducibility.cjs",
     "audit:package": "node scripts/generate-v2-audit-package.cjs",

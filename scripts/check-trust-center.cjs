@@ -65,7 +65,7 @@ assert(/^[0-9a-f]{40}$/i.test(mainCommit), "Current main commit is unavailable")
 assert(trustHtml.includes(mainCommit), "Trust Center does not show the current main commit used by this build");
 assert(trustHtml.includes("mutable development line"), "Current main is not distinguished from immutable release tags");
 assert(trustHtml.includes("published-pre-release"), "Published pre-release status is missing from the version matrix");
-assert(trustHtml.includes("planned-not-published"), "Next release candidate is not clearly marked as planned");
+assert(trustHtml.includes("draft-not-published") || trustHtml.includes("planned-not-published"), "Next release candidate is not clearly marked as unpublished");
 
 for (const field of ["sourceArchiveSha256", "releaseManifestSha256", "checksumsSha256", "transparencyReportSha256"]) {
   assert(/^[0-9a-f]{64}$/i.test(evidence[field] || ""), `Evidence field ${field} must contain a SHA-256 hash`);

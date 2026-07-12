@@ -1,12 +1,12 @@
 # TikiDeco Monthly Transparency Report - 2026-07
 
-Report period: 2026-07. Generated from repository and GitHub evidence on 2026-07-11. Every status below is a dated snapshot, not a promise of future completion. Evidence: [docs/PROJECT_FACTS.md](../../docs/PROJECT_FACTS.md) and [docs/CLAIMS_MATRIX.md](../../docs/CLAIMS_MATRIX.md).
+Report period: 2026-07. Generated from repository and GitHub evidence on 2026-07-12. Every status below is a dated snapshot, not a promise of future completion. Evidence: [docs/PROJECT_FACTS.md](../../docs/PROJECT_FACTS.md) and [docs/CLAIMS_MATRIX.md](../../docs/CLAIMS_MATRIX.md).
 
 ## Current Main Commit
 
 | Fact | Status | Evidence |
 | --- | --- | --- |
-| Current main at generation | `2efd62299cb18d7565c7ceb4e48619190062b3b3` | [Commit](https://github.com/denterion/Token-TIkiDeco/commit/2efd62299cb18d7565c7ceb4e48619190062b3b3) / `git rev-parse origin/main` |
+| Current main at generation | `3d5c207b133e4b86459bdc173b78422315a0c744` | [Commit](https://github.com/denterion/Token-TIkiDeco/commit/3d5c207b133e4b86459bdc173b78422315a0c744) / `git rev-parse origin/main` |
 
 ## Canonical Deployment
 
@@ -24,7 +24,7 @@ Report period: 2026-07. Generated from repository and GitHub evidence on 2026-07
 | --- | --- | --- | --- |
 | v0.1.0-sepolia | published-pre-release | `e07471936375ffbe13c68da2708b4436931392a2` | [Release](https://github.com/denterion/Token-TIkiDeco/releases/tag/v0.1.0-sepolia) / [config/public-versions.json](../../config/public-versions.json) |
 | v0.2.0-utility-pilot | published-pre-release | `5ed20415b569779f8b00245af8b98b9599f77044` | [Release](https://github.com/denterion/Token-TIkiDeco/releases/tag/v0.2.0-utility-pilot) / [config/public-versions.json](../../config/public-versions.json) |
-| Review evidence baseline | pre-release evidence baseline | `00e0ccbbf26397aadd5416816bba44e7cc2e373b` | [config/release-evidence.json](../../config/release-evidence.json) |
+| Review evidence baseline | draft pre-release evidence package; not published | `3d5c207b133e4b86459bdc173b78422315a0c744` | [config/release-evidence.json](../../config/release-evidence.json) |
 
 ## V2 Candidate Status
 
@@ -109,7 +109,7 @@ These are repository checks recorded by the latest internal status run; they are
 | Independent reviewer engagement | Not started; selection and handoff remain externally blocked | [docs/PUBLIC_REVIEW_PROCUREMENT_BRIEF.md](../../docs/PUBLIC_REVIEW_PROCUREMENT_BRIEF.md) / [Issue #121](https://github.com/denterion/Token-TIkiDeco/issues/121) |
 | Legal/entity review | Requires external counsel review; no approval is recorded | [docs/LEGAL_READINESS.md](../../docs/LEGAL_READINESS.md) / [docs/MAINNET_GO_NO_GO.md](../../docs/MAINNET_GO_NO_GO.md) |
 | Operator readiness | blocked; all 8 operator gates remain not approved | [config/hospitality-operator/readiness-gates.json](../../config/hospitality-operator/readiness-gates.json) |
-| Release evidence refresh | Recorded baseline `00e0ccbbf26397aadd5416816bba44e7cc2e373b` does not match current main at generation | [config/release-evidence.json](../../config/release-evidence.json) / [docs/RELEASE_CONTROL_CENTER.md](../../docs/RELEASE_CONTROL_CENTER.md) |
+| Release evidence refresh | Recorded baseline `3d5c207b133e4b86459bdc173b78422315a0c744` matches current main at generation | [config/release-evidence.json](../../config/release-evidence.json) / [docs/RELEASE_CONTROL_CENTER.md](../../docs/RELEASE_CONTROL_CENTER.md) |
 
 ## Mainnet Status
 
@@ -135,5 +135,5 @@ TIDE remains a Sepolia testnet prototype: no sale, no stated monetary value, no 
 
 | Fact | Value | Evidence |
 | --- | --- | --- |
-| Report body SHA-256 | `955f1af7a91b951d702e8f4c97ccabd00e7d7e3e65ea40ea69a9f5059a90a3de` | Recompute with `npm run transparency:monthly:check` |
+| Report body SHA-256 | `b5bccd3e7571e657673e415680ac1d6035e6cf870431be0330be134eb539618f` | Recompute with `npm run transparency:monthly:check` |
 | Machine summary | `docs/reports/MONTHLY_REPORT_2026_07.json` | [docs/reports/MONTHLY_REPORT_2026_07.json](../../docs/reports/MONTHLY_REPORT_2026_07.json) |
