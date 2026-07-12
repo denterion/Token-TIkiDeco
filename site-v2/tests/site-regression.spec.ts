@@ -48,22 +48,26 @@ async function tabTo(page: Page, target: Locator, maxTabs = 20) {
   throw new Error(`Could not reach ${await target.getAttribute("id") || "target"} with Tab.`);
 }
 
-async function enterWalletWithKeyboard(page: Page, walletAddress: string) {
-  const input = page.getByLabel("Wallet address");
-  await tabTo(page, input);
-  await expect(input).toBeFocused();
-  const focusStyle = await input.evaluate((element) => {
+async function assertVisibleFocus(target: Locator) {
+  await expect(target).toBeFocused();
+  const focusStyle = await target.evaluate((element) => {
     const style = getComputedStyle(element);
     return { style: style.outlineStyle, width: Number.parseFloat(style.outlineWidth), color: style.outlineColor };
   });
   expect(focusStyle.style).not.toBe("none");
   expect(focusStyle.width).toBeGreaterThanOrEqual(2);
   expect(focusStyle.color).not.toBe("rgba(0, 0, 0, 0)");
+}
+
+async function enterWalletWithKeyboard(page: Page, walletAddress: string) {
+  const input = page.getByLabel("Wallet address");
+  await tabTo(page, input);
+  await assertVisibleFocus(input);
   await page.keyboard.type(walletAddress);
 
   await page.keyboard.press("Tab");
   const button = page.getByRole("button", { name: /Check Sepolia balance/i });
-  await expect(button).toBeFocused();
+  await assertVisibleFocus(button);
   return { input, button, status: page.getByRole("status") };
 }
 

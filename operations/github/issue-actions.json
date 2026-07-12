@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "repository": "denterion/Token-TIkiDeco",
   "auditedAt": "2026-07-12",
-  "sourceCommit": "3d5c207b133e4b86459bdc173b78422315a0c744",
+  "sourceCommit": "d437afd7e9f5e480afc776ce4b01e7f29942d060",
   "milestones": [
     { "title": "Community Review Intake", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
     { "title": "Public Preview Hardening", "roadmapQuarter": "Q1 2026-07 to 2026-09" },
@@ -188,22 +188,23 @@
     {
       "number": 63,
       "title": "Improve accessibility for utility pilot pages",
-      "status": "partially implemented",
+      "status": "completed",
       "acceptanceCriteria": [
-        { "criterion": "Keyboard navigation covers the balance checker.", "verified": false, "evidence": ["site-v2/tests/site-regression.spec.ts"] },
-        { "criterion": "Visible focus, labels, and semantic headings are correct.", "verified": true, "evidence": ["site-v2/src/styles/site.css", "site-v2/src/components/PilotEligibilityCard.tsx"] },
+        { "criterion": "Keyboard navigation covers the balance checker with Tab, Enter, and Space.", "verified": true, "evidence": ["site-v2/tests/site-regression.spec.ts"] },
+        { "criterion": "Visible focus, logical focus order, and no focus loss are verified.", "verified": true, "evidence": ["site-v2/src/styles/site.css", "site-v2/tests/site-regression.spec.ts"] },
+        { "criterion": "Loading, success, unavailable, wrong-chain, and invalid states use accessible status and error semantics.", "verified": true, "evidence": ["site-v2/src/components/PilotEligibilityCard.tsx", "site-v2/tests/site-regression.spec.ts"] },
         { "criterion": "Mobile layout has no horizontal overflow.", "verified": true, "evidence": ["site-v2/tests/site-regression.spec.ts"] }
       ],
       "evidenceFiles": ["site-v2/src/styles/site.css", "site-v2/src/components/PilotEligibilityCard.tsx", "site-v2/tests/site-regression.spec.ts"],
-      "verificationCommands": ["npm run site", "npm run site:browser"],
-      "missingWork": "Add a keyboard-only Playwright path through wallet input, activation, focus state, and accessible result status.",
-      "action": "update",
-      "reason": "Most accessibility criteria are implemented, but the balance-checker keyboard journey is not directly verified.",
-      "labels": ["priority:P1", "frontend", "accessibility", "review", "ready-for-contributor", "good-first-issue"],
+      "verificationCommands": ["npm run eligibility", "npm run site:typecheck", "npm run site", "npm run site:browser", "npm run claims", "npm run value"],
+      "missingWork": "None for the recorded acceptance criteria. Issue closure remains a manual maintainer action after merge.",
+      "action": "recommend-close",
+      "reason": "Deterministic mocked-RPC browser tests now prove the keyboard-only and screen-reader-compatible journey on desktop and mobile.",
+      "labels": ["priority:P1", "frontend", "accessibility", "review"],
       "milestone": "Public Preview Hardening",
       "roadmapQuarter": "Q1 2026-07 to 2026-09",
       "dependency": "None; deterministic mocked RPC is already available.",
-      "suggestedComment": "Issue body updated with the exact remaining keyboard-only Playwright gap and local commands. Keep open for a contributor."
+      "suggestedComment": "Verified on desktop and mobile with mocked Sepolia RPC: Tab focus order, visible focus, Enter/Space activation, persistent button focus, live status announcements, linked validation errors, unavailable/wrong-chain states, and no horizontal overflow. Recommend closing after the implementation PR is merged."
     },
     {
       "number": 64,
@@ -322,11 +323,30 @@
       "roadmapQuarter": "Q1 2026-07 to 2026-09",
       "dependency": "Qualified reviewer, conflict review, procurement, budget, and disclosure agreement.",
       "suggestedComment": "Externally blocked. Keep open until a real reviewer is selected and the exact immutable package is formally handed off. Do not label this ready-for-contributor."
+    },
+    {
+      "number": 127,
+      "title": "Add deterministic landmark and heading hierarchy checks",
+      "status": "not started",
+      "acceptanceCriteria": [
+        { "criterion": "Each public route has one main landmark and one visible level-one heading.", "verified": false, "evidence": ["site-v2/tests/site-regression.spec.ts", "site-v2/src/main.tsx"] },
+        { "criterion": "Heading order and named navigation/footer landmarks are checked on desktop and mobile.", "verified": false, "evidence": ["site-v2/tests/site-regression.spec.ts", "site-v2/src/main.tsx"] }
+      ],
+      "evidenceFiles": ["site-v2/tests/site-regression.spec.ts", "site-v2/src/main.tsx"],
+      "verificationCommands": ["npm run site", "npm run site:browser", "npm run claims", "npm run value"],
+      "missingWork": "Add deterministic landmark and heading hierarchy assertions across public routes.",
+      "action": "keep-open",
+      "reason": "This is a network-independent successor accessibility task suitable for a new contributor.",
+      "labels": ["priority:P2", "frontend", "accessibility", "ready-for-contributor", "good-first-issue"],
+      "milestone": "Public Preview Hardening",
+      "roadmapQuarter": "Q1 2026-07 to 2026-09",
+      "dependency": "None; local generated pages and Playwright are sufficient.",
+      "suggestedComment": "Ready for a contributor. Use deterministic local pages only and keep current claims/value boundaries unchanged."
     }
   ],
   "contributorTasks": [
     {
-      "issueNumber": 63,
+      "issueNumber": 127,
       "level": "beginner",
       "commands": ["npm run site", "npm run site:browser", "npm run claims", "npm run value"],
       "requiresSecrets": false,

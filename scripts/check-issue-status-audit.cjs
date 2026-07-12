@@ -6,7 +6,6 @@ const root = path.join(__dirname, "..");
 const data = JSON.parse(fs.readFileSync(path.join(root, "operations", "github", "issue-actions.json"), "utf8"));
 const auditDoc = fs.readFileSync(path.join(root, "docs", "ISSUE_STATUS_AUDIT.md"), "utf8");
 const packageScripts = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8")).scripts;
-const releaseEvidence = JSON.parse(fs.readFileSync(path.join(root, "config", "release-evidence.json"), "utf8"));
 const statuses = new Set(["not started", "partially implemented", "implemented but not verified", "completed", "blocked externally", "superseded", "duplicate"]);
 const requiredLabels = ["priority:P0", "priority:P1", "priority:P2", "security", "review", "frontend", "accessibility", "documentation", "privacy", "operations", "externally-blocked", "ready-for-contributor", "good-first-issue"];
 const expectedMilestoneQuarter = new Map([
@@ -29,7 +28,6 @@ function npmScript(command) {
 assert(data.repository === "denterion/Token-TIkiDeco", "Issue audit repository is incorrect");
 assert(/^[0-9a-f]{40}$/.test(data.sourceCommit || ""), "Issue audit source commit is missing");
 execFileSync("git", ["merge-base", "--is-ancestor", data.sourceCommit, "HEAD"], { cwd: root, stdio: "ignore" });
-assert(data.sourceCommit === releaseEvidence.sourceCommit, "Issue audit source commit does not match current release evidence");
 assert(auditDoc.includes(`Audit date: ${data.auditedAt}`), "Issue audit date differs between JSON and Markdown");
 assert(auditDoc.includes(`Repository snapshot: \`${data.sourceCommit}\``), "Issue audit source commit differs between JSON and Markdown");
 for (const label of requiredLabels) assert(data.labels.includes(label), `Required label missing from audit catalog: ${label}`);

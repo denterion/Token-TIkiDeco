@@ -6,7 +6,7 @@ Source: [`../operations/github/issue-actions.json`](../operations/github/issue-a
 
 | Issue | Outcome | Local checks |
 | --- | --- | --- |
-| [#63](https://github.com/denterion/Token-TIkiDeco/issues/63) | Add a keyboard-only Playwright path through the read-only pilot balance checker. | `npm run site`; `npm run site:browser`; `npm run claims`; `npm run value` |
+| [#127](https://github.com/denterion/Token-TIkiDeco/issues/127) | Add deterministic landmark and heading hierarchy checks across public routes. | `npm run site`; `npm run site:browser`; `npm run claims`; `npm run value` |
 | [#119](https://github.com/denterion/Token-TIkiDeco/issues/119) | Enforce complete generated route, sitemap and canonical URL parity with negative fixtures. | `npm run site`; `npm run site:browser` |
 
 ## Intermediate Tasks
@@ -34,7 +34,7 @@ These are not coding tasks and must not carry `ready-for-contributor`.
 
 ## Maintainer-Only Tasks
 
-- Review the evidence comments before manually closing #55, #56, #57, #58, #59, #61, #62 and #65.
+- Review the evidence comments before manually closing #55, #56, #57, #58, #59, #61, #62, #63 and #65.
 - Decide whether #64 should be respecified for future translations or archived as superseded. Do not call it completed under its original EN/ES/RU criteria.
 - Maintain milestone ownership, priority labels, private disclosure routing and external-review procurement.
 - Keep mainnet, sale, value and active-utility decisions outside the contributor queue.
