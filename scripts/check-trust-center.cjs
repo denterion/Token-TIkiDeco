@@ -24,16 +24,7 @@ function gitIsAncestor(ancestor, descendant) {
   }
 }
 
-function currentMainCommit() {
-  if (process.env.GITHUB_REF === "refs/heads/main" && /^[0-9a-f]{40}$/i.test(process.env.GITHUB_SHA || "")) {
-    return process.env.GITHUB_SHA;
-  }
-  try {
-    return git("rev-parse", "origin/main");
-  } catch {
-    return git("rev-parse", "HEAD");
-  }
-}
+const mainRevision = require("./lib/main-revision.cjs");
 
 function sha256(relativePath) {
   return crypto.createHash("sha256").update(fs.readFileSync(path.join(root, relativePath))).digest("hex");
@@ -49,7 +40,7 @@ const initialHtml = read("site-v2/index.html");
 const sourceMap = read("docs/TRUST_CENTER_SOURCE_MAP.md");
 const operatorStatus = read("docs/OPERATOR_AND_ENTITY_STATUS.md");
 const participation = read("docs/PUBLIC_PARTICIPATION.md");
-const mainCommit = currentMainCommit();
+const mainCommit = mainRevision(root);
 
 assert(Array.isArray(versions.publishedReleases) && versions.publishedReleases.length > 0, "No public releases are registered");
 for (const release of versions.publishedReleases) {

@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { execFileSync } = require("child_process");
+const mainRevision = require("./lib/main-revision.cjs");
 const { summarize: summarizeCommunityFindings } = require("./lib/community-findings.cjs");
 
 const root = path.join(__dirname, "..");
@@ -23,18 +23,9 @@ const v2FreezeBaseline = v2Review.v2FreezeCommit;
 const currentEvidenceCommit = releaseEvidence.sourceCommit;
 const siteLastUpdated = releaseEvidence.evidenceDate;
 
-function gitCommit(ref) {
-  try {
-    return execFileSync("git", ["rev-parse", ref], { cwd: root, encoding: "utf8" }).trim();
-  } catch {
-    return null;
-  }
-}
-
-const currentMainCommit = process.env.GITHUB_REF === "refs/heads/main" && /^[0-9a-f]{40}$/i.test(process.env.GITHUB_SHA || "")
-  ? process.env.GITHUB_SHA
-  : gitCommit("origin/main") || gitCommit("HEAD") || "unavailable";
-const evidenceFreshness = currentEvidenceCommit === currentMainCommit
+const currentMainCommit = mainRevision(root);
+const mainLink = currentMainCommit ? `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}` : "https://github.com/denterion/Token-TIkiDeco/tree/main";
+const evidenceFreshness = !currentMainCommit ? "Cannot compare this snapshot with main in this build" : currentEvidenceCommit === currentMainCommit
   ? "Current evidence commit matches main"
   : "Recorded source baseline; later commits are not included in its source archive";
 const repoBlob = "https://github.com/denterion/Token-TIkiDeco/blob/main";
@@ -116,7 +107,7 @@ const pages = [
       ["Project Status", [
         ["Current network", "Ethereum Sepolia", `${repoBlob}/deployments/canonical.json`],
         ["Canonical deployment", `${manifest.contractVersion} legacy`, `${repoBlob}/deployments/canonical.json`],
-        ["Current main commit", currentMainCommit, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
+        ["Current main commit", currentMainCommit || "Unavailable in this build", mainLink],
         ["Current evidence commit", currentEvidenceCommit, `${repoBlob}/config/release-evidence.json`],
         ["Evidence freshness", evidenceFreshness, `${repoBlob}/docs/PUBLIC_EVIDENCE_DASHBOARD.md`],
         ...(monthlyReport ? [["Latest monthly transparency report", `${monthlyReport.month}; body SHA-256 ${monthlyReport.reportSha256}`, monthlyReportUrl]] : []),
@@ -130,7 +121,7 @@ const pages = [
           `${release.status}; tag ${release.tag}; source ${release.sourceCommit}`,
           release.releaseUrl
         ]),
-        ["Current main", `${currentMainCommit}; mutable development line`, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
+        ["Current main", `${currentMainCommit || "Unavailable in this build"}; mutable development line`, mainLink],
         ["Current review bundle", `${releaseEvidence.status}; source ${currentEvidenceCommit}; ${evidenceFreshness}`, `${repoBlob}/config/release-evidence.json`],
         ["Next release candidate", `${publicVersions.nextReleaseCandidate.version}; ${publicVersions.nextReleaseCandidate.status}; source ${publicVersions.nextReleaseCandidate.sourceCommit || "not assigned"}`, `${repoBlob}/config/public-versions.json`]
       ]],
