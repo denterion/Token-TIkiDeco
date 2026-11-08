@@ -1,6 +1,61 @@
 import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const validWallet = "0x087f0c360060ab380B2271FdcC32091d91bBec8F";
+
+test('Russian reading journey and language switch', async ({ page }, testInfo) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await page.getByRole('link', { name: 'РУ', exact: true }).click();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
+  await expect(page.getByRole('heading', { name: 'Понять. Попробовать. Проверить.' })).toBeVisible();
+  await expect(page.getByText('Токен не продаётся', { exact: true })).toBeVisible();
+  await assertNoHorizontalOverflow(page);
+  await page.screenshot({ path: testInfo.outputPath('ru-home.png'), fullPage: true });
+  await page.getByRole('link', { name: 'Разобраться за минуту' }).click();
+  await expect(page.getByRole('heading', { name: 'О проекте за минуту', level: 1 })).toBeVisible();
+  await assertNoHorizontalOverflow(page);
+  await page.goto('/ru/pilot/');
+  await expect(page.getByRole('link', { name: 'Открыть интерактивную проверку (EN)' })).toHaveAttribute('href', '/pilot/');
+  await expect(page.getByRole('link', { name: 'English', exact: true })).toHaveAttribute('href', '/pilot/');
+});
+
+test('Russian explanations remain readable without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto('http://127.0.0.1:4175/ru/');
+  await expect(page.locator('main')).toContainText('Независимый аудит не начат');
+  await page.getByRole('link', { name: 'О проекте', exact: true }).click();
+  await expect(page.getByRole('heading', { name: 'О проекте за минуту', level: 1 })).toBeVisible();
+  await context.close();
+});
+
+test("topic carousel navigates locally with keyboard and reduced motion", async ({ page }, testInfo) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const track = page.getByRole("region", { name: "Explore topics" });
+  await track.scrollIntoViewIfNeeded();
+  await track.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect.poll(() => track.evaluate(el => el.scrollLeft)).toBeGreaterThan(0);
+  for (const href of await track.locator('a').evaluateAll(links => links.map(link => link.getAttribute('href')))) {
+    expect(href).toMatch(/^\//);
+  }
+  await assertNoHorizontalOverflow(page);
+  await page.screenshot({ path: testInfo.outputPath('topics.png') });
+  await page.goto('/faq/');
+  await expect(page.getByRole('heading', { name: 'Your first questions, answered.' })).toBeVisible();
+  await assertNoHorizontalOverflow(page);
+  await page.screenshot({ path: testInfo.outputPath('faq.png'), fullPage: true });
+});
+
+test("learn page explains the project without requiring GitHub", async ({ page }) => {
+  await page.goto("/learn/");
+  await expect(page.getByRole("heading", { name: "What is TikiDeco?", level: 1 })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Explore what works" })).toBeVisible();
+  await expect(page.locator('main a[href="/pilot/"]').first()).toBeVisible();
+  await expect(page.getByText(/No active guest benefits or confirmed reservations/)).toBeVisible();
+  await assertNoHorizontalOverflow(page);
+});
 const rpcPattern = /https:\/\/(ethereum-sepolia-rpc\.publicnode\.com|rpc\.sepolia\.org)\/?/;
 
 async function assertNoHorizontalOverflow(page: Page) {

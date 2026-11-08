@@ -1,5 +1,6 @@
 import { projectFacts } from "../data/projectFacts";
 import { externalLinkProps } from "../lib/links";
+import { isRussian, localPath } from '../lib/locale';
 
 type FooterCopy = {
   title: string;
@@ -26,19 +27,22 @@ type FooterCopy = {
 
 export function Footer({ copy }: { copy: FooterCopy }) {
   const links = [
+    [isRussian ? 'О проекте' : 'Learn', "/learn/"],
+    [isRussian ? 'Что такое TIDE' : 'Understand TIDE', "/learn/tide/"],
+    [isRussian ? 'Вопросы' : 'FAQ', "/faq/"],
+    [isRussian ? 'Разработчикам' : 'Developers', "/developers/"],
     [copy.links.trust, projectFacts.links.trust],
     [copy.links.repository, projectFacts.links.repository],
-    [copy.links.officialPreview, projectFacts.links.officialPreview],
-    [copy.links.pilotProofPack, projectFacts.links.pilotProofPack],
-    ["Operator demo", projectFacts.links.operatorSandbox],
-    [copy.links.finalEvidenceReport ?? "Evidence Report", projectFacts.links.finalEvidenceReport],
-    [copy.links.projectFacts, projectFacts.links.projectFacts],
-    [copy.links.releaseControl, projectFacts.links.releaseControl],
+    [copy.links.officialPreview, "/status/"],
+    [copy.links.pilotProofPack, "/proof/"],
+    [isRussian ? 'Демо оператора' : 'Operator demo', projectFacts.links.operatorSandbox],
+    [isRussian ? 'Отчёты' : 'Reports', "/reports/"],
+    [copy.links.projectFacts, "/trust/"],
+    [copy.links.releaseControl, "/status/"],
     [copy.links.roadmap, projectFacts.links.roadmap],
-    [copy.links.securityPolicy, projectFacts.links.securityPolicy],
-    [copy.links.claimsMatrix, projectFacts.links.claimsMatrix],
-    [copy.links.feedbackGuide, projectFacts.links.feedbackGuide],
-    [copy.links.issues, projectFacts.links.issues],
+    [copy.links.securityPolicy, "/security/"],
+    [copy.links.claimsMatrix, "/legal/project-status/"],
+    [copy.links.feedbackGuide, "/feedback/"],
     [copy.links.etherscanToken, projectFacts.verification.token],
     [copy.links.etherscanVault, projectFacts.verification.vault],
     [copy.links.noOffer, projectFacts.links.noOffer],
@@ -51,10 +55,10 @@ export function Footer({ copy }: { copy: FooterCopy }) {
         <p className="footer-title">{copy.title}</p>
         <p>{copy.disclaimer}</p>
       </div>
-      <nav aria-label="Footer links">
+      <nav aria-label={isRussian ? 'Ссылки в подвале' : 'Footer links'}>
         {links.map(([label, href]) => (
-          <a key={label} href={href} {...externalLinkProps(href)}>
-            {label}
+          <a key={label} href={localPath(href)} {...externalLinkProps(href)}>
+            {label}{isRussian && localPath(href) === href ? ' (EN)' : ''}
           </a>
         ))}
       </nav>

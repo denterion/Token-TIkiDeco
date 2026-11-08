@@ -1,6 +1,7 @@
 import { Badge } from "../components/Badge";
 import { projectFacts } from "../data/projectFacts";
 import { externalLinkProps } from "../lib/links";
+import { localPath } from '../lib/locale';
 
 type HeroCopy = {
   badge: string;
@@ -32,10 +33,10 @@ export function Hero({ copy }: { copy: HeroCopy }) {
         ))}
       </div>
       <div className="hero-actions" aria-label={copy.actionsAria}>
-        <a className="button button-primary" href="#about">
+        <a className="button button-primary" href={localPath('/learn/')}>
           {copy.primaryAction}
         </a>
-        <a className="button button-secondary" href="#status">
+        <a className="button button-secondary" href={localPath('/status/')}>
           {copy.statusAction}
         </a>
         <a className="button button-ghost" href={projectFacts.links.repository} {...externalLinkProps(projectFacts.links.repository)}>

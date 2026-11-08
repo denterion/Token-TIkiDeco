@@ -25,6 +25,9 @@ env:
 
 jobs:
   hardhat-security:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     timeout-minutes: 35
 
@@ -58,10 +61,7 @@ jobs:
         run: npm run findings:test && npm run findings:check
 
       - name: Setup Foundry
-        # Action version: foundry-rs/foundry-toolchain@v1
-        uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d
-        with:
-          version: ${{ env.FOUNDRY_VERSION }}
+        run: bash scripts/ci/install-foundry.sh
 
       - name: Foundry fuzz and invariant tests
         run: |
@@ -91,8 +91,11 @@ jobs:
       - name: Gas snapshot
         run: npm run gas:snapshot 2>&1 | tee security-artifacts/gas/gas-snapshot.txt
 
-      - name: npm audit
-        run: npm run audit
+      - name: Full npm advisory scan with bounded Hardhat exception
+        run: npm run deps:audit:ci
+
+      - name: Generate V2 review package
+        run: npm run audit:package
 
       - name: Export ABI and bytecode artifacts
         run: npm run artifacts:contracts
@@ -113,7 +116,7 @@ jobs:
           if-no-files-found: warn
 
   slither:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
@@ -138,10 +141,7 @@ jobs:
         run: npm ci
 
       - name: Setup Foundry for Slither compilation
-        # Action version: foundry-rs/foundry-toolchain@v1
-        uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d
-        with:
-          version: ${{ env.FOUNDRY_VERSION }}
+        run: bash scripts/ci/install-foundry.sh
 
       - name: Install pinned Slither
         run: |

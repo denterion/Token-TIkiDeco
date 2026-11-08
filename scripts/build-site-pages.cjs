@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { execFileSync } = require("child_process");
+const mainRevision = require("./lib/main-revision.cjs");
 const { summarize: summarizeCommunityFindings } = require("./lib/community-findings.cjs");
 
 const root = path.join(__dirname, "..");
@@ -23,23 +23,14 @@ const v2FreezeBaseline = v2Review.v2FreezeCommit;
 const currentEvidenceCommit = releaseEvidence.sourceCommit;
 const siteLastUpdated = releaseEvidence.evidenceDate;
 
-function gitCommit(ref) {
-  try {
-    return execFileSync("git", ["rev-parse", ref], { cwd: root, encoding: "utf8" }).trim();
-  } catch {
-    return null;
-  }
-}
-
-const currentMainCommit = process.env.GITHUB_REF === "refs/heads/main" && /^[0-9a-f]{40}$/i.test(process.env.GITHUB_SHA || "")
-  ? process.env.GITHUB_SHA
-  : gitCommit("origin/main") || gitCommit("HEAD") || "unavailable";
-const evidenceFreshness = currentEvidenceCommit === currentMainCommit
+const currentMainCommit = mainRevision(root);
+const mainLink = currentMainCommit ? `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}` : "https://github.com/denterion/Token-TIkiDeco/tree/main";
+const evidenceFreshness = !currentMainCommit ? "Cannot compare this snapshot with main in this build" : currentEvidenceCommit === currentMainCommit
   ? "Current evidence commit matches main"
   : "Recorded source baseline; later commits are not included in its source archive";
 const repoBlob = "https://github.com/denterion/Token-TIkiDeco/blob/main";
 const evidenceReportUrl = `${repoBlob}/${releaseEvidence.transparencyReport}`;
-const evidenceHashReportUrl = `${repoBlob}/${releaseEvidence.transparencyReport.replace(/\.md$/, "_HASH.md")}`;
+const evidenceHashReportUrl = `${repoBlob}/config/release-evidence.json`;
 const candidateTree = `https://github.com/denterion/Token-TIkiDeco/tree/${communityReview.candidateCommit}`;
 const candidateBlob = `https://github.com/denterion/Token-TIkiDeco/blob/${communityReview.candidateCommit}`;
 const freezeBlob = `https://github.com/denterion/Token-TIkiDeco/blob/${communityReview.freezeCommit}`;
@@ -60,6 +51,52 @@ const monthlyReportUrl = monthlyReport ? `${repoBlob}/${monthlyReport.reportPath
 const baseUrl = "https://tikideco.xyz";
 const pages = [
   {
+    path: 'reports/index.html', title: 'Reports and evidence', eyebrow: 'Trust / Reports',
+    heading: 'Follow the evidence.',
+    description: 'Read the latest recorded TikiDeco report summary and distinguish historical evidence from current development.',
+    intro: 'Reports document what was observed at a specific point in time. A report hash identifies a document; it does not validate every claim in it.',
+    sections: [
+      ['Latest recorded monthly report', [
+        ['Report period', monthlyReport?.month || 'Unavailable'],
+        ['Document hash', monthlyReport?.reportSha256 || 'Unavailable'],
+        ['Freshness', 'This is the latest recorded report, not a claim of a new review today. Check the source date before using historical results.'],
+        ['Project boundary', 'Sepolia prototype; no sale; no stated monetary value; no mainnet deployment; no active guest benefits; not independently audited.']
+      ]],
+      ['Read evidence in context', [
+        ['Releases and source', 'Compare published versions, current main and the evidence snapshot.', '/trust/'],
+        ['Community review', 'Inspect the candidate and recorded findings. Zero submitted findings is not proof of safety.', '/community-review/'],
+        ['Next actions', 'See evidence-linked engineering progress and external blockers.', '/roadmap/']
+      ]]
+    ], links: [['Current project status', '/status/'], ['Verification instructions', '/verify/'], ['Source report', monthlyReportUrl || evidenceReportUrl]]
+  },
+  ...require('./lib/learning-pages.cjs'),
+  {
+    path: "learn/index.html",
+    title: "What is TikiDeco?",
+    description: "Understand the TikiDeco prototype, its working demonstrations and current limitations.",
+    eyebrow: "Start here",
+    heading: "What is TikiDeco?",
+    intro: "TikiDeco explores how hospitality loyalty rules and project reports could become easier for people to check. Today you can explore a public test-network prototype and a demonstration using fictional data.",
+    sections: [
+      ["Understand the idea", [
+        ["The problem", "People need to understand participation rules, availability and who makes decisions before using a loyalty program."],
+        ["The experiment", "TikiDeco tests public rules, read-only eligibility checks and transparent reporting. Hospitality use remains conceptual."],
+        ["What TIDE means", "TIDE is the project's test token on Ethereum Sepolia. Sepolia is a testing network, separate from Ethereum mainnet."]
+      ]],
+      ["Explore what works", [
+        ["Check a test address", "Read a Sepolia token balance without connecting a wallet or signing anything.", "/pilot/"],
+        ["Try the operator demonstration", "Explore a fictional campaign, limited mock inventory and aggregate reporting using fake data.", "/operator-sandbox/"],
+        ["Verify the project", "Inspect published source references, contract addresses and current project limitations.", "/trust/"]
+      ]],
+      ["Current boundaries", [
+        ["Prototype", "Sepolia testnet prototype; no sale; no stated monetary value; no mainnet deployment; not independently audited."],
+        ["Pilot", "The campaign is draft-not-live. No active guest benefits or confirmed reservations are available."],
+        ["Contracts", "V1 remains the canonical legacy Sepolia deployment. V2 is a non-canonical review candidate. Independent audit not started."]
+      ]]
+    ],
+    links: [["Explore the pilot", "/pilot/"], ["Current status", "/status/"], ["Roadmap", "/roadmap/"], ["Review scope", "/community-review/"]]
+  },
+  {
     path: "trust/index.html",
     title: "Trust Center",
     description: "A source-linked status and verification center for the TikiDeco Ethereum Sepolia prototype.",
@@ -70,7 +107,7 @@ const pages = [
       ["Project Status", [
         ["Current network", "Ethereum Sepolia", `${repoBlob}/deployments/canonical.json`],
         ["Canonical deployment", `${manifest.contractVersion} legacy`, `${repoBlob}/deployments/canonical.json`],
-        ["Current main commit", currentMainCommit, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
+        ["Current main commit", currentMainCommit || "Unavailable in this build", mainLink],
         ["Current evidence commit", currentEvidenceCommit, `${repoBlob}/config/release-evidence.json`],
         ["Evidence freshness", evidenceFreshness, `${repoBlob}/docs/PUBLIC_EVIDENCE_DASHBOARD.md`],
         ...(monthlyReport ? [["Latest monthly transparency report", `${monthlyReport.month}; body SHA-256 ${monthlyReport.reportSha256}`, monthlyReportUrl]] : []),
@@ -84,7 +121,7 @@ const pages = [
           `${release.status}; tag ${release.tag}; source ${release.sourceCommit}`,
           release.releaseUrl
         ]),
-        ["Current main", `${currentMainCommit}; mutable development line`, `https://github.com/denterion/Token-TIkiDeco/commit/${currentMainCommit}`],
+        ["Current main", `${currentMainCommit || "Unavailable in this build"}; mutable development line`, mainLink],
         ["Current review bundle", `${releaseEvidence.status}; source ${currentEvidenceCommit}; ${evidenceFreshness}`, `${repoBlob}/config/release-evidence.json`],
         ["Next release candidate", `${publicVersions.nextReleaseCandidate.version}; ${publicVersions.nextReleaseCandidate.status}; source ${publicVersions.nextReleaseCandidate.sourceCommit || "not assigned"}`, `${repoBlob}/config/public-versions.json`]
       ]],
@@ -283,7 +320,7 @@ const pages = [
       ["Vault bytecode", "/artifacts/v1/TikiDecoVestingVault/deployed-bytecode.txt"],
       ["Deployment manifest", "/deployment-manifest.json"],
       ["Final evidence report", evidenceReportUrl],
-      ["Reports", "/#reports"],
+      ["Reports", "/trust/#reports-and-limitations"],
       ["Known issues", "https://github.com/denterion/Token-TIkiDeco/blob/main/KNOWN_ISSUES.md"]
     ],
     disclaimer: "Audit-status disclaimer: this is an internal review page only. TikiDeco has not completed an independent smart-contract audit."
@@ -750,12 +787,14 @@ function escapeHtml(value) {
 function nav() {
   return `
       <nav id="site-nav" class="nav" aria-label="Sections">
+        <a href="/learn/">Learn</a>
+        <a href="/faq/">FAQ</a>
         <a href="/trust/">Trust</a>
         <a href="/status/">Status</a>
         <a href="/pilot/">Pilot</a>
         <a href="/audit/">Audit</a>
         <a href="/community-review/">Review</a>
-        <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">Feedback</a>
+        <a href="/feedback/">Feedback</a>
       </nav>`;
 }
 
@@ -769,6 +808,10 @@ function legalFooter() {
       <div>
         <p>TikiDeco / TIDE is a public Sepolia prototype. TIDE is not offered for sale, has no stated monetary value, is not deployed on mainnet, and independent audit has not started.</p>
         <p class="footer-links">
+          <a href="/learn/">Learn</a>
+          <a href="/learn/tide/">Understand TIDE</a>
+          <a href="/faq/">FAQ</a>
+          <a href="/developers/">Developers</a>
           <a href="/utility/">Utility</a>
           <a href="/trust/">Trust Center</a>
           <a href="/community-review/">Community Review</a>
@@ -859,13 +902,14 @@ function renderPage(page) {
         <span class="menu-toggle-label">Menu</span>
       </button>
 ${nav()}
+      <a class="language-link" href="/ru/" lang="ru" hreflang="ru">Русский</a>
     </header>
-    <main id="main" class="page-main">
+    <main id="main" class="page-main${page.path.startsWith('learn/') || ['faq/index.html', 'developers/index.html'].includes(page.path) ? ' reading-page' : ''}">
       <section class="page-hero" aria-labelledby="page-title">
         <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
         <h1 id="page-title">${escapeHtml(page.heading)}</h1>
         <p class="hero-copy">${escapeHtml(page.intro)}</p>
-        <p class="audit-disclaimer">${escapeHtml(page.disclaimer)}</p>
+        <p class="audit-disclaimer">${escapeHtml(page.disclaimer ?? "Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet. Independent audit not started.")}</p>
       </section>
       <div class="content-grid">
 ${sections}
@@ -934,12 +978,45 @@ function renderInteractivePage(page, homeShell) {
     .replace('"url": "https://tikideco.xyz/"', `"url": "${url}"`);
 }
 
+const russian = require('./lib/russian-pages.cjs');
+pages.push(...russian.pages);
 const homeShell = fs.readFileSync(path.join(siteDir, "index.html"), "utf8");
 for (const page of pages) {
   const target = path.join(siteDir, page.path);
   fs.mkdirSync(path.dirname(target), { recursive: true });
-  const html = page.interactive ? renderInteractivePage(page, homeShell) : renderPage(page);
+  let html = page.interactive ? renderInteractivePage(page, homeShell) : renderPage(page);
+  if (!page.lang && russian.pages.some(translation => translation.path === `ru/${page.path}`)) {
+    html = html.replace('class="language-link" href="/ru/"', `class="language-link" href="/ru/${page.path.replace(/index\.html$/, '')}"`);
+  }
+  if (page.lang === 'ru') {
+    const englishRoute = '/' + page.path.replace(/^ru\//, '').replace(/index\.html$/, '');
+    const labels = [['Learn', 'О проекте'], ['FAQ', 'Вопросы'], ['Trust', 'Проверка'], ['Status', 'Статус'], ['Pilot', 'Демо'], ['Audit', 'Аудит'], ['Feedback', 'Обратная связь']];
+    html = html.replace('<html lang="en">', '<html lang="ru">')
+      .replace('Skip to content', 'Перейти к содержимому').replace('>Menu<', '>Меню<')
+      .replace('Reference links', 'Продолжить знакомство')
+      .replace('aria-label="Sections"', 'aria-label="Разделы сайта"')
+      .replace('aria-label="Primary"', 'aria-label="Основная навигация"')
+      .replace('aria-label="TikiDeco home"', 'aria-label="TikiDeco — главная"')
+      .replace('aria-label="Sepolia testnet status and no-offer notice"', 'aria-label="Тестовая сеть Sepolia, токен не продаётся"')
+      .replace('>Review</a>', '>Ревью (EN)</a>')
+      .replace('class="brand" href="/"', 'class="brand" href="/ru/"')
+      .replace('SEPOLIA TESTNET &middot; NO MONETARY VALUE', 'SEPOLIA · ДЕНЕЖНАЯ СТОИМОСТЬ НЕ ЗАЯВЛЕНА')
+      .replace('<a class="language-link" href="/ru/" lang="ru" hreflang="ru">Русский</a>', `<a class="language-link" href="${englishRoute}" lang="en" hreflang="en">English</a>`)
+      .replace('class="page-main"', 'class="page-main reading-page"')
+      .replace(legalFooter(), `<footer class="footer legal-footer" data-legal-footer><p>${russian.disclaimer}</p><p><a href="/legal/privacy/">Приватность (EN)</a> · <a href="/legal/no-offer/">Правовая информация (EN)</a> · <a href="/security/">Безопасность (EN)</a></p></footer>`);
+    for (const [en, ru] of labels) html = html.replace(`>${en}</a>`, `>${ru}</a>`);
+    html = html.replace(/href="\/(learn|faq|trust|status|pilot|audit|feedback)\/">(О проекте|Вопросы|Проверка|Статус|Демо|Аудит|Обратная связь)<\/a>/g, 'href="/ru/$1/">$2</a>');
+    // Restore the explicit language link after localizing navigation.
+    html = html.replace(/<a href="[^"]+" lang="en" hreflang="en">English/, `<a href="${englishRoute}" lang="en" hreflang="en">English`);
+  }
   fs.writeFileSync(target, html.replace(/\r\n?/g, "\n"), "utf8");
 }
+const ruHome = homeShell.replace('<html lang="en">', '<html lang="ru">')
+  .replace(/(<meta\s+(?:name="description"|property="og:description"|name="twitter:description")\s+content=")[^"]*(")/g, '$1TikiDeco — открытый тестовый проект в Sepolia. Исследуем проверяемые правила программ лояльности. Токен не продаётся.$2')
+  .replaceAll('https://tikideco.xyz/"', 'https://tikideco.xyz/ru/"')
+  .replace(/<title>.*?<\/title>/, '<title>TikiDeco | Тестовый проект Sepolia</title>')
+  .replace(/<div id="root">[\s\S]*?<\/footer>\s*<\/div>/, `<div id="root"><a class="skip-link" href="#main">Перейти к содержимому</a><main id="main"><h1>TikiDeco</h1><p>Открытый тестовый проект: изучаем проверяемые правила программ лояльности.</p><p>${russian.disclaimer}</p><p>V1 — историческая каноническая версия; V2 — кандидат. Пилот не запущен.</p><a href="/ru/learn/">О проекте</a> · <a href="/">English</a></main><footer data-legal-footer>${russian.disclaimer}</footer></div>`);
+fs.mkdirSync(path.join(siteDir, 'ru'), { recursive: true });
+fs.writeFileSync(path.join(siteDir, 'ru/index.html'), ruHome, 'utf8');
 
 console.log(`Wrote ${pages.length} static pages.`);

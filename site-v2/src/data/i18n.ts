@@ -83,9 +83,14 @@ export const siteCopy = {
   },
   transparency: {
     eyebrow: "Verify",
-    title: "Four places to verify the project.",
-    body: "Use project facts, release control, the roadmap, and public feedback issues as the shortest review path.",
-    cards: transparencyCards.slice(0, 4).map((card) => ({ ...card }))
+    title: "Choose your next step.",
+    body: "Understand the idea, try a demonstration or inspect the evidence at your own pace.",
+    cards: [
+      { title: "Understand TIDE", body: "Learn what a test token and an eligibility result mean.", href: "/learn/tide/" },
+      { title: "Try the prototype", body: "Read a public test address. No wallet connection is required.", href: "/pilot/" },
+      { title: "Questions answered", body: "Clear answers about the project and its current limitations.", href: "/faq/" },
+      { title: "For developers", body: "Find verification instructions and the frozen candidate review.", href: "/developers/" }
+    ]
   },
   audit: {
     eyebrow: "Review Boundary",

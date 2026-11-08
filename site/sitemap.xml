@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://tikideco.xyz/</loc></url>
+  <url><loc>https://tikideco.xyz/learn/</loc></url>
+  <url><loc>https://tikideco.xyz/learn/tide/</loc></url>
+  <url><loc>https://tikideco.xyz/faq/</loc></url>
+  <url><loc>https://tikideco.xyz/feedback/</loc></url>
+  <url><loc>https://tikideco.xyz/security/</loc></url>
+  <url><loc>https://tikideco.xyz/reports/</loc></url>
+  <url><loc>https://tikideco.xyz/developers/</loc></url>
   <url><loc>https://tikideco.xyz/trust/</loc></url>
   <url><loc>https://tikideco.xyz/audit/</loc></url>
   <url><loc>https://tikideco.xyz/community-review/</loc></url>
@@ -19,4 +26,14 @@
   <url><loc>https://tikideco.xyz/legal/privacy/</loc></url>
   <url><loc>https://tikideco.xyz/legal/risk-disclosure/</loc></url>
   <url><loc>https://tikideco.xyz/legal/project-status/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/learn/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/learn/tide/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/faq/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/status/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/pilot/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/trust/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/audit/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/developers/</loc></url>
+  <url><loc>https://tikideco.xyz/ru/feedback/</loc></url>
 </urlset>

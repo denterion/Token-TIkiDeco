@@ -212,11 +212,12 @@ function main() {
 
   for (const filePath of htmlPaths) {
     const html = read(filePath);
+    assert(!html.includes(">undefined<"), `Unresolved template value in ${sitePath(filePath)}`);
     assert(html.includes("application/ld+json"), `Structured data missing in ${sitePath(filePath)}`);
     assert(html.includes("data-legal-footer"), `Legal footer missing in ${sitePath(filePath)}`);
     assert(html.includes("skip-link"), `Skip link missing in ${sitePath(filePath)}`);
-    assert(html.includes("NO MONETARY VALUE"), `Sepolia/no-value badge missing in ${sitePath(filePath)}`);
-    assert(html.includes("independent audit") || html.includes("independently audited"), `Audit-status disclaimer missing in ${sitePath(filePath)}`);
+    assert(html.includes('<html lang="ru">') ? html.includes('Денежная стоимость не заявлена') : html.includes("NO MONETARY VALUE"), `Sepolia/no-value badge missing in ${sitePath(filePath)}`);
+    assert(html.includes('<html lang="ru">') ? html.includes('Независимый аудит не начат') : html.includes("independent audit") || html.includes("independently audited"), `Audit-status disclaimer missing in ${sitePath(filePath)}`);
     for (const link of extractLinks(html)) assertInternalLinkExists(link, filePath);
   }
 
