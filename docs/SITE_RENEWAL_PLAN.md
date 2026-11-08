@@ -21,7 +21,11 @@ A visitor should understand the prototype and try its demonstrations without nee
 
 The clean Windows checkout exposed CRLF conversion of nested immutable reports. Extend the LF rule to nested report paths; preserve the recorded SHA-256 and report content. Public evidence verification passes after this correction.
 
-The dependency advisory scan reports 11 findings (10 high, 1 moderate); the production-only scan reports zero. A separate dependency remediation change must review Vite 7.3.7, Hardhat 3.20.0 and transitive updates against the frozen candidate lock identity. Do not silently rewrite the candidate lock or package checksum. This remains an unresolved tooling issue before publishing the redesign.
+Dependency evidence at `b82022d` (site PR #139): Vite 7.3.7 and Hardhat 3.21.2 are pinned. The full npm advisory scan still blocks the release: six high-severity package entries trace to one [Zod resource-exhaustion advisory](https://github.com/advisories/GHSA-mrhx-c7xc-m3w5). The production-only scan reported zero. Counts are snapshots, not a standing assurance; reproduce with `npm ci`, `npm run deps:audit` and `npm audit --omit=dev`.
+
+[Hardhat's upstream assessment](https://github.com/NomicFoundation/hardhat/issues/8817) distinguishes trusted local configuration from a development node receiving untrusted signing requests with Ledger accounts configured. The project workflows run local tests; production serves a static site, not a Hardhat RPC server. Do not expose a development node or add Ledger accounts on the assumption that this assessment still applies. The upstream issue was closed without a compatible dependency upgrade; forcing Zod 4 is not a supported fix.
+
+Release decision: keep the full advisory gate blocking. Recheck when Hardhat and its plugins support a patched Zod; run contract, coverage, site and browser tests before merging. An exception would require a separate documented maintainer decision. Do not change the frozen candidate lock or its package checksum. The Cloudflare Workers check is separate; its GitHub summary links to the build but contains no error log.
 
 ## Shared shell implementation
 
