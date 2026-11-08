@@ -837,6 +837,43 @@ code {
   text-decoration: none;
 }
 
+.reading-page .content-grid {
+  display: block;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.reading-page .content-card {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  padding: 32px 0;
+}
+
+.reading-page .record-list {
+  border: 0;
+  background: transparent;
+}
+
+.reading-page .record-list div {
+  background: transparent;
+  padding: 18px 0;
+}
+
+.reading-page .record-list dt {
+  font-size: 18px;
+  text-transform: none;
+  color: #17252d;
+}
+
+.reading-page .record-list dd {
+  max-width: 70ch;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
 .page-main {
   padding-top: 68px;
   background: var(--paper);
@@ -1337,6 +1374,9 @@ code {
   }
 }
 
+.language-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 12px; border: 1px solid currentColor; border-radius: 4px; text-decoration: none; flex-shrink: 0; }
+html[lang="ru"] .reading-page h1 { overflow-wrap: anywhere; }
+@media (max-width: 720px) { .language-link { margin-left: auto; } }
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

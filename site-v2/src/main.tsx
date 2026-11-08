@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { motion } from "framer-motion";
+import { motion, MotionConfig } from "framer-motion";
 import { AuditReadiness } from "./sections/AuditReadiness";
 import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
@@ -12,6 +12,8 @@ import { ProjectStatus } from "./sections/ProjectStatus";
 import { Transparency } from "./sections/Transparency";
 import { OneMinuteBrief } from "./sections/OneMinuteBrief";
 import { siteCopy } from "./data/i18n";
+import { russianCopy } from './data/ru';
+import { isRussian, localPath } from './lib/locale';
 import "./styles/site.css";
 import { previewMetrics } from "./lib/previewMetrics";
 
@@ -39,7 +41,7 @@ function useShouldRender3D() {
 function App() {
   const shouldRender3D = useShouldRender3D();
   const [navOpen, setNavOpen] = useState(false);
-  const t = siteCopy;
+  const t = isRussian ? russianCopy : siteCopy;
   const pilotRoute = window.location.pathname.startsWith("/pilot");
   const operatorWhyRoute = window.location.pathname.startsWith("/operator-sandbox/why");
   const operatorRoute = window.location.pathname.startsWith("/operator-sandbox");
@@ -51,19 +53,20 @@ function App() {
 
   return (
     <React.StrictMode>
+      <MotionConfig reducedMotion="user">
       <a className="skip-link" href="#main">
         {t.skip}
       </a>
       <div className="site-shell">
         <header className="top-nav" aria-label={t.navAria}>
-          <a className="wordmark" href="/" aria-label={t.homeAria}>
+          <a className="wordmark" href={localPath('/')} aria-label={t.homeAria}>
             <span className="wordmark-dot" aria-hidden="true" />
             <span>TikiDeco</span>
           </a>
           <button
             className="nav-toggle"
             type="button"
-            aria-label={navOpen ? "Close navigation" : "Open navigation"}
+            aria-label={isRussian ? (navOpen ? 'Закрыть меню' : 'Открыть меню') : (navOpen ? "Close navigation" : "Open navigation")}
             aria-expanded={navOpen}
             aria-controls="primary-nav"
             onClick={() => setNavOpen((open) => !open)}
@@ -73,15 +76,21 @@ function App() {
             <span aria-hidden="true" />
           </button>
           <nav id="primary-nav" aria-label={t.sectionsAria} data-open={navOpen} onClick={() => setNavOpen(false)}>
-            <a href="/trust/">{t.nav.trust}</a>
-            <a href="/#status">{t.nav.status}</a>
-            <a href="/pilot/">{t.nav.pilot}</a>
-            <a href="/#audit">{t.nav.audit}</a>
-            <a href="/community-review/">{t.nav.review}</a>
-            <a href="https://github.com/denterion/Token-TIkiDeco/issues" target="_blank" rel="noopener noreferrer">
+            <a href={localPath('/learn/')}>{isRussian ? 'О проекте' : 'Learn'}</a>
+            <a href={localPath('/faq/')}>{isRussian ? 'Вопросы' : 'FAQ'}</a>
+            <a href={localPath('/trust/')}>{t.nav.trust}</a>
+            <a href={localPath('/status/')}>{t.nav.status}</a>
+            <a href={localPath('/pilot/')}>{t.nav.pilot}</a>
+            <a href={localPath('/audit/')}>{t.nav.audit}</a>
+            <a href="/community-review/">{t.nav.review}{isRussian ? ' (EN)' : ''}</a>
+            <a href={localPath('/feedback/')}>
               {t.nav.feedback}
             </a>
           </nav>
+          <div className="language-switch" aria-label={isRussian ? 'Язык сайта' : 'Site language'}>
+            <a href="/" lang="en" hrefLang="en" aria-current={!isRussian ? 'true' : undefined}>EN</a>
+            <a href="/ru/" lang="ru" hrefLang="ru" aria-current={isRussian ? 'true' : undefined}>РУ</a>
+          </div>
         </header>
         <main id="main" className={focusedRoute ? "focused-route" : undefined}>
           {!focusedRoute ? <section className="hero-wrap" aria-label="TikiDeco overview">
@@ -110,6 +119,7 @@ function App() {
         </main>
         <Footer copy={t.footer} />
       </div>
+      </MotionConfig>
     </React.StrictMode>
   );
 }
