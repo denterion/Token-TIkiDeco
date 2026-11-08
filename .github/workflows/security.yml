@@ -58,10 +58,7 @@ jobs:
         run: npm run findings:test && npm run findings:check
 
       - name: Setup Foundry
-        # Action version: foundry-rs/foundry-toolchain@v1
-        uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d
-        with:
-          version: ${{ env.FOUNDRY_VERSION }}
+        run: bash scripts/ci/install-foundry.sh
 
       - name: Foundry fuzz and invariant tests
         run: |
@@ -113,7 +110,7 @@ jobs:
           if-no-files-found: warn
 
   slither:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
 
     steps:
@@ -138,10 +135,7 @@ jobs:
         run: npm ci
 
       - name: Setup Foundry for Slither compilation
-        # Action version: foundry-rs/foundry-toolchain@v1
-        uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d
-        with:
-          version: ${{ env.FOUNDRY_VERSION }}
+        run: bash scripts/ci/install-foundry.sh
 
       - name: Install pinned Slither
         run: |

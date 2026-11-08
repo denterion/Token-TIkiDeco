@@ -85,10 +85,7 @@ jobs:
         run: npm test 2>&1 | tee security-artifacts/test/hardhat-test.txt
 
       - name: Setup Foundry
-        # Action version: foundry-rs/foundry-toolchain@v1
-        uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d
-        with:
-          version: ${{ env.FOUNDRY_VERSION }}
+        run: bash scripts/ci/install-foundry.sh
 
       - name: Foundry fuzz and invariant tests
         run: |
