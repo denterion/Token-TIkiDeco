@@ -25,7 +25,9 @@ Dependency evidence at `b82022d` (site PR #139): Vite 7.3.7 and Hardhat 3.21.2 a
 
 [Hardhat's upstream assessment](https://github.com/NomicFoundation/hardhat/issues/8817) distinguishes trusted local configuration from a development node receiving untrusted signing requests with Ledger accounts configured. The project workflows run local tests; production serves a static site, not a Hardhat RPC server. Do not expose a development node or add Ledger accounts on the assumption that this assessment still applies. The upstream issue was closed without a compatible dependency upgrade; forcing Zod 4 is not a supported fix.
 
-Release decision: keep the full advisory gate blocking. Recheck when Hardhat and its plugins support a patched Zod; run contract, coverage, site and browser tests before merging. An exception would require a separate documented maintainer decision. Do not change the frozen candidate lock or its package checksum. The Cloudflare Workers check is separate; its GitHub summary links to the build but contains no error log.
+Decision (2026-11-08): the maintainer authorized a temporary CI exception only for GHSA-mrhx-c7xc-m3w5 in development-only Zod 3.25.76 and its Hardhat dependents. This accepts residual risk; it does not fix Zod. The exception expires automatically at 00:00 UTC on 2026-11-22. Do not expose a development RPC node or use Ledger with untrusted clients. Re-evaluate before expiry; do not renew automatically.
+
+`npm run deps:audit` still reports the raw failure. `npm run deps:audit:ci` saves the full report in `security-artifacts/dependencies/npm-audit.json` and rejects other findings, registry errors, production Zod or an expired exception. Remove the exception when a compatible fix ships; retain the frozen candidate lock and checksum. Cloudflare's separate static-assets build is configured in `wrangler.jsonc`.
 
 ## Shared shell implementation
 

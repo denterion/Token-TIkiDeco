@@ -909,7 +909,7 @@ ${nav()}
         <p class="eyebrow">${escapeHtml(page.eyebrow)}</p>
         <h1 id="page-title">${escapeHtml(page.heading)}</h1>
         <p class="hero-copy">${escapeHtml(page.intro)}</p>
-        <p class="audit-disclaimer">${escapeHtml(page.disclaimer)}</p>
+        <p class="audit-disclaimer">${escapeHtml(page.disclaimer ?? "Sepolia prototype only. TIDE is not offered for sale, has no stated monetary value, and is not deployed on mainnet. Independent audit not started.")}</p>
       </section>
       <div class="content-grid">
 ${sections}

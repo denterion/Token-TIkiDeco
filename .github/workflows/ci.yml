@@ -54,6 +54,9 @@ jobs:
         run: node scripts/check-mainnet-readiness.cjs --expect-blocked
 
   test:
+    defaults:
+      run:
+        shell: bash
     name: CI
     runs-on: ubuntu-24.04
     timeout-minutes: 25

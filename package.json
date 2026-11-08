@@ -26,6 +26,7 @@
     "verify:sepolia": "node scripts/verify-sepolia.cjs",
     "coverage": "hardhat test --coverage",
     "deps:audit": "npm audit --audit-level=moderate",
+    "deps:audit:ci": "node scripts/ci/test-audit-policy.cjs && node scripts/ci/audit-policy.cjs",
     "deps": "npm run deps:audit",
     "audit:deps": "npm run deps:audit",
     "audit": "npm run deps:audit && npm run audit:package",

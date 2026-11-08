@@ -212,6 +212,7 @@ function main() {
 
   for (const filePath of htmlPaths) {
     const html = read(filePath);
+    assert(!html.includes(">undefined<"), `Unresolved template value in ${sitePath(filePath)}`);
     assert(html.includes("application/ld+json"), `Structured data missing in ${sitePath(filePath)}`);
     assert(html.includes("data-legal-footer"), `Legal footer missing in ${sitePath(filePath)}`);
     assert(html.includes("skip-link"), `Skip link missing in ${sitePath(filePath)}`);

@@ -25,6 +25,9 @@ env:
 
 jobs:
   hardhat-security:
+    defaults:
+      run:
+        shell: bash
     runs-on: ubuntu-latest
     timeout-minutes: 35
 
@@ -88,8 +91,11 @@ jobs:
       - name: Gas snapshot
         run: npm run gas:snapshot 2>&1 | tee security-artifacts/gas/gas-snapshot.txt
 
-      - name: npm audit
-        run: npm run audit
+      - name: Full npm advisory scan with bounded Hardhat exception
+        run: npm run deps:audit:ci
+
+      - name: Generate V2 review package
+        run: npm run audit:package
 
       - name: Export ABI and bytecode artifacts
         run: npm run artifacts:contracts
